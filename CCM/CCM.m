@@ -14,7 +14,7 @@ end;
 % Create shadow manifold for X
 ShadowStopX = length(X)-(ParamDim-1)*tau;
 Xshadow_temp = zeros(ShadowStopX,ParamDim);
-for ShadowStep = 1:1:ShadowStopX;
+for ShadowStep = 1:1:ShadowStopX,
 	tstart = ShadowStep+(ParamDim-1)*tau;    
 	for ParamIndex = 1:1:ParamDim,
     	Xshadow_temp(ShadowStep,ParamIndex) = X(tstart-(ParamIndex-1)*tau);
@@ -50,7 +50,7 @@ end;
 CrossMappedYGivenX = zeros(length(Xshadow),1);
 Yspace = zeros(length(Xshadow),length(Xshadow));
 SortedYspace = zeros(length(Xshadow),length(Xshadow));
-for tstep = 1:length(Xshadow)
+for tstep = 1:length(Xshadow),
     Yspace(tstep,:) = Y(ParamDim:end)';
 end;
 for row = 1:length(Xshadow),
