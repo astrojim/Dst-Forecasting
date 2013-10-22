@@ -1,0 +1,1 @@
+This directory contains the functions that calculate the convergent cross mapping (CCM) of two time series, and the scripts used to test those functions.  See "../Notes" for a discussion of this code and the concept of CCM.
