@@ -1,0 +1,1 @@
+This directory contains the scripts used to display information about the OMNI and SAMPEX data sets.  If the data is not available to the scripts locally, then it will be downloaded and saved locally.
