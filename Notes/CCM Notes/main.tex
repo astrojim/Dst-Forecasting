@@ -17,7 +17,7 @@
 
 \section{Basic Idea}
 Convergent cross mapping (CCM) is introduced in {\em Detecting Causality in
-Complex Ecosystems}\footnote{http://www.uvm.edu/~cdanfort/csc-reading-group/sugihara-causality-science-2012.pdf} by Sugihara {\em et. al.}.  The supplementary text for that paper is very helpful\footnote{http://www.sciencemag.org/content/suppl/2012/09/19/science.1227079.DC1/Sugihara.SM.pdf}, although care should be taken when comparing the figure numbers between the text documents (the figure numbers in the supplementary text seem to be off by one).
+Complex Ecosystems}\footnote{http://www.uvm.edu/\~cdanfort/csc-reading-group/sugihara-causality-science-2012.pdf} by Sugihara {\em et. al.}.  The supplementary text for that paper is very helpful\footnote{http://www.sciencemag.org/content/suppl/2012/09/19/science.1227079.DC1/Sugihara.SM.pdf}, although care should be taken when comparing the figure numbers between the text documents (the figure numbers in the supplementary text seem to be off by one).
 
 CCM is a technique used to identify ``causality'' between time series and is intended to be useful in situations where the only other statistical ``causality'' measure, Granger causality, is known to be invalid (i.e.\ in dynamic systems that are ``nonseperable'').  The authors state that CCM is a ``necessary condition for causation'', but it may be best to avoid all discussion of causality in this work.  It is well known (refs would be nice) that Granger causality is unrelated to causality as it is typically understood in physics.  As such, rather than consider the necessity and sufficiency of CCM for causation, we will use the term ``directed correlation''. 
 
@@ -80,6 +80,24 @@ where $\rho_{A,B}$ is the standard Pearson's correlation coefficient between $A$
 The first two terms will be discussed in more detail in the following sections.
 
 \section{Point of Confusion}
+When a system is directionally correlated (called ``unilateral causation'' by Sugihara {\em et.\ al.\ }) because $X\Rightarrow Y$ (i.e.\ $X$ ``drives'' $Y$), then the system is ``directionally correlated from $X$ to $Y$''.  This language means that $X$ can be estimated from the shadow manifold of $Y$ better than $Y$ can be estimated from the shadow manifold of $X$.  As Sugihara points out, this idea can be confusing.  Consider the following quote from the supplementary material:
+
+``This runs counter to intuition (and Granger causality), and suggests that if the weather drives fish populations, we can use fish to predict the weather but not vice versa. Note that CCM does not involve forecasting per se, but predicts (estimates) contemporaneous or past states of causative variables. Thus, if the fish time series contains historical information (in its lags) that allows one to estimate past weather states, this information (the weather information relevant to fish) would be entirely redundant if weather was explicitly added to a model for predicting fish. Thus weather would (incorrectly) not be seen as causative in Granger’s scheme, since it could be
+added or removed from the model with no effect. Nonseparability arises from the redundant causative information already fully contained in the affected variables (a consequence of Takens’ theorem).''
+
+Intuitively, if $X$ drives $Y$, then the time series $Y$ contains information about $X$ and (again, intuitively) $Y$ can be predicted from $X$ (if the dynamics are known).  This issue illustrates ones of the problem with using terminology like ``causation'' for this method.  Notice that this method centers on estimating a value at a time of interest in one time series using points from another time series that have been chosen for their similar histories to the point in that times series at the time of interest.  The key idea is comparing histories.  If $X$ drive $Y$, then similar histories of $Y$ will imply similar histories of $X$ (because $X$ drives $Y$).  But notice that it is not necessarily true that similar histories of $X$ will imply similar histories of $Y$.  This idea will be seen in many of the examples below.
+
+To belabour the point, consider the following quote from Parltiz in {\em Nonlinear Time-Series Analysis}\footnote{http://www.physik3.gwdg.de/\~ulli/pdf/P98b.pdf}:
+
+``Since the response system ``experiences'' the dynamics of the drive system it is no surprise that we can use the response time series to predict the drive time series.  This is in full agreement with Taken's theorem.  On the other, we can in general not expect that the response time series can be predicted on the basis of the time series from the drive system, because the drive system has no information about the actual dynamics of the response.'' [Section 8.9.2] 
+
+\section{Example System}
+Consider the example system used by Sugihara {\em et.\ al.\ }:
+\begin{eqnarray*}
+X(t) &=& X(t-1)\left(r_x-r_x X(t-1)-\beta_{xy} Y(t-1)\right)\\
+Y(t) &=& Y(t-1)\left(r_y-r_y Y(t-1)-\beta_{yx} X(t-1)\right)
+\end{eqnarray*}
+where $r_x,r_y,\beta_{xy},\beta_{yx}\in\mathbf{R}$.
 
 
 
