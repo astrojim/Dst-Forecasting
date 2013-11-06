@@ -1,4 +1,4 @@
 addpath('./SolarDataMining');
 
-load DataCorrExplore_wCCMpd3_reduced.mat;
-DataCorrExplorePlotting
+load Dst_eFlux_Sunspot_Edim3to100.mat;
+SolarCCMPlotting
