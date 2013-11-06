@@ -47,6 +47,7 @@ legend('C_{XY}','C_{YX}','Location','NorthEast');
 grid on;
 %}
 
+
 % CxyCyxVtau.png
 plot(1:length(tau),reshape(plotdata(1,1,:,1),length(tau),1),'.',1:length(tau),reshape(plotdata(1,1,:,2),length(tau),1),'o')
 title('C_{XY} and C_{YX} versus time step \tau')

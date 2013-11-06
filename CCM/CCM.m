@@ -1,5 +1,7 @@
 function OutputVector = CCM(X,Y,ParamDim,tau)
 
+addpath('../utils');
+
 % Set time step ("tau")
 % [These are just Matlab indicies; conversion to appropriate 
 % time values need to be done before reporting.]
@@ -35,7 +37,10 @@ end;
 UnnormWeightsFromXshadow = zeros(length(Xshadow),ParamDim+1);
 WeightsFromXshadow = zeros(length(Xshadow),ParamDim+1);
 for tstep = 1:length(Xshadow),    
-    DenomForNormX = SortedNormMatrix_Xshadow(tstep,2);        
+    DenomForNormX = SortedNormMatrix_Xshadow(tstep,2);
+    if( DenomForNormX == 0 ),
+    	DenomForNormX = 1E-20;
+    end;
     for pstep = 1:(ParamDim+1),        
         NumForNormX = SortedNormMatrix_Xshadow(tstep,pstep+1);
         UnnormWeightsFromXshadow(tstep,pstep) = exp((-1*NumForNormX)/DenomForNormX);
@@ -43,7 +48,11 @@ for tstep = 1:length(Xshadow),
 end;
 WeightsFromXSumForDenom = sum(UnnormWeightsFromXshadow,2);
 for pstep = 1:(ParamDim+1),
-    WeightsFromXshadow(:,pstep) = UnnormWeightsFromXshadow(:,pstep)./WeightsFromXSumForDenom;
+	if( WeightsFromXSumForDenom == 0 ),
+    	WeightsFromXshadow(:,pstep) = UnnormWeightsFromXshadow(:,pstep);
+    else
+    	WeightsFromXshadow(:,pstep) = UnnormWeightsFromXshadow(:,pstep)./WeightsFromXSumForDenom;
+    end;
 end;
 
 % Find cross mapped estimate of Y
@@ -62,6 +71,6 @@ for tstep = 1:length(Xshadow),
     end;
 end;
 
-YGivenXCorr = corr(Y((1+((ParamDim-1)*tau)):end),CrossMappedYGivenX);
+YGivenXCorr = nancorr(Y((1+((ParamDim-1)*tau)):end),CrossMappedYGivenX);
 
 OutputVector = YGivenXCorr;

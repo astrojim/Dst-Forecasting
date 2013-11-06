@@ -1,8 +1,8 @@
-L = 500;
+L = 100;
 Edim = 2;
 tau = 1;
-Bxy_vec = [0.01:0.005:1.0];
-Byx_vec = [0.01:0.005:1.0];
+Bxy_vec = [0.0001:0.005:1.0];
+Byx_vec = [0.0001:0.005:1.0];
 
 plotdata = zeros(length(Byx_vec),length(Bxy_vec),2);
 for bxystep = 1:length(Bxy_vec),
