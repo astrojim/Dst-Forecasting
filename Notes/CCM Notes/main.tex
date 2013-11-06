@@ -104,7 +104,7 @@ Following Sugihara's example, let $r_x=3.8$, $r_y=3.5$, $\beta_{xy}=0.01$, and $
 Notice, however, that the actual values of $C_{XY}$ and $C_{YX}$ depend strongly on $L$, $E$, and $\tau$.  Figure \ref{fig:CxyCyxVL} shows $C_{XY}$ and $C_{YX}$ calculated using all of the parameter values from the previous paragraph but with the library length $L$ ranging from 10 to 500.
 \begin{figure}[h!t]
 \label{fig:CxyCyxVL}
-\includegraphics[scale=1]{CxyCyxVL.png}
+\includegraphics[scale=1]{CxyCyxVL.eps}
 \caption{$\left(r_x,r_y,\beta_{xy},\beta_{yx},X(t_0),Y(t_0)\right) = \left(3.8,3.5,0.01,0.2,0.4,0.2\right)$ with $\tau=1$ and $E=2$.}
 \end{figure}
 Both directed correlations appear to converge to some nominal value and $C_{YX}<C_{XY}$ over most of the range (as expected).  But, notice that the small library length behaviour does not appear to follow expectations (i.e.\ $C_{YX}>C_{XY}$ for small $L$).
@@ -112,33 +112,34 @@ Both directed correlations appear to converge to some nominal value and $C_{YX}<
 If instead the library length is fixed and the embedding dimension is varied, then the behaviour of the directed correlation changes dramatically.  Figure \ref{fig:CxyCyxVE} shows $C_{XY}$ and $C_{YX}$ calculated using all of the parameter values from above (and with $L=100$) but with the embedding dimension $E$ ranging from 2 to 50. 
 \begin{figure}[h!t]
 \label{fig:CxyCyxVE}
-\includegraphics[scale=1]{CxyCyxVE.png}
+\includegraphics[scale=1]{CxyCyxVE.eps}
 \caption{$\left(r_x,r_y,\beta_{xy},\beta_{yx},X(t_0),Y(t_0)\right) = \left(3.8,3.5,0.01,0.2,0.4,0.2\right)$ with $\tau=1$ and $L=100$.}
 \end{figure}
 There are points over the embedding range when $C_{YX}<C_{XY}$ but there are also points where $C_{YX}>C_{XY}$, which is difficult to interpret with the given parameter set.  The dependence on the embedding dimension is concerning because it implies that incorrect conclusions can be drawn about natural data sets (i.e.\ time series where the theoretical dynamics are not known) regarding which directed correlation is dominate (i.e.\ which time series is the dominate ``driver'').  Similar issues arise when plotting the directed correlation over a range for the time step $\tau$ from 1 to 25 (see Figure \ref{fig:CxyCyxVtau}).  
 \begin{figure}[h!t]
 \label{fig:CxyCyxVtau}
-\includegraphics[scale=1]{CxyCyxVtau.png}
+\includegraphics[scale=1]{CxyCyxVtau.eps}
 \caption{$\left(r_x,r_y,\beta_{xy},\beta_{yx},X(t_0),Y(t_0)\right) = \left(3.8,3.5,0.01,0.2,0.4,0.2\right)$ with $E=2$ and $L=100$.}
 \end{figure}
 
 The directed correlation acts as expected for $L=100$, $E=2$, and $\tau=1$.  These values can be used (along with $r_x$ and $r_y$) to see how the directed correlation behaves over a range of $\beta_{yx}$ given $\beta_{xy}=0.5$.  Figure \ref{fig:CxyCyxVByx_raw} shows $C_{YX}$ and $C_{XY}$ plotted over the range $\beta_{yx}\in[0.01,1.0]$ (with $\beta_{xy}=0.5$), and Figure \ref{fig:CxyCyxVByx_diff} shows the difference $\Delta = (C_{XY}-C_{YX})$ over the same range.
 \begin{figure}[h!t]
 \label{fig:CxyCyxVByx_raw}
-\includegraphics[scale=1]{CxyCyxVByx_raw.png}
-\caption{$\left(r_x,r_y,\beta_{xy},X(t_0),Y(t_0)\right) = \left(3.8,3.5,0.01,0.2,0.4,0.2\right)$ with $\left(E,L,\tau\right)=\left(2,500,1\right)$.}
+\includegraphics[scale=1]{CxyCyxVByx_raw.eps}
+\caption{$\left(r_x,r_y,\beta_{xy},X(t_0),Y(t_0)\right) = \left(3.8,3.5,0.5,0.4,0.2\right)$ with $\left(E,L,\tau\right)=\left(2,500,1\right)$.}
 \end{figure}
 \begin{figure}[h!t]
 \label{fig:CxyCyxVByx_diff}
-\includegraphics[scale=1]{CxyCyxVByx_diff.png}
-\caption{$\left(r_x,r_y,\beta_{xy},X(t_0),Y(t_0)\right) = \left(3.8,3.5,0.01,0.2,0.4,0.2\right)$ with $\left(E,L,\tau\right)=\left(2,500,1\right)$.}
+\includegraphics[scale=1]{CxyCyxVByx_diff.eps}
+\caption{$\left(r_x,r_y,\beta_{xy},X(t_0),Y(t_0)\right) = \left(3.8,3.5,0.5,0.4,0.2\right)$ with $\left(E,L,\tau\right)=\left(2,500,1\right)$.}
 \end{figure}
 Notice that $\Delta$ is an increasing function of $\beta_{yx}$ that crosses zero around $\beta_{yx}=0.5$, as expected given the discussion of the CCM algorithm in the beginning sections.  Figure \ref{fig:CxyCyxVByxBxy_diff} is a plot of $\Delta$ of ranges for both coupling constants, i.e.\ $\beta_{xy}\in[0.01,1.0]$ and $\beta_{yx}\in[0.01,1.0]$.
-\begin{figure}
+\begin{figure}[h!t]
 \label{fig:CxyCyxVByxBxy_diff}
-\caption{Insert the correct figure here.  Make sure the parameter ranges agree with the text.}
+\includegraphics[scale=1]{CxyCyxVByxBxy_diff.eps}
+\caption{$\left(r_x,r_y,X(t_0),Y(t_0)\right) = \left(3.8,3.5,0.2,0.4,0.2\right)$ with $\left(E,L,\tau\right)=\left(2,100,1\right)$.}
 \end{figure}
-Following the intuative expectation, $\beta_{xy}>\beta_{yx}\Rightarrow \Delta<0$ and $\beta_{xy}<\beta_{yx}\Rightarrow \Delta>0$.
+Following the intuitive expectation, $\beta_{xy}>\beta_{yx}\Rightarrow \Delta<0$ and $\beta_{xy}<\beta_{yx}\Rightarrow \Delta>0$.
 
 Notice,$\Delta$ is not symmetric about zero for the pair $(\beta_{xy},\beta_{yx})$; i.e.\
 $$
@@ -158,8 +159,65 @@ $$
 $$
 
 Given the results of this section, the CCM algorithm does provide a kind of coarse grained quantification of the idea of ``driving'' between two time series.  More specifically, the sign of $\Delta$ provides information about the relative strength of dependencies between two time series.
+\section{Applying CCM to Known Dynamics}
+The results shown above for the example presented by Sugihara appear to imply the following:
+\begin{enumerate}
+\item The CCM method is not robust with respect to the embedding dimension (i.e.\ $E$) or lag time step (i.e.\ $\tau$).
+\item The CCM method can lead to results that agree with intuition for the presented example. 
+\end{enumerate}
+These points will be explored by applying the CCM to two very different sets of dynamics.  The first will explore a driven system by comparing the directed correlations calculated between the voltage and current time series of an RL circuit, and the second will explore the directed correlations found in the Lorenz system, which is known to be chaotic.
 
-\section{Lorenz System}
+\subsection{RL Circuit}
+An RL circuit is described as
+$$
+\dot{I} = \frac{V}{L} - \frac{R}{L} I\;\;,
+$$
+where $I$ is the current, $V$ is the voltage, $R$ is the resistance, and $L$ is the inductance.  The driving time series will be the voltage $V$ and the response times series will be the current $I$.  The resistance and inductance will be considered fixed.
+
+Consider an RL circuit with $(R,L) = (0.5,10)$.  If the voltage times series $V$ consists of two triangular pulses separated by constant spans of $V=0$, then the current times series $I$ will likewise has two maximums as seen in Figure \ref{fig:RL_trigsignals}.
+\begin{figure}[h!t]
+\label{fig:RL_trigsignals}
+\includegraphics[scale=1]{RL_trigsignals.eps}
+\caption{$(R,L) = (0.5,10)$}
+\end{figure}
+The directed correlations $C_{VI}$ and $C_{IV}$ can be plotted as a function of the embedding dimension $E$ to show that $C_{VI}>C_{IV}$ for $E=2,3,\ldots,10$.  This plot is Figure \ref{fig:RL_trigsignalsCCM}.
+\begin{figure}[h!t]
+\label{fig:RL_trigsignalsCCM}
+\includegraphics[scale=1]{RL_trigsignalsCCM.eps}
+\caption{$(R,L) = (0.5,10)$ with $\left(E,L,\tau\right)=\left(2,100,1\right)$}
+\end{figure}
+This result (i.e.\ that the system is directionally correlated from $V$ to $I$) is expected because $V\Rightarrow I$ (i.e.\ the voltage drives the current).
+
+Consider the case when $V$ is a discrete sine function; see Figure \ref{fig:RL_sinsignals} for a plot of the $V$ and $I$ times series.
+\begin{figure}[h!t]
+\label{fig:RL_sinsignals}
+\includegraphics[scale=1]{RL_sinsignals.eps}
+\caption{$(R,L) = (0.5,10)$}
+\end{figure}
+The values of $C_{VI}$ and $C_{IV}$ are different than they were in the example of the previous paragraph but the general relationship is the same, i.e.\ $C_{VI}>C_{IV}$ for $E=2,3,\ldots,10$.  See Figure \ref{fig:RL_sinsignalsCCM}.
+\begin{figure}[h!t]
+\label{fig:RL_sinsignalsCCM}
+\includegraphics[scale=1]{RL_sinsignalsCCM.eps}
+\caption{$(R,L) = (0.5,10)$ with $\left(E,L,\tau\right)=\left(2,100,1\right)$}
+\end{figure}
+
+The ``non-robust'' features of the directed correlations (with respect to $E$) can be recovered for the RL circuit by setting each point of $V$ to be a random value.  While such a voltage time series may be defined as ``unphysical'', it will illustrate the same $E$-dependent behavior of the directed correlations that was seen with the Sugihara example.  Consider the $V$ and $I$ times series of Figure \ref{fig:RL_randsignals}, where $V$ is a set of pseudo-random numbers generated with Matlab.
+\begin{figure}[h!t]
+\label{fig:RL_randsignals.eps}
+\includegraphics[scale=1]{RL_randsignals.eps}
+\caption{$(R,L) = (0.5,10)$}
+\end{figure}
+The plot of $C_{VI}$ and $C_{IV}$ for $E=2,3,\ldots,10$ (see Figure \ref{fig:RL_randsignalsCCM})
+\begin{figure}[h!t]
+\label{fig:RL_randsignalsCCM}
+\includegraphics[scale=1]{RL_randsignalsCCM.eps}
+\caption{$(R,L) = (0.5,10)$ with $\left(E,L,\tau\right)=\left(2,100,1\right)$}
+\end{figure}
+shows that $C_{VI}>C_{IV}$ if $E>= 4$ but $C_{VI}<C_{IV}$ if $E<4$ 
+
+These results seem to imply that the robustness of the CCM method may be related to the autocorrelation of the ``driving'' time series.  This idea will be explored after the next section.
+
+\subsection{Lorenz System}
 Consider the following system of equations:
 \begin{eqnarray*}
 \dot{x} &=& \sigma\left(y-x\right)\\
@@ -188,6 +246,19 @@ C_{yz} &\approx & 0.47\\
 C_{zy} &\approx & 0.71
 \end{eqnarray*}
 which implies $x\Rightarrow y$, $z\Rightarrow y$, and $x\Rightarrow z$.  Both $x\Rightarrow y$ and $x\Rightarrow z$ seems to make intuative sense given the smaller $\sigma$ in this example versus the previous example, and $z\Rightarrow y$ is consistent with the previous example which, again, makes sense because neither $\rho$ nor $\beta$ was changed.
+
+If $(\sigma,\beta,\rho)=(10,0.01,28)$, then the system's directed correlations are as follows:
+\begin{eqnarray*}
+C_{xy} &\approx & -1\\
+C_{yx} &\approx & 1\\
+C_{xz} &\approx & 0.02\\
+C_{zx} &\approx & 0.30\\
+C_{yz} &\approx & 0.01\\
+C_{zy} &\approx & 0.40
+\end{eqnarray*}
+
+
+
 
 
 
