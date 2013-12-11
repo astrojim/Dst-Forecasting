@@ -171,8 +171,142 @@ $$
 
 Given the results of this section, the CCM algorithm does provide a kind of coarse grained quantification of the idea of ``driving'' between two time series.  More specifically, the sign of $\Delta$ provides information about the relative strength of dependencies between two time series.
 
-\section{Applying CCM to Known Dynamics}
+\section{Embedding Dimension and Lag Time Step}
+The embedding dimension ($E$) dependence of the CCM algorithm in the above examples implies a strong need to understand that dependence in terms of the time series used to create the shadow manifold.  It would be difficult to justify any results derived from the use of the CCM method on empirical data (e.g.\ the solar data) without such an understanding.  The ideal solution would be the development of simple statistical procedures (e.g.\ through the use of autocorrelations, entropies, etc$.$) to find the ``correct'' embedding dimension $E_X$ given a times series $X$.
 
+Consider the Sugihara example system with $\left(r_x,r_y,\beta_{xy},\beta_{yx},X(t_0),Y(t_0)\right) = \left(3.8,3.5,0.01,0.2,0.4,0.2\right)$.  Define the $l$-lagged autocorrelation $A_l^X$ of $X(t)$ as $A_l^X=\rho_{X(t),X(t-l)}$ given $t\in(l,L]$ where $L$ is the library length.  For this example system, both $|A_l^X|$ and $|A_l^Y|$ can be plotted as a function of $l$.  See Figure \ref{fig:autocorrSug}.
+\begin{figure}[h!t]
+\centering
+\label{fig:autocorrSug}
+\includegraphics[scale=0.55]{autocorrSug.eps}
+\caption{$\left(r_x,r_y,\beta_{xy},\beta_{yx},X(t_0),Y(t_0)\right) = \left(3.8,3.5,0.01,0.2,0.4,0.2\right)$.}
+\end{figure}
+The max and min of $|A_l^X|$ occur at $l=1$ and $l=21$, respectively, and the  max and min of $|A_l^Y|$ occur at $l=1$ and $l=30$.  Define $\Delta=C_{XY}-C_{YX}$.  Given the parameters of this example system, it is expected that $\Delta>0$ (because ``intuitively'', the parameter set seems to imply $X\Rightarrow Y$ for this example).  The embedding dimension dependence of $\Delta$ can be plotted to reiterate the conclusions of the previous section.  See Figure \ref{fig:SugDeltavE}.
+\begin{figure}[h!t]
+\centering
+\begin{subfigure}[b]{0.4\textwidth}
+\label{fig:SugDeltavE}
+\includegraphics[scale=0.55]{SugDeltavE.eps}
+\caption{$\left(r_x,r_y,\beta_{xy},\beta_{yx},X(t_0),Y(t_0)\right) = \left(3.8,3.5,0.01,0.2,0.4,0.2\right)$ and $\left(L,\tau\right) = \left(100,1\right)$.}
+\end{subfigure}
+\begin{subfigure}[b]{0.4\textwidth}
+\label{fig:SugDeltavEandL}
+\includegraphics[scale=0.55]{SugDeltavEandL.eps}
+\caption{$\left(r_x,r_y,\beta_{xy},\beta_{yx},X(t_0),Y(t_0)\right) = \left(3.8,3.5,0.01,0.2,0.4,0.2\right)$ and $ \tau = 1$.}
+\end{subfigure}
+\caption{}
+\end{figure}
+Notice $\Delta = \max_E \Delta$ for $E=2$ which corresponds a autocorrelation lag $l=1$.  So, it appears that for this example system, the required embedding dimension $E$ to achieve $\Delta=\max_E \Delta$ could be found by determining $l$ such that $|A_l^X|=\max_l |A_l^X|$ and $|A_l^Y|=\max_l |A_l^Y|$.  However, it can be seen from the plot that $E\in [2,5]\rightarrow \Delta>0$ and $E\in [6,10]\rightarrow \Delta<0$.  This change in sign of $\Delta$ does not appear to correlate with the autocorrelation lags in a straightforward way akin to the above relationship between $l$ and $\max_E \Delta$.  The lack of correlation between $l$ and the positivity of $\Delta$ may indicate the the relationship between $l$ and $\max_E \Delta$ is coincidental or a specific property of this example system.  Also notice the value of $E$ for which $\Delta$ changes signs depends on the library length $L$ (although, for this example at least, the value of $E$ such that $\Delta = \max_E \Delta$ seems to be independent of $L$).  See Figure \ref{fig:SugDeltavEandL} to see the data that leads to this observation.  Before these ideas are explored with other example systems, consider the question of why $E$ is the same for both shadow manifolds.
+
+There does not seem to be any {\em a priori} reason that $E$ needs to be the same for both shadow manifolds used to calculate $\Delta$.  Figure \ref{fig:SugExVaryE} shows $\Delta$ as a function of the embedding dimension used to create the $X$ shadow manifold, $E_X$, and the embedding dimension used to create the $Y$ shadow manifold, $E_Y$.  
+\begin{figure}[h!t]
+\centering
+\label{fig:SugExVaryE}
+\includegraphics[scale=0.55]{SugExVaryE.eps}
+\caption{$\left(r_x,r_y,\beta_{xy},\beta_{yx},X(t_0),Y(t_0)\right) = \left(3.8,3.5,0.01,0.2,0.4,0.2\right)$ and $\left(L,\tau\right) = \left(100,1\right)$.}
+\end{figure}
+Notice that $E_X \in [2,4]\rightarrow \Delta>0\;\forall E_Y\in[2,10]$ and $E_Y \in[2,6]\rightarrow \Delta>0\;\forall E_X\in[2,10]$.  So, at least for this example system and embedding dimensions $\in[2,10]$, achieving $\Delta>0$ is not necessarily dependent on both $E_X$ and $E_Y$.  
+
+Consider the Sugihara example system with $\left(r_x,r_y,\beta_{xy},\beta_{yx},X(t_0),Y(t_0)\right) = \left(3.1,3.9,0.2,0.002,0.4,0.2\right)$.  This parameter set leads to the expectation of $\Delta<0$ and, indeed, $\Delta<0$ if $(L,\tau)=(100,1)$ with $E_X,E_Y\in[2,3]$.  See Figure \ref{fig:SugEx2VaryE}.
+\begin{figure}[h!t]
+\centering
+\begin{subfigure}[b]{0.4\textwidth}
+\label{fig:SugEx2VaryE}
+\includegraphics[scale=0.55]{SugEx2VaryE.eps}
+\caption{$\left(r_x,r_y,\beta_{xy},\beta_{yx},X(t_0),Y(t_0)\right) = \left(3.1,3.9,0.2,0.002,0.4,0.2\right)$ and $\left(L,\tau\right) = \left(100,1\right)$.}
+\end{subfigure}
+\begin{subfigure}[b]{0.4\textwidth}
+\label{fig:SugEx2VaryEauto}
+\includegraphics[scale=0.55]{SugEx2VaryEauto.eps}
+\caption{$\left(r_x,r_y,\beta_{xy},\beta_{yx},X(t_0),Y(t_0)\right) = \left(3.1,3.9,0.2,0.002,0.4,0.2\right)$ and $\left(L,\tau\right) = \left(100,1\right)$.}
+\end{subfigure}
+\caption{}
+\end{figure}
+Plotting $|A_l^X|$ and $|A_l^Y|$ for this example system (see Figure \ref{fig:SugEx2VaryEauto}) reveals $|A_l^X|=\max_l |A_l^X|$ and $|A_l^Y|=\max_l |A_l^Y|$ for $l=1$, just as in the example of the previous paragraphs.  So, the above method to determine the ``correct'' embedding dimension from the data using autocorrelation lags seems to provide answers that agree with intuition in at least two examples.  Although it should be noted that in the second example, preserving the intuitive conclusion (i.e. $\Delta<0$) cannot be achieved with $E_X=2$ with any $E_Y\in[2,10]$ or $E_Y$ with any $E_X\in[2,10]$.  In constraint to the first example, it is possible in the second example to achieve $\Delta>0$ with $E_{X(Y)}=2$ and $E_{Y(X)}\in[6,10]$.
+
+The shadow manifold is used to estimate the time series of interest, so it seems reasonable that the embedding dimension of the shadow manifold should be related to the autocorrelation lag of the time series of interest rather than the times series used to create the shadow manifold.  Notice that this approach would not change the relationship between $l$ and $\max_E \Delta$ discussed in the previous paragraph.
+
+Using the autocorrelation method discussed above may provided embedding dimensions that agree with intuition, but the method does not explain the apparent dependence of the CCM on embedding dimension.  As an attempt o understand this dependence consider the following algorithm (``NN1''): 
+\begin{enumerate}
+\item Embed $X$ in a manifold with dimension $E$.
+\item Record the time step locations $\tilde{t}^E_i$ (in the original $X$) and weights $w^E_i$ of the $N=E+1$ dimensional point $X(t)$ 
+\item Repeat steps 1 and 2 for $E=E+1$.
+\item Stop when $\{\tilde{t}_i^E\} \neq \{\tilde{t}_i^{E-1}\}$; i.e.\ stop when the set of time step locations in the $N$-dimensional point given $E$ is not the same as the set of time step locations in the $N$-dimensional point given $E-1$.  (Notice that the algortihm completely ignores $\{w_i^E\}$.)
+\item Record $E$ (i.e.\ the embedding dimension for which the above iteration is halted) as $E^H_t$.
+\item Repeat steps 1-4 for $t=t+1$ for all $t\le T$ where $T$ is dependent on the library length $L$ of $X$ .
+\item Find the mode of $\{E_t^H\}$.
+\end{enumerate}
+Also consider the following, very similar, algorithm (``NN2''):
+\begin{enumerate}
+\item Embed $X$ in a manifold with dimension $E$.
+\item Record the time step locations $\tilde{t}^E_i$ (in the original $X$) and weights $w^E_i$ of the $N=E+1$ dimensional point $X(t)$ 
+\item Repeat steps 1 and 2 for $E=E+1$.
+\item Stop when $\exists w^E_i < \delta$; i.e.\ stop when one of the weights $N$-dimensional point drops below some cutoff value $\delta$.  (Notice that the algortihm completely ignores $\{t_i^E\}$.)
+\item Record $E$ (i.e.\ the embedding dimension for which the above iteration is halted) as $E^H_t$.
+\item Repeat steps 1-4 for $t=t+1$ for all $t\le T$ where $T$ is dependent on the library length $L$ of $X$ .
+\item Find the mode of $\{E_t^H\}$.
+\end{enumerate}
+The second algorithm (NN2) requires the selection of some $\delta$ and both algorithms require determining $T$.  Consider the Sugihara example with $\left(r_x,r_y,\beta_{xy},\beta_{yx},X(t_0),Y(t_0)\right) = \left(3.8,3.5,0.01,0.2,0.4,0.2\right)$ and $\left(L,\tau\right) = \left(100,1\right)$.  Applying NN1 to $X$ yields 7 for $T\in[1,50]$.  Applying NN2 to $X$ with $T=10$ yields 2 for $\delta=0.05$ and $\delta=0.01$.  The addition of the free parameter $\delta$ makes NN2 a little less convincing than NN1 (e.g.\ how is a particular choice for $\delta$ justified?).  The behaviour of NN2 on $X$ for $T\in[1,50]$ and $\delta\in[10^{-5},10^{-2}]$ (in steps of ??) can be seen in \ref{fig:SugExNN1vTvd}.
+
+It might be assumed that the dependence of $\Delta$ on $E$ implies a similar dependence of $\Delta$ on the lagged time step $\tau$ because of (co-dependent?) roles $E$ and $\tau$ play in the construction of the shadow manifold.  To explore these idea, introduce $\tau_X$ and $\tau_Y$ in analogy to $E_X$ and $E_Y$.  Figures \ref{fig:SugExvTauXY} and \ref{fig:SugExvTauXvTauY} show $\Delta$ does have a dependency on $\tau_{X (Y)}$ and, like $E_{X(Y)}$, leads to ``unintuitive'' results for large $\tau$.
+\begin{figure}[h!t]
+\centering
+\begin{subfigure}[b]{0.4\textwidth}
+\label{fig:SugExvTauXY}
+\includegraphics[scale=0.55]{SugExvTauXY.eps}
+\caption{ $\left(r_x,r_y,\beta_{xy},\beta_{yx},X(t_0),Y(t_0)\right) = \left(3.8,3.5,0.01,0.2,0.4,0.2\right)$ and $\left(L,E\right) = \left(100,3\right)$ with $\tau_X=\tau_Y$.}
+\end{subfigure}
+\begin{subfigure}[b]{0.4\textwidth}
+\label{fig:SugExvTauXvTauY}
+\includegraphics[scale=0.55]{SugExvTauXvTauY.eps}
+\caption{ $\left(r_x,r_y,\beta_{xy},\beta_{yx},X(t_0),Y(t_0)\right) = \left(3.8,3.5,0.01,0.2,0.4,0.2\right)$ and $\left(L,E\right) = \left(100,3\right)$.}
+\end{subfigure}
+\caption{}
+\end{figure}
+To reinforce the idea, Figures \ref{fig:SugEx2vTauXY} and \ref{fig:SugEx2vTauXvTauY} show similar results for the Sugihara system with the coefficients used to produce Figure {fig:SugEx2VaryE}.
+\begin{figure}[h!t]
+\centering
+\begin{subfigure}[b]{0.4\textwidth}
+\label{fig:SugEx2vTauXY}
+\includegraphics[scale=0.55]{SugEx2vTauXY.eps}
+\caption{ $\left(r_x,r_y,\beta_{xy},\beta_{yx},X(t_0),Y(t_0)\right) = \left(3.1,3.9,0.2,0.002,0.4,0.2\right)$ and $\left(L,E\right) = \left(100,3\right)$. with $\tau_X=\tau_Y$.}
+\end{subfigure}
+\begin{subfigure}[b]{0.4\textwidth}
+\label{fig:SugEx2vTauXvTauY}
+\includegraphics[scale=0.55]{SugEx2vTauXvTauY.eps}
+\caption{ $\left(r_x,r_y,\beta_{xy},\beta_{yx},X(t_0),Y(t_0)\right) = \left(3.1,3.9,0.2,0.002,0.4,0.2\right)$ and $\left(L,E\right) = \left(100,3\right)$.}
+\end{subfigure}
+\caption{}
+\end{figure}
+Notice that both examples lead to unintuitive results much quicker as $\tau_{X(Y)}$ is increased then when $E_{X(Y)}$ was increased.  This apparent larger sensitivity of the CCM algorithm on $\tau$ than $E$ implies that care most be taken to carefully choose both.  The autocorrelation method proposed above to find $E$ also works to find the lagged time step $\tau$ with the largest intuitive results; i.e.\ $|A_l^X|=\max_l |A_l^X|$ and $|A_l^Y|=\max_l |A_l^Y|$ for $l=1$ (for both examples discussed in this paragraph) and $\Delta = \max_\tau \Delta$ for $\tau=1$ with $\tau_{X(Y)}=1$ (again, for both examples).  Hence, the autocorrelation method may be a good option for determining $\tau_{X(Y)}$.
+
+As expected, there is also a co-dependence of $\Delta$ on $E$ and $\tau$ if both are changed simultaneously, as seen in Figures \ref{fig:SugEx2vEdimvTau} and \ref{fig:SugEx2vEdimvTau} for both examples discussed in the previous paragraphs.
+\begin{figure}[h!t]
+\centering
+\begin{subfigure}[b]{0.4\textwidth}
+\label{fig:SugEx2vEdimvTau}
+\includegraphics[scale=0.55]{SugEx2vEdimvTau.eps}
+\caption{ $\left(r_x,r_y,\beta_{xy},\beta_{yx},X(t_0),Y(t_0)\right) = \left(3.1,3.9,0.2,0.002,0.4,0.2\right)$ and $\left(L\right) = \left(100\right)$. with $\tau_X=\tau_Y$ and $E_X=E_Y$.}
+\end{subfigure}
+\begin{subfigure}[b]{0.4\textwidth}
+\label{fig:SugEx1vEdimvTau}
+\includegraphics[scale=0.55]{SugEx1vEdimvTau.eps}
+\caption{ $\left(r_x,r_y,\beta_{xy},\beta_{yx},X(t_0),Y(t_0)\right) = \left(3.8,3.5,0.01,0.2,0.4,0.2\right)$ and $\left(L\right) = \left(100\right)$ with $\tau_X=\tau_Y$ and $E_X=E_Y$.}
+\end{subfigure}
+\caption{}
+\end{figure}
+This co-dependence complicates the use of an algorithm like NN1 or NN2 to determine $E$ (or $\tau$) because of the use of the points in the shadow manifold (which depends on both parameter, rather than just the one parameter being iterated).  This shortcoming can be overcoming by extending NN1 (or NN2) to included iterations over both parameters (e.g.\ called NN1$_{ex}$ or NN2$_{ex}$ to effectively search the entire 2D parameter space of $(E,\tau)$ and applying exactly the same logic as used in the original NN1 (or NN2) algorithm.  Unfortunately, the changes necessary to NN1(2) to create NN1(2)$_{ex}$ introduce a computational load that would make the algorithms difficult to apply to large datasets (like the solar data).  As such, the autocorrelation method (which is independent of the shadow manifold) can be used to set the lagged time step $\tau$ and then NN1 (or NN2) can be used to determine $E$.  This two step process to determine ``reasonable'' parameters for the CCM algorithm will be explored outside of the Sugihara example in the next section.
+
+As a final note, notice that the ``intuitive/unintuitive result'' cutoff (let's call this $c_u$ so I can stop writing ``intuitive'') depends not only on $E$ and $\tau$ (as was shown above) but also on the parameters of the system itself.  This complicated behaviour of $c_u$ makes it frustrating (perhaps impossible?) to understand it in terms of the CCM algorithm parameters alone.  As an illustration of this point, set $\left(r_x,r_y,\beta_{xy},X(t_0),Y(t_0)\right) = \left(3.8,3.5,0.01,0.4,0.2\right)$ and $\left(L,\tau\right) = \left(100,1\right)$ where $\tau_X=\tau_Y=\tau$.  Plotting $\Delta$ versus $E=E_X=E_Y$ for different values of $\beta_{yx}$ reveals that $c_u$ varies with $\beta_{yx}$ (see Figure \ref{fig:SugExvEdimvByx}).
+\begin{figure}[h!t]
+\centering
+\label{fig:SugExvEdimvByx}
+\includegraphics[scale=0.55]{SugExvEdimvByx.eps}
+\caption{$\left(r_x,r_y,\beta_{xy},X(t_0),Y(t_0)\right) = \left(3.8,3.5,0.01,0.4,0.2\right)$ and $\left(L,\tau\right) = \left(100,1\right)$ where $\tau_X=\tau_Y=\tau$ and $E_X=E_Y$.}
+\end{figure}
+Given the dynamics of the Sugihara example it would seem, if everything else is kept constant, that $X$ is a stronger driver of $Y$ as $\beta_{yx}$ increases.  Unfortunately, such ``intuition'' is not seen in the resulting figure.  Notice $\beta_{yx} = 10^{-4}$ (which obeys $\beta_{yx} < \beta_{xy}$) leads to no $c_u$ with the plotted range of $E\in[2,10]$.  The other plotted values of $\beta_{yx}$ show a wide variety of $c_u$ that have no obvious relationship to each other.  It is hard to have confidence in the application of the CCM method to measured data sets when this type of behaviour is so difficult to understand even in example systems.
+
+\section{Applying CCM to Known Dynamics}
 The results shown above for the example presented by Sugihara appear to imply the following:
 \begin{enumerate}
 \item The CCM method is not robust with respect to the embedding dimension (i.e.\ $E$) or lag time step (i.e.\ $\tau$).
@@ -279,95 +413,4 @@ C_{zy} &\approx & 0.40
 
 This section will be expanded $\ldots$
 
-\section{Embedding Dimension and Lag Time Step}
-The embedding dimension ($E$) dependence of the CCM algorithm in the above examples implies a strong need to understand that dependence in terms of the time series used to create the shadow manifold.  It would be difficult to justify any results derived from the use of the CCM method on empirical data (e.g.\ the solar data) without such an understanding.  The ideal solution would be the development of simple statistical procedures (e.g.\ through the use of autocorrelations, entropies, etc$.$) to find the ``correct'' embedding dimension $E_X$ given a times series $X$.
-
-Consider the Sugihara example system with $\left(r_x,r_y,\beta_{xy},\beta_{yx},X(t_0),Y(t_0)\right) = \left(3.8,3.5,0.01,0.2,0.4,0.2\right)$.  Define the $l$-lagged autocorrelation $A_l^X$ of $X(t)$ as $A_l^X=\rho_{X(t),X(t-l)}$ given $t\in(l,L]$ where $L$ is the library length.  For this example system, both $|A_l^X|$ and $|A_l^Y|$ can be plotted as a function of $l$.  See Figure \ref{fig:autocorrSug}.
-\begin{figure}[h!t]
-\centering
-\label{fig:autocorrSug}
-\includegraphics[scale=0.55]{autocorrSug.eps}
-\caption{$\left(r_x,r_y,\beta_{xy},\beta_{yx},X(t_0),Y(t_0)\right) = \left(3.8,3.5,0.01,0.2,0.4,0.2\right)$.}
-\end{figure}
-The max and min of $|A_l^X|$ occur at $l=1$ and $l=21$, respectively, and the  max and min of $|A_l^Y|$ occur at $l=1$ and $l=30$.  Define $\Delta=C_{XY}-C_{YX}$.  Given the parameters of this example system, it is expected that $\Delta>0$ (because ``intuitively'', the parameter set seems to imply $X\Rightarrow Y$ for this example).  The embedding dimension dependence of $\Delta$ can be plotted to reiterate the conclusions of the previous section.  See Figure \ref{fig:SugDeltavE}.
-\begin{figure}[h!t]
-\centering
-\begin{subfigure}[b]{0.4\textwidth}
-\label{fig:SugDeltavE}
-\includegraphics[scale=0.55]{SugDeltavE.eps}
-\caption{$\left(r_x,r_y,\beta_{xy},\beta_{yx},X(t_0),Y(t_0)\right) = \left(3.8,3.5,0.01,0.2,0.4,0.2\right)$ and $\left(L,\tau\right) = \left(100,1\right)$.}
-\end{subfigure}
-\begin{subfigure}[b]{0.4\textwidth}
-\label{fig:SugDeltavEandL}
-\includegraphics[scale=0.55]{SugDeltavEandL.eps}
-\caption{$\left(r_x,r_y,\beta_{xy},\beta_{yx},X(t_0),Y(t_0)\right) = \left(3.8,3.5,0.01,0.2,0.4,0.2\right)$ and $ \tau = 1$.}
-\end{subfigure}
-\caption{}
-\end{figure}
-Notice $\Delta = \max_E \Delta$ for $E=2$ which corresponds a autocorrelation lag $l=1$.  So, it appears that for this example system, the required embedding dimension $E$ to achieve $\Delta=\max_E \Delta$ could be found by determining $l$ such that $|A_l^X|=\max_l |A_l^X|$ and $|A_l^Y|=\max_l |A_l^Y|$.  However, it can be seen from the plot that $E\in [2,5]\rightarrow \Delta>0$ and $E\in [6,10]\rightarrow \Delta<0$.  This change in sign of $\Delta$ does not appear to correlate with the autocorrelation lags in a straightforward way akin to the above relationship between $l$ and $\max_E \Delta$.  The lack of correlation between $l$ and the positivity of $\Delta$ may indicate the the relationship between $l$ and $\max_E \Delta$ is coincidental or a specific property of this example system.  Also notice the value of $E$ for which $\Delta$ changes signs depends on the library length $L$ (although, for this example at least, the value of $E$ such that $\Delta = \max_E \Delta$ seems to be independent of $L$).  See Figure \ref{fig:SugDeltavEandL} to see the data that leads to this observation.  Before these ideas are explored with other example systems, consider the question of why $E$ is the same for both shadow manifolds.
-
-There does not seem to be any {\em a priori} reason that $E$ needs to be the same for both shadow manifolds used to calculate $\Delta$.  Figure \ref{fig:SugExVaryE} shows $\Delta$ as a function of the embedding dimension used to create the $X$ shadow manifold, $E_X$, and the embedding dimension used to create the $Y$ shadow manifold, $E_Y$.  
-\begin{figure}[h!t]
-\centering
-\label{fig:SugExVaryE}
-\includegraphics[scale=0.55]{SugExVaryE.eps}
-\caption{$\left(r_x,r_y,\beta_{xy},\beta_{yx},X(t_0),Y(t_0)\right) = \left(3.8,3.5,0.01,0.2,0.4,0.2\right)$ and $\left(L,\tau\right) = \left(100,1\right)$.}
-\end{figure}
-Notice that $E_X \in [2,4]\rightarrow \Delta>0\;\forall E_Y\in[2,10]$ and $E_Y \in[2,6]\rightarrow \Delta>0\;\forall E_X\in[2,10]$.  So, at least for this example system and embedding dimensions $\in[2,10]$, achieving $\Delta>0$ is not nessicarily dependent on both $E_X$ and $E_Y$.  
-
-Consider the Sugihara example system with $\left(r_x,r_y,\beta_{xy},\beta_{yx},X(t_0),Y(t_0)\right) = \left(3.1,3.9,0.2,0.002,0.4,0.2\right)$.  This parameter set leads to the expectation of $\Delta<0$ and, indeed, $\Delta<0$ if $(L,\tau)=(100,1)$ with $E_X,E_Y\in[2,3]$.  See Figure \ref{fig:SugEx2VaryE}.
-\begin{figure}[h!t]
-\centering
-\begin{subfigure}[b]{0.4\textwidth}
-\label{fig:SugEx2VaryE}
-\includegraphics[scale=0.55]{SugEx2VaryE.eps}
-\caption{$\left(r_x,r_y,\beta_{xy},\beta_{yx},X(t_0),Y(t_0)\right) = \left(3.1,3.9,0.2,0.002,0.4,0.2\right)$ and $\left(L,\tau\right) = \left(100,1\right)$.}
-\end{subfigure}
-\begin{subfigure}[b]{0.4\textwidth}
-\label{fig:SugEx2VaryEauto}
-\includegraphics[scale=0.55]{SugEx2VaryEauto.eps}
-\caption{$\left(r_x,r_y,\beta_{xy},\beta_{yx},X(t_0),Y(t_0)\right) = \left(3.1,3.9,0.2,0.002,0.4,0.2\right)$ and $\left(L,\tau\right) = \left(100,1\right)$.}
-\end{subfigure}
-\caption{}
-\end{figure}
-Plotting $|A_l^X|$ and $|A_l^Y|$ for this example system (see Figure \ref{fig:SugEx2VaryEauto}) reveals $|A_l^X|=\max_l |A_l^X|$ and $|A_l^Y|=\max_l |A_l^Y|$ for $l=1$, just as in the example of the previous paragraphs.  So, the above method to determine the ``correct'' embedding dimension from the data using autocorrelation lags seems to provide answers that agree with intuition in at least two examples.  Although it should be noted that in the second example, preserving the intuative conclusion (i.e. $\Delta<0$) cannot be acheived with $E_X=2$ with any $E_Y\in[2,10]$ or $E_Y$ with any $E_X\in[2,10]$.  In constrant to the first example, it is possible in the second example to acheive $\Delta>0$ with $E_{X(Y)}=2$ and $E_{Y(X)}\in[6,10]$.
-
-The shadow manifold is used to estimate the time series of interest, so it seems reasonable that the embedding dimension of the shadow manifold should be related to the autocorrelation lag of the time series of interest rather than the times series used to create the shadow manifold.  Notice that this approach would not change the relationship between $l$ and $\max_E \Delta$ discussed in the previous paragraph.
-
-Using the autocorrelation method discussed above may provided embedding dimensions that agree with intuition, but the method does not explain the apparent dependence of the CCM on embedding dimension.  As an attempt o understand this dependence consider the following algorithm (``NN1''): 
-\begin{enumerate}
-\item Embed $X$ in a manifold with dimension $E$.
-\item Record the time step locations $\tilde{t}^E_i$ (in the original $X$) and weights $w^E_i$ of the $N=E+1$ dimensional point $X(t)$ 
-\item Repeat steps 1 and 2 for $E=E+1$.
-\item Stop when $\{\tilde{t}_i^E\} \neq \{\tilde{t}_i^{E-1}\}$; i.e.\ stop when the set of time step locations in the $N$-dimensional point given $E$ is not the same as the set of time step locations in the $N$-dimensional point given $E-1$.  (Notice that the algortihm completely ignores $\{w_i^E\}$.)
-\item Record $E$ (i.e.\ the embedding dimension for which the above iteration is halted) as $E^H_t$.
-\item Repeat steps 1-4 for $t=t+1$ for all $t\le T$ where $T$ is dependent on the library length $L$ of $X$ .
-\item Find the mode of $\{E_t^H\}$.
-\end{enumerate}
-Also consider the following, very similar, algorithm (``NN2''):
-\begin{enumerate}
-\item Embed $X$ in a manifold with dimension $E$.
-\item Record the time step locations $\tilde{t}^E_i$ (in the original $X$) and weights $w^E_i$ of the $N=E+1$ dimensional point $X(t)$ 
-\item Repeat steps 1 and 2 for $E=E+1$.
-\item Stop when $\exists w^E_i < \delta$; i.e.\ stop when one of the weights $N$-dimensional point drops below some cutoff value $\delta$.  (Notice that the algortihm completely ignores $\{t_i^E\}$.)
-\item Record $E$ (i.e.\ the embedding dimension for which the above iteration is halted) as $E^H_t$.
-\item Repeat steps 1-4 for $t=t+1$ for all $t\le T$ where $T$ is dependent on the library length $L$ of $X$ .
-\item Find the mode of $\{E_t^H\}$.
-\end{enumerate}
-The second algorithm (NN2) requires the selection of some $\delta$ and both algorithms require determining $T$.  Consider the Sugihara example with $\left(r_x,r_y,\beta_{xy},\beta_{yx},X(t_0),Y(t_0)\right) = \left(3.8,3.5,0.01,0.2,0.4,0.2\right)$ and $\left(L,\tau\right) = \left(100,1\right)$.  Applying NN1 to $X$ yields 7 for $T=10$ and $T=20$.  The behavior of NN1 on $X$ for $T\in[1,50]$ can be seen in \ref{fig:SugExNN1vT}.
-\begin{figure}[h!t]
-\centering
-\begin{subfigure}[b]{0.4\textwidth}
-\label{fig:SugExNN1vT}
-%\includegraphics[scale=1]{SugExNN1vT.eps}
-\caption{ $\left(r_x,r_y,\beta_{xy},\beta_{yx},X(t_0),Y(t_0)\right) = \left(3.8,3.5,0.01,0.2,0.4,0.2\right)$ and $\left(L,\tau\right) = \left(100,1\right)$.}
-\end{subfigure}
-\begin{subfigure}[b]{0.4\textwidth}
-\label{fig:SugExNN1vTvd}
-%\includegraphics[scale=1]{SugExNN1vTvd.eps}
-\caption{ $\left(r_x,r_y,\beta_{xy},\beta_{yx},X(t_0),Y(t_0)\right) = \left(3.8,3.5,0.01,0.2,0.4,0.2\right)$ and $\left(L,\tau\right) = \left(100,1\right)$.}
-\end{subfigure}
-\caption{}
-\end{figure}
-Applying NN2 to $X$ with $T=10$ yields 2 for $\delta=0.05$ and $\delta=0.01$, but yields for $\delta=$.  The addition of the free parameter $\delta$ makes NN2 a little less convincing than NN1 (e.g.\ how is a particular choice for $\delta$ justified?).  The behavior of NN2 on $X$ for $T\in[1,50]$ and $\delta\in[10^{-5},10^{-2}]$ (in steps of ??) can be seen in \ref{fig:SugExNN1vTvd}.
 \end{document}
