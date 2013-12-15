@@ -14,22 +14,29 @@ end;
 
 eDims = 2:1:10;
 tsteps_to_check = 1:1:50;
-delta = [1e-5,1e-4,1e-3,1e-2];
-breakpoints = zeros(length(delta),length(tsteps_to_check));
+delta = [1e-6:5e-5:1e-2];
+Tmax = 50;
 breakpoint_modes = zeros(length(delta),1);
+breakpoint_modes_Tmax = zeros(Tmax,length(delta));
 
-for dstep = 1:1:length(delta),
-	breakpoints(dstep,:) = BreakPointCheck1(X,eDims,tsteps_to_check,delta);
-	breakpoint_modes(dstep) = mode(breakpoints(dstep,:));
+for tstep = 1:1:Tmax,
+    for dstep = 1:1:length(delta),
+        breakpoint_modes(dstep) = mode(BreakPointCheck2(X,eDims,[1:1:tstep],delta));
+    end;
+    breakpoint_modes_Tmax(tstep,:) = breakpoint_modes;
 end;
 
-imagesc(breakpoint_modes);
-breakpoint_modes
-
+imagesc(breakpoint_modes_Tmax);
+%breakpoint_modes
 %{
 eDims = 2:1:10;
-tsteps_to_check = 1:1:20;
-delta = 0.001649;
-breakpoints = BreakPointCheck2(X,eDims,tsteps_to_check,delta);
-mode(breakpoints)
-breakpoints
+%tsteps_to_check = 1:1:50;
+Tmax = 50;
+breakpoint_modes_Tmax = zeros(Tmax,1);
+for tstep = 1:1:Tmax,
+    breakpoints = BreakPointCheck1(X,eDims,tsteps_to_check);
+    breakpoint_modes_Tmax(tstep) = mode(breakpoints);
+end;
+
+plot(breakpoint_modes_Tmax,'.');
+%}

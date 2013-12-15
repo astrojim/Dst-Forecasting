@@ -73,4 +73,4 @@ end;
 
 YGivenXCorr = nancorr(Y((1+((ParamDim-1)*tau)):end),CrossMappedYGivenX);
 
-OutputVector = YGivenXCorr;
+OutputVector = YGivenXCorr^2;

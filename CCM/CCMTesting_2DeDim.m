@@ -1,7 +1,7 @@
 L = 100;%[20,50,100,250,500];
 Edim = [2:1:10];
 EdimX = [2:1:10];
-EdimY = [2:1:10];
+EdimY = [1:1:5];
 tau = 1;%[1:1:5];
 lags = 1:1:20;
 
@@ -15,10 +15,10 @@ for lstep = 1:length(L),
     Y = X;
     X(1) = 0.4;
     Y(1) = 0.2;
-    rx = 3.1;
-    ry = 3.9;
-    Bxy = 0.2;
-    Byx = 0.002;
+    rx = 3.8;%3.1;%
+    ry = 3.5;%3.9;%
+    Bxy = 0.01;%0.2;%
+    Byx = 0.2;%0.002;%
 
     for fstep = 1:(length(X)-1),
         X(fstep+1) = X(fstep)*(rx-rx*X(fstep)-Bxy*Y(fstep));
@@ -27,8 +27,8 @@ for lstep = 1:length(L),
 
     for estepX = 1:length(EdimX),
         for estepY = 1:length(EdimY),
-            plotdataEdims(estepX,estepY,1) = CCM(Y,X,EdimY(estepY),1);
-            plotdataEdims(estepX,estepY,2) = CCM(X,Y,EdimX(estepX),1);
+            plotdataEdims(estepX,estepY,1) = CCM(Y,X,EdimX(estepX),EdimY(estepY));
+            plotdataEdims(estepX,estepY,2) = CCM(X,Y,EdimX(estepX),EdimY(estepY));
         end;
     end;
 
