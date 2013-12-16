@@ -306,6 +306,22 @@ As a final note, notice that the ``intuitive/unintuitive result'' cutoff (let's 
 \end{figure}
 Given the dynamics of the Sugihara example it would seem, if everything else is kept constant, that $X$ is a stronger driver of $Y$ as $\beta_{yx}$ increases.  Unfortunately, such ``intuition'' is not seen in the resulting figure.  Notice $\beta_{yx} = 10^{-4}$ (which obeys $\beta_{yx} < \beta_{xy}$) leads to no $c_u$ with the plotted range of $E\in[2,10]$.  The other plotted values of $\beta_{yx}$ show a wide variety of $c_u$ that have no obvious relationship to each other.  It is hard to have confidence in the application of the CCM method to measured data sets when this type of behaviour is so difficult to understand even in example systems.
 
+\section{Sampling the Two Population Dynamics (Sugihara Example)}
+The two-population dynamical system used Sugihara {\em et.\ al.\ },
+\begin{eqnarray*}
+X(t) &=& X(t-1)\left(r_x-r_x X(t-1)-\beta_{xy} Y(t-1)\right)\\
+Y(t) &=& Y(t-1)\left(r_y-r_y Y(t-1)-\beta_{yx} X(t-1)\right)
+\end{eqnarray*}
+where $r_x,r_y,\beta_{xy},\beta_{yx}\in\mathbf{R}$, is very senstative both the initial condition $X(t_0)$ and $Y(t_0)$ but also the dynamics parameters $r_x$, $r_y$, $\beta_{xy}$, and $\beta_{yx}$.  Consider the following table of values for $X$ and $Y$:
+\begin{tabular}{cccc}
+          & $X(t) = -1$ & $X(t) = 0$ & $X(t) = 1$ \\
+$Y(t) = -1$ & $(X(t+1),Y(t+1)) = (-2r_x-\beta_{xy},-2r_y-\beta_{yx})$ & $(X(t+1),Y(t+1)) = (0,-2r_y)$ & $(X(t+1),Y(t+1)) = (\beta_{xy},\beta_{yx}-2r_y)$\\
+$Y(t) = 0$  & $(X(t+1),Y(t+1)) = (-2r_x,0)$ & $(X(t+1),Y(t+1)) = (0,0)$     & $(X(t+1),Y(t+1)) = (0,0)$\\
+$Y(t) = 1$  & $(X(t+1),Y(t+1)) = (\beta_{xy}-2r_x,\beta_{yx})$ & $(X(t+1),Y(t+1)) = (0,0)$     & $(X(t+1),Y(t+1)) = (-\beta_{xy},-\beta_{yx})$\\
+\end{tabular}
+The points $X(t) = 0$ and $Y(t) = 0$ are fixed points for ths system.  
+
+
 \section{Applying CCM to Known Dynamics}
 The results shown above for the example presented by Sugihara appear to imply the following:
 \begin{enumerate}
