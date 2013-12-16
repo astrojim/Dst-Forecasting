@@ -319,7 +319,13 @@ $Y(t) = -1$ & $(X(t+1),Y(t+1)) = (-2r_x-\beta_{xy},-2r_y-\beta_{yx})$ & $(X(t+1)
 $Y(t) = 0$  & $(X(t+1),Y(t+1)) = (-2r_x,0)$ & $(X(t+1),Y(t+1)) = (0,0)$     & $(X(t+1),Y(t+1)) = (0,0)$\\
 $Y(t) = 1$  & $(X(t+1),Y(t+1)) = (\beta_{xy}-2r_x,\beta_{yx})$ & $(X(t+1),Y(t+1)) = (0,0)$     & $(X(t+1),Y(t+1)) = (-\beta_{xy},-\beta_{yx})$\\
 \end{tabular}
-The points $X(t) = 0$ and $Y(t) = 0$ are fixed points for ths system.  
+The points $X(t) = 0$ and $Y(t) = 0$ are fixed points for ths system.  The change in $X$ (or $Y$) can be derived as follows:
+$\ldots$ (Add this section from the handwritten notes.)
+The parameters $r_x$ and $r_y$ can, as seen in the above equation, lead to rapid growth of the time series to infinity.  As such, the parameters need to be carefully set to insure an oscillating system, which is our desire when testing the CCM algrotihm.
+
+All of the previous results using this Sugihara example used fixed values for $r_x$, $r_y$, $\beta_{yx}$, and $\beta_{xy}$ with fixed initial conditions $X(t_0)$ and $Y(t_0)$.  These values can be sampled (from some reasonable distribution) to investigate the ``robutness'' of the directed correlation concept.  More specifically, if the directed correlation is assumed to have a ``reasonable'' interpretation related to the coupling in the dyanmics (i.e.\ $\beta_{yx}$ and $\beta_{xy}$), then varying the initial conditions and dynamics parameters (i.e.\ $r_x$ and $r_y$) should still lead to ``intuative'' results.  
+
+The initial conditions will be sampled from normal distributions with means $\mu_{x0}$ and $\mu_{y0}$ and variances $\sigma^2_{x0}$ and $\sigma^2_{y0}$.  Likewise, the dynamics parameters will be sampled from normal distributions with means $\mu_{rx}$ and $\mu_{ry}$ and variances $\sigma^2_{rx}$ and $\sigma^2_{ry}$.  The CCM alogrithm parameters $E$ (embedding dimension) and $\tau$ (lag time step) will be set to 3 and 1, respectively, following the discussion of the previous section.  Of course, that still leaves the algorithm parameter of library length for this example (i.e.\ the time series is created computationally using the two-population dynamics model, so the library length is only limited by practical concerns of computational resources).  
 
 
 \section{Applying CCM to Known Dynamics}
