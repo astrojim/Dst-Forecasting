@@ -325,7 +325,13 @@ The parameters $r_x$ and $r_y$ can, as seen in the above equation, lead to rapid
 
 All of the previous results using this Sugihara example used fixed values for $r_x$, $r_y$, $\beta_{yx}$, and $\beta_{xy}$ with fixed initial conditions $X(t_0)$ and $Y(t_0)$.  These values can be sampled (from some reasonable distribution) to investigate the ``robutness'' of the directed correlation concept.  More specifically, if the directed correlation is assumed to have a ``reasonable'' interpretation related to the coupling in the dyanmics (i.e.\ $\beta_{yx}$ and $\beta_{xy}$), then varying the initial conditions and dynamics parameters (i.e.\ $r_x$ and $r_y$) should still lead to ``intuative'' results.  
 
-The initial conditions will be sampled from normal distributions with means $\mu_{x0}$ and $\mu_{y0}$ and variances $\sigma^2_{x0}$ and $\sigma^2_{y0}$.  Likewise, the dynamics parameters will be sampled from normal distributions with means $\mu_{rx}$ and $\mu_{ry}$ and variances $\sigma^2_{rx}$ and $\sigma^2_{ry}$.  The CCM alogrithm parameters $E$ (embedding dimension) and $\tau$ (lag time step) will be set to 3 and 1, respectively, following the discussion of the previous section.  Of course, that still leaves the algorithm parameter of library length for this example (i.e.\ the time series is created computationally using the two-population dynamics model, so the library length is only limited by practical concerns of computational resources).  
+The initial conditions will be sampled from normal distributions with means $\mu_{x0}$ and $\mu_{y0}$ and variances $\sigma^2_{x0}$ and $\sigma^2_{y0}$.  Likewise, the dynamics parameters will be sampled from normal distributions with means $\mu_{rx}$ and $\mu_{ry}$ and variances $\sigma^2_{rx}$ and $\sigma^2_{ry}$.  The CCM alogrithm parameters $E$ (embedding dimension) and $\tau$ (lag time step) will be set to 3 and 1, respectively, following the discussion of the previous section.  Of course, that still leaves the algorithm parameter of library length for this example (i.e.\ the time series is created computationally using the two-population dynamics model, so the library length is only limited by practical concerns of computational resources).  Figure \ref{fig:TwoPopDynvLL} reveals the same dependence on library length seen in the previous section.
+\begin{figure}[h!t]
+\centering
+\label{fig:TwoPopDynvLL}
+%\includegraphics[scale=0.55]{TwoPopDynvLL.eps}
+\caption{$N$ samples with $\left(\mu_{rx},\mu_{ry},\sigma^2_{rx},\sigma^2_{ry},\mu_{x0},\mu_{y0},\sigma^2_{x0},\sigma^2_{y0}\right) = \left(\ldots\right)$ and $\left(E,\tau\right)=\left(3,1\right)$ for $L=\ldots$.}
+\end{figure}
 
 
 \section{Applying CCM to Known Dynamics}
