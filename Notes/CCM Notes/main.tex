@@ -314,18 +314,25 @@ Y(t) &=& Y(t-1)\left(r_y-r_y Y(t-1)-\beta_{yx} X(t-1)\right)
 \end{eqnarray*}
 where $r_x,r_y,\beta_{xy},\beta_{yx}\in\mathbf{R}$, is very sensitive both the initial condition $X(t_0)$ and $Y(t_0)$ but also the dynamics parameters $r_x$, $r_y$, $\beta_{xy}$, and $\beta_{yx}$.  Consider the following table of values for $X$ and $Y$:
 \begin{center}
-\begin{table}
+\begin{table}[h!t]
 \begin{tabular}{cccc}
           & $X(t) = -1$ & $X(t) = 0$ & $X(t) = 1$ \\
-$Y(t) = -1$ & $(X(t+1),Y(t+1)) = (-2r_x-\beta_{xy},-2r_y-\beta_{yx})$ & $(0,-2r_y)$ & $(\beta_{xy},\beta_{yx}-2r_y)$\\
+$Y(t) = -1$ & $(-2r_x-\beta_{xy},-2r_y-\beta_{yx})$ & $(0,-2r_y)$ & $(\beta_{xy},\beta_{yx}-2r_y)$\\
 $Y(t) = 0$  & $(-2r_x,0)$ & $(0,0)$     & $(0,0)$\\
 $Y(t) = 1$  & $(\beta_{xy}-2r_x,\beta_{yx})$ & $(0,0)$     & $(-\beta_{xy},-\beta_{yx})$\\
 \end{tabular}
+\caption{The entries are $(X(t+1),Y(t+1))$.}
 \end{table}
 \end{center}
 The points $X(t) = 0$ and $Y(t) = 0$ are fixed points for this system.  The change in $X$ (or $Y$) can be derived as follows:
-$\ldots$ (Add this section from the handwritten notes.)
-The parameters $r_x$ and $r_y$ can, as seen in the above equation, lead to rapid growth of the time series to infinity.  As such, the parameters need to be carefully set to insure an oscillating system, which is our desire when testing the CCM algorithm.
+\begin{equation}
+X(t) - X(t-1) = r_x\left(X(t-1)-\left(X(t-1)\right)^2-X(t-2)+\left(X(t-2)\right)^2\right) + \beta_{xy}\left(X(t-2)Y(t-2)-X(t-1)Y(t-1)\right)
+\end{equation}
+Let $\delta_t = X(t) - X(t-1)$.  The above equation can then be rewritten as
+\begin{equation}
+\delta_t = \delta_{t-1} r_x \left(1-X(t-1)-X(t-2)\right) + + \beta_{xy}\left(X(t-2)Y(t-2)-X(t-1)Y(t-1)\right)
+\end{equation}
+The parameters $r_x$ and $r_y$ can, as seen in the above equation, can lead to rapid growth of the time series to infinity (it is assumed that $\beta_{xy}$ and $\beta_{yx}$ are fixed).  The change between steps $t$ and $t-1$ depends on $r_x$ times the change between steps $t-1$ and $t-2$; i.e.\ a large $r_x$ can lead to a rapid growth in the change of $X$ between time steps.  As such, the parameters need to be carefully set to insure an oscillating system, which is our desire when testing the CCM algorithm.
 
 All of the previous results using this Sugihara example used fixed values for $r_x$, $r_y$, $\beta_{yx}$, and $\beta_{xy}$ with fixed initial conditions $X(t_0)$ and $Y(t_0)$.  These values can be sampled (from some reasonable distribution) to investigate the ``robustness'' of the directed correlation concept.  More specifically, if the directed correlation is assumed to have a ``reasonable'' interpretation related to the coupling in the dynamics (i.e.\ $\beta_{yx}$ and $\beta_{xy}$), then varying the initial conditions and dynamics parameters (i.e.\ $r_x$ and $r_y$) should still lead to ``intuitive'' results.  
 
@@ -338,6 +345,14 @@ The initial conditions will be sampled from normal distributions with means $\mu
 \end{figure}
 
 Notice that there are dynamic parameter combination that occur within this sample space (as defined in the previous paragraph) with non-negligible probability that cause the dynamical system to (rapidly) diverge (i.e.\ $X(t)\rightarrow \pm \infty$ and $Y(t)\rightarrow \pm \infty$ as $t\rightarrow\infty$) or reach a fixed point as described above.  For example, $\left(r_x,r_y,X(t_0),Y(t_0)\right) = \left(4.04,3.39,7.31x10^{-2},4.94x10^{-2}\right)$ and $\left(r_x,r_y,X(t_0),Y(t_0)\right) = \left(3.85,3.49,1.00,4.56x10^{-1}\right)$ cause the system to diverge and occurred within a 100 samples given the sampling parameters of $\left(\mu_{rx},\mu_{ry},\sigma^2_{rx},\sigma^2_{ry},\mu_{x0},\mu_{y0},\sigma^2_{x0},\sigma^2_{y0}\right) = \left(3.8,3.5,0.1,0.1,0.4,0.2,0.3,0.3\right)$ with $L=100$.  Such dynamic parameter sets are not interesting to this analysis because it is assumed that the system does not diverge, and such concerns will not be present in empirical data sets.  As such, sample with divergent directed correlations will be discarded from the sample set.  Notice that $\Delta=0$ does not necessarily imply diverge time series or vanishing directed correlations (despite the way the data appears in Matlab), so care must be taken in identifying which sample points to discard.  Discarding sample in this fashion will be referred to as ``removing zeroes'' and data sets that have result from such a procedure will be said to have had ``zeroes removed''.
+
+\begin{figure}[h!t]
+\centering
+\label{fig:TwoPopDynSampFig1}
+%\includegraphics[scale=0.55]{TwoPopDynSampFig1.eps}
+\caption{1000 samples with $\left(\mu_{rx},\mu_{ry},\sigma^2_{rx},\sigma^2_{ry},\mu_{x0},\mu_{y0},\sigma^2_{x0},\sigma^2_{y0}\right) = \left(3.8,3.5,0.1,0.1,0.4,0.2,0.3,0.3\right)$ and $\left(E,\tau\right)=\left(3,1\right)$ for $L=51, 101, 151, \ldots, 1000$ with ``zeroes removed'' (see text for a discussion of zero removal).}
+\end{figure}
+
 
 \section{Applying CCM to Known Dynamics}
 The results shown above for the example presented by Sugihara appear to imply the following:
