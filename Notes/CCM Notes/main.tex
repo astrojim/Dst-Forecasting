@@ -306,6 +306,35 @@ As a final note, notice that the ``intuitive/unintuitive result'' cutoff (let's 
 \end{figure}
 Given the dynamics of the Sugihara example it would seem, if everything else is kept constant, that $X$ is a stronger driver of $Y$ as $\beta_{yx}$ increases.  Unfortunately, such ``intuition'' is not seen in the resulting figure.  Notice $\beta_{yx} = 10^{-4}$ (which obeys $\beta_{yx} < \beta_{xy}$) leads to no $c_u$ with the plotted range of $E\in[2,10]$.  The other plotted values of $\beta_{yx}$ show a wide variety of $c_u$ that have no obvious relationship to each other.  It is hard to have confidence in the application of the CCM method to measured data sets when this type of behaviour is so difficult to understand even in example systems.
 
+\section{Sampling the Two Population Dynamics (Sugihara Example)}
+The two-population dynamical system used Sugihara {\em et.\ al.\ },
+\begin{eqnarray*}
+X(t) &=& X(t-1)\left(r_x-r_x X(t-1)-\beta_{xy} Y(t-1)\right)\\
+Y(t) &=& Y(t-1)\left(r_y-r_y Y(t-1)-\beta_{yx} X(t-1)\right)
+\end{eqnarray*}
+where $r_x,r_y,\beta_{xy},\beta_{yx}\in\mathbf{R}$, is very senstative both the initial condition $X(t_0)$ and $Y(t_0)$ but also the dynamics parameters $r_x$, $r_y$, $\beta_{xy}$, and $\beta_{yx}$.  Consider the following table of values for $X$ and $Y$:
+\begin{tabular}{cccc}
+          & $X(t) = -1$ & $X(t) = 0$ & $X(t) = 1$ \\
+$Y(t) = -1$ & $(X(t+1),Y(t+1)) = (-2r_x-\beta_{xy},-2r_y-\beta_{yx})$ & $(X(t+1),Y(t+1)) = (0,-2r_y)$ & $(X(t+1),Y(t+1)) = (\beta_{xy},\beta_{yx}-2r_y)$\\
+$Y(t) = 0$  & $(X(t+1),Y(t+1)) = (-2r_x,0)$ & $(X(t+1),Y(t+1)) = (0,0)$     & $(X(t+1),Y(t+1)) = (0,0)$\\
+$Y(t) = 1$  & $(X(t+1),Y(t+1)) = (\beta_{xy}-2r_x,\beta_{yx})$ & $(X(t+1),Y(t+1)) = (0,0)$     & $(X(t+1),Y(t+1)) = (-\beta_{xy},-\beta_{yx})$\\
+\end{tabular}
+The points $X(t) = 0$ and $Y(t) = 0$ are fixed points for ths system.  The change in $X$ (or $Y$) can be derived as follows:
+$\ldots$ (Add this section from the handwritten notes.)
+The parameters $r_x$ and $r_y$ can, as seen in the above equation, lead to rapid growth of the time series to infinity.  As such, the parameters need to be carefully set to insure an oscillating system, which is our desire when testing the CCM algrotihm.
+
+All of the previous results using this Sugihara example used fixed values for $r_x$, $r_y$, $\beta_{yx}$, and $\beta_{xy}$ with fixed initial conditions $X(t_0)$ and $Y(t_0)$.  These values can be sampled (from some reasonable distribution) to investigate the ``robutness'' of the directed correlation concept.  More specifically, if the directed correlation is assumed to have a ``reasonable'' interpretation related to the coupling in the dyanmics (i.e.\ $\beta_{yx}$ and $\beta_{xy}$), then varying the initial conditions and dynamics parameters (i.e.\ $r_x$ and $r_y$) should still lead to ``intuative'' results.  
+
+The initial conditions will be sampled from normal distributions with means $\mu_{x0}$ and $\mu_{y0}$ and variances $\sigma^2_{x0}$ and $\sigma^2_{y0}$.  Likewise, the dynamics parameters will be sampled from normal distributions with means $\mu_{rx}$ and $\mu_{ry}$ and variances $\sigma^2_{rx}$ and $\sigma^2_{ry}$.  The CCM alogrithm parameters $E$ (embedding dimension) and $\tau$ (lag time step) will be set to 3 and 1, respectively, following the discussion of the previous section.  Of course, that still leaves the algorithm parameter of library length for this example (i.e.\ the time series is created computationally using the two-population dynamics model, so the library length is only limited by practical concerns of computational resources).  Figure \ref{fig:TwoPopDynvLL} reveals the same dependence on library length seen in the previous section with $\beta_{xy}=0.02$ and $\beta_{yx}=0.1$.
+\begin{figure}[h!t]
+\centering
+\label{fig:TwoPopDynvLL}
+%\includegraphics[scale=0.55]{TwoPopDynvLL.eps}
+\caption{1000 samples with $\left(\mu_{rx},\mu_{ry},\sigma^2_{rx},\sigma^2_{ry},\mu_{x0},\mu_{y0},\sigma^2_{x0},\sigma^2_{y0}\right) = \left(3.8,3.5,0.1,0.1,0.4,0.2,0.3,0.3\right)$ and $\left(E,\tau\right)=\left(3,1\right)$ for $L=51, 101, 151, \ldots, 1000$ with ``zeroes removed'' (see text for a discussion of zero removal).}
+\end{figure}
+
+Notice that there are dynamic parameter combination that occur within this sample space (as defined in the previous paragraph) with non-negligible probability that cause the dynamical system to (rapidly) diverge (i.e.\ $X(t)\rightarrow \pm \infnty$ and $Y(t)\rightarrow \pm \infnty$ as $t\rightarrow\infnty$) or reach a fixed point as described above.  For example, $\left(r_x,r_y,X(t_0),Y(t_0}\right) = \left(4.04,3.39,7.31x10^{-2},4.94x10^{-2}\right)$ and $\left(r_x,r_y,X(t_0),Y(t_0}\right) = \left(3.85,3.49,1.00,4.56x10^{-1}\right)$ cause the system to diverge and occured within a 100 samples given the sampling parameters of $\left(\mu_{rx},\mu_{ry},\sigma^2_{rx},\sigma^2_{ry},\mu_{x0},\mu_{y0},\sigma^2_{x0},\sigma^2_{y0}\right) = \left(3.8,3.5,0.1,0.1,0.4,0.2,0.3,0.3\right)$ with $L=100$.  Such dynamic parameter sets are not interesting to this analysis because it is assumed that the system does not diverge, and such concerns will not be present in empirical data sets.  As such, sample with divergent directed correlations will be discarded from the sample set.  Notice that $\Delta=0$ does not nessecarily imply diverge time series or vanishing directed correlations (despite the way the data appears in Matlab), so care must be taken in identifying which sample points to discard.  Discarding sample in this fashion will be referred to as ``removing zeroes'' and data sets that have result from such a procedure will be said to have had ``zeroes removed''.
+
 \section{Applying CCM to Known Dynamics}
 The results shown above for the example presented by Sugihara appear to imply the following:
 \begin{enumerate}
