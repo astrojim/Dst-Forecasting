@@ -3,8 +3,8 @@ number_of_samples = 3000;
 %seed_value_ry = 34;
 %seed_value_Xo = 56;
 %seed_value_Yo = 78;
-mean_rx = 3.8;%3.8;
-mean_ry = 3.5;%3.5;
+mean_rx = 3.1;%3.8;
+mean_ry = 3.9;%3.5;
 mean_Xo = 0.4;%0.4;
 mean_Yo = 0.2;%0.2;
 var_rx = 0.05;
@@ -13,8 +13,8 @@ var_Xo = 0.1;
 var_Yo = 0.1;
 library_length = [1000];
 
-Bxy = 0.02;%0.02;
-Byx = 0.1;%0.1;
+Bxy = 0.2;%0.02;
+Byx = 0.002;%0.1;
 
 plotdataCCM = zeros(length(library_length),number_of_samples);
 
@@ -55,12 +55,13 @@ end;
 
 tolerance = 1E-12;
 plotdata_filtered = plotdataCCM(1,abs(plotdataCCM(1,:)) >= tolerance);
+n_filtered = length(plotdata_filtered);
 figure(1);
 subplot(2,1,1);
-plot(1:1:number_of_samples,plotdata_filtered,'.',...
-     1:1:number_of_samples,mean(plotdata_filtered),'-',...
-     1:1:number_of_samples,mean(plotdata_filtered)+std(plotdata_filtered),'.-',...
-     1:1:number_of_samples,mean(plotdata_filtered)-std(plotdata_filtered),'.-');
+plot(1:1:n_filtered,plotdata_filtered,'.',...
+     1:1:n_filtered,mean(plotdata_filtered),'-',...
+     1:1:n_filtered,mean(plotdata_filtered)+std(plotdata_filtered),'.-',...
+     1:1:n_filtered,mean(plotdata_filtered)-std(plotdata_filtered),'.-');
 title('Samples shown with Mean and Mean+Std Bounds');
 xlabel('sample number');
 ylabel('\Delta');
