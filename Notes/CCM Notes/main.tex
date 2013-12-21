@@ -348,7 +348,6 @@ Notice that there are dynamic parameter combination that occur within this sampl
 
 \begin{figure}[h!t]
 \centering
-\centering
 \begin{subfigure}[b]{0.4\textwidth}
 \label{fig:TwoPopDynSampFig1}
 \includegraphics[scale=0.55]{TwoPopDynSampFig1.eps}
@@ -358,6 +357,22 @@ Notice that there are dynamic parameter combination that occur within this sampl
 \label{fig:TwoPopDynSampFig1_10000}
 \includegraphics[scale=0.55]{TwoPopDynSampFig1_10000.eps}
 \caption{10000 samples (ignore the histogram title) with $\left(\mu_{rx},\mu_{ry},\sigma^2_{rx},\sigma^2_{ry},\mu_{x0},\mu_{y0},\sigma^2_{x0},\sigma^2_{y0}\right) = \left(3.8,3.5,0.05,0.05,0.4,0.2,0.1,0.1\right)$ and $\left(E,\tau\right)=\left(3,1\right)$ for $L=1000$ with ``zeroes removed''.}
+\end{subfigure}
+\caption{}
+\end{figure}
+
+\begin{figure}[h!t]
+\centering
+\centering
+\begin{subfigure}[b]{0.4\textwidth}
+\label{fig:TwoPopDynSampFig2}
+\includegraphics[scale=0.55]{TwoPopDynSampFig2.eps}
+\caption{3000 samples with $\left(\mu_{rx},\mu_{ry},\sigma^2_{rx},\sigma^2_{ry},\mu_{x0},\mu_{y0},\sigma^2_{x0},\sigma^2_{y0}\right) = \left(3.1,3.9,0.05,0.05,0.4,0.2,0.1,0.1\right)$ and $\left(E,\tau\right)=\left(3,1\right)$ for $L=1000$ with ``zeroes removed''.}
+\end{subfigure}
+\begin{subfigure}[b]{0.4\textwidth}
+\label{fig:TwoPopDynSampFig3}
+%\includegraphics[scale=0.55]{TwoPopDynSampFig3.eps}
+\caption{5000 samples (ignore the histogram title) with $\left(\mu_{rx},\mu_{ry},\sigma^2_{rx},\sigma^2_{ry},\mu_{x0},\mu_{y0},\sigma^2_{x0},\sigma^2_{y0}\right) = \left(3.5,3.5,0.05,0.05,0.4,0.4,0.1,0.1\right)$ and $\left(E,\tau\right)=\left(3,1\right)$ for $L=1000$ with ``zeroes removed''.}
 \end{subfigure}
 \caption{}
 \end{figure}
@@ -410,7 +425,7 @@ Consider the case when $V$ is a discrete sine function; see Figure \ref{fig:RL_s
 \caption{}
 \end{figure}
 
-The ``non-robust'' features of the directed correlations (with respect to $E$) can be recovered for the RL circuit by setting each point of $V$ to be a random value.  While such a voltage time series may be suspect (i.e.\ it results in possibly non-stationary current response time series), it will illustrate the same $E$-dependent behavior of the directed correlations that was seen with the Sugihara example.  Consider the $V$ and $I$ times series of Figure \ref{fig:RL_randsignals}, where $V$ is a set of pseudo-random numbers generated with Matlab.  The plot of $C_{VI}$ and $C_{IV}$ for $E=2,3,\ldots,10$ (see Figure \ref{fig:RL_randsignalsCCM}) shows that $C_{VI}>C_{IV}$ if $E\ge 4$ but $C_{VI}<C_{IV}$ if $E<4$.
+The ``non-robust'' features of the directed correlations (with respect to $E$) can be recovered for the RL circuit by setting each point of $V$ to be a random value.  While such a voltage time series may be suspect (i.e.\ it results in possibly non-stationary current response time series), it will illustrate the same $E$-dependent behaviour of the directed correlations that was seen with the Sugihara example.  Consider the $V$ and $I$ times series of Figure \ref{fig:RL_randsignals}, where $V$ is a set of pseudo-random numbers generated with Matlab.  The plot of $C_{VI}$ and $C_{IV}$ for $E=2,3,\ldots,10$ (see Figure \ref{fig:RL_randsignalsCCM}) shows that $C_{VI}>C_{IV}$ if $E\ge 4$ but $C_{VI}<C_{IV}$ if $E<4$.
 \begin{figure}[h!t]
 \centering
 \begin{subfigure}[b]{0.4\textwidth}

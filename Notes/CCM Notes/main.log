@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=latex 2012.5.6)  19 DEC 2013 19:26
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=latex 2012.5.6)  21 DEC 2013 12:50
 entering extended mode
  %&-line parsing enabled.
 **main.tex
@@ -635,109 +635,135 @@ Overfull \hbox (105.44879pt too wide) in paragraph at lines 347--348
 
 File: TwoPopDynSampFig1.eps Graphic file (type eps)
 <TwoPopDynSampFig1.eps>
-Overfull \hbox (15.70287pt too wide) in paragraph at lines 354--355
+Overfull \hbox (15.70287pt too wide) in paragraph at lines 353--354
 [][] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 355--355
+Underfull \hbox (badness 10000) in paragraph at lines 354--354
 []\OT1/cmr/m/n/10 (a) |3000 sam-ples with
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 355--355
+Underfull \hbox (badness 10000) in paragraph at lines 354--354
 [] \OT1/cmr/m/n/10 =
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 355--355
+Underfull \hbox (badness 10000) in paragraph at lines 354--354
 []$ \OT1/cmr/m/n/10 and
  []
 
 File: TwoPopDynSampFig1_10000.eps Graphic file (type eps)
 <TwoPopDynSampFig1_10000.eps>
-Overfull \hbox (15.70287pt too wide) in paragraph at lines 359--360
+Overfull \hbox (15.70287pt too wide) in paragraph at lines 358--359
 [][] 
+ []
+
+File: TwoPopDynSampFig2.eps Graphic file (type eps)
+<TwoPopDynSampFig2.eps>
+Overfull \hbox (15.70287pt too wide) in paragraph at lines 369--370
+[][] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 370--370
+[]\OT1/cmr/m/n/10 (a) |3000 sam-ples with
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 370--370
+[] \OT1/cmr/m/n/10 =
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 370--370
+[]$ \OT1/cmr/m/n/10 and
+ []
+
+
+Underfull \hbox (badness 1533) in paragraph at lines 375--375
+[]\OT1/cmr/m/n/10 (b) |5000 sam-ples (ig-nore the his-togram ti-
  []
 
 [11]
 
-Package caption Warning: \label before \caption on input line 384.
+Package caption Warning: \label before \caption on input line 399.
 See the caption package documentation for explanation.
 
 
 LaTeX Warning: Reference `fig:RL_trigsignals' on page 12 undefined on input lin
-e 380.
+e 395.
 
 
-Package caption Warning: \label before \caption on input line 389.
+Package caption Warning: \label before \caption on input line 404.
 See the caption package documentation for explanation.
 
 
 LaTeX Warning: Reference `fig:RL_trigsignalsCCM' on page 12 undefined on input 
-line 380.
+line 395.
 
 File: RL_trigsignals.eps Graphic file (type eps)
 <RL_trigsignals.eps>
-Overfull \hbox (15.70287pt too wide) in paragraph at lines 385--386
+Overfull \hbox (15.70287pt too wide) in paragraph at lines 400--401
 [][] 
  []
 
 File: RL_trigsignalsCCM.eps Graphic file (type eps)
 <RL_trigsignalsCCM.eps>
-Overfull \hbox (15.70287pt too wide) in paragraph at lines 390--391
+Overfull \hbox (15.70287pt too wide) in paragraph at lines 405--406
 [][] 
  []
 
 
-Package caption Warning: \label before \caption on input line 401.
+Package caption Warning: \label before \caption on input line 416.
 See the caption package documentation for explanation.
 
 
 LaTeX Warning: Reference `fig:RL_sinsignals' on page 12 undefined on input line
- 397.
+ 412.
 
 
-Package caption Warning: \label before \caption on input line 406.
+Package caption Warning: \label before \caption on input line 421.
 See the caption package documentation for explanation.
 
 
 LaTeX Warning: Reference `fig:RL_sinsignalsCCM' on page 12 undefined on input l
-ine 397.
+ine 412.
 
 File: RL_sinsignals.eps Graphic file (type eps)
 <RL_sinsignals.eps>
-Overfull \hbox (15.70287pt too wide) in paragraph at lines 402--403
+Overfull \hbox (15.70287pt too wide) in paragraph at lines 417--418
 [][] 
  []
 
 File: RL_sinsignalsCCM.eps Graphic file (type eps)
 <RL_sinsignalsCCM.eps>
-Overfull \hbox (15.70287pt too wide) in paragraph at lines 407--408
+Overfull \hbox (15.70287pt too wide) in paragraph at lines 422--423
 [][] 
  []
 
 
 LaTeX Warning: Reference `fig:RL_randsignals' on page 12 undefined on input lin
-e 413.
+e 428.
 
 
-Package caption Warning: \label before \caption on input line 422.
+Package caption Warning: \label before \caption on input line 437.
 See the caption package documentation for explanation.
 
 
 LaTeX Warning: Reference `fig:RL_randsignalsCCM' on page 12 undefined on input 
-line 413.
+line 428.
 
 File: RL_randsignals.eps Graphic file (type eps)
 <RL_randsignals.eps>
-Overfull \hbox (15.70287pt too wide) in paragraph at lines 418--419
+Overfull \hbox (15.70287pt too wide) in paragraph at lines 433--434
 [][] 
  []
 
 File: RL_randsignalsCCM.eps Graphic file (type eps)
 <RL_randsignalsCCM.eps>
-Overfull \hbox (15.70287pt too wide) in paragraph at lines 423--424
+Overfull \hbox (15.70287pt too wide) in paragraph at lines 438--439
 [][] 
  []
 
@@ -747,12 +773,12 @@ LaTeX Warning: There were undefined references.
 
  ) 
 Here is how much of TeX's memory you used:
- 3495 strings out of 495062
- 50627 string characters out of 1182645
+ 3501 strings out of 495062
+ 50769 string characters out of 1182645
  135423 words of memory out of 3000000
- 6619 multiletter control sequences out of 15000+50000
+ 6624 multiletter control sequences out of 15000+50000
  13362 words of font info for 48 fonts, out of 3000000 for 9000
  28 hyphenation exceptions out of 8191
  36i,9n,38p,1482b,461s stack positions out of 5000i,500n,10000p,200000b,50000s
 
-Output written on main.dvi (14 pages, 62980 bytes).
+Output written on main.dvi (14 pages, 64180 bytes).
