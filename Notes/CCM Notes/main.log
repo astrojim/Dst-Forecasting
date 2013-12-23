@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=latex 2012.5.6)  21 DEC 2013 12:54
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=latex 2012.5.6)  22 DEC 2013 19:00
 entering extended mode
  %&-line parsing enabled.
 **main.tex
@@ -681,6 +681,12 @@ Underfull \hbox (badness 10000) in paragraph at lines 370--370
 []$ \OT1/cmr/m/n/10 and
  []
 
+File: TwoPopDynSampFig3.eps Graphic file (type eps)
+<TwoPopDynSampFig3.eps>
+Overfull \hbox (15.70287pt too wide) in paragraph at lines 374--375
+[][] 
+ []
+
 
 Underfull \hbox (badness 1533) in paragraph at lines 375--375
 []\OT1/cmr/m/n/10 (b) |5000 sam-ples (ig-nore the his-togram ti-
@@ -773,12 +779,12 @@ LaTeX Warning: There were undefined references.
 
  ) 
 Here is how much of TeX's memory you used:
- 3501 strings out of 495062
- 50769 string characters out of 1182645
+ 3503 strings out of 495062
+ 50811 string characters out of 1182645
  135423 words of memory out of 3000000
- 6624 multiletter control sequences out of 15000+50000
+ 6625 multiletter control sequences out of 15000+50000
  13362 words of font info for 48 fonts, out of 3000000 for 9000
  28 hyphenation exceptions out of 8191
  36i,9n,38p,1482b,461s stack positions out of 5000i,500n,10000p,200000b,50000s
 
-Output written on main.dvi (14 pages, 64248 bytes).
+Output written on main.dvi (14 pages, 64340 bytes).
