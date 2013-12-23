@@ -346,21 +346,22 @@ The initial conditions will be sampled from normal distributions with means $\mu
 
 Notice that there are dynamic parameter combination that occur within this sample space (as defined in the previous paragraph) with non-negligible probability that cause the dynamical system to (rapidly) diverge (i.e.\ $X(t)\rightarrow \pm \infty$ and $Y(t)\rightarrow \pm \infty$ as $t\rightarrow\infty$) or reach a fixed point as described above.  For example, $\left(r_x,r_y,X(t_0),Y(t_0)\right) = \left(4.04,3.39,7.31x10^{-2},4.94x10^{-2}\right)$ and $\left(r_x,r_y,X(t_0),Y(t_0)\right) = \left(3.85,3.49,1.00,4.56x10^{-1}\right)$ cause the system to diverge and occurred within a 100 samples given the sampling parameters of $\left(\mu_{rx},\mu_{ry},\sigma^2_{rx},\sigma^2_{ry},\mu_{x0},\mu_{y0},\sigma^2_{x0},\sigma^2_{y0}\right) = \left(3.8,3.5,0.1,0.1,0.4,0.2,0.3,0.3\right)$ with $L=100$.  Such dynamic parameter sets are not interesting to this analysis because it is assumed that the system does not diverge, and such concerns will not be present in empirical data sets.  As such, sample with divergent directed correlations will be discarded from the sample set.  Notice that $\Delta=0$ does not necessarily imply diverge time series or vanishing directed correlations (despite the way the data appears in Matlab), so care must be taken in identifying which sample points to discard.  Discarding sample in this fashion will be referred to as ``removing zeroes'' and data sets that have result from such a procedure will be said to have had ``zeroes removed''.
 
+Figure \ref{fig:TwoPopDynSampFig1} shows 3000 samples of the 2-population dynamical system that was sampled in the manner described above with coupling constants of $\beta_{xy}=0.02$ and $\beta_{yx}=0.1$.  These parameters lead to an expectation of $\Delta < 0$.  The figure shows a dominant peak at $\Delta < 0$ but it also shows a secondary peak around $\Delta=0$.  Figure \ref{fig:TwoPopDynSampFig1_10000} shows that these peaks are still present after 10000 samples.  Taking the sample mean would lead to a directed correlation that agrees with intuition, but the second peak about zero is slightly confusing.
 \begin{figure}[h!t]
 \centering
 \begin{subfigure}[b]{0.4\textwidth}
 \label{fig:TwoPopDynSampFig1}
 \includegraphics[scale=0.55]{TwoPopDynSampFig1.eps}
-\caption{3000 samples with $\left(\mu_{rx},\mu_{ry},\sigma^2_{rx},\sigma^2_{ry},\mu_{x0},\mu_{y0},\sigma^2_{x0},\sigma^2_{y0}\right) = \left(3.8,3.5,0.05,0.05,0.4,0.2,0.1,0.1\right)$ and $\left(E,\tau\right)=\left(3,1\right)$ for $L=1000$ with ``zeroes removed''.}
+\caption{3000 samples with $\left(\mu_{rx},\mu_{ry},\sigma^2_{rx},\sigma^2_{ry},\mu_{x0},\mu_{y0},\sigma^2_{x0},\sigma^2_{y0}\right) = \left(3.8,3.5,0.05,0.05,0.4,0.2,0.1,0.1\right)$ and $\left(E,\tau\right)=\left(3,1\right)$ for $L=1000$ with ``zeroes removed'' and $(\beta_{xy},\beta_{yx})=(0.02,0.1)$.}
 \end{subfigure}
 \begin{subfigure}[b]{0.4\textwidth}
 \label{fig:TwoPopDynSampFig1_10000}
 \includegraphics[scale=0.55]{TwoPopDynSampFig1_10000.eps}
-\caption{10000 samples (ignore the histogram title) with $\left(\mu_{rx},\mu_{ry},\sigma^2_{rx},\sigma^2_{ry},\mu_{x0},\mu_{y0},\sigma^2_{x0},\sigma^2_{y0}\right) = \left(3.8,3.5,0.05,0.05,0.4,0.2,0.1,0.1\right)$ and $\left(E,\tau\right)=\left(3,1\right)$ for $L=1000$ with ``zeroes removed''.}
+\caption{10000 samples (ignore the histogram title) with $\left(\mu_{rx},\mu_{ry},\sigma^2_{rx},\sigma^2_{ry},\mu_{x0},\mu_{y0},\sigma^2_{x0},\sigma^2_{y0}\right) = \left(3.8,3.5,0.05,0.05,0.4,0.2,0.1,0.1\right)$ and $\left(E,\tau\right)=\left(3,1\right)$ for $L=1000$ with ``zeroes removed'' and $(\beta_{xy},\beta_{yx})=(0.02,0.1)$.}
 \end{subfigure}
 \caption{}
 \end{figure}
-
+Figure \ref{fig:TwoPopDynSampFig2} shows a set of dynamic parameters and coupling constants expected to lead to $\Delta>0$.  Again, the sample mean and histogram after 3000 samples agrees with intuition, but there is still a secondary peak about $\Delta=0$.  Figure \ref{fig:TwoPopDynSampFig3} shows that setting the mean and variances of the sampling distribution equal for both the initial condition and the dynamic parameter $r$ will lead to a sharp peak about zero (5000 samples) even if the coupling constants are unequal.  This result implies that the secondary peak seen in the other plots results from samples where the dynamic parameter sets yield $r_x\approx r_y$ and $X(t_0)\approx Y(T_0)$.  This behaviour of the 2-population dynamical system is interesting but does not seem to reveal a shortcoming of the directed correlation approach (rather it appears to be an interesting feature of a specific dynamical system).
 \begin{figure}[h!t]
 \centering
 \centering
@@ -376,6 +377,9 @@ Notice that there are dynamic parameter combination that occur within this sampl
 \end{subfigure}
 \caption{}
 \end{figure}
+
+The coupling constants can be varied and the sample means can be plotted as a function of those coupling constants to reveal that the sample means do in fact follow intuition.  That plot is Figure 
+
 
 \section{Applying CCM to Known Dynamics}
 The results shown above for the example presented by Sugihara appear to imply the following:
