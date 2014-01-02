@@ -378,7 +378,49 @@ Figure \ref{fig:TwoPopDynSampFig2} shows a set of dynamic parameters and couplin
 \caption{}
 \end{figure}
 
-The coupling constants can be varied and the sample means can be plotted as a function of those coupling constants to reveal that the sample means do in fact follow intuition.  That plot is Figure 
+The coupling constants can be varied and the sample means can be plotted as a function of those coupling constants to reveal that the sample means do in fact follow intuition.  That plot is Figure \ref{fig:TwoPopSamplByxBxy}.
+\begin{figure}[h!t]
+\centering
+\label{fig:TwoPopSamplByxBxy}
+%\includegraphics[scale=0.55]{TwoPopSamplByxBxy.eps}
+\caption{?? samples at each point with $\left(\mu_{rx},\mu_{ry},\sigma^2_{rx},\sigma^2_{ry},\mu_{x0},\mu_{y0},\sigma^2_{x0},\sigma^2_{y0}\right) = \left(3.8,3.5,0.1,0.1,0.4,0.2,0.3,0.3\right)$ and $\left(E,\tau\right)=\left(3,1\right)$ for $L=??$ with ``zeroes removed'' (see text for a discussion of zero removal) over the range $\beta_{xy},\beta_{yx}\in[0,1]$ in steps of $0.01$.}
+\end{figure}
+
+\section{Directed Correlation Defined Geometrically}
+
+The directed correlationis defined above as a difference of the two cross convergent mapping (CCM) correlations.  The CCM correlations $\rho_{XY}$ are defined as the square of the correlation coeffecient between a time series $X$ and its CCM-generated counterpart $X|Y$ (i.e.\ $X$ generated using the ``shadow manifold'' of a second times series $Y$).  The directed correlation $\Delta$ was written above as
+$$
+\Delta \equiv \rho_{XY} - \rho_{YX}\;\;,
+$$
+and the sign of $\Delta$ was used to indicate the ``driving'' time series (i.e.\ $\Delta>0\rightarrow$ ``$X$ drives $Y$'', $\Delta<0\rightarrow$ ``$Y$ drives $X$'', and $\Delta=0$ indicates no directed correlation in the system).
+
+Notice $\rho_{XY}\in[0,1]\rightarrow\Delta\in[-2,2]$.  The bound $\Delta\in[0,1]$ can be accomplished with $\Delta=\Delta^\prime$ where
+$$
+\Delta^\prime = \frac{1}{2}\left(\frac{\Delta}{2}+1\right)\;\;,
+$$
+but such a normalization may make the data analysis even more confusing.  The new $\Delta$ would obey the same ``driving'' rules as the one above with $0$ replaced with $1/2$.  The problem with this definition for the directed correlation is not the bounds.  Rather, the problem is that this definition may hide information in the CCM correlations that may be of some use.  For example, (using the ``new'' definition) $\Delta = 0.5025$ could result from either $\rho_{XY} = 0.99$ and $\rho_{YX} = 0.98$ or $\rho_{XY} = 0.06$ and $\rho_{YX} = 0.05$.  These two different sets of CCM correlations indicate very different relationships between the times series and their shadow manifold predicted counterparts.  Such information may be of interest and would be lost using only $\Delta$ (as defined above).
+
+Another possible definition of the directed correlation comes from interpreting the pair $\left(\rho_{XY},\rho_{YX}\right)$ as a point in the unit square.  To help keep things clear, the unit square in its specific use here will be referred to as the ``directed correlation square'' or ``$D$-square''.  Points with no directed correlation (i.e.\ $\rho_{XY}=\rho_{YX}$) will fall along the diagonal bisector of the $D$-square that runs through the origin.  Points with $\rho_{XY}>\rho_{YX}$ fall in the upper triangular area above the $D$-square bisector, and points with $\rho_{XY}<\rho_{YX}$ fall in the lower triangular area below the $D$-square bisector.  Thus, the directed correlation can be determined from the location of the point $\left(\rho_{XY},\rho_{YX}\right)$.
+
+One of the most straightforward ways to quantify this concept is defing a 2-vector from the origin to the point $\left(\rho_{XY},\rho_{YX}\right)$ called $\vec{D}$.  The magnitude of $\vec{D}$ is 
+$$
+D_m = \sqrt{\rho_{XY}^2+\rho_{YX}^2}\;\;,
+$$
+and its angle with the base of the $D$-square is
+$$
+D_\theta = \arctan\left(\frac{\rho_{YX}}{\rho_{XY}}\right)\;\;.
+$$
+(While it is possible for $\rho_{XY}=0$ to occur and lead to the quotient in $D_\theta$ being undefined, such a point corresponds to a boundary point of the $D$-square where $D_\theta = \pi/2$ by definition.)  A normalized angle can be defined as
+$$
+D_{\theta n} = \frac{2}{\pi}\arctan\left(\frac{\rho_{YX}}{\rho_{XY}}\right)\;\;,
+$$
+which leads to ``driving'' rules similar to those mentioned for $\Delta$ at the beginning of this section (i.e.\ $D_{\theta n}<1/2\rightarrow$ ``$X$ drives $Y$'', $D_{\theta n}>1/2\rightarrow$ ``$Y$ drives $X$'', and $\Delta=1/2$ indicates no directed correlation in the system).  
+
+The points used above lead to $D_{\theta n} \approx 0.4968$ (for $\rho_{XY} = 0.99$ and $\rho_{YX} = 0.98$) and $D_{\theta n} \approx 0.4423$ (for $\rho_{XY} = 0.06$ and $\rho_{YX} = 0.05$).  Both $\Delta$ and $D_{\theta n}$ indicate that $X$ ``drives'' $Y$ but $D_{\theta n}$ also gives of more than just the differences of the CCM correlations.  Naturally, there are pairs of CCM correlations that cannot be distinguished by $D_{\theta n}$.  For example, $D_{\theta n} \approx 0.2952$ could result from either $\rho_{XY} = 0.88$ and $\rho_{YX} = 0.44$ or $\rho_{XY} = 0.44$ and $\rho_{YX} = 0.22$.  Such points, however, would be distinguished by $D_m$ (e.g.\ $D_m \approx 0.9839$ and $D_m \approx 0.4919$ for the examples points of the previous sentence).
+
+A natural question would be why a pair of real numbers (both on the unit interval), i.e.\ $\left(\rho_{XY},\rho_{YX}\right)$, should be replaced with a 2-vector on the unit square to defined ``directed correlation''.  What are the benefits to defining ``directed correlation'' as a 2-vector rather than just a pair of CCM correlations?  The biggest benefit is the use of geometric intuition in comparing different directed correlations.  Overall, plotting the $D$-square will prove to be a quicker (and less confusing) way to present the directed correlation when compared to just calculating $\Delta$.
+
+For example, consider 
 
 
 \section{Applying CCM to Known Dynamics}
