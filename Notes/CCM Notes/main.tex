@@ -427,8 +427,31 @@ The points used above lead to $D_{\theta n} \approx 0.4968$ (for $\rho_{XY} = 0.
 
 A natural question would be why a pair of real numbers (both on the unit interval), i.e.\ $\left(\rho_{XY},\rho_{YX}\right)$, should be replaced with a 2-vector on the unit square to defined ``directed correlation''.  What are the benefits to defining ``directed correlation'' as a 2-vector rather than just a pair of CCM correlations?  The biggest benefit is the use of geometric intuition in comparing different directed correlations.  Overall, plotting the $D$-square will prove to be a quicker (and less confusing) way to present the directed correlation when compared to just calculating $\Delta$.
 
-For example, consider the example presented above.  
-
+For example, consider the examples presented above.  The example with coupling constants $(\beta_{xy},\beta_{yx})=(0.02,0.1)$ and $(\beta_{xy},\beta_{yx})=(0.2,0.002)$ are both presented in the series of plots below.  The CCM correlation points $(\rho_{XY},\rho_{YX})$ are plotted as a scatterplot with individual histograms of $\rho_{XY}$ on the x-axis and $\tho_{YX}$ on the y-axis in the first plot of the two series of four plots.  This plot shows both the primary peak and the secondary peak about $\Delta=0$ seen in the histograms of $\Delta$.  The second plot in the series of four is a two dimensional histogram of the CCM correlation point densities.  These plots also show the two expected peaks.  The directed correlation (i.e.\ the 2-vector) is plotted in the last two plots of the series of four.  These two directed correlations are calculated with two seperate averaging procedures but the results are similar for both methods and lead to "intuative", expected results in all cases (i.e.\ $(\beta_{xy},\beta_{yx})=(0.02,0.1)$ leads to a directed correlation that implies $X\rightarrow Y$ and $(\beta_{xy},\beta_{yx})=(0.2,0.002)$ leads to a directed correlation that implies $Y\rightarrow X$).  The first averaging method is called ``mean method 1'' and is calculated by finding the 2-vector to the average CCM correlation point; i.e.\
+$$
+D_m = \sqrt{\langle\rho_{XY}\rangle^2+\langle\rho_{YX}\rangle^2}\;\;,
+$$
+and 
+$$
+D_\theta = \arctan\left(\frac{\langle\rho_{YX}\rangle}{\langle\rho_{XY}\rangle}\right)\;\;.
+$$
+The second averaging method is called ``mean method 2'' and is calculated by averaging the magnitudes and directions of each 2-vector calculated for each CCM correlation point; i.e.\
+$$
+D_m = \langle D_{m,i} \rangle \;\;,
+$$
+and 
+$$
+D_\theta = \langle D_{\theta,i} \rangle \;\;,
+$$
+where
+$$
+D_{m,i} = \sqrt{\langle\rho_{XY,i}\rangle^2+\langle\rho_{YX,i}\rangle^2}\;\;,
+$$
+and
+$$
+D_{\theta,i} = \arctan\left(\frac{\langle\rho_{YX,i}\rangle}{\langle\rho_{XY,i}\rangle}\right)
+$$
+given that CCM correlation point $P_i = (\rho_{XY,i},\rho_{YX,i})$.  The two methods are not formally equivalent but are, in practice, very close to equal.  I believe mean method 1 is the generally accepted ``vector averaging'' procedure and, as such, will be used from this point forward.  Both methods are presented here for completeness.
 \begin{figure}[h!t]
 \centering
 \begin{subfigure}[b]{0.4\textwidth}
