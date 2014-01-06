@@ -107,7 +107,7 @@ Notice, however, that the actual values of $C_{XY}$ and $C_{YX}$ depend strongly
 \begin{figure}[h!t]
 \centering
 \label{fig:CxyCyxVL}
-\includegraphics[scale=0.55]{CxyCyxVL.eps}
+\includegraphics[scale=0.55]{graphics/CxyCyxVL.eps}
 \caption{$\left(r_x,r_y,\beta_{xy},\beta_{yx},X(t_0),Y(t_0)\right) = \left(3.8,3.5,0.01,0.2,0.4,0.2\right)$ with $\tau=1$ and $E=2$.}
 \end{figure}
 Both directed correlations appear to converge to some nominal value and $C_{YX}<C_{XY}$ over most of the range (as expected).  But, notice that the small library length behaviour does not appear to follow expectations (i.e.\ $C_{YX}>C_{XY}$ for small $L$).
@@ -117,12 +117,12 @@ If instead the library length is fixed and the embedding dimension is varied, th
 \centering
 \begin{subfigure}[b]{0.4\textwidth}
 \label{fig:CxyCyxVE}
-\includegraphics[scale=0.55]{CxyCyxVE.eps}
+\includegraphics[scale=0.55]{graphics/CxyCyxVE.eps}
 \caption{$\left(r_x,r_y,\beta_{xy},\beta_{yx},X(t_0),Y(t_0)\right) = \left(3.8,3.5,0.01,0.2,0.4,0.2\right)$ with $\tau=1$ and $L=100$.}
 \end{subfigure}
 \begin{subfigure}[b]{0.4\textwidth}
 \label{fig:CxyCyxVtau}
-\includegraphics[scale=0.55]{CxyCyxVtau.eps}
+\includegraphics[scale=0.55]{graphics/CxyCyxVtau.eps}
 \caption{$\left(r_x,r_y,\beta_{xy},\beta_{yx},X(t_0),Y(t_0)\right) = \left(3.8,3.5,0.01,0.2,0.4,0.2\right)$ with $E=2$ and $L=100$.}
 \end{subfigure}
 \caption{}
@@ -133,12 +133,12 @@ The directed correlation acts as expected for $L=100$, $E=2$, and $\tau=1$.  The
 \centering
 \begin{subfigure}[b]{0.4\textwidth}
 \label{fig:CxyCyxVByx_raw}
-\includegraphics[scale=0.55]{CxyCyxVByx_raw.eps}
+\includegraphics[scale=0.55]{graphics/CxyCyxVByx_raw.eps}
 \caption{$\left(r_x,r_y,\beta_{xy},X(t_0),Y(t_0)\right) = \left(3.8,3.5,0.5,0.4,0.2\right)$ with $\left(E,L,\tau\right)=\left(2,500,1\right)$.}
 \end{subfigure}
 \begin{subfigure}[b]{0.4\textwidth}
 \label{fig:CxyCyxVByx_diff}
-\includegraphics[scale=0.55]{CxyCyxVByx_diff.eps}
+\includegraphics[scale=0.55]{graphics/CxyCyxVByx_diff.eps}
 \caption{$\left(r_x,r_y,\beta_{xy},X(t_0),Y(t_0)\right) = \left(3.8,3.5,0.5,0.4,0.2\right)$ with $\left(E,L,\tau\right)=\left(2,500,1\right)$.}
 \end{subfigure}
 \caption{}
@@ -147,7 +147,7 @@ Notice that $\Delta$ is an increasing function of $\beta_{yx}$ that crosses zero
 \begin{figure}[h!t]
 \centering
 \label{fig:CxyCyxVByxBxy_diff}
-\includegraphics[scale=0.55]{CxyCyxVByxBxy_diff.eps}
+\includegraphics[scale=0.55]{graphics/CxyCyxVByxBxy_diff.eps}
 \caption{$\left(r_x,r_y,X(t_0),Y(t_0)\right) = \left(3.8,3.5,0.2,0.4,0.2\right)$ with $\left(E,L,\tau\right)=\left(2,100,1\right)$.}
 \end{figure}
 Following the intuitive expectation, $\beta_{xy}>\beta_{yx}\Rightarrow \Delta<0$ and $\beta_{xy}<\beta_{yx}\Rightarrow \Delta>0$.
@@ -178,7 +178,7 @@ Consider the Sugihara example system with $\left(r_x,r_y,\beta_{xy},\beta_{yx},X
 \begin{figure}[h!t]
 \centering
 \label{fig:autocorrSug}
-\includegraphics[scale=0.55]{autocorrSug.eps}
+\includegraphics[scale=0.55]{graphics/autocorrSug.eps}
 \caption{$\left(r_x,r_y,\beta_{xy},\beta_{yx},X(t_0),Y(t_0)\right) = \left(3.8,3.5,0.01,0.2,0.4,0.2\right)$.}
 \end{figure}
 The max and min of $|A_l^X|$ occur at $l=1$ and $l=21$, respectively, and the  max and min of $|A_l^Y|$ occur at $l=1$ and $l=30$.  Define $\Delta=C_{XY}-C_{YX}$.  Given the parameters of this example system, it is expected that $\Delta>0$ (because ``intuitively'', the parameter set seems to imply $X\Rightarrow Y$ for this example).  The embedding dimension dependence of $\Delta$ can be plotted to reiterate the conclusions of the previous section.  See Figure \ref{fig:SugDeltavE}.
@@ -186,12 +186,12 @@ The max and min of $|A_l^X|$ occur at $l=1$ and $l=21$, respectively, and the  m
 \centering
 \begin{subfigure}[b]{0.4\textwidth}
 \label{fig:SugDeltavE}
-\includegraphics[scale=0.55]{SugDeltavE.eps}
+\includegraphics[scale=0.55]{graphics/SugDeltavE.eps}
 \caption{$\left(r_x,r_y,\beta_{xy},\beta_{yx},X(t_0),Y(t_0)\right) = \left(3.8,3.5,0.01,0.2,0.4,0.2\right)$ and $\left(L,\tau\right) = \left(100,1\right)$.}
 \end{subfigure}
 \begin{subfigure}[b]{0.4\textwidth}
 \label{fig:SugDeltavEandL}
-\includegraphics[scale=0.55]{SugDeltavEandL.eps}
+\includegraphics[scale=0.55]{graphics/SugDeltavEandL.eps}
 \caption{$\left(r_x,r_y,\beta_{xy},\beta_{yx},X(t_0),Y(t_0)\right) = \left(3.8,3.5,0.01,0.2,0.4,0.2\right)$ and $ \tau = 1$.}
 \end{subfigure}
 \caption{}
@@ -202,7 +202,7 @@ There does not seem to be any {\em a priori} reason that $E$ needs to be the sam
 \begin{figure}[h!t]
 \centering
 \label{fig:SugExVaryE}
-\includegraphics[scale=0.55]{SugExVaryE.eps}
+\includegraphics[scale=0.55]{graphics/SugExVaryE.eps}
 \caption{$\left(r_x,r_y,\beta_{xy},\beta_{yx},X(t_0),Y(t_0)\right) = \left(3.8,3.5,0.01,0.2,0.4,0.2\right)$ and $\left(L,\tau\right) = \left(100,1\right)$.}
 \end{figure}
 Notice that $E_X \in [2,4]\rightarrow \Delta>0\;\forall E_Y\in[2,10]$ and $E_Y \in[2,6]\rightarrow \Delta>0\;\forall E_X\in[2,10]$.  So, at least for this example system and embedding dimensions $\in[2,10]$, achieving $\Delta>0$ is not necessarily dependent on both $E_X$ and $E_Y$.  
@@ -212,12 +212,12 @@ Consider the Sugihara example system with $\left(r_x,r_y,\beta_{xy},\beta_{yx},X
 \centering
 \begin{subfigure}[b]{0.4\textwidth}
 \label{fig:SugEx2VaryE}
-\includegraphics[scale=0.55]{SugEx2VaryE.eps}
+\includegraphics[scale=0.55]{graphics/SugEx2VaryE.eps}
 \caption{$\left(r_x,r_y,\beta_{xy},\beta_{yx},X(t_0),Y(t_0)\right) = \left(3.1,3.9,0.2,0.002,0.4,0.2\right)$ and $\left(L,\tau\right) = \left(100,1\right)$.}
 \end{subfigure}
 \begin{subfigure}[b]{0.4\textwidth}
 \label{fig:SugEx2VaryEauto}
-\includegraphics[scale=0.55]{SugEx2VaryEauto.eps}
+\includegraphics[scale=0.55]{graphics/SugEx2VaryEauto.eps}
 \caption{$\left(r_x,r_y,\beta_{xy},\beta_{yx},X(t_0),Y(t_0)\right) = \left(3.1,3.9,0.2,0.002,0.4,0.2\right)$ and $\left(L,\tau\right) = \left(100,1\right)$.}
 \end{subfigure}
 \caption{}
@@ -253,12 +253,12 @@ It might be assumed that the dependence of $\Delta$ on $E$ implies a similar dep
 \centering
 \begin{subfigure}[b]{0.4\textwidth}
 \label{fig:SugExvTauXY}
-\includegraphics[scale=0.55]{SugExvTauXY.eps}
+\includegraphics[scale=0.55]{graphics/SugExvTauXY.eps}
 \caption{ $\left(r_x,r_y,\beta_{xy},\beta_{yx},X(t_0),Y(t_0)\right) = \left(3.8,3.5,0.01,0.2,0.4,0.2\right)$ and $\left(L,E\right) = \left(100,3\right)$ with $\tau_X=\tau_Y$.}
 \end{subfigure}
 \begin{subfigure}[b]{0.4\textwidth}
 \label{fig:SugExvTauXvTauY}
-\includegraphics[scale=0.55]{SugExvTauXvTauY.eps}
+\includegraphics[scale=0.55]{graphics/SugExvTauXvTauY.eps}
 \caption{ $\left(r_x,r_y,\beta_{xy},\beta_{yx},X(t_0),Y(t_0)\right) = \left(3.8,3.5,0.01,0.2,0.4,0.2\right)$ and $\left(L,E\right) = \left(100,3\right)$.}
 \end{subfigure}
 \caption{}
@@ -268,12 +268,12 @@ To reinforce the idea, Figures \ref{fig:SugEx2vTauXY} and \ref{fig:SugEx2vTauXvT
 \centering
 \begin{subfigure}[b]{0.4\textwidth}
 \label{fig:SugEx2vTauXY}
-\includegraphics[scale=0.55]{SugEx2vTauXY.eps}
+\includegraphics[scale=0.55]{graphics/SugEx2vTauXY.eps}
 \caption{ $\left(r_x,r_y,\beta_{xy},\beta_{yx},X(t_0),Y(t_0)\right) = \left(3.1,3.9,0.2,0.002,0.4,0.2\right)$ and $\left(L,E\right) = \left(100,3\right)$. with $\tau_X=\tau_Y$.}
 \end{subfigure}
 \begin{subfigure}[b]{0.4\textwidth}
 \label{fig:SugEx2vTauXvTauY}
-\includegraphics[scale=0.55]{SugEx2vTauXvTauY.eps}
+\includegraphics[scale=0.55]{graphics/SugEx2vTauXvTauY.eps}
 \caption{ $\left(r_x,r_y,\beta_{xy},\beta_{yx},X(t_0),Y(t_0)\right) = \left(3.1,3.9,0.2,0.002,0.4,0.2\right)$ and $\left(L,E\right) = \left(100,3\right)$.}
 \end{subfigure}
 \caption{}
@@ -285,12 +285,12 @@ As expected, there is also a co-dependence of $\Delta$ on $E$ and $\tau$ if both
 \centering
 \begin{subfigure}[b]{0.4\textwidth}
 \label{fig:SugEx2vEdimvTau}
-\includegraphics[scale=0.55]{SugEx2vEdimvTau.eps}
+\includegraphics[scale=0.55]{graphics/SugEx2vEdimvTau.eps}
 \caption{ $\left(r_x,r_y,\beta_{xy},\beta_{yx},X(t_0),Y(t_0)\right) = \left(3.1,3.9,0.2,0.002,0.4,0.2\right)$ and $\left(L\right) = \left(100\right)$. with $\tau_X=\tau_Y$ and $E_X=E_Y$.}
 \end{subfigure}
 \begin{subfigure}[b]{0.4\textwidth}
 \label{fig:SugEx1vEdimvTau}
-\includegraphics[scale=0.55]{SugEx1vEdimvTau.eps}
+\includegraphics[scale=0.55]{graphics/SugEx1vEdimvTau.eps}
 \caption{ $\left(r_x,r_y,\beta_{xy},\beta_{yx},X(t_0),Y(t_0)\right) = \left(3.8,3.5,0.01,0.2,0.4,0.2\right)$ and $\left(L\right) = \left(100\right)$ with $\tau_X=\tau_Y$ and $E_X=E_Y$.}
 \end{subfigure}
 \caption{}
@@ -301,7 +301,7 @@ As a final note, notice that the ``intuitive/unintuitive result'' cutoff (let's 
 \begin{figure}[h!t]
 \centering
 \label{fig:SugExvEdimvByx}
-\includegraphics[scale=0.55]{SugExvEdimvByx.eps}
+\includegraphics[scale=0.55]{graphics/SugExvEdimvByx.eps}
 \caption{$\left(r_x,r_y,\beta_{xy},X(t_0),Y(t_0)\right) = \left(3.8,3.5,0.01,0.4,0.2\right)$ and $\left(L,\tau\right) = \left(100,1\right)$ where $\tau_X=\tau_Y=\tau$ and $E_X=E_Y$.}
 \end{figure}
 Given the dynamics of the Sugihara example it would seem, if everything else is kept constant, that $X$ is a stronger driver of $Y$ as $\beta_{yx}$ increases.  Unfortunately, such ``intuition'' is not seen in the resulting figure.  Notice $\beta_{yx} = 10^{-4}$ (which obeys $\beta_{yx} < \beta_{xy}$) leads to no $c_u$ with the plotted range of $E\in[2,10]$.  The other plotted values of $\beta_{yx}$ show a wide variety of $c_u$ that have no obvious relationship to each other.  It is hard to have confidence in the application of the CCM method to measured data sets when this type of behaviour is so difficult to understand even in example systems.
@@ -340,7 +340,7 @@ The initial conditions will be sampled from normal distributions with means $\mu
 \begin{figure}[h!t]
 \centering
 \label{fig:TwoPopDynvLL}
-\includegraphics[scale=0.55]{TwoPopDynvLL.eps}
+\includegraphics[scale=0.55]{graphics/TwoPopDynvLL.eps}
 \caption{1000 samples with $\left(\mu_{rx},\mu_{ry},\sigma^2_{rx},\sigma^2_{ry},\mu_{x0},\mu_{y0},\sigma^2_{x0},\sigma^2_{y0}\right) = \left(3.8,3.5,0.1,0.1,0.4,0.2,0.3,0.3\right)$ and $\left(E,\tau\right)=\left(3,1\right)$ for $L=51, 101, 151, \ldots, 1000$ with ``zeroes removed'' (see text for a discussion of zero removal).}
 \end{figure}
 
@@ -351,12 +351,12 @@ Figure \ref{fig:TwoPopDynSampFig1} shows 3000 samples of the 2-population dynami
 \centering
 \begin{subfigure}[b]{0.4\textwidth}
 \label{fig:TwoPopDynSampFig1}
-\includegraphics[scale=0.55]{TwoPopDynSampFig1.eps}
+\includegraphics[scale=0.55]{graphics/TwoPopDynSampFig1.eps}
 \caption{3000 samples with $\left(\mu_{rx},\mu_{ry},\sigma^2_{rx},\sigma^2_{ry},\mu_{x0},\mu_{y0},\sigma^2_{x0},\sigma^2_{y0}\right) = \left(3.8,3.5,0.05,0.05,0.4,0.2,0.1,0.1\right)$ and $\left(E,\tau\right)=\left(3,1\right)$ for $L=1000$ with ``zeroes removed'' and $(\beta_{xy},\beta_{yx})=(0.02,0.1)$.}
 \end{subfigure}
 \begin{subfigure}[b]{0.4\textwidth}
 \label{fig:TwoPopDynSampFig1_10000}
-\includegraphics[scale=0.55]{TwoPopDynSampFig1_10000.eps}
+\includegraphics[scale=0.55]{graphics/TwoPopDynSampFig1_10000.eps}
 \caption{10000 samples (ignore the histogram title) with $\left(\mu_{rx},\mu_{ry},\sigma^2_{rx},\sigma^2_{ry},\mu_{x0},\mu_{y0},\sigma^2_{x0},\sigma^2_{y0}\right) = \left(3.8,3.5,0.05,0.05,0.4,0.2,0.1,0.1\right)$ and $\left(E,\tau\right)=\left(3,1\right)$ for $L=1000$ with ``zeroes removed'' and $(\beta_{xy},\beta_{yx})=(0.02,0.1)$.}
 \end{subfigure}
 \caption{}
@@ -367,21 +367,21 @@ Figure \ref{fig:TwoPopDynSampFig2} shows a set of dynamic parameters and couplin
 \centering
 \begin{subfigure}[b]{0.4\textwidth}
 \label{fig:TwoPopDynSampFig2}
-\includegraphics[scale=0.55]{TwoPopDynSampFig2.eps}
+\includegraphics[scale=0.55]{graphics/TwoPopDynSampFig2.eps}
 \caption{3000 samples with $\left(\mu_{rx},\mu_{ry},\sigma^2_{rx},\sigma^2_{ry},\mu_{x0},\mu_{y0},\sigma^2_{x0},\sigma^2_{y0}\right) = \left(3.1,3.9,0.05,0.05,0.4,0.2,0.1,0.1\right)$ and $\left(E,\tau\right)=\left(3,1\right)$ for $L=1000$ with ``zeroes removed'' and $(\beta_{xy},\beta_{yx})=(0.2,0.002)$.}
 \end{subfigure}
 \begin{subfigure}[b]{0.4\textwidth}
 \label{fig:TwoPopDynSampFig3}
-\includegraphics[scale=0.55]{TwoPopDynSampFig3.eps}
+\includegraphics[scale=0.55]{graphics/TwoPopDynSampFig3.eps}
 \caption{5000 samples (ignore the histogram title) with $\left(\mu_{rx},\mu_{ry},\sigma^2_{rx},\sigma^2_{ry},\mu_{x0},\mu_{y0},\sigma^2_{x0},\sigma^2_{y0}\right) = \left(3.5,3.5,0.05,0.05,0.4,0.4,0.1,0.1\right)$ and $\left(E,\tau\right)=\left(3,1\right)$ for $L=1000$ with ``zeroes removed'' and $(\beta_{xy},\beta_{yx})=(0.2,0.002)$.}
 \end{subfigure}
 \caption{}
 \end{figure}
-Notice that dynamic parameter sets that are equal can still lead to $\Delta=0$ even if the coupling constants are different from each other.  This effect can explain the second peak about $\Delat=0$ in the above histograms.  Figure \ref{fig:TwoPopDynSameParms} shows that equal dynamic parameter set for $X$ and $Y$ can lead to $X(t)$ and $Y(t)$ being nearly identical.  The shadow manifold generated with $X$ would likewise be nearly identical the shadow manifold generated by $Y$ and the CCM correlations would be equal (which leads to $\Delta=0$ as seen above).  
+Notice that dynamic parameter sets that are equal can still lead to $\Delta=0$ even if the coupling constants are different from each other.  This effect can explain the second peak about $\Delta=0$ in the above histograms.  Figure \ref{fig:TwoPopDynSameParms} shows that equal dynamic parameter set for $X$ and $Y$ can lead to $X(t)$ and $Y(t)$ being nearly identical.  The shadow manifold generated with $X$ would likewise be nearly identical the shadow manifold generated by $Y$ and the CCM correlations would be equal (which leads to $\Delta=0$ as seen above).  
 \begin{figure}[h!t]
 \centering
 \label{fig:TwoPopDynSameParms}
-\includegraphics[scale=0.55]{TwoPopDynSameParms.eps}
+%\includegraphics[scale=0.55]{graphics/TwoPopDynSameParms.eps}
 \caption{$X$ and $Y$ versus time with $\left(\mu_{rx},\mu_{ry},\sigma^2_{rx},\sigma^2_{ry},\mu_{x0},\mu_{y0},\sigma^2_{x0},\sigma^2_{y0}\right) = \left(3.5,3.5,0.1,0.1,0.2,0.2,0.3,0.3\right)$ and $\left(E,\tau\right)=\left(3,1\right)$ for $L=1000$.}
 \end{figure}
 
@@ -389,13 +389,13 @@ The coupling constants can be varied and the sample means can be plotted as a fu
 \begin{figure}[h!t]
 \centering
 \label{fig:TwoPopSamplByxBxy}
-%\includegraphics[scale=0.55]{TwoPopSamplByxBxy.eps}
+%\includegraphics[scale=0.55]{graphics/TwoPopSamplByxBxy.eps}
 \caption{?? samples at each point with $\left(\mu_{rx},\mu_{ry},\sigma^2_{rx},\sigma^2_{ry},\mu_{x0},\mu_{y0},\sigma^2_{x0},\sigma^2_{y0}\right) = \left(3.8,3.5,0.1,0.1,0.4,0.2,0.3,0.3\right)$ and $\left(E,\tau\right)=\left(3,1\right)$ for $L=??$ with ``zeroes removed'' (see text for a discussion of zero removal) over the range $\beta_{xy},\beta_{yx}\in[0,1]$ in steps of $0.01$.}
 \end{figure}
 
 \section{Directed Correlation Defined Geometrically}
 
-The directed correlationis defined above as a difference of the two cross convergent mapping (CCM) correlations.  The CCM correlations $\rho_{XY}$ are defined as the square of the correlation coeffecient between a time series $X$ and its CCM-generated counterpart $X|Y$ (i.e.\ $X$ generated using the ``shadow manifold'' of a second times series $Y$).  The directed correlation $\Delta$ was written above as
+The directed correlation is defined above as a difference of the two cross convergent mapping (CCM) correlations.  The CCM correlations $\rho_{XY}$ are defined as the square of the correlation coeffecient between a time series $X$ and its CCM-generated counterpart $X|Y$ (i.e.\ $X$ generated using the ``shadow manifold'' of a second times series $Y$).  The directed correlation $\Delta$ was written above as
 $$
 \Delta \equiv \rho_{XY} - \rho_{YX}\;\;,
 $$
@@ -421,7 +421,7 @@ $$
 $$
 D_{\theta n} = \frac{2}{\pi}\arctan\left(\frac{\rho_{YX}}{\rho_{XY}}\right)\;\;,
 $$
-which leads to ``driving'' rules similar to those mentioned for $\Delta$ at the beginning of this section (i.e.\ $D_{\theta n}<1/2\rightarrow$ ``$X$ drives $Y$'', $D_{\theta n}>1/2\rightarrow$ ``$Y$ drives $X$'', and $\Delta=1/2$ indicates no directed correlation in the system).  
+which leads to ``driving'' rules similar to those mentioned for $\Delta$ at the beginning of this section (i.e.\ $D_{\theta n}<1/2\rightarrow$ ``$X$ drives $Y$'', $D_{\theta n}>1/2\rightarrow$ ``$Y$ drives $X$'', and $D_{\theta n}=1/2$ indicates no directed correlation in the system).  
 
 The points used above lead to $D_{\theta n} \approx 0.4968$ (for $\rho_{XY} = 0.99$ and $\rho_{YX} = 0.98$) and $D_{\theta n} \approx 0.4423$ (for $\rho_{XY} = 0.06$ and $\rho_{YX} = 0.05$).  Both $\Delta$ and $D_{\theta n}$ indicate that $X$ ``drives'' $Y$ but $D_{\theta n}$ also gives of more than just the differences of the CCM correlations.  Naturally, there are pairs of CCM correlations that cannot be distinguished by $D_{\theta n}$.  For example, $D_{\theta n} \approx 0.2952$ could result from either $\rho_{XY} = 0.88$ and $\rho_{YX} = 0.44$ or $\rho_{XY} = 0.44$ and $\rho_{YX} = 0.22$.  Such points, however, would be distinguished by $D_m$ (e.g.\ $D_m \approx 0.9839$ and $D_m \approx 0.4919$ for the examples points of the previous sentence).
 
@@ -429,6 +429,63 @@ A natural question would be why a pair of real numbers (both on the unit interva
 
 For example, consider the example presented above.  
 
+\begin{figure}[h!t]
+\centering
+\begin{subfigure}[b]{0.4\textwidth}
+\label{fig:SugEx1wCCMpoints_scatterhist}
+\includegraphics[scale=0.55]{graphics/SugEx1wCCMpoints_scatterhist.eps}
+\caption{500 samples with $\left(\mu_{rx},\mu_{ry},\sigma^2_{rx},\sigma^2_{ry},\mu_{x0},\mu_{y0},\sigma^2_{x0},\sigma^2_{y0}\right) = \left(3.8,3.5,0.05,0.05,0.4,0.2,0.1,0.1\right)$ and $\left(E,\tau\right)=\left(3,1\right)$ for $L=1000$ and $(\beta_{xy},\beta_{yx})=(0.02,0.1)$.}
+\end{subfigure}
+\begin{subfigure}[b]{0.4\textwidth}
+\label{fig:SugEx1wCCMpoints_densityhist}
+\includegraphics[scale=0.55]{graphics/SugEx1wCCMpoints_densityhist.eps}
+\caption{500 samples with $\left(\mu_{rx},\mu_{ry},\sigma^2_{rx},\sigma^2_{ry},\mu_{x0},\mu_{y0},\sigma^2_{x0},\sigma^2_{y0}\right) = \left(3.8,3.5,0.05,0.05,0.4,0.2,0.1,0.1\right)$ and $\left(E,\tau\right)=\left(3,1\right)$ for $L=1000$ and $(\beta_{xy},\beta_{yx})=(0.02,0.1)$.}
+\end{subfigure}
+\caption{}
+\end{figure}
+\begin{figure}[h!t]
+\centering
+\begin{subfigure}[b]{0.4\textwidth}
+\label{fig:SugEx1DCORR_mean1}
+\includegraphics[scale=0.55]{graphics/SugEx1DCORR_mean1.eps}
+\caption{Mean Method 1: 500 samples with $\left(\mu_{rx},\mu_{ry},\sigma^2_{rx},\sigma^2_{ry},\mu_{x0},\mu_{y0},\sigma^2_{x0},\sigma^2_{y0}\right) = \left(3.8,3.5,0.05,0.05,0.4,0.2,0.1,0.1\right)$ and $\left(E,\tau\right)=\left(3,1\right)$ for $L=1000$ and $(\beta_{xy},\beta_{yx})=(0.02,0.1)$.}
+\end{subfigure}
+\begin{subfigure}[b]{0.4\textwidth}
+\label{fig:SugEx1DCORR_mean2}
+\includegraphics[scale=0.55]{graphics/SugEx1DCORR_mean2.eps}
+\caption{Mean Method 2: 500 samples with $\left(\mu_{rx},\mu_{ry},\sigma^2_{rx},\sigma^2_{ry},\mu_{x0},\mu_{y0},\sigma^2_{x0},\sigma^2_{y0}\right) = \left(3.8,3.5,0.05,0.05,0.4,0.2,0.1,0.1\right)$ and $\left(E,\tau\right)=\left(3,1\right)$ for $L=1000$ and $(\beta_{xy},\beta_{yx})=(0.02,0.1)$.}
+\end{subfigure}
+\caption{}
+\end{figure}
+
+\begin{figure}[h!t]
+\centering
+\begin{subfigure}[b]{0.4\textwidth}
+\label{fig:SugEx2wCCMpoints_scatterhist}
+%\includegraphics[scale=0.55]{graphics/SugEx1wCCMpoints_scatterhist.eps}
+\caption{500 samples with $\left(\mu_{rx},\mu_{ry},\sigma^2_{rx},\sigma^2_{ry},\mu_{x0},\mu_{y0},\sigma^2_{x0},\sigma^2_{y0}\right) = \left(3.1,3.9,0.05,0.05,0.4,0.2,0.1,0.1\right)$ and $\left(E,\tau\right)=\left(3,1\right)$ for $L=1000$ and $(\beta_{xy},\beta_{yx})=(0.2,0.002)$.}
+\end{subfigure}
+\begin{subfigure}[b]{0.4\textwidth}
+\label{fig:SugEx2wCCMpoints_densityhist}
+%\includegraphics[scale=0.55]{graphics/SugEx1wCCMpoints_densityhist.eps}
+\caption{500 samples with $\left(\mu_{rx},\mu_{ry},\sigma^2_{rx},\sigma^2_{ry},\mu_{x0},\mu_{y0},\sigma^2_{x0},\sigma^2_{y0}\right) = \left(3.1,3.9,0.05,0.05,0.4,0.2,0.1,0.1\right)$ and $\left(E,\tau\right)=\left(3,1\right)$ for $L=1000$ and $(\beta_{xy},\beta_{yx})=(0.2,0.002)$.}
+\end{subfigure}
+\caption{}
+\end{figure}
+\begin{figure}[h!t]
+\centering
+\begin{subfigure}[b]{0.4\textwidth}
+\label{fig:SugEx2DCORR_mean1}
+%\includegraphics[scale=0.55]{graphics/SugEx1DCORR_mean1.eps}
+\caption{Mean Method 1: 500 samples with $\left(\mu_{rx},\mu_{ry},\sigma^2_{rx},\sigma^2_{ry},\mu_{x0},\mu_{y0},\sigma^2_{x0},\sigma^2_{y0}\right) = \left(3.1,3.9,0.05,0.05,0.4,0.2,0.1,0.1\right)$ and $\left(E,\tau\right)=\left(3,1\right)$ for $L=1000$ and $(\beta_{xy},\beta_{yx})=(0.2,0.002)$.}
+\end{subfigure}
+\begin{subfigure}[b]{0.4\textwidth}
+\label{fig:SugEx2DCORR_mean2}
+%\includegraphics[scale=0.55]{graphics/SugEx1DCORR_mean2.eps}
+\caption{Mean Method 2: 500 samples with $\left(\mu_{rx},\mu_{ry},\sigma^2_{rx},\sigma^2_{ry},\mu_{x0},\mu_{y0},\sigma^2_{x0},\sigma^2_{y0}\right) = \left(3.1,3.9,0.05,0.05,0.4,0.2,0.1,0.1\right)$ and $\left(E,\tau\right)=\left(3,1\right)$ for $L=1000$ and $(\beta_{xy},\beta_{yx})=(0.2,0.002)$.}
+\end{subfigure}
+\caption{}
+\end{figure}
 
 \section{Applying CCM to Known Dynamics}
 The results shown above for the example presented by Sugihara appear to imply the following:
@@ -450,12 +507,12 @@ Consider an RL circuit with $(R,L) = (0.5,10)$.  If the voltage times series $V$
 \centering
 \begin{subfigure}[b]{0.4\textwidth}
 \label{fig:RL_trigsignals}
-\includegraphics[scale=0.55]{RL_trigsignals.eps}
+\includegraphics[scale=0.55]{graphics/RL_trigsignals.eps}
 \caption{$(R,L) = (0.5,10)$}
 \end{subfigure}
 \begin{subfigure}[b]{0.4\textwidth}
 \label{fig:RL_trigsignalsCCM}
-\includegraphics[scale=0.55]{RL_trigsignalsCCM.eps}
+\includegraphics[scale=0.55]{graphics/RL_trigsignalsCCM.eps}
 \caption{$(R,L) = (0.5,10)$ with $\left(E,L,\tau\right)=\left(2,100,1\right)$}
 \end{subfigure}
 \caption{}
@@ -467,12 +524,12 @@ Consider the case when $V$ is a discrete sine function; see Figure \ref{fig:RL_s
 \centering
 \begin{subfigure}[b]{0.4\textwidth}
 \label{fig:RL_sinsignals}
-\includegraphics[scale=0.55]{RL_sinsignals.eps}
+\includegraphics[scale=0.55]{graphics/RL_sinsignals.eps}
 \caption{$(R,L) = (0.5,10)$}
 \end{subfigure}
 \begin{subfigure}[b]{0.4\textwidth}
 \label{fig:RL_sinsignalsCCM}
-\includegraphics[scale=0.55]{RL_sinsignalsCCM.eps}
+\includegraphics[scale=0.55]{graphics/RL_sinsignalsCCM.eps}
 \caption{$(R,L) = (0.5,10)$ with $\left(E,L,\tau\right)=\left(2,100,1\right)$}
 \end{subfigure}
 \caption{}
@@ -483,12 +540,12 @@ The ``non-robust'' features of the directed correlations (with respect to $E$) c
 \centering
 \begin{subfigure}[b]{0.4\textwidth}
 \label{fig:RL_randsignals.eps}
-\includegraphics[scale=0.55]{RL_randsignals.eps}
+\includegraphics[scale=0.55]{graphics/RL_randsignals.eps}
 \caption{$(R,L) = (0.5,10)$}
 \end{subfigure}
 \begin{subfigure}[b]{0.4\textwidth}
 \label{fig:RL_randsignalsCCM}
-\includegraphics[scale=0.55]{RL_randsignalsCCM.eps}
+\includegraphics[scale=0.55]{graphics/RL_randsignalsCCM.eps}
 \caption{$(R,L) = (0.5,10)$ with $\left(E,L,\tau\right)=\left(2,100,1\right)$}
 \end{subfigure}
 \caption{}
