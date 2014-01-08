@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=latex 2012.5.6)  5 JAN 2014 19:51
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=latex 2012.5.6)  6 JAN 2014 20:03
 entering extended mode
  %&-line parsing enabled.
 **main.tex
@@ -732,6 +732,8 @@ See the caption package documentation for explanation.
 LaTeX Warning: Reference `fig:TwoPopDynSameParms' on page 11 undefined on input
  line 380.
 
+File: graphics/TwoPopDynSameParms.eps Graphic file (type eps)
+<graphics/TwoPopDynSameParms.eps>
 
 Package caption Warning: \label before \caption on input line 391.
 See the caption package documentation for explanation.
@@ -745,7 +747,15 @@ Underfull \hbox (badness 10000) in paragraph at lines 393--393
 []\OT1/cmr/m/n/10.95 Figure 17: |?? sam-ples at each point with $[] =
  []
 
-[11] [12]
+[11]
+
+LaTeX Warning: Text page 12 contains only floats.
+
+
+Overfull \vbox (0.73166pt too high) has occurred while \output is active []
+
+
+[12] [13]
 File: graphics/SugEx1wCCMpoints_scatterhist.eps Graphic file (type eps)
  <graphics/SugEx1wCCMpoints_scatterhist.eps>
 Overfull \hbox (15.70287pt too wide) in paragraph at lines 436--437
@@ -850,6 +860,12 @@ Underfull \hbox (badness 10000) in paragraph at lines 456--456
 [] \OT1/cmr/m/n/10 = []$ for $\OML/cmm/m/it/10 L \OT1/cmr/m/n/10 = 1000$ and
  []
 
+File: graphics/SugEx2wCCMpoints_scatterhist.eps Graphic file (type eps)
+<graphics/SugEx2wCCMpoints_scatterhist.eps>
+Overfull \hbox (15.70287pt too wide) in paragraph at lines 465--466
+[][] 
+ []
+
 
 Underfull \hbox (badness 10000) in paragraph at lines 466--466
 []\OT1/cmr/m/n/10 (a) |500 sam-ples with
@@ -868,6 +884,12 @@ Underfull \hbox (badness 10000) in paragraph at lines 466--466
 
 Underfull \hbox (badness 10000) in paragraph at lines 466--466
 [] \OT1/cmr/m/n/10 = []$ for $\OML/cmm/m/it/10 L \OT1/cmr/m/n/10 = 1000$ and
+ []
+
+File: graphics/SugEx2wCCMpoints_densityhist.eps Graphic file (type eps)
+<graphics/SugEx2wCCMpoints_densityhist.eps>
+Overfull \hbox (15.70287pt too wide) in paragraph at lines 470--471
+[][] 
  []
 
 
@@ -890,6 +912,12 @@ Underfull \hbox (badness 10000) in paragraph at lines 471--471
 [] \OT1/cmr/m/n/10 = []$ for $\OML/cmm/m/it/10 L \OT1/cmr/m/n/10 = 1000$ and
  []
 
+File: graphics/SugEx2DCORR_mean1.eps Graphic file (type eps)
+<graphics/SugEx2DCORR_mean1.eps>
+Overfull \hbox (15.70287pt too wide) in paragraph at lines 479--480
+[][] 
+ []
+
 
 Underfull \hbox (badness 4634) in paragraph at lines 480--480
 []\OT1/cmr/m/n/10 (a) |Mean Method 1: 500 sam-ples with
@@ -908,6 +936,12 @@ Underfull \hbox (badness 10000) in paragraph at lines 480--480
 
 Underfull \hbox (badness 10000) in paragraph at lines 480--480
 [] \OT1/cmr/m/n/10 = []$ for $\OML/cmm/m/it/10 L \OT1/cmr/m/n/10 = 1000$ and
+ []
+
+File: graphics/SugEx2DCORR_mean2.eps Graphic file (type eps)
+<graphics/SugEx2DCORR_mean2.eps>
+Overfull \hbox (15.70287pt too wide) in paragraph at lines 484--485
+[][] 
  []
 
 
@@ -929,10 +963,6 @@ Underfull \hbox (badness 10000) in paragraph at lines 485--485
 Underfull \hbox (badness 10000) in paragraph at lines 485--485
 [] \OT1/cmr/m/n/10 = []$ for $\OML/cmm/m/it/10 L \OT1/cmr/m/n/10 = 1000$ and
  []
-
-[13]
-
-LaTeX Warning: Text page 14 contains only floats.
 
 [14]
 
@@ -963,12 +993,13 @@ Overfull \hbox (15.70287pt too wide) in paragraph at lines 515--516
 [][] 
  []
 
+[15]
 
 Package caption Warning: \label before \caption on input line 526.
 See the caption package documentation for explanation.
 
 
-LaTeX Warning: Reference `fig:RL_sinsignals' on page 15 undefined on input line
+LaTeX Warning: Reference `fig:RL_sinsignals' on page 16 undefined on input line
  522.
 
 
@@ -976,7 +1007,7 @@ Package caption Warning: \label before \caption on input line 531.
 See the caption package documentation for explanation.
 
 
-LaTeX Warning: Reference `fig:RL_sinsignalsCCM' on page 15 undefined on input l
+LaTeX Warning: Reference `fig:RL_sinsignalsCCM' on page 16 undefined on input l
 ine 522.
 
 File: graphics/RL_sinsignals.eps Graphic file (type eps)
@@ -992,7 +1023,7 @@ Overfull \hbox (15.70287pt too wide) in paragraph at lines 532--533
  []
 
 
-LaTeX Warning: Reference `fig:RL_randsignals' on page 15 undefined on input lin
+LaTeX Warning: Reference `fig:RL_randsignals' on page 16 undefined on input lin
 e 538.
 
 
@@ -1000,7 +1031,7 @@ Package caption Warning: \label before \caption on input line 547.
 See the caption package documentation for explanation.
 
 
-LaTeX Warning: Reference `fig:RL_randsignalsCCM' on page 15 undefined on input 
+LaTeX Warning: Reference `fig:RL_randsignalsCCM' on page 16 undefined on input 
 line 538.
 
 File: graphics/RL_randsignals.eps Graphic file (type eps)
@@ -1015,18 +1046,18 @@ Overfull \hbox (15.70287pt too wide) in paragraph at lines 548--549
 [][] 
  []
 
-[15] [16] [17] (./main.aux)
+[16] [17] (./main.aux)
 
 LaTeX Warning: There were undefined references.
 
  ) 
 Here is how much of TeX's memory you used:
- 3530 strings out of 495062
- 51873 string characters out of 1182645
- 140423 words of memory out of 3000000
- 6647 multiletter control sequences out of 15000+50000
+ 3540 strings out of 495062
+ 52174 string characters out of 1182645
+ 137423 words of memory out of 3000000
+ 6652 multiletter control sequences out of 15000+50000
  13362 words of font info for 48 fonts, out of 3000000 for 9000
  28 hyphenation exceptions out of 8191
  36i,9n,38p,1482b,461s stack positions out of 5000i,500n,10000p,200000b,50000s
 
-Output written on main.dvi (17 pages, 80980 bytes).
+Output written on main.dvi (17 pages, 81492 bytes).
