@@ -1,8 +1,13 @@
 function [] = plotfunc_DCORRvecMEAN2(X,Y,Xname,Yname)
 
 addpath('../utils');
-theta = atan(Y/X);       
-magnitude = sqrt(X.^2+Y.^2);
+XY = [X', Y'];
+XYFiltered = XY(isfinite(XY(:,1)),:);
+XYFiltered = XYFiltered(isfinite(XYFiltered(:,2)),:);
+XFiltered = XYFiltered(:,1);
+YFiltered = XYFiltered(:,2);
+theta = atan(YFiltered./XFiltered);       
+magnitude = sqrt(XFiltered.^2+YFiltered.^2);
 tmean = nanmean(theta);
 mmean = nanmean(magnitude);
 xpoint = mmean*cos(tmean);
