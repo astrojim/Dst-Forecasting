@@ -409,7 +409,7 @@ but such a normalization may make the data analysis even more confusing.  The ne
 
 Another possible definition of the directed correlation comes from interpreting the pair $\left(\rho_{XY},\rho_{YX}\right)$ as a point in the unit square.  To help keep things clear, the unit square in its specific use here will be referred to as the ``directed correlation square'' or ``$D$-square''.  Points with no directed correlation (i.e.\ $\rho_{XY}=\rho_{YX}$) will fall along the diagonal bisector of the $D$-square that runs through the origin.  Points with $\rho_{XY}>\rho_{YX}$ fall in the upper triangular area above the $D$-square bisector, and points with $\rho_{XY}<\rho_{YX}$ fall in the lower triangular area below the $D$-square bisector.  Thus, the directed correlation can be determined from the location of the point $\left(\rho_{XY},\rho_{YX}\right)$.
 
-One of the most straightforward ways to quantify this concept is defing a 2-vector from the origin to the point $\left(\rho_{XY},\rho_{YX}\right)$ called $\vec{D}$.  The magnitude of $\vec{D}$ is 
+One of the most straightforward ways to quantify this concept is defining a 2-vector from the origin to the point $\left(\rho_{XY},\rho_{YX}\right)$ called $\vec{D}$.  The magnitude of $\vec{D}$ is 
 $$
 D_m = \sqrt{\rho_{XY}^2+\rho_{YX}^2}\;\;,
 $$
@@ -427,7 +427,22 @@ The points used above lead to $D_{\theta n} \approx 0.4968$ (for $\rho_{XY} = 0.
 
 A natural question would be why a pair of real numbers (both on the unit interval), i.e.\ $\left(\rho_{XY},\rho_{YX}\right)$, should be replaced with a 2-vector on the unit square to defined ``directed correlation''.  What are the benefits to defining ``directed correlation'' as a 2-vector rather than just a pair of CCM correlations?  The biggest benefit is the use of geometric intuition in comparing different directed correlations.  Overall, plotting the $D$-square will prove to be a quicker (and less confusing) way to present the directed correlation when compared to just calculating $\Delta$.
 
-For example, consider the example presented above.  
+For example, consider the example presented above.  The first plot in the series of four plots is a scatter plot of the CCM correlation points $(\rho_{XY},\rho_{YX})$ with individual histograms for $\rho_{XY}$ and $\rho_{YX}$ along the horizontal and vertical axis respectively.  The second plot is a point density histogram of the points presented in the first plot.  The last two plots are the directed correlation calculated with two separate averaging methods.  ``Mean method 1'' refers to calculating the directed correlation as
+\begin{eqnarray*}
+|D| &=& \sqrt{\langle X\rangle^2 + \langle Y\rangle^2}\\
+D_\theta &=& \arctan\left(\frac{\langle Y\rangle}{\langle X\rangle}\right)
+\end{eqnarray*}
+``Mean method 2'' refers to calculating the directed correlation as
+\begin{eqnarray*}
+|D| &=& \langle |D|_{i} \rangle \\
+D_\theta &=& \langle D_{\theta,i} \rangle
+\end{eqnarray*}
+with
+\begin{eqnarray*}
+|D|_{i} &=& \sqrt{ X_i^2 + Y_i^2}\\
+D_{\theta,i} &=& \arctan\left(\frac{ Y_i }{ X_i}\right)
+\end{eqnarray*}
+The two methods are not formally equivalent, but in practice, the difference is generally very small.  The first averaging method is what is generally referred to as a ``vector average'' and as such will be the method used from here on.  Both methods are presented below just for completeness.  Notice that all of the plots agree with previous results (including the secondary peak about $\Delta=0$ seen in the previous histograms) and intuition.
 
 \begin{figure}[h!t]
 \centering
@@ -552,6 +567,88 @@ The ``non-robust'' features of the directed correlations (with respect to $E$) c
 \end{figure}
  
 These results seem to imply that the robustness of the CCM method may be related to the autocorrelation of the ``driving'' time series.  This idea will be explored after the next section.
+
+\subsection{RL System with Voltage Dependent Resistance}
+Imagine the RL circuit is described above, i.e.\
+$$
+\dot{I} = \frac{V}{L} - \frac{R}{L} I\;\;,
+$$
+where $I$ is the current, $V$ is the voltage, $R$ is the resistance, and $L$ is the inductance, but with both $V$ and $R$ as time-dependent parameters.  Consider, for example, that the resistance $R$ is provided by a transitor\footnote{http://arxiv.org/ftp/arxiv/papers/0708/0708.3498.pdf}  The driving time series will then be both the voltage $V$ and the resistance $R$, and the response times series will still be the current $I$.  Only the inductance will be considered fixed.
+
+Suppose the voltage and resistance time series are given as pulses show in Figure \ref{fig:RL_RvarySig1} (which also shows the response $I$ time series).
+\begin{figure}[h!t]
+\centering
+\begin{subfigure}[b]{0.4\textwidth}
+\label{fig:RL_RvarySig1}
+%\includegraphics[scale=1]{RL_RvarySig1.eps}
+\caption{$L = 10$}
+\end{subfigure}
+\begin{subfigure}[b]{0.4\textwidth}
+\label{fig:RL_RvarySig1ZOOM}
+%\includegraphics[scale=1]{RL_RvarySig1ZOOM.eps}
+\caption{$L = 10$.  Zoomed in area of plot on the left.}
+\end{subfigure}
+\caption{}
+\end{figure}
+The directed correlations between $V$ and $R$, $V$ and $I$, and $I$ and $R$ are shown in the Figure \ref{fig:RL_RvarySig1CCMVR}.
+\begin{figure}[h!t]
+\centering
+\begin{subfigure}[b]{0.25\textwidth}
+\label{fig:RL_RvarySig1CCMVR}
+%\includegraphics[scale=1]{RL_RvarySig1CCMVR.eps}
+\caption{$L = 10$ and $V$, $R$ given in Figure  \ref{fig:RL_RvarySig1}.}
+\end{subfigure}
+\begin{subfigure}[b]{0.25\textwidth}
+\label{fig:RL_RvarySig1CCMVI}
+%\includegraphics[scale=1]{RL_RvarySig1CCMVR.eps}
+\caption{$L = 10$ and $V$, $R$ given in Figure  \ref{fig:RL_RvarySig1}.}
+\end{subfigure}
+\begin{subfigure}[b]{0.25\textwidth}
+\label{fig:RL_RvarySig1CCMIR}
+%\includegraphics[scale=1]{RL_RvarySig1CCMVR.eps}
+\caption{$L = 10$ and $V$, $R$ given in Figure  \ref{fig:RL_RvarySig1}.}
+\end{subfigure}
+\caption{}
+\end{figure}
+These results imply that $V\rightarrow I$ and $R\rightarrow I$ with no directed correlation between $V$ and $R$.  These results agree with intuition.  
+
+Similar results are obtained if the voltage signal is 
+$$
+V(t) = \sin(t)
+$$
+with a resistance of
+$$
+R(t) = \sin(t) + 1.05\;\;.
+$$
+Those directed correlations are seen in Figure \ref{fig:RL_RvarySig2CCMVR}.
+\begin{figure}[h!t]
+\centering
+\begin{subfigure}[b]{0.25\textwidth}
+\label{fig:RL_RvarySig2CCMVR}
+%\includegraphics[scale=1]{RL_RvarySig2CCMVR.eps}
+\caption{$L = 10$ and $V$, $R$ given in text.}
+\end{subfigure}
+\begin{subfigure}[b]{0.25\textwidth}
+\label{fig:RL_RvarySig2CCMVI}
+%\includegraphics[scale=1]{RL_RvarySig2CCMVR.eps}
+\caption{$L = 10$ and $V$, $R$ given in text.}
+\end{subfigure}
+\begin{subfigure}[b]{0.25\textwidth}
+\label{fig:RL_RvarySig2CCMIR}
+%\includegraphics[scale=1]{RL_RvarySig2CCMVR.eps}
+\caption{$L = 10$ and $V$, $R$ given in text.}
+\end{subfigure}
+\caption{}
+\end{figure}
+
+\subsection{Three Population Example}
+Consider extended the two population model used by Sugihara et.\ al.\ to a ``three population'' model for $X(t)$, $Y(t)$, and $Z(t)$ defined as follows:
+\begin{eqnarray*}
+X_{t+1} &=& X_t\left(r_x-r_x X_t-B_{xy} Y_t-B_{xz} Z_t\right)\\
+Y_{t+1} &=& Y_t\left(r_y-r_y Y_t-B_{yx} X_t-B_{yz} Z_t\right)\\
+Z_{t+1} &=& Z_t\left(r_z-r_z Z_t-B_{zx} X_t-B_{zy} Y_t\right)
+\end{eqnarray*}
+where all the parameters are non-negative real numbers.
 
 \subsection{Lorenz System}
 Consider the following system of equations:

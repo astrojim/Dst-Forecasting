@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=latex 2012.5.6)  6 JAN 2014 20:03
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=latex 2012.5.6)  7 JAN 2014 19:47
 entering extended mode
  %&-line parsing enabled.
 **main.tex
@@ -758,117 +758,65 @@ Overfull \vbox (0.73166pt too high) has occurred while \output is active []
 [12] [13]
 File: graphics/SugEx1wCCMpoints_scatterhist.eps Graphic file (type eps)
  <graphics/SugEx1wCCMpoints_scatterhist.eps>
-Overfull \hbox (15.70287pt too wide) in paragraph at lines 436--437
+Overfull \hbox (15.70287pt too wide) in paragraph at lines 451--452
 [][] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 437--437
+Underfull \hbox (badness 10000) in paragraph at lines 452--452
 []\OT1/cmr/m/n/10 (a) |500 sam-ples with
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 437--437
+Underfull \hbox (badness 10000) in paragraph at lines 452--452
 [] \OT1/cmr/m/n/10 =
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 437--437
+Underfull \hbox (badness 10000) in paragraph at lines 452--452
 []$ \OT1/cmr/m/n/10 and
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 437--437
+Underfull \hbox (badness 10000) in paragraph at lines 452--452
 [] \OT1/cmr/m/n/10 = []$ for $\OML/cmm/m/it/10 L \OT1/cmr/m/n/10 = 1000$ and
  []
 
 File: graphics/SugEx1wCCMpoints_densityhist.eps Graphic file (type eps)
 <graphics/SugEx1wCCMpoints_densityhist.eps>
-Overfull \hbox (15.70287pt too wide) in paragraph at lines 441--442
+Overfull \hbox (15.70287pt too wide) in paragraph at lines 456--457
 [][] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 442--442
+Underfull \hbox (badness 10000) in paragraph at lines 457--457
 []\OT1/cmr/m/n/10 (b) |500 sam-ples with
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 442--442
+Underfull \hbox (badness 10000) in paragraph at lines 457--457
 [] \OT1/cmr/m/n/10 =
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 442--442
+Underfull \hbox (badness 10000) in paragraph at lines 457--457
 []$ \OT1/cmr/m/n/10 and
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 442--442
+Underfull \hbox (badness 10000) in paragraph at lines 457--457
 [] \OT1/cmr/m/n/10 = []$ for $\OML/cmm/m/it/10 L \OT1/cmr/m/n/10 = 1000$ and
  []
 
 File: graphics/SugEx1DCORR_mean1.eps Graphic file (type eps)
 <graphics/SugEx1DCORR_mean1.eps>
-Overfull \hbox (15.70287pt too wide) in paragraph at lines 450--451
-[][] 
- []
-
-
-Underfull \hbox (badness 4634) in paragraph at lines 451--451
-[]\OT1/cmr/m/n/10 (a) |Mean Method 1: 500 sam-ples with
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 451--451
-[] \OT1/cmr/m/n/10 =
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 451--451
-[]$ \OT1/cmr/m/n/10 and
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 451--451
-[] \OT1/cmr/m/n/10 = []$ for $\OML/cmm/m/it/10 L \OT1/cmr/m/n/10 = 1000$ and
- []
-
-File: graphics/SugEx1DCORR_mean2.eps Graphic file (type eps)
-<graphics/SugEx1DCORR_mean2.eps>
-Overfull \hbox (15.70287pt too wide) in paragraph at lines 455--456
-[][] 
- []
-
-
-Underfull \hbox (badness 4454) in paragraph at lines 456--456
-[]\OT1/cmr/m/n/10 (b) |Mean Method 2: 500 sam-ples with
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 456--456
-[] \OT1/cmr/m/n/10 =
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 456--456
-[]$ \OT1/cmr/m/n/10 and
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 456--456
-[] \OT1/cmr/m/n/10 = []$ for $\OML/cmm/m/it/10 L \OT1/cmr/m/n/10 = 1000$ and
- []
-
-File: graphics/SugEx2wCCMpoints_scatterhist.eps Graphic file (type eps)
-<graphics/SugEx2wCCMpoints_scatterhist.eps>
 Overfull \hbox (15.70287pt too wide) in paragraph at lines 465--466
 [][] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 466--466
-[]\OT1/cmr/m/n/10 (a) |500 sam-ples with
+Underfull \hbox (badness 4634) in paragraph at lines 466--466
+[]\OT1/cmr/m/n/10 (a) |Mean Method 1: 500 sam-ples with
  []
 
 
@@ -886,15 +834,15 @@ Underfull \hbox (badness 10000) in paragraph at lines 466--466
 [] \OT1/cmr/m/n/10 = []$ for $\OML/cmm/m/it/10 L \OT1/cmr/m/n/10 = 1000$ and
  []
 
-File: graphics/SugEx2wCCMpoints_densityhist.eps Graphic file (type eps)
-<graphics/SugEx2wCCMpoints_densityhist.eps>
+File: graphics/SugEx1DCORR_mean2.eps Graphic file (type eps)
+<graphics/SugEx1DCORR_mean2.eps>
 Overfull \hbox (15.70287pt too wide) in paragraph at lines 470--471
 [][] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 471--471
-[]\OT1/cmr/m/n/10 (b) |500 sam-ples with
+Underfull \hbox (badness 4454) in paragraph at lines 471--471
+[]\OT1/cmr/m/n/10 (b) |Mean Method 2: 500 sam-ples with
  []
 
 
@@ -909,155 +857,280 @@ Underfull \hbox (badness 10000) in paragraph at lines 471--471
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 471--471
+[] \OT1/cmr/m/n/10 = []$ for $\OML/cmm/m/it/10 L \OT1/cmr/m/n/10 = 1000$ and
+ []
+
+File: graphics/SugEx2wCCMpoints_scatterhist.eps Graphic file (type eps)
+<graphics/SugEx2wCCMpoints_scatterhist.eps>
+Overfull \hbox (15.70287pt too wide) in paragraph at lines 480--481
+[][] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 481--481
+[]\OT1/cmr/m/n/10 (a) |500 sam-ples with
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 481--481
+[] \OT1/cmr/m/n/10 =
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 481--481
+[]$ \OT1/cmr/m/n/10 and
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 481--481
+[] \OT1/cmr/m/n/10 = []$ for $\OML/cmm/m/it/10 L \OT1/cmr/m/n/10 = 1000$ and
+ []
+
+File: graphics/SugEx2wCCMpoints_densityhist.eps Graphic file (type eps)
+<graphics/SugEx2wCCMpoints_densityhist.eps>
+Overfull \hbox (15.70287pt too wide) in paragraph at lines 485--486
+[][] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 486--486
+[]\OT1/cmr/m/n/10 (b) |500 sam-ples with
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 486--486
+[] \OT1/cmr/m/n/10 =
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 486--486
+[]$ \OT1/cmr/m/n/10 and
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 486--486
 [] \OT1/cmr/m/n/10 = []$ for $\OML/cmm/m/it/10 L \OT1/cmr/m/n/10 = 1000$ and
  []
 
 File: graphics/SugEx2DCORR_mean1.eps Graphic file (type eps)
 <graphics/SugEx2DCORR_mean1.eps>
-Overfull \hbox (15.70287pt too wide) in paragraph at lines 479--480
+Overfull \hbox (15.70287pt too wide) in paragraph at lines 494--495
 [][] 
  []
 
 
-Underfull \hbox (badness 4634) in paragraph at lines 480--480
+Underfull \hbox (badness 4634) in paragraph at lines 495--495
 []\OT1/cmr/m/n/10 (a) |Mean Method 1: 500 sam-ples with
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 480--480
+Underfull \hbox (badness 10000) in paragraph at lines 495--495
 [] \OT1/cmr/m/n/10 =
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 480--480
+Underfull \hbox (badness 10000) in paragraph at lines 495--495
 []$ \OT1/cmr/m/n/10 and
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 480--480
+Underfull \hbox (badness 10000) in paragraph at lines 495--495
 [] \OT1/cmr/m/n/10 = []$ for $\OML/cmm/m/it/10 L \OT1/cmr/m/n/10 = 1000$ and
  []
 
 File: graphics/SugEx2DCORR_mean2.eps Graphic file (type eps)
 <graphics/SugEx2DCORR_mean2.eps>
-Overfull \hbox (15.70287pt too wide) in paragraph at lines 484--485
+Overfull \hbox (15.70287pt too wide) in paragraph at lines 499--500
 [][] 
  []
 
 
-Underfull \hbox (badness 4454) in paragraph at lines 485--485
+Underfull \hbox (badness 4454) in paragraph at lines 500--500
 []\OT1/cmr/m/n/10 (b) |Mean Method 2: 500 sam-ples with
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 485--485
+Underfull \hbox (badness 10000) in paragraph at lines 500--500
 [] \OT1/cmr/m/n/10 =
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 485--485
+Underfull \hbox (badness 10000) in paragraph at lines 500--500
 []$ \OT1/cmr/m/n/10 and
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 485--485
+Underfull \hbox (badness 10000) in paragraph at lines 500--500
 [] \OT1/cmr/m/n/10 = []$ for $\OML/cmm/m/it/10 L \OT1/cmr/m/n/10 = 1000$ and
  []
 
 [14]
 
-Package caption Warning: \label before \caption on input line 509.
+Package caption Warning: \label before \caption on input line 524.
 See the caption package documentation for explanation.
 
 
 LaTeX Warning: Reference `fig:RL_trigsignals' on page 15 undefined on input lin
-e 505.
+e 520.
 
 
-Package caption Warning: \label before \caption on input line 514.
+Package caption Warning: \label before \caption on input line 529.
 See the caption package documentation for explanation.
 
 
 LaTeX Warning: Reference `fig:RL_trigsignalsCCM' on page 15 undefined on input 
-line 505.
+line 520.
 
 File: graphics/RL_trigsignals.eps Graphic file (type eps)
 <graphics/RL_trigsignals.eps>
-Overfull \hbox (15.70287pt too wide) in paragraph at lines 510--511
+Overfull \hbox (15.70287pt too wide) in paragraph at lines 525--526
 [][] 
  []
 
 File: graphics/RL_trigsignalsCCM.eps Graphic file (type eps)
 <graphics/RL_trigsignalsCCM.eps>
-Overfull \hbox (15.70287pt too wide) in paragraph at lines 515--516
+Overfull \hbox (15.70287pt too wide) in paragraph at lines 530--531
 [][] 
  []
 
 [15]
 
-Package caption Warning: \label before \caption on input line 526.
+Package caption Warning: \label before \caption on input line 541.
 See the caption package documentation for explanation.
 
 
 LaTeX Warning: Reference `fig:RL_sinsignals' on page 16 undefined on input line
- 522.
+ 537.
 
 
-Package caption Warning: \label before \caption on input line 531.
+Package caption Warning: \label before \caption on input line 546.
 See the caption package documentation for explanation.
 
 
 LaTeX Warning: Reference `fig:RL_sinsignalsCCM' on page 16 undefined on input l
-ine 522.
+ine 537.
 
 File: graphics/RL_sinsignals.eps Graphic file (type eps)
 <graphics/RL_sinsignals.eps>
-Overfull \hbox (15.70287pt too wide) in paragraph at lines 527--528
+Overfull \hbox (15.70287pt too wide) in paragraph at lines 542--543
 [][] 
  []
 
 File: graphics/RL_sinsignalsCCM.eps Graphic file (type eps)
 <graphics/RL_sinsignalsCCM.eps>
-Overfull \hbox (15.70287pt too wide) in paragraph at lines 532--533
+Overfull \hbox (15.70287pt too wide) in paragraph at lines 547--548
 [][] 
  []
 
 
 LaTeX Warning: Reference `fig:RL_randsignals' on page 16 undefined on input lin
-e 538.
+e 553.
 
 
-Package caption Warning: \label before \caption on input line 547.
+Package caption Warning: \label before \caption on input line 562.
 See the caption package documentation for explanation.
 
 
 LaTeX Warning: Reference `fig:RL_randsignalsCCM' on page 16 undefined on input 
-line 538.
+line 553.
 
 File: graphics/RL_randsignals.eps Graphic file (type eps)
 <graphics/RL_randsignals.eps>
-Overfull \hbox (15.70287pt too wide) in paragraph at lines 543--544
+Overfull \hbox (15.70287pt too wide) in paragraph at lines 558--559
 [][] 
  []
 
 File: graphics/RL_randsignalsCCM.eps Graphic file (type eps)
 <graphics/RL_randsignalsCCM.eps>
-Overfull \hbox (15.70287pt too wide) in paragraph at lines 548--549
+Overfull \hbox (15.70287pt too wide) in paragraph at lines 563--564
 [][] 
  []
 
-[16] [17] (./main.aux)
+[16]
+
+Package caption Warning: \label before \caption on input line 582.
+See the caption package documentation for explanation.
+
+
+LaTeX Warning: Reference `fig:RL_RvarySig1' on page 17 undefined on input line 
+578.
+
+
+Package caption Warning: \label before \caption on input line 597.
+See the caption package documentation for explanation.
+
+
+LaTeX Warning: Reference `fig:RL_RvarySig1CCMVR' on page 17 undefined on input 
+line 593.
+
+
+Package caption Warning: \label before \caption on input line 582.
+See the caption package documentation for explanation.
+
+
+LaTeX Warning: Reference `fig:RL_RvarySig1' on page 17 undefined on input line 
+599.
+
+
+Package caption Warning: \label before \caption on input line 582.
+See the caption package documentation for explanation.
+
+
+LaTeX Warning: Reference `fig:RL_RvarySig1' on page 17 undefined on input line 
+599.
+
+
+Package caption Warning: \label before \caption on input line 582.
+See the caption package documentation for explanation.
+
+
+LaTeX Warning: Reference `fig:RL_RvarySig1' on page 17 undefined on input line 
+604.
+
+
+Package caption Warning: \label before \caption on input line 582.
+See the caption package documentation for explanation.
+
+
+LaTeX Warning: Reference `fig:RL_RvarySig1' on page 17 undefined on input line 
+604.
+
+
+Package caption Warning: \label before \caption on input line 582.
+See the caption package documentation for explanation.
+
+
+LaTeX Warning: Reference `fig:RL_RvarySig1' on page 17 undefined on input line 
+609.
+
+
+Package caption Warning: \label before \caption on input line 582.
+See the caption package documentation for explanation.
+
+
+LaTeX Warning: Reference `fig:RL_RvarySig1' on page 17 undefined on input line 
+609.
+
+
+Package caption Warning: \label before \caption on input line 627.
+See the caption package documentation for explanation.
+
+
+LaTeX Warning: Reference `fig:RL_RvarySig2CCMVR' on page 17 undefined on input 
+line 623.
+
+[17] [18] [19] (./main.aux)
 
 LaTeX Warning: There were undefined references.
 
  ) 
 Here is how much of TeX's memory you used:
- 3540 strings out of 495062
- 52174 string characters out of 1182645
+ 3558 strings out of 495062
+ 52581 string characters out of 1182645
  137423 words of memory out of 3000000
- 6652 multiletter control sequences out of 15000+50000
- 13362 words of font info for 48 fonts, out of 3000000 for 9000
+ 6669 multiletter control sequences out of 15000+50000
+ 13670 words of font info for 49 fonts, out of 3000000 for 9000
  28 hyphenation exceptions out of 8191
  36i,9n,38p,1482b,461s stack positions out of 5000i,500n,10000p,200000b,50000s
 
-Output written on main.dvi (17 pages, 81492 bytes).
+Output written on main.dvi (19 pages, 87196 bytes).
