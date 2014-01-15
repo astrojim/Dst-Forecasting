@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=latex 2012.5.6)  7 JAN 2014 19:47
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=latex 2012.5.6)  14 JAN 2014 20:09
 entering extended mode
  %&-line parsing enabled.
 **main.tex
@@ -1048,89 +1048,228 @@ Overfull \hbox (15.70287pt too wide) in paragraph at lines 563--564
 
 [16]
 
-Package caption Warning: \label before \caption on input line 582.
+Package caption Warning: \label before \caption on input line 581.
 See the caption package documentation for explanation.
 
 
 LaTeX Warning: Reference `fig:RL_RvarySig1' on page 17 undefined on input line 
 578.
 
+File: graphics/RL_RvarySig1.eps Graphic file (type eps)
+<graphics/RL_RvarySig1.eps>
 
-Package caption Warning: \label before \caption on input line 597.
+Package caption Warning: \label before \caption on input line 589.
 See the caption package documentation for explanation.
 
 
 LaTeX Warning: Reference `fig:RL_RvarySig1CCMVR' on page 17 undefined on input 
-line 593.
+line 585.
+
+File: graphics/RL_RvarySig1CCMVR.eps Graphic file (type eps)
+<graphics/RL_RvarySig1CCMVR.eps>
+Overfull \hbox (32.90152pt too wide) in paragraph at lines 590--591
+[][] 
+ []
 
 
-Package caption Warning: \label before \caption on input line 582.
+Package caption Warning: \label before \caption on input line 581.
 See the caption package documentation for explanation.
 
 
 LaTeX Warning: Reference `fig:RL_RvarySig1' on page 17 undefined on input line 
-599.
+591.
 
 
-Package caption Warning: \label before \caption on input line 582.
+Package caption Warning: \label before \caption on input line 581.
 See the caption package documentation for explanation.
 
 
 LaTeX Warning: Reference `fig:RL_RvarySig1' on page 17 undefined on input line 
-599.
+591.
+
+File: graphics/RL_RvarySig1CCMVI.eps Graphic file (type eps)
+<graphics/RL_RvarySig1CCMVI.eps>
+Overfull \hbox (32.90152pt too wide) in paragraph at lines 595--596
+[][] 
+ []
 
 
-Package caption Warning: \label before \caption on input line 582.
+Package caption Warning: \label before \caption on input line 581.
 See the caption package documentation for explanation.
 
 
 LaTeX Warning: Reference `fig:RL_RvarySig1' on page 17 undefined on input line 
-604.
+596.
 
 
-Package caption Warning: \label before \caption on input line 582.
+Package caption Warning: \label before \caption on input line 581.
 See the caption package documentation for explanation.
 
 
 LaTeX Warning: Reference `fig:RL_RvarySig1' on page 17 undefined on input line 
-604.
+596.
+
+File: graphics/RL_RvarySig1CCMRI.eps Graphic file (type eps)
+<graphics/RL_RvarySig1CCMRI.eps>
+Overfull \hbox (32.90152pt too wide) in paragraph at lines 600--601
+[][] 
+ []
 
 
-Package caption Warning: \label before \caption on input line 582.
+Package caption Warning: \label before \caption on input line 581.
 See the caption package documentation for explanation.
 
 
 LaTeX Warning: Reference `fig:RL_RvarySig1' on page 17 undefined on input line 
-609.
+601.
 
 
-Package caption Warning: \label before \caption on input line 582.
+Package caption Warning: \label before \caption on input line 581.
 See the caption package documentation for explanation.
 
 
 LaTeX Warning: Reference `fig:RL_RvarySig1' on page 17 undefined on input line 
-609.
+601.
 
 
-Package caption Warning: \label before \caption on input line 627.
+Package caption Warning: \label before \caption on input line 619.
 See the caption package documentation for explanation.
 
 
 LaTeX Warning: Reference `fig:RL_RvarySig2CCMVR' on page 17 undefined on input 
-line 623.
+line 615.
 
-[17] [18] [19] (./main.aux)
+File: graphics/RL_RvarySig2CCMVR.eps Graphic file (type eps)
+<graphics/RL_RvarySig2CCMVR.eps>
+Overfull \hbox (32.90152pt too wide) in paragraph at lines 620--621
+[][] 
+ []
+
+File: graphics/RL_RvarySig2CCMVI.eps Graphic file (type eps)
+<graphics/RL_RvarySig2CCMVI.eps>
+Overfull \hbox (32.90152pt too wide) in paragraph at lines 625--626
+[][] 
+ []
+
+File: graphics/RL_RvarySig2CCMIR.eps Graphic file (type eps)
+<graphics/RL_RvarySig2CCMIR.eps>
+Overfull \hbox (32.90152pt too wide) in paragraph at lines 630--631
+[][] 
+ []
+
+[17]
+
+Package caption Warning: \label before \caption on input line 645.
+See the caption package documentation for explanation.
+
+
+LaTeX Warning: Reference `fig:RL_Rsin2VsinCCMVR' on page 18 undefined on input 
+line 641.
+
+File: graphics/RL_Rsin2VsinCCMVR.eps Graphic file (type eps)
+<graphics/RL_Rsin2VsinCCMVR.eps>
+Overfull \hbox (32.90152pt too wide) in paragraph at lines 646--647
+[][] 
+ []
+
+File: graphics/RL_Rsin2VsinCCMVI.eps Graphic file (type eps)
+<graphics/RL_Rsin2VsinCCMVI.eps>
+Overfull \hbox (32.90152pt too wide) in paragraph at lines 651--652
+[][] 
+ []
+
+File: graphics/RL_Rsin2VsinCCMIR.eps Graphic file (type eps)
+<graphics/RL_Rsin2VsinCCMIR.eps>
+Overfull \hbox (32.90152pt too wide) in paragraph at lines 656--657
+[][] 
+ []
+
+[18]
+
+LaTeX Warning: Reference `' on page 19 undefined on input line 663.
+
+File: graphics/RL_Rsin3VsinCCMVR.eps Graphic file (type eps)
+<graphics/RL_Rsin3VsinCCMVR.eps>
+Overfull \hbox (32.90152pt too wide) in paragraph at lines 668--669
+[][] 
+ []
+
+File: graphics/RL_Rsin3VsinCCMVI.eps Graphic file (type eps)
+<graphics/RL_Rsin3VsinCCMVI.eps>
+Overfull \hbox (32.90152pt too wide) in paragraph at lines 673--674
+[][] 
+ []
+
+File: graphics/RL_Rsin3VsinCCMIR.eps Graphic file (type eps)
+<graphics/RL_Rsin3VsinCCMIR.eps>
+Overfull \hbox (32.90152pt too wide) in paragraph at lines 678--679
+[][] 
+ []
+
+
+Package caption Warning: \label before \caption on input line 689.
+See the caption package documentation for explanation.
+
+
+LaTeX Warning: Reference `fig:RL_Rsin1VsinCCMVR' on page 19 undefined on input 
+line 685.
+
+File: graphics/RL_Rsin1VsinCCMVR.eps Graphic file (type eps)
+<graphics/RL_Rsin1VsinCCMVR.eps>
+Overfull \hbox (32.90152pt too wide) in paragraph at lines 690--691
+[][] 
+ []
+
+File: graphics/RL_Rsin1VsinCCMVI.eps Graphic file (type eps)
+<graphics/RL_Rsin1VsinCCMVI.eps>
+Overfull \hbox (32.90152pt too wide) in paragraph at lines 695--696
+[][] 
+ []
+
+File: graphics/RL_Rsin1VsinCCMIR.eps Graphic file (type eps)
+<graphics/RL_Rsin1VsinCCMIR.eps>
+Overfull \hbox (32.90152pt too wide) in paragraph at lines 700--701
+[][] 
+ []
+
+
+Package caption Warning: \label before \caption on input line 711.
+See the caption package documentation for explanation.
+
+
+LaTeX Warning: Reference `fig:RL_RTriVsinCCMVR' on page 19 undefined on input l
+ine 707.
+
+File: graphics/RL_RTriVsinCCMVR.eps Graphic file (type eps)
+<graphics/RL_RTriVsinCCMVR.eps>
+Overfull \hbox (32.90152pt too wide) in paragraph at lines 712--713
+[][] 
+ []
+
+File: graphics/RL_RTriVsinCCMVI.eps Graphic file (type eps)
+<graphics/RL_RTriVsinCCMVI.eps>
+Overfull \hbox (32.90152pt too wide) in paragraph at lines 717--718
+[][] 
+ []
+
+File: graphics/RL_RTriVsinCCMIR.eps Graphic file (type eps)
+<graphics/RL_RTriVsinCCMIR.eps>
+Overfull \hbox (32.90152pt too wide) in paragraph at lines 722--723
+[][] 
+ []
+
+[19] [20] [21] (./main.aux)
 
 LaTeX Warning: There were undefined references.
 
  ) 
 Here is how much of TeX's memory you used:
- 3558 strings out of 495062
- 52581 string characters out of 1182645
+ 3618 strings out of 495062
+ 54060 string characters out of 1182645
  137423 words of memory out of 3000000
- 6669 multiletter control sequences out of 15000+50000
+ 6710 multiletter control sequences out of 15000+50000
  13670 words of font info for 49 fonts, out of 3000000 for 9000
  28 hyphenation exceptions out of 8191
- 36i,9n,38p,1482b,461s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 36i,9n,38p,1543b,461s stack positions out of 5000i,500n,10000p,200000b,50000s
 
-Output written on main.dvi (19 pages, 87196 bytes).
+Output written on main.dvi (21 pages, 96548 bytes).

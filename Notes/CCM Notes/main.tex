@@ -573,44 +573,36 @@ Imagine the RL circuit is described above, i.e.\
 $$
 \dot{I} = \frac{V}{L} - \frac{R}{L} I\;\;,
 $$
-where $I$ is the current, $V$ is the voltage, $R$ is the resistance, and $L$ is the inductance, but with both $V$ and $R$ as time-dependent parameters.  Consider, for example, that the resistance $R$ is provided by a transitor\footnote{http://arxiv.org/ftp/arxiv/papers/0708/0708.3498.pdf}  The driving time series will then be both the voltage $V$ and the resistance $R$, and the response times series will still be the current $I$.  Only the inductance will be considered fixed.
+where $I$ is the current, $V$ is the voltage, $R$ is the resistance, and $L$ is the inductance, but with both $V$ and $R$ as time-dependent parameters.  Consider, for example, that the resistance $R$ is provided by a transistor\footnote{http://arxiv.org/ftp/arxiv/papers/0708/0708.3498.pdf} or potentiometer.  The driving time series will then be both the voltage $V$ and the resistance $R$, and the response times series will still be the current $I$.  Only the inductance will be considered fixed.
 
 Suppose the voltage and resistance time series are given as pulses show in Figure \ref{fig:RL_RvarySig1} (which also shows the response $I$ time series).
 \begin{figure}[h!t]
 \centering
-\begin{subfigure}[b]{0.4\textwidth}
 \label{fig:RL_RvarySig1}
-%\includegraphics[scale=1]{RL_RvarySig1.eps}
-\caption{$L = 10$}
-\end{subfigure}
-\begin{subfigure}[b]{0.4\textwidth}
-\label{fig:RL_RvarySig1ZOOM}
-%\includegraphics[scale=1]{RL_RvarySig1ZOOM.eps}
-\caption{$L = 10$.  Zoomed in area of plot on the left.}
-\end{subfigure}
-\caption{}
+\includegraphics[scale=1]{graphics/RL_RvarySig1.eps}
+\caption{$L = 100$}
 \end{figure}
 The directed correlations between $V$ and $R$, $V$ and $I$, and $I$ and $R$ are shown in the Figure \ref{fig:RL_RvarySig1CCMVR}.
 \begin{figure}[h!t]
 \centering
 \begin{subfigure}[b]{0.25\textwidth}
 \label{fig:RL_RvarySig1CCMVR}
-%\includegraphics[scale=1]{RL_RvarySig1CCMVR.eps}
-\caption{$L = 10$ and $V$, $R$ given in Figure  \ref{fig:RL_RvarySig1}.}
+\includegraphics[scale=0.4]{graphics/RL_RvarySig1CCMVR.eps}
+\caption{$L = 100$ and $V$, $R$ given in Figure  \ref{fig:RL_RvarySig1}.}
 \end{subfigure}
 \begin{subfigure}[b]{0.25\textwidth}
 \label{fig:RL_RvarySig1CCMVI}
-%\includegraphics[scale=1]{RL_RvarySig1CCMVR.eps}
-\caption{$L = 10$ and $V$, $R$ given in Figure  \ref{fig:RL_RvarySig1}.}
+\includegraphics[scale=0.4]{graphics/RL_RvarySig1CCMVI.eps}
+\caption{$L = 100$ and $V$, $R$ given in Figure  \ref{fig:RL_RvarySig1}.}
 \end{subfigure}
 \begin{subfigure}[b]{0.25\textwidth}
 \label{fig:RL_RvarySig1CCMIR}
-%\includegraphics[scale=1]{RL_RvarySig1CCMVR.eps}
-\caption{$L = 10$ and $V$, $R$ given in Figure  \ref{fig:RL_RvarySig1}.}
+\includegraphics[scale=0.4]{graphics/RL_RvarySig1CCMRI.eps}
+\caption{$L = 100$ and $V$, $R$ given in Figure  \ref{fig:RL_RvarySig1}.}
 \end{subfigure}
 \caption{}
 \end{figure}
-These results imply that $V\rightarrow I$ and $R\rightarrow I$ with no directed correlation between $V$ and $R$.  These results agree with intuition.  
+These results imply that $V\rightarrow I$ and $R\rightarrow I$ with $V\rightarrow R$.  These results agree with intuition.  
 
 Similar results are obtained if the voltage signal is 
 $$
@@ -625,21 +617,133 @@ Those directed correlations are seen in Figure \ref{fig:RL_RvarySig2CCMVR}.
 \centering
 \begin{subfigure}[b]{0.25\textwidth}
 \label{fig:RL_RvarySig2CCMVR}
-%\includegraphics[scale=1]{RL_RvarySig2CCMVR.eps}
-\caption{$L = 10$ and $V$, $R$ given in text.}
+\includegraphics[scale=0.4]{graphics/RL_RvarySig2CCMVR.eps}
+\caption{$L = 100$ and $V$, $R$ given in text.}
 \end{subfigure}
 \begin{subfigure}[b]{0.25\textwidth}
 \label{fig:RL_RvarySig2CCMVI}
-%\includegraphics[scale=1]{RL_RvarySig2CCMVR.eps}
-\caption{$L = 10$ and $V$, $R$ given in text.}
+\includegraphics[scale=0.4]{graphics/RL_RvarySig2CCMVI.eps}
+\caption{$L = 100$ and $V$, $R$ given in text.}
 \end{subfigure}
 \begin{subfigure}[b]{0.25\textwidth}
 \label{fig:RL_RvarySig2CCMIR}
-%\includegraphics[scale=1]{RL_RvarySig2CCMVR.eps}
-\caption{$L = 10$ and $V$, $R$ given in text.}
+\includegraphics[scale=0.4]{graphics/RL_RvarySig2CCMIR.eps}
+\caption{$L = 100$ and $V$, $R$ given in text.}
 \end{subfigure}
 \caption{}
 \end{figure}
+Notice, however, that the directed correlation results are dependent on the phase of the resistance.  Suppose the resistance is written down as
+$$
+R(t) = A\sin(\omega t + \phi) + R_0\;\;.
+$$
+The example above used $A=\omega=1$, $R_0=1.05$ and $\phi=0$, but notice that similar results (i.e.\ ``intuative results'') can be acheived even if $A\neq 1$, $R_0\neq 1.05$ and $\phi\neq 0$.  
+
+Consider $A=R_0=0.5$ with $\omega=1$ and $\phi=0$.  These values lead to the directed correlations in Figure \ref{fig:RL_Rsin2VsinCCMVR}.
+\begin{figure}[h!t]
+\centering
+\begin{subfigure}[b]{0.25\textwidth}
+\label{fig:RL_Rsin2VsinCCMVR}
+\includegraphics[scale=0.4]{graphics/RL_Rsin2VsinCCMVR.eps}
+\caption{$L = 100$ and $V$, $R$ given in text. $A=R_0=0.5$ with $\omega=1$ and $\phi=0$}
+\end{subfigure}
+\begin{subfigure}[b]{0.25\textwidth}
+\label{fig:RL_Rsin2VsinCCMVI}
+\includegraphics[scale=0.4]{graphics/RL_Rsin2VsinCCMVI.eps}
+\caption{$L = 100$ and $V$, $R$ given in text. $A=R_0=0.5$ with $\omega=1$ and $\phi=0$}
+\end{subfigure}
+\begin{subfigure}[b]{0.25\textwidth}
+\label{fig:RL_Rsin2VsinCCMIR}
+\includegraphics[scale=0.4]{graphics/RL_Rsin2VsinCCMIR.eps}
+\caption{$L = 10$ and $V$, $R$ given in text. $A=R_0=0.5$ with $\omega=1$ and $\phi=0$}
+\end{subfigure}
+\caption{}
+\end{figure}
+These result agree with what was seen in the previous examples.
+
+Figure \ref{} shows the directed correlation when $A=\omega=1$, $R_0=1.05$, and $\phi=\pi/2$.
+\begin{figure}[h!t]
+\centering
+\begin{subfigure}[b]{0.25\textwidth}
+\label{fig:RL_Rsin3VsinCCMVR}
+\includegraphics[scale=0.4]{graphics/RL_Rsin3VsinCCMVR.eps}
+\caption{$L = 100$ and $V$, $R$ given in text. $A=\omega=1$, $R_0=1.05$, and $\phi=\pi/2$}
+\end{subfigure}
+\begin{subfigure}[b]{0.25\textwidth}
+\label{fig:RL_Rsin3VsinCCMVI}
+\includegraphics[scale=0.4]{graphics/RL_Rsin3VsinCCMVI.eps}
+\caption{$L = 100$ and $V$, $R$ given in text. $A=\omega=1$, $R_0=1.05$, and $\phi=\pi/2$}
+\end{subfigure}
+\begin{subfigure}[b]{0.25\textwidth}
+\label{fig:RL_Rsin3VsinCCMIR}
+\includegraphics[scale=0.4]{graphics/RL_Rsin3VsinCCMIR.eps}
+\caption{$L = 100$ and $V$, $R$ given in text. $A=\omega=1$, $R_0=1.05$, and $\phi=\pi/2$}
+\end{subfigure}
+\caption{}
+\end{figure}
+Again, these results agree with the previous results, although now the directed correlation between $V$ and $I$ is more different from the directed correlation between $R$ and $I$ than it was before.
+
+Changing the phase $\omega$, however, can lead to situations that do not support the intuitive result of $R\rightarrow I$.  For example, consider $A=R_0=\omega=0.5$.  These values lead the the directed correlations in Figure \ref{fig:RL_Rsin1VsinCCMVR}.
+\begin{figure}[h!t]
+\centering
+\begin{subfigure}[b]{0.25\textwidth}
+\label{fig:RL_Rsin1VsinCCMVR}
+\includegraphics[scale=0.4]{graphics/RL_Rsin1VsinCCMVR.eps}
+\caption{$L = 100$ and $V$, $R$ given in text. $A=R_0=\omega=0.5$}
+\end{subfigure}
+\begin{subfigure}[b]{0.25\textwidth}
+\label{fig:RL_Rsin1VsinCCMVI}
+\includegraphics[scale=0.4]{graphics/RL_Rsin1VsinCCMVI.eps}
+\caption{$L = 100$ and $V$, $R$ given in text. $A=R_0=\omega=0.5$}
+\end{subfigure}
+\begin{subfigure}[b]{0.25\textwidth}
+\label{fig:RL_Rsin1VsinCCMIR}
+\includegraphics[scale=0.4]{graphics/RL_Rsin1VsinCCMIR.eps}
+\caption{$L = 100$ and $V$, $R$ given in text. $A=R_0=\omega=0.5$}
+\end{subfigure}
+\caption{}
+\end{figure}
+These results imply $V\rightarrow I$, $I\rightarrow R$ and $V\rightarrow R$.
+
+Consider the situation where the voltage is driven with the sinusoidal signal from above and the resistance is driven by the triangular pulse shown at the beginning of the section.  Such a scenario leads to the directed correlations shown in Figure \ref{fig:RL_RTriVsinCCMVR}.
+\begin{figure}[h!t]
+\centering
+\begin{subfigure}[b]{0.25\textwidth}
+\label{fig:RL_RTriVsinCCMVR}
+\includegraphics[scale=0.4]{graphics/RL_RTriVsinCCMVR.eps}
+\caption{$L = 100$ and $V$, $R$ given in text. Triangular pulse $R$.}
+\end{subfigure}
+\begin{subfigure}[b]{0.25\textwidth}
+\label{fig:RL_RTriVsinCCMVI}
+\includegraphics[scale=0.4]{graphics/RL_RTriVsinCCMVI.eps}
+\caption{$L = 100$ and $V$, $R$ given in text.  Triangular pulse $R$.}
+\end{subfigure}
+\begin{subfigure}[b]{0.25\textwidth}
+\label{fig:RL_RTriVsinCCMIR}
+\includegraphics[scale=0.4]{graphics/RL_RTriVsinCCMIR.eps}
+\caption{$L = 10$ and $V$, $R$ given in text.  Triangular pulse $R$.}
+\end{subfigure}
+\caption{}
+\end{figure}
+These directed correlations imply $V\rightarrow I$ as expected, but it also implies $I\rightarrow R$ and $V\rightarrow R$ which apparently obeys transitivity (i.e.\ $V\rightarrow I,\;I\rightarrow R\Rightarrow V\rightarrow R$) but seems counter-intuitive as it was expected that $R\rightarrow I$.
+
+The above results seem to imply that the voltage is the primary driver of the system and can, under certain scenarios, even be seen as a ``driver'' of the resistance through the current.  
+
+Consider approximating the above equation
+$$
+\dot{I} = \frac{V}{L} - \frac{R}{L} I\Rightarrow I_{t+1}-I_t = \frac{V_t}{L} - \frac{R_t}{L} I_t\;\;.
+$$
+Rearranging leads to
+$$
+I_{t+1} = \frac{V_t}{L}+I_t\left(1-\frac{R_t}{L}\right)\;\;,
+$$
+$$
+V_t = L\left(I_{t+1}-I_t\left(1-\frac{R_t}{L}\right)\right)\;\;,
+$$
+and
+$$
+R_t = L\left(I_t-I_{t+1}+\frac{V_t}{L}\right)\;\;.
+$$
+These equations seem to imply that if the amplitude of the voltage is larger than both the resistance and the current, then the voltage will appear to drive both the current and the resistance.  This is exactly the case seen in the above examples and points, again, to the problem of using language should as ``driving'' to describe the relationship indicated by the directed correlation.  If the voltage, resistance, and current were all completely out of the experimenter's control and the only data available is the time series described above.  Then, it is reasonable that certain scenarios would allow the voltage to be used to predict both the resistance and the current because the voltage physically drives the current and shares a similar, repetitive mathematical structure with the resistance.  The prediction ability of the voltage for the two quantities may come from different mechanisms (i.e.\ physical driving or mathematical structure), but the prediction ability itself is what is of interest to us here.  This is what is meant by the term ``driving''.  It is not reasonable to state that the voltage physically drives the resistance in this particular case because by construction, the voltage and the resistance are independent.  The voltage can ``drive'' the resistance in the sense that it can be used to predict the resistance.  After writing all of this stuff, I'm starting to think that I should avoid using the term ``driving'' at all.  Stick with the arrows and try to define it precisely at the beginning.
 
 \subsection{Three Population Example}
 Consider extended the two population model used by Sugihara et.\ al.\ to a ``three population'' model for $X(t)$, $Y(t)$, and $Z(t)$ defined as follows:
