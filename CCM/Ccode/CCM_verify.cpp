@@ -1,3 +1,4 @@
+​
 #include <stdio.h>
 #include <math.h>
 #include <algorithm>
@@ -153,12 +154,12 @@ double CCMcorr(double dY[],int iY_length, double dX_UsedForShadow[],int iX_UsedF
         //Save the time step locations of the E+1 closest neighbors
         int iTempValue = 0;
         for(int iEDimStep = 0; iEDimStep < (iEmbeddingDimension+1); iEDimStep++ ){
-            iTstepOfNearestNeighborsTempRow[iEDimStep] = 0;
+            iTstepOfNearestNeighborsTempRow[iEDimStep] = -1;
         }
         for(int iEDimStep = 0; iEDimStep < (iEmbeddingDimension+1); iEDimStep++ ){
             iTempValue = FindAndCheckIndex(dUnsortedNorms,iCalShadManDim,dSortedNorms[iEDimStep+1],iTstepOfNearestNeighborsTempRow,(iEmbeddingDimension+1));
             iTstepOfNearestNeighborsTempRow[iEDimStep] = iTempValue;
-            iTstepOfNearestNeighbors[iDelayVectorN-1][iEDimStep] = iTempValue;
+            //iTstepOfNearestNeighbors[iDelayVectorN-1][iEDimStep] = iTempValue;
         }
         //for(int iEDimStep = 0; iEDimStep < (iEmbeddingDimension+1); iEDimStep++ ){
         //    printf("%i,",iTstepOfNearestNeighborsTempRow[iEDimStep]);
@@ -257,29 +258,27 @@ double eDist(double dX[],double dY[],int iXY_length){
 */
 int FindAndCheckIndex(double dValues2BCompared[],int iValues2BCompared_length,double dValue2Compare,int iIndices2Check[],int iIndices2Check_length){
    
-    bool bUniqueIndex = false,
+    bool bUniqueIndex = true,
          bFoundMatch = false;
    
     for(int iter = 0;iter < iValues2BCompared_length;iter++ ){
-        for(int iIndexCheckStep = 0;iIndexCheckStep < iIndices2Check_length;iIndexCheckStep++ ){
-            if( iter == iIndices2Check[iIndexCheckStep] ){
-                bUniqueIndex = false;
-            }else{
-                bUniqueIndex = true;
-            }
-        }
-           
         if( dValues2BCompared[iter] == dValue2Compare ){
             bFoundMatch = true;
         }
-        if( bFoundMatch && bUniqueIndex){
-            return(iter);   
+        if( bFoundMatch ){
+            bUniqueIndex = true;
+            for(int iIndexCheckStep = 0;iIndexCheckStep < iIndices2Check_length;iIndexCheckStep++ ){
+                bUniqueIndex &= (iter != iIndices2Check[iIndexCheckStep]);
+            }
+            if( bUniqueIndex ){
+                return(iter);
+            }
         }
+        bFoundMatch = false;
     }
    
      fprintf(stderr, "Error in FindAndCheckIndex(): no match was found, so an index of -1 will be returned");
     return(-1);   
 }
-
 
 
