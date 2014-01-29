@@ -15,7 +15,7 @@ Xstring = sprintf('%s -> %s',Xname,Yname);
 Ystring = sprintf('%s -> %s',Yname,Xname);
 xlabel(Xstring);
 ylabel(Ystring);
-titlestring = sprintf('Directed Corrletion of (|D|,D_{angle}) = (%f,%f) for %s and %s',magnitude,theta,Xname,Yname); 
+titlestring = sprintf('Directed Corrletion of (|D|,D_{angle}) = (%f,%f) for %s and %s',magnitude,theta,Xname,Y); 
 title(titlestring);
 
 return;

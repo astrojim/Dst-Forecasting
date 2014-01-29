@@ -3,21 +3,23 @@ number_of_samples = 500;
 %seed_value_ry = 34;
 %seed_value_Xo = 56;
 %seed_value_Yo = 78;
-mean_rx = 3.8;%3.8;
-mean_ry = 3.5;%3.5;
+mean_rx = 3.1;%3.8;
+mean_ry = 3.9;%3.5;
 mean_Xo = 0.4;%0.4;
 mean_Yo = 0.2;%0.2;
 var_rx = 0.05;
 var_ry = 0.05;
 var_Xo = 0.1;
 var_Yo = 0.1;
-library_length = [500];
+library_length = [1000];
 
-Bxy = [0:0.01:1];%0.2;%0.02;
-Byx = [0:0.01:1];%0.002;%0.1;
+Bxy = 0.2;%[0:0.01:1];%0.2;%0.02;
+Byx = 0.002;%[0:0.01:1];%0.002;%0.1;
 
 tolerance = 1E-12;
 plotdataCCM = zeros(length(library_length),number_of_samples);
+plotdataXY = zeros(length(library_length),number_of_samples);
+plotdataYX = zeros(length(library_length),number_of_samples);
 plotBimage = zeros(length(Bxy),length(Byx));
 
 for bxystep = 1:1:length(Bxy),
@@ -25,16 +27,19 @@ for bxystep = 1:1:length(Bxy),
         for llstep = 1:1:length(library_length),
             for sampstep = 1:1:number_of_samples,
 
-                X = zeros(library_length(llstep),1);
+                X = zeros(200,1);%library_length(llstep),1);
                 Y = X;
-                X(1) = abs(normrnd(mean_Xo,var_Xo,1,1));
-                Y(1) = abs(normrnd(mean_Yo,var_Yo,1,1));
-                rx = abs(normrnd(mean_rx,var_rx,1,1));
-                ry = abs(normrnd(mean_ry,var_ry,1,1));
+                X(1) = 0.2;%abs(normrnd(mean_Xo,var_Xo,1,1));
+                Y(1) = 0.2;%abs(normrnd(mean_Yo,var_Yo,1,1));
+                rx = 3.5;%abs(normrnd(mean_rx,var_rx,1,1));
+                ry = 3.5;%abs(normrnd(mean_ry,var_ry,1,1));
+                Bxy = 0.02;
+                Byx = 0.1;
+
 
                 for fstep = 1:(length(X)-1),
-                    X(fstep+1) = X(fstep)*(rx-rx*X(fstep)-Bxy(bxystep)*Y(fstep));
-                    Y(fstep+1) = Y(fstep)*(ry-ry*Y(fstep)-Byx(byxstep)*X(fstep));
+                    X(fstep+1) = X(fstep)*(rx-rx*X(fstep)-Bxy*Y(fstep));
+                    Y(fstep+1) = Y(fstep)*(ry-ry*Y(fstep)-Byx*X(fstep));
                 end;
 
                 %{
@@ -50,6 +55,8 @@ for bxystep = 1:1:length(Bxy),
                 CCM_YX = CCM(X,Y,3,1);
                 Delta = CCM_YX-CCM_XY;
                 plotdataCCM(llstep,sampstep) = Delta;
+                plotdataXY(llstep,sampstep) = CCM_XY;
+                plotdataYX(llstep,sampstep) = CCM_YX;
                 fprintf(' => %f\n',Delta);
 
             end;
@@ -59,6 +66,9 @@ for bxystep = 1:1:length(Bxy),
         plotBimage(bxystep,byxstep) = mean(plotdata_filtered);
     end;
 end;
+
+
+
 
 %plotdataCCM
 %{
