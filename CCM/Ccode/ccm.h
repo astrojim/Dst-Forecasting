@@ -194,7 +194,7 @@ double eDist(double dX[],double dY[],int iXY_length){
     double dRunningSum = 0;
    
     for(int iter = 0; iter < iXY_length; iter++ ){
-        dRunningSum += pow((dX[iter]-dY[iter]),2);
+        dRunningSum += (dX[iter]-dY[iter])*(dX[iter]-dY[iter]);
     }
    
     return(sqrt(dRunningSum));
