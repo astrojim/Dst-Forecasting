@@ -6,6 +6,308 @@ double CCMcorr(double[],int,double[],int,int,int);
 double eDist(double[],double[],int);
 int FindAndCheckIndex(double[],int,double,int[],int);
 double Pcorr(double[], double[], int);
+int FindLagTimeStep(double[],int,int,double,bool);
+void FindWeightsFromShadow(double[],int[],double[],double**,int, int,int);
+int FindEmbeddingDimension(double[],int,int,double,int,bool);
+int iMode(int[],int);
+
+/*FindLagTimeStep -- Find a Lag Time Step
+  This function calculates autocorrelations for sequential lag times
+  starting with 1 and going to a specified value, and then returns the
+  lag time used to calculate the maximum value in that set.  Warnings
+  are returned if the autocorrelations appear to have cyclic behavior
+  because it is assumed that the user wants to know.
+ 
+  References: http://en.wikipedia.org/wiki/Autocorrelation
+             
+  Dependencies:   Pcorr (function call)
+                  math.h (header)
+ 
+  Input Parameters:
+      double dX[] - vector of values
+      int iX_length - length of X
+      int iMaxAutoCorrToCheck - maximum lag used to calculate an autocorrelation
+      double dCompareTolerance - the tolerance value below which two values should
+                                 be considered "equal"
+      bool bVerboseFlag - flag that controls printing the autocorrelation values to
+                          STDERR
+                  
+  Output Parameters:
+      int - lag time used to calculate the maximum autocorrelation within the given bounds
+*/
+int FindLagTimeStep(double dX[],int iXlength,int iMaxAutoCorrToCheck,double dCompareTolerance,bool bVerboseFlag){
+   
+    if( iMaxAutoCorrToCheck > (iXlength/2) ){
+        fprintf(stderr, "Warning in FindLagTimeStep(): the maximum autocorreltaion lag is half the library length; ignoring requested value and checking to a lag of half the library length\n");
+        iMaxAutoCorrToCheck = (iXlength/2);
+    }
+   
+    double dAutoCorrs[iMaxAutoCorrToCheck],
+           dCurrentAutoCorr = 0;
+    int iTempVecLength = 0;
+   
+    //Calculate autocorrelations
+    if( bVerboseFlag ){
+            fprintf(stderr,"-- FindLagTimeStep() verbose output begin --\n");
+    }
+    for(int iAutoCorrLagStep = 1;iAutoCorrLagStep <= iMaxAutoCorrToCheck;iAutoCorrLagStep++ ){
+       
+        iTempVecLength = iXlength-iAutoCorrLagStep;
+        double dXtemp1[iTempVecLength],dXtemp2[iTempVecLength];
+       
+        for(int iTempVecBuildStep=0;iTempVecBuildStep < iTempVecLength;iTempVecBuildStep++ ){
+            dXtemp1[iTempVecBuildStep] = dX[iTempVecBuildStep];
+            dXtemp2[iTempVecBuildStep] = dX[iTempVecBuildStep+iAutoCorrLagStep];
+        }
+       
+        dCurrentAutoCorr = Pcorr(dXtemp1,dXtemp2,iTempVecLength);
+        dAutoCorrs[iAutoCorrLagStep-1] = dCurrentAutoCorr*dCurrentAutoCorr;
+        if( bVerboseFlag ){
+            fprintf(stderr,"%.20f\n",dAutoCorrs[iAutoCorrLagStep-1]);
+        }
+    }
+    if( bVerboseFlag ){
+            fprintf(stderr,"-- FindLagTimeStep() verbose output end --\n");
+    }
+   
+    //Find max
+    int iCurrentMaxAutoCorrLag = 1;
+    dCurrentAutoCorr = dAutoCorrs[0];
+    for(int iter = 1;iter < iMaxAutoCorrToCheck;iter++ ){
+       
+        if( fabs(dAutoCorrs[iter]-dCurrentAutoCorr) < dCompareTolerance ){
+            fprintf(stderr, "Warning in FindLagTimeStep(): autocorrelations may be cyclic; run with verbose flag to see all the autocorrelations\n");
+        }
+       
+        if( dAutoCorrs[iter] > dCurrentAutoCorr ){
+            dCurrentAutoCorr = dAutoCorrs[iter];
+            iCurrentMaxAutoCorrLag = iter+1;           
+        }
+    }
+   
+    return(iCurrentMaxAutoCorrLag);
+}
+
+/*FindEmbeddingDimension -- Find the max embedding dimension
+  This function finds the embedding dimension for which the weight of
+  a nearest neighbor falls below a given threshold value.  Such a "cutoff"
+  embedding dimension is found for a given number of time steps and then
+  the mode of those values is returned.
+ 
+  References: see the directed correlation paper and notes
+            
+  Dependencies: FindWeightsFromShadow (function call)
+                iMode (function call)
+ 
+  Input Parameters:
+        double dX[] - vector of data used to create the shadow manifold
+        int iXlength - length of X
+        int iNumberOfTimeStep2Check - the number of time steps to check
+        double dWeightToleranceLevel - the tolerance level used to define the
+                                       "cutoff" embedding dimension
+        int iLagTime - the lag time step used to create the shadow manifold
+        bool bVerboseFlag - flag that controls the printing of the weights to
+                            STDERR
+                  
+  Output Parameters:
+        int - the mode of all the requested time steps' "cutoff" embedding
+              dimensions
+*/
+int FindEmbeddingDimension(double dX[],int iXlength,int iNumberOfTimeStep2Check,double dWeightToleranceLevel,int iLagTime,bool bVerboseFlag){
+   
+    //Set the max embedding dimension to check (to save computation time)
+    int iMaxEDim = (iXlength/2);
+   
+    //Find minimum size of possible shadow manifolds and report a warning
+    //if the requested number of time step checks is too large
+    int iCalShadManDimMin = iXlength-((iMaxEDim-1)*iLagTime);
+    if( iNumberOfTimeStep2Check > iCalShadManDimMin ){
+        fprintf(stderr,"Warning in FindEmbeddingDimension(): the requested number of time step checks is too large; setting the value to %i\n",iCalShadManDimMin);
+        iNumberOfTimeStep2Check = iCalShadManDimMin;
+    }
+   
+    int iCutoffEDimForEachTimeStep[iNumberOfTimeStep2Check];
+    for(int iter=0;iter < iNumberOfTimeStep2Check;iter++ ){
+        iCutoffEDimForEachTimeStep[iter] = -1;
+    }
+   
+    if( bVerboseFlag ){
+        fprintf(stderr,"-- FindEmbeddingDimension() verbose output begin --\n");
+    }
+   
+    //Loop through the requested number of delay vectors to find the weights
+    for(int iDelayVectorN = 1; iDelayVectorN <= iNumberOfTimeStep2Check;iDelayVectorN++ ){
+       
+        for(int iEstep = 2;iEstep < iMaxEDim;iEstep++ ){
+           
+            //Find calculated shadow manifold dimension
+            int iCalShadManDim = iXlength-((iEstep-1)*iLagTime);
+           
+            //Assign some memory for the shadow manifold
+            double** dXShadow;
+            dXShadow = new double*[iCalShadManDim];
+            for(int iter = 0;iter < iCalShadManDim;iter++ ){
+                dXShadow[iter] = new double[iEstep];
+            }
+            int iTstep4delayvector;
+           
+            //Create the shadow manifold by creating the delay vectors sequentially
+            for(int iShadowStep = 1; iShadowStep <= iCalShadManDim; iShadowStep++ ){
+                iTstep4delayvector = iShadowStep+((iEstep-1)*iLagTime);
+                for(int iDimStep = 1; iDimStep <= iEstep; iDimStep++ ){
+                    dXShadow[iShadowStep-1][iDimStep-1] = dX[(iTstep4delayvector-((iDimStep-1)*iLagTime))-1];
+                }
+            }
+       
+            //Storage for sorting, calculating, and organizing
+            double dDelayVectorOfInterest[iEstep],  //delay vector currently being compared
+                   dWeights[(iEstep+1)],  //weights to contruct Y estimate
+                   dYEstimateGivenX[iCalShadManDim];  //estimated Y used the shadow manifold of X
+          
+            int iTstepOfNearestNeighborsTempRow[iEstep+1];  //time steps of nearest neighbor delay vectors
+               
+            //Populate the temp delay vector
+            for(int iCopyStep = 0; iCopyStep < iEstep; iCopyStep++ ){
+                dDelayVectorOfInterest[iCopyStep] = dXShadow[iDelayVectorN-1][iCopyStep];
+            }
+          
+            FindWeightsFromShadow(dWeights,iTstepOfNearestNeighborsTempRow,dDelayVectorOfInterest,dXShadow,iCalShadManDim,iEstep,iLagTime);                  
+   
+            //Free the dXshadow memory
+            for(int iter = 0;iter < iCalShadManDim;iter++ ){
+                delete dXShadow[iter];
+            }
+            delete dXShadow;
+           
+            //Check weights
+            for(int iWstep = 0;iWstep < (iEstep+1);iWstep++ ){
+                if( dWeights[iWstep] < dWeightToleranceLevel ){
+                    iCutoffEDimForEachTimeStep[iDelayVectorN] = iEstep;
+                    iEstep = (iXlength/2)+1; //break out of the loop over embedding dimensions
+                }
+                if( bVerboseFlag ){
+                    fprintf(stderr,"t = %i;E = %i; weight %i = %.20f (tol = %.20f)\n",iDelayVectorN,iEstep,iWstep,dWeights[iWstep],dWeightToleranceLevel);
+                }
+            }
+        }
+    }
+  
+   if( bVerboseFlag ){
+        fprintf(stderr,"Cutoff embedding dimensions for each time step:\n");
+        for(int iter=0;iter < iNumberOfTimeStep2Check;iter++ ){
+            fprintf(stderr,"%i\n",iCutoffEDimForEachTimeStep[iter]);
+        }           
+    }
+    if( bVerboseFlag ){
+        fprintf(stderr,"-- FindEmbeddingDimension() verbose output end --\n");
+    }
+   
+    //Find and return mode
+    int iEDimMode = iMode(iCutoffEDimForEachTimeStep,iNumberOfTimeStep2Check);
+    return(iEDimMode);
+}
+
+
+/*FindWeightsFromShadow -- Find the Normalized Nearest Neighbor Weights
+  This function calculates the normalized weights from the nearest
+  neighbors of a given delay vector on the given shadow manifold.  This
+  function is designed to work seamlessly with CCMCorr, so the variable
+  names might be a little strange.
+ 
+  References: http://en.wikipedia.org/wiki/Convergent_cross_mapping
+              https://www.sciencemag.org/content/338/6106/496.figures-only
+              https://www.sciencemag.org/content/338/6106/496/suppl/DC1
+            
+  Dependencies:   eDist (function call)
+                  FindAndCheckIndex (function call)
+                  math.h (header)
+ 
+  Input Parameters:
+      double dWeights[] - array of (iEmbeddingDimension+1) doubles into
+                          which the calculated weights will be placed
+      int iTstepOfNearestNeighborsTempRow[] - array of (iEmbeddingDimension+1) integers
+                                              into which the time steps associated to
+                                              the weights in dWeights will be placed
+      double dDelayVectorOfInterest[] - delay vector used to find the nearest neighbors
+      double** dXShadow - the shadow manifold
+      int iCalShadManDim - the calculated shadow manifold dimension (e.g. calculated
+                           in CCMCorr)
+      int iEmbeddingDimension - dimension of the shadow manifold
+      int iLagTime - lag time step used to construct the delay vectors
+                    that make up the n-dimensional points of the
+                    shadow manifold
+                  
+  Output Parameters:
+
+*/
+void FindWeightsFromShadow(double dWeights[],  int iTstepOfNearestNeighborsTempRow[],  double dDelayVectorOfInterest[],double** dXShadow,int iCalShadManDim, int iEmbeddingDimension,int iLagTime){
+
+    //Storage for sorting, calculating, and organizing
+    double dDelayVector2Compare[iEmbeddingDimension],  //iterated delay vector for comparison
+           dXShadowNorm,  //eucleadian distance between delay vectors being compared
+           dUnsortedNorms[iCalShadManDim],  //unsorted eucleadian distances between delay vectors
+           dSortedNorms[iCalShadManDim],  //sorted eucleadian distances between delay vectors
+           dYEstimateGivenX[iCalShadManDim],  //estimated Y used the shadow manifold of X
+           dWeightDenominator,  //denominator in weights calculation (used for zero check)
+           dWeightNormalization;  //normalization factor for weights
+    int iTempValue;  //temporary value for time step of nearest neightbor delay vector
+  
+    //Loop through all of the delay vector to compare to the temp delay vector
+    for(int iTstep = 1; iTstep <= iCalShadManDim; iTstep++ ){
+  
+        //Populate the temp delay vector for comparison
+        for(int iCopyStep = 0; iCopyStep < iEmbeddingDimension; iCopyStep++ ){
+            dDelayVector2Compare[iCopyStep] = dXShadow[iTstep-1][iCopyStep];
+        }
+      
+        //Find the distance between the two temp vectors and save it
+        dXShadowNorm = eDist(dDelayVectorOfInterest,dDelayVector2Compare,iEmbeddingDimension);
+       
+    //Save the norms to be sorted later
+        dUnsortedNorms[iTstep-1] = dXShadowNorm;
+        dSortedNorms[iTstep-1] = dXShadowNorm;
+    }
+   
+    //Sort the norms
+    std::sort(dSortedNorms,dSortedNorms+iCalShadManDim);
+
+    //Save the time step locations of the E+1 closest neighbors
+    iTempValue = 0;
+    for(int iEDimStep = 0; iEDimStep < (iEmbeddingDimension+1); iEDimStep++ ){
+        iTstepOfNearestNeighborsTempRow[iEDimStep] = -1;
+    }
+    for(int iEDimStep = 0; iEDimStep < (iEmbeddingDimension+1); iEDimStep++ ){
+        iTempValue = FindAndCheckIndex(dUnsortedNorms,iCalShadManDim,dSortedNorms[iEDimStep+1],iTstepOfNearestNeighborsTempRow,(iEmbeddingDimension+1));
+        iTstepOfNearestNeighborsTempRow[iEDimStep] = iTempValue;
+    }
+  
+    //Find denominator for weight calculation
+    if( dSortedNorms[1] == 0 ){
+        dWeightDenominator = 0.00000000000000000001;
+        fprintf(stderr, "Warning in CCMcorr(): division by zero; approximation made\n");
+    }else{
+        dWeightDenominator = dSortedNorms[1];
+    }
+          
+    //Find weights
+    dWeightNormalization = 0;
+    for( int iWeightStep = 0;iWeightStep < (iEmbeddingDimension+1);iWeightStep++ ){
+        dWeights[iWeightStep] = exp((-1*dSortedNorms[iWeightStep+1])/dWeightDenominator);
+        dWeightNormalization += dWeights[iWeightStep];
+    }
+  
+    //Check normalization factor just to be safe
+    if( dWeightNormalization == 0 ){
+        dWeightNormalization = 0.00000000000000000001;
+        fprintf(stderr, "Warning in CCMcorr(): division by zero; approximation made\n");
+    }
+  
+    //Find normalized weights
+    for( int iWeightStep = 0;iWeightStep < (iEmbeddingDimension+1);iWeightStep++ ){
+        dWeights[iWeightStep] = dWeights[iWeightStep]/dWeightNormalization;
+    }
+  
+}
 
 /*CCMcorr -- Convergent Cross Mapped Correlation
   This function returns the (square) Pearson correlation coefficent
@@ -16,7 +318,7 @@ double Pcorr(double[], double[], int);
   References: http://en.wikipedia.org/wiki/Convergent_cross_mapping
               https://www.sciencemag.org/content/338/6106/496.figures-only
               https://www.sciencemag.org/content/338/6106/496/suppl/DC1
-             
+            
   Dependencies:   eDist (function call)
                   FindAndCheckIndex (function call)
                   Pcorr (function call)
@@ -37,7 +339,7 @@ double Pcorr(double[], double[], int);
       int iLagTime - lag time step used to construct the delay vectors
                     that make up the n-dimensional points of the
                     shadow manifold
-                   
+                  
   Output Parameters:
       double - square of the Pearson correlation coefficent
                between Y and Y|X
@@ -49,7 +351,7 @@ double CCMcorr(double dY[],int iY_length, double dX_UsedForShadow[],int iX_UsedF
         fprintf(stderr, "Error in CCMCorr(): embedding dimension is %i which is less than 3\n", iEmbeddingDimension);
         return(-1);
     }
-   
+  
     //Check Max
     //TODO: Figure out maximum for Embedding dimension (it depends on
     //      LagTime and the library length of X)
@@ -57,14 +359,19 @@ double CCMcorr(double dY[],int iY_length, double dX_UsedForShadow[],int iX_UsedF
     //    fprintf(stderr, "Error in CCMCorr(): embedding dimension is %i which is more than %i\n", EmbeddingDimension,MAX_TBD);
     //    return(-1);
     //}
-   
+  
     //Find calculated shadow manifold dimension
     int iCalShadManDim = iX_UsedForShadow_length-((iEmbeddingDimension-1)*iLagTime);
-    
-    //Populate shadow manifold be creating the delay vectors sequentially
-    double dXShadow[iCalShadManDim][iEmbeddingDimension];
+   
+    //Assign some memory for the shadow manifold
+    double** dXShadow;
+    dXShadow = new double*[iCalShadManDim];
+    for(int iter = 0;iter < iCalShadManDim;iter++ ){
+        dXShadow[iter] = new double[iEmbeddingDimension];
+    }
     int iTstep4delayvector;
-    
+   
+    //Create the shadow manifold by creating the delay vectors sequentially
     for(int iShadowStep = 1; iShadowStep <= iCalShadManDim; iShadowStep++ ){
         iTstep4delayvector = iShadowStep+((iEmbeddingDimension-1)*iLagTime);
         for(int iDimStep = 1; iDimStep <= iEmbeddingDimension; iDimStep++ ){
@@ -74,83 +381,24 @@ double CCMcorr(double dY[],int iY_length, double dX_UsedForShadow[],int iX_UsedF
 
     //Storage for sorting, calculating, and organizing
     double dDelayVectorOfInterest[iEmbeddingDimension],  //delay vector currently being compared
-           dDelayVector2Compare[iEmbeddingDimension],  //iterated delay vector for comparison
-           dXShadowNorm,  //eucleadian distance between delay vectors being compared
-           dUnsortedNorms[iCalShadManDim],  //unsorted eucleadian distances between delay vectors
-            dSortedNorms[iCalShadManDim],  //sorted eucleadian distances between delay vectors
-           dYEstimateGivenX[iCalShadManDim],  //estimated Y used the shadow manifold of X
            dWeights[(iEmbeddingDimension+1)],  //weights to contruct Y estimate
-           dWeightDenominator,  //denominator in weights calculation (used for zero check)
-           dWeightNormalization;  //normalization factor for weights
-    int iTstepOfNearestNeighborsTempRow[iEmbeddingDimension+1],  //time steps of nearest neighbor delay vectors
-        iTempValue;  //temporary value for time step of nearest neightbor delay vector
+           dYEstimateGivenX[iCalShadManDim];  //estimated Y used the shadow manifold of X
+  
+    int iTstepOfNearestNeighborsTempRow[iEmbeddingDimension+1];  //time steps of nearest neighbor delay vectors
    
     //Find starting point in Y for the estimate
     int iYStart = (iEmbeddingDimension-1)*iLagTime;
 
     //Loop through all of the delay vectors to find it distance to every other one
     for(int iDelayVectorN = 1; iDelayVectorN <= iCalShadManDim;iDelayVectorN++ ){
-        
+       
         //Populate the temp delay vector
         for(int iCopyStep = 0; iCopyStep < iEmbeddingDimension; iCopyStep++ ){
             dDelayVectorOfInterest[iCopyStep] = dXShadow[iDelayVectorN-1][iCopyStep];
         }
-       
-        //Loop through all of the delay vector to compare to the temp delay vector
-        for(int iTstep = 1; iTstep <= iCalShadManDim; iTstep++ ){
-       
-            //Populate the temp delay vector for comparison
-            for(int iCopyStep = 0; iCopyStep < iEmbeddingDimension; iCopyStep++ ){
-                dDelayVector2Compare[iCopyStep] = dXShadow[iTstep-1][iCopyStep];
-            }
-           
-            //Find the distance between the two temp vectors and save it
-            dXShadowNorm = eDist(dDelayVectorOfInterest,dDelayVector2Compare,iEmbeddingDimension);
-            
-	    //Save the norms to be sorted later
-            dUnsortedNorms[iTstep-1] = dXShadowNorm;
-            dSortedNorms[iTstep-1] = dXShadowNorm;
-        }
-        
-        //Sort the norms
-        std::sort(dSortedNorms,dSortedNorms+iCalShadManDim);
-
-        //Save the time step locations of the E+1 closest neighbors
-        iTempValue = 0;
-        for(int iEDimStep = 0; iEDimStep < (iEmbeddingDimension+1); iEDimStep++ ){
-            iTstepOfNearestNeighborsTempRow[iEDimStep] = -1;
-        }
-        for(int iEDimStep = 0; iEDimStep < (iEmbeddingDimension+1); iEDimStep++ ){
-            iTempValue = FindAndCheckIndex(dUnsortedNorms,iCalShadManDim,dSortedNorms[iEDimStep+1],iTstepOfNearestNeighborsTempRow,(iEmbeddingDimension+1));
-            iTstepOfNearestNeighborsTempRow[iEDimStep] = iTempValue;
-        }
-       
-        //Find denominator for weight calculation
-        if( dSortedNorms[1] == 0 ){
-            dWeightDenominator = 0.00000000000000000001;
-            fprintf(stderr, "Warning in CCMcorr(): division by zero; approximation made\n");
-        }else{
-            dWeightDenominator = dSortedNorms[1];
-        }
-               
-        //Find weights
-        dWeightNormalization = 0;
-        for( int iWeightStep = 0;iWeightStep < (iEmbeddingDimension+1);iWeightStep++ ){
-            dWeights[iWeightStep] = exp((-1*dSortedNorms[iWeightStep+1])/dWeightDenominator);
-            dWeightNormalization += dWeights[iWeightStep];
-        }
-       
-        //Check normalization factor just to be safe
-        if( dWeightNormalization == 0 ){
-            dWeightNormalization = 0.00000000000000000001;
-            fprintf(stderr, "Warning in CCMcorr(): division by zero; approximation made\n");
-        }
-       
-        //Find normalizaed weights
-        for( int iWeightStep = 0;iWeightStep < (iEmbeddingDimension+1);iWeightStep++ ){
-            dWeights[iWeightStep] = dWeights[iWeightStep]/dWeightNormalization;
-        }
-       
+      
+        FindWeightsFromShadow(dWeights,iTstepOfNearestNeighborsTempRow,dDelayVectorOfInterest,dXShadow,iCalShadManDim,iEmbeddingDimension,iLagTime);       
+      
         //Find Y point estimates from X shadow manifold
         dYEstimateGivenX[iDelayVectorN-1] = 0;
         for( int iWeightStep = 0;iWeightStep < (iEmbeddingDimension+1);iWeightStep++ ){
@@ -158,15 +406,21 @@ double CCMcorr(double dY[],int iY_length, double dX_UsedForShadow[],int iX_UsedF
         }
     }
 
+    //Free the dXshadow memory
+    for(int iter = 0;iter < iCalShadManDim;iter++ ){
+        delete dXShadow[iter];
+    }
+    delete dXShadow;
+   
     //Clip Y to calculate correlation
     double dYclipped[iCalShadManDim];
     for(int iYstep = 0 ;iYstep < iY_length;iYstep++ ){
         dYclipped[iYstep] = dY[iYStart+iYstep];
     }
-   
+  
     //Find correlation of Y and its estimate
     double dPcorrYYX = Pcorr(dYclipped,dYEstimateGivenX,iCalShadManDim);
-   
+  
     //Return the squared correlation value
     return(dPcorrYYX*dPcorrYYX);
 }
@@ -245,7 +499,7 @@ iIndices2Check_length;iIndexCheckStep++ ){
         bFoundMatch = false;
     }
    
-    fprintf(stderr, "Error in FindAndCheckIndex(): no match was found, so an index of -1 will be returned");
+    fprintf(stderr, "Error in FindAndCheckIndex(): no match was found, so an index of -1 will be returned\n");
     return(-1);  
 }
 
@@ -300,6 +554,47 @@ double Pcorr(double dX[],double dY[],int iXY_length){
     }
    
     return(dSXY/dCovNorm);
+}
+
+/*iMode -- Find the mode of a set of integers
+  This function finds the mode of a set of integers
+ 
+  References: http://cforbeginners.com/mode_c++.html
+              http://en.wikipedia.org/wiki/Mode_(statistics)
+            
+  Dependencies:  
+ 
+  Input Parameters:
+        int iA[] - set of integers
+        int iAlength - length of A
+                  
+  Output Parameters:
+        int - mode of A
+     
+*/
+int iMode(int iA[],int iAlength){
+   
+    int iRepetitions[iAlength];
+   
+    for(int iter = 0; iter < iAlength;iter++ ){       
+        iRepetitions[iter] = 0;
+        for(int iter2 = 0;iter2 < iAlength;iter2++ ){
+            if( iA[iter2] == iA[iter] ){
+                iRepetitions[iter]++;
+            }
+        }
+    }
+
+    int iMaxIter = 0,
+        iCurrentRepCount = iRepetitions[0];
+    for (int iter = 1;iter < iAlength;iter++ ){
+        if( iRepetitions[iter] > iCurrentRepCount ){
+            iMaxIter = iter;
+            iCurrentRepCount = iRepetitions[iter];
+        }
+    }
+   
+    return( iA[iMaxIter] );
 }
 
 

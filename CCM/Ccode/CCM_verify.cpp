@@ -25,28 +25,16 @@ int main(){
     printf("%f\n",CCMcorr(Y3,24,X3,24,4,2));
     printf("%f\n",CCMcorr(Y4,28,X4,28,4,2));
 
-    char buffer[1024] ;
-    char *record,*line;
-    int i=0,j=0;
-    int mat[100][100];
-    FILE *fstream = fopen("\myFile.csv","r");
-    if(fstream == NULL)
-    {
-       printf("\n file opening failed ");
-       return -1 ;
-    }
-    while((line=fgets(buffer,sizeof(buffer),fstream))!=NULL)
-    {
-      record = strtok(line,";");
-      while(record != NULL)
-      {
-       printf("record : %s",record) ;    //here you can put the record into the array as per your requirement.
-       mat[i][j++] = atoi(record) ;
-       record = strtok(line,";");
-      }
-      ++i ;
-    }
+    printf("%.20f\n",CCMcorr(Y4,28,X4,28,3,1));
    
+    int iCalLag = FindLagTimeStep(X4,28,10,0.001,false),
+        iCalEdim =FindEmbeddingDimension(X4,28,10,0.001,1,false);
+    if( iCalEdim != -1 ){
+        printf("%i,%i -> %.20f\n",iCalLag,iCalEdim,CCMcorr(Y4,28,X4,28,iCalEdim,iCalLag));
+    }else{
+        printf("Failed to find embedding dimension.\n");
+    }
+       
     return(0);
 }
 
