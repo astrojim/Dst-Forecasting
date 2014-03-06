@@ -283,8 +283,8 @@ void FindWeightsFromShadow(double dWeights[],  int iTstepOfNearestNeighborsTempR
   
     //Find denominator for weight calculation
     if( dSortedNorms[1] == 0 ){
-        dWeightDenominator = 0.00000000000000000001;
-        fprintf(stderr, "Warning in CCMcorr(): division by zero; approximation made\n");
+        dWeightDenominator = nan("");;
+        fprintf(stderr, "Warning in CCMcorr(): division by zero\n");
     }else{
         dWeightDenominator = dSortedNorms[1];
     }
@@ -298,8 +298,8 @@ void FindWeightsFromShadow(double dWeights[],  int iTstepOfNearestNeighborsTempR
   
     //Check normalization factor just to be safe
     if( dWeightNormalization == 0 ){
-        dWeightNormalization = 0.00000000000000000001;
-        fprintf(stderr, "Warning in CCMcorr(): division by zero; approximation made\n");
+        dWeightNormalization = nan("");;
+        fprintf(stderr, "Warning in CCMcorr(): division by zero\n");
     }
   
     //Find normalized weights
@@ -549,8 +549,8 @@ double Pcorr(double dX[],double dY[],int iXY_length){
    
     dCovNorm = sqrt(dSX*dSY);
     if( dCovNorm == 0 ){
-        dCovNorm = 0.00000000000000000001;
-        fprintf(stderr, "Warning in Pcorr(): division by zero; approximation made\n");
+        dCovNorm = nan("");
+        fprintf(stderr, "Warning in Pcorr(): division by zero\n");
     }
    
     return(dSXY/dCovNorm);
