@@ -5,10 +5,11 @@
 
 int main(int argc, char **argv){
 
-    int iEmbeddingDimension,
-	iLagTimeStep,
+    int iMaxAutoCorrToCheck,
 	iLibraryLength,
 	iNumOfTimeSeries;
+
+    double dCompareTolerance;
 
     char *cOutputname,
 	 *cFilename; //this data file is assumed to be in the proper format (see "usage")
@@ -18,15 +19,15 @@ int main(int argc, char **argv){
     //================= READ COMMAND LINE ARGS
     if( (argc < 12) || (strcmp("-h",argv[1]) == 0) || (strcmp("-?",argv[1]) == 0) ){
 
-	printf("usage: %s -E [integer1] -t [integer2] -L [integer3] -f [filename1] -n [integer4] -o [filename2] -v\n",argv[0]);
-	printf("  [integer1]  = embedding dimension\n");
-	printf("  [integer2]  = lag time step\n");
+	printf("usage: %s -M [integer1] -T [float1] -L [integer3] -f [filename1] -n [integer4] -o [filename2] -v\n",argv[0]);
+	printf("  [integer1]  = max autocorrelation to check\n");
+	printf("  [float1]  = comparison tolerance\n");
 	printf("  [integer3]  = library length of the time series (assumed to be equal for X and Y)\n");
 	printf("  [filename1] = filename of text file containing time series data for X and Y with\n");
 	printf("                columns seperated by commas and rows seperated by semicolons (it is\n");
 	printf("                assumed that there are only X and Y in the file, i.e. only two columns)\n");
 	printf("  [integer4]  = number of time series in the file\n");
-	printf("  [filename2] = filename of text file containing ouput CCM correlations\n");
+	printf("  [filename2] = filename of text file in which to write the ouput lag calculations\n");
 	printf("  -v flag provides various bits of information sent to STDOUT\n");
 	printf("input data file format:  X0,Y0;\n");
    	printf("	   	         X1,Y1;\n");
@@ -34,25 +35,25 @@ int main(int argc, char **argv){
    	printf("		         X3,Y3;\n");
    	printf("		         X4,Y4;\n");
    	printf("		          ...\n");
-	printf("output data file format: CCM(X,Y),CCM(Y,X) [time series 1]\n");
-	printf("                         CCM(X,Y),CCM(Y,X) [time series 2]\n");
+	printf("output data file format: lag(X),lag(Y) [time series 1]\n");
+	printf("                         lag(X),lag(Y) [time series 2]\n");
 	printf("                                ...\n");
 
 	return(-1);
 
     }else{
 
-	if( strcmp("-E",argv[1]) == 0 ){
-		iEmbeddingDimension = atoi(argv[2]);
+	if( strcmp("-M",argv[1]) == 0 ){
+		iMaxAutoCorrToCheck = atoi(argv[2]);
 	}else{
-		fprintf(stderr, "Error: embedding dimension is not defined\n");
+		fprintf(stderr, "Error: maximum autocorrelation to check is not defined\n");
 		return(-1);
 	}
 
-	if( strcmp("-t",argv[3]) == 0 ){
-		iLagTimeStep = atoi(argv[4]);
+	if( strcmp("-T",argv[3]) == 0 ){
+		dCompareTolerance = atof(argv[4]);
 	}else{
-		fprintf(stderr, "Error: lag time step is not defined\n");
+		fprintf(stderr, "Error: comparison tolerance is not defined\n");
 		return(-1);
 	}
 
@@ -100,7 +101,7 @@ int main(int argc, char **argv){
 	   dY[iLibraryLength];
 
     if( bVerboseFlag ){
-	printf("Input data file: %s\nOutput file: %s\nNumber of time series in input file: %i\nLibrary length: %i\nEmbedding dimension: %i\nLag time step: %i\n",cFilename,cOutputname,iNumOfTimeSeries,iLibraryLength,iEmbeddingDimension,iLagTimeStep);
+	printf("Input data file: %s\nOutput file: %s\nNumber of time series in input file: %i\nLibrary length: %i\nMax autocorrelation to check: %i\nComparison tolerance: %f\n",cFilename,cOutputname,iNumOfTimeSeries,iLibraryLength,iMaxAutoCorrToCheck,dCompareTolerance);
     }
 
     FILE *ifstream = fopen(cFilename,"r");
@@ -121,7 +122,6 @@ int main(int argc, char **argv){
 	    if( bVerboseFlag ){ printf("TS %i:",iTSiter); }
 
 	    if( bVerboseFlag ){ printf(" Reading TS..."); }
-	    //while( (cRowValues = fgets(cBuffer,sizeof(cBuffer),ifstream)) != NULL ){
 		
 	    for( iter=0;iter < iLibraryLength;iter++ ){
 		cRowValues = fgets(cBuffer,sizeof(cBuffer),ifstream);
@@ -140,11 +140,11 @@ int main(int argc, char **argv){
 		}
 	    }
 
-	    if( bVerboseFlag ){ printf("Writing CCMs..."); }
+	    if( bVerboseFlag ){ printf("Writing Lags..."); }
 
-	    //================= OUTPUT CCMs
-	    fprintf(ofstream,"%.20f,",CCMcorr(dX,iLibraryLength,dY,iLibraryLength,iEmbeddingDimension,iLagTimeStep));
-	    fprintf(ofstream,"%.20f\n",CCMcorr(dY,iLibraryLength,dX,iLibraryLength,iEmbeddingDimension,iLagTimeStep));
+	    //================= OUTPUT Lags
+	    fprintf(ofstream,"%i,",FindLagTimeStep(dX,iLibraryLength,iMaxAutoCorrToCheck,dCompareTolerance,false));
+	    fprintf(ofstream,"%i\n",FindLagTimeStep(dY,iLibraryLength,iMaxAutoCorrToCheck,dCompareTolerance,false));
 
 	    if( bVerboseFlag ){ printf(" done.\n"); }
     }   

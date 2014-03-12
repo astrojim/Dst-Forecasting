@@ -79,6 +79,10 @@ int FindLagTimeStep(double dX[],int iXlength,int iMaxAutoCorrToCheck,double dCom
             fprintf(stderr, "Warning in FindLagTimeStep(): autocorrelations may be cyclic; run with verbose flag to see all the autocorrelations\n");
         }
        
+	if( fabs(dCurrentAutoCorr-1) < dCompareTolerance ){
+            fprintf(stderr, "Warning in FindLagTimeStep(): autocorrelations may be near unity; run with verbose flag to see all the autocorrelations\n");
+        }
+
         if( dAutoCorrs[iter] > dCurrentAutoCorr ){
             dCurrentAutoCorr = dAutoCorrs[iter];
             iCurrentMaxAutoCorrLag = iter+1;           
