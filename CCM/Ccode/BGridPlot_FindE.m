@@ -2,9 +2,8 @@ addpath('..');
 addpath('../../utils');
 
 number_of_samples = 1000;
-library_length = 1500;
-E = 3;
-tau = 1;
+library_length = 1000;
+
 mean_rx = 3.8;
 mean_ry = 3.5;
 mean_Xo = 0.4;
@@ -30,7 +29,7 @@ for Bxystep = 1:1:length(Bxy_vec),
         PointCount = PointCount+1;
         fprintf('Creating C input data file...');
         tic;
-        Coutputfilename = sprintf('out_Bxy%.2f_Byx%.2f_L%i.dat',Bxy_vec(Bxystep),Byx_vec(Byxstep),library_length);
+        Coutputfilename = sprintf('Es_Bxy%.2f_Byx%.2f.dat',Bxy_vec(Bxystep),Byx_vec(Byxstep));
         Cinputfilename = sprintf('BGridPlot_Bxy%.2f_Byx%.2f.dat',Bxy_vec(Bxystep),Byx_vec(Byxstep));
         fileID = fopen(Cinputfilename,'w');
         TScount = 0;
@@ -60,8 +59,8 @@ for Bxystep = 1:1:length(Bxy_vec),
         
         fprintf('Calling C code...');
         tic;
-        CCommandString = sprintf('./ccm -E %i -t %i -L %i -f %s -n %i -o %s',...
-                                  E,tau,library_length,Cinputfilename,TScount,Coutputfilename);
+        CCommandString = sprintf('./findE -T %i -d %.7f -a %i -L %i -f %s -n %i -o %s',...
+                                  0.25*library_length,0.000001,1,library_length,Cinputfilename,TScount,Coutputfilename);
         [status,cmdout] = system(CCommandString);
         %fprintf('%s\n',cmdout);
         RMCommandString = sprintf('rm %s',Cinputfilename);

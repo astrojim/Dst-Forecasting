@@ -1,8 +1,10 @@
 addpath('..');
 addpath('../../utils');
 
-Bxy_vec = [1e-8:0.1:2.0];
-Byx_vec = [1e-8:0.1:2.0];
+library_length = 100;
+
+Bxy_vec = [1e-8:0.02:0.5];
+Byx_vec = [1e-8:0.02:0.5];
 
 PointTotal = length(Bxy_vec)*length(Byx_vec);
 PlotGrid = zeros(length(Bxy_vec),length(Byx_vec));
@@ -12,7 +14,7 @@ tic;
 for Bxystep = 1:1:length(Bxy_vec),
     for Byxstep = 1:1:length(Byx_vec),    
         
-        Meansfilename = sprintf('means_Bxy%.2f_Byx%.2f.dat',Bxy_vec(Bxystep),Byx_vec(Byxstep));
+        Meansfilename = sprintf('means_Bxy%.2f_Byx%.2f_L%i.dat',Bxy_vec(Bxystep),Byx_vec(Byxstep),library_length);
 
         if exist(Meansfilename, 'file')
             fileID = fopen(Meansfilename,'r');
