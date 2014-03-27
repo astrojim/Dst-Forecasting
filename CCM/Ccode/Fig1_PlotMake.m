@@ -2,6 +2,8 @@
 %et al. plot CCM(Y,X)-CCM(X,Y).  Rather than recreate the data sets (which,
 %admittedly, would not be too difficult), everything is just multiplied
 %through by -1
+load 'BGridCOutDataSmallL1500/PlotGridDataL1500.mat';
+PlotGridL1500 = -1.*PlotGrid;
 load 'BGridCOutDataSmallL1000/PlotGridDataL1000.mat';
 PlotGridL1000 = -1.*PlotGrid;
 load 'BGridCOutDataSmallL500/PlotGridDataL500.mat';
@@ -15,56 +17,59 @@ alw = 0.75;    % AxesLineWidth
 fsz = 12;      % Fontsize
 lw = 2.0;      % LineWidth
 msz = 8;       % MarkerSize
+numContours = 15;
 
 figure(1);
-subplot(2,2,1);
 pos = get(gcf, 'Position');
 set(gcf, 'Position', [pos(1) pos(2) width*100, height*100]); %<- Set size
 set(gca, 'FontSize', fsz, 'LineWidth', alw); %<- Set properties
-contourf(Bxy_vec,Byx_vec,PlotGridL100,15);
+cmap = colormap(jet(numContours+2));
+ncol = size(cmap,1);           
+zpos = 1 + floor(1/2 * ncol);   
+cmap(zpos,:) = [1 1 1];        
+colormap(cmap); 
+
+subplot(2,2,1);
+contourf(Bxy_vec,Byx_vec,PlotGridL100,numContours);
 xlim([0 0.48]);
 ylim([0 0.48]);
 caxis([-0.8 0.8]);
-colorbar(); 
+cbar = colorbar();
+title(cbar,'\Delta');
 xlabel('\beta_{yx}');
 ylabel('\beta_{xy}');
 title('L = 100');
 
 subplot(2,2,2);
-pos = get(gcf, 'Position');
-set(gcf, 'Position', [pos(1) pos(2) width*100, height*100]); %<- Set size
-set(gca, 'FontSize', fsz, 'LineWidth', alw); %<- Set properties
-contourf(Bxy_vec,Byx_vec,PlotGridL500,15);
+contourf(Bxy_vec,Byx_vec,PlotGridL500,numContours);
 xlim([0 0.48]);
 ylim([0 0.48]);
 caxis([-0.8 0.8]);
-colorbar(); 
+cbar = colorbar();
+title(cbar,'\Delta');
 xlabel('\beta_{yx}');
 ylabel('\beta_{xy}');
 title('L = 500');
 
 subplot(2,2,3);
-pos = get(gcf, 'Position');
-set(gcf, 'Position', [pos(1) pos(2) width*100, height*100]); %<- Set size
-set(gca, 'FontSize', fsz, 'LineWidth', alw); %<- Set properties
-contourf(Bxy_vec,Byx_vec,PlotGridL1000,15);
+contourf(Bxy_vec,Byx_vec,PlotGridL1000,numContours);
 xlim([0 0.48]);
 ylim([0 0.48]);
 caxis([-0.8 0.8]);
-colorbar(); 
+cbar = colorbar();
+title(cbar,'\Delta');
 xlabel('\beta_{yx}');
 ylabel('\beta_{xy}');
 title('L = 1000');
 
 subplot(2,2,4);
-pos = get(gcf, 'Position');
-set(gcf, 'Position', [pos(1) pos(2) width*100, height*100]); %<- Set size
-set(gca, 'FontSize', fsz, 'LineWidth', alw); %<- Set properties
-contourf(Bxy_vec,Byx_vec,PlotGridL1000,15);
+contourf(Bxy_vec,Byx_vec,PlotGridL1500,numContours);
 xlim([0 0.48]);
 ylim([0 0.48]);
 caxis([-0.8 0.8]);
-colorbar(); 
+cbar = colorbar();
+title(cbar,'\Delta');
 xlabel('\beta_{yx}');
 ylabel('\beta_{xy}');
-title('PLACEHOLDER --- L = 1000');
+title('L = 1500');
+
