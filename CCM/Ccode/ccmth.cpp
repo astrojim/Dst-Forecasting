@@ -8,10 +8,21 @@
 
 using namespace std;
 
+// Create a struct to pass to the threads
+struct CCM_asyncData{
+
+	int iEmbeddingDimension,
+	    iLagTimeStep,
+	    iLibraryLength;
+
+	double *dX,*dY;
+
+};
+
 // Simple functions to help stay organized
 void CmdLineHelp();
 bool ReadCmdLineArgs(int,char**);
-double* CCMcorr_async(double*,double*);
+double CCMcorr_async(CCM_asyncData);
 
 // Globals read from command line
 int iEmbeddingDimension = -1,
@@ -42,7 +53,11 @@ int main(int argc, char **argv){
 
     //Declare things needed for threading
     double dCCMcorrs[iNumThreads][2];
-    future<double> WorkerThreads[iNumThreads];
+    future<double> WorkerThreads[iNumThreads][2];
+    CCM_asyncData sThreadData;
+    sThreadData.iEmbeddingDimension = iEmbeddingDimension;
+    sThreadData.iLagTimeStep = iLagTimeStep;
+    sThreadData.iLibraryLength = iLibraryLength;
 
     if( bVerboseFlag ){
             printf("Input data file: %s\nOutput file: %s\nNumber of time series in input file: %i\nLibrary length: %i\nEmbedding dimension: %i\nLag time step: %i\n",cFilename,cOutputname,iNumOfTimeSeries,iLibraryLength,iEmbeddingDimension,iLagTimeStep);
@@ -97,23 +112,38 @@ int main(int argc, char **argv){
         }else{
             if( iCurrentThreadsUsed < iNumThreads ){
 
-                WorkerThreads[iCurrentThreadsUsed] = async(launch::async,CCMcorr_async,dX,dY);
-                iCurrentThreadsUsed++;
+               	sThreadData.dX = dX;
+		sThreadData.dY = dY;
+                WorkerThreads[iCurrentThreadsUsed][0] = async(launch::async,CCMcorr_async,sThreadData);
+
+		sThreadData.dX = dY;
+		sThreadData.dY = dX;
+		WorkerThreads[iCurrentThreadsUsed][1] = async(launch::async,CCMcorr_async,sThreadData);
+
+		iCurrentThreadsUsed++;
 
             }else{
 
                 for(int iThreadIter = 0;iThreadIter < iNumThreads;iNumThreads++ ){
-                    dCCMcorrs[iThreadIter] = WorkerThreads[iThreadIter].get();
+                    dCCMcorrs[iThreadIter][0] = WorkerThreads[iThreadIter][0].get();
+		    dCCMcorrs[iThreadIter][1] = WorkerThreads[iThreadIter][1].get();
                 }
 
                 iCurrentThreadsUsed = 0;
-                WorkerThreads[iCurrentThreadsUsed] = async(launch::async,CCMcorr_async,dX,dY);
+
+                sThreadData.dX = dX;
+		sThreadData.dY = dY;
+                WorkerThreads[iCurrentThreadsUsed][0] = async(launch::async,CCMcorr_async,sThreadData);
+
+		sThreadData.dX = dY;
+		sThreadData.dY = dX;
+		WorkerThreads[iCurrentThreadsUsed][1] = async(launch::async,CCMcorr_async,sThreadData);
 
                 for(int iThreadIter = 0;iThreadIter < iNumThreads;iNumThreads++ ){
                     fprintf(ofstream,"%.20f,",dCCMcorrs[iThreadIter][0]);
                     fprintf(ofstream,"%.20f\n",dCCMcorrs[iThreadIter][1]);
-                    dCCMcorrs[iThreadIter][0] = nan;
-                    dCCMcorrs[iThreadIter][1] = nan;
+                    dCCMcorrs[iThreadIter][0] = nan("");
+                    dCCMcorrs[iThreadIter][1] = nan("");
                 }
             }
         }
@@ -143,10 +173,10 @@ void CmdLineHelp(char* cName){
     printf("  [filename2] = filename of text file containing ouput CCM correlations\n");
     printf("  -v flag provides various bits of information sent to STDOUT\n");
     printf("input data file format:  X0,Y0;\n");
-    printf("                                 X1,Y1;\n");
-    printf("                                 X2,Y2;\n");
-    printf("                                 X3,Y3;\n");
-    printf("                                 X4,Y4;\n");
+    printf("                         X1,Y1;\n");
+    printf("                         X2,Y2;\n");
+    printf("                         X3,Y3;\n");
+    printf("                         X4,Y4;\n");
     printf("                          ...\n");
     printf("output data file format: CCM(X,Y),CCM(Y,X) [time series 1]\n");
     printf("                         CCM(X,Y),CCM(Y,X) [time series 2]\n");
@@ -252,13 +282,9 @@ bool ReadCmdLineArgs(int argc, char **argv){
     return( true );
 }
 
-double* CCMcorr_async(double dX[],double dY[]){
+double CCMcorr_async(CCM_asyncData sThreadData){
 
-    double dOutput[2];
+	double dResult = CCMcorr(sThreadData.dX,sThreadData.iLibraryLength,sThreadData.dY,sThreadData.iLibraryLength,sThreadData.iEmbeddingDimension,sThreadData.iLagTimeStep);
+	return( dResult );
 
-    dOutput[0] = CCMcorr(dX,iLibraryLength,dY,iLibraryLength,iEmbeddingDimension,iLagTimeStep);
-    dOutput[1] = CCMcorr(dY,iLibraryLength,dX,iLibraryLength,iEmbeddingDimension,iLagTimeStep);
-
-    return( dOutput );
 }
-

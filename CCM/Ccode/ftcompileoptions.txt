@@ -1,0 +1,1 @@
+g++ futuretest.cpp -o ft -std=c++11 -pthread -Wl,--no-as-needed
