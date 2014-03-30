@@ -40,6 +40,7 @@ bool bVerboseFlag = false;
 int main(int argc, char **argv){
 
     bool bCmdLineOK = ReadCmdLineArgs(argc,argv);
+    fprintf("\nbCmdLineOK = %i\n\n",bCmdLineOK);
     if( !bCmdLineOK ){
         return(-1);
     }
