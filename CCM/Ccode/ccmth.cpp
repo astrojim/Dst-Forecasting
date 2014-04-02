@@ -2,9 +2,10 @@
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
-#include "ccm.h"
 #include <thread>
 #include <future>
+#include <chrono>
+#include "ccmsrc.h"
 
 using namespace std;
 
@@ -34,13 +35,13 @@ int iEmbeddingDimension = -1,
 char *cOutputname,
      *cFilename; //this data file is assumed to be in the proper format (see "usage")
 
-bool bVerboseFlag = false;
+bool bVerboseFlag = false,
+     bOptThreading = false;
 
 // Main
 int main(int argc, char **argv){
 
     bool bCmdLineOK = ReadCmdLineArgs(argc,argv);
-    fprintf("\nbCmdLineOK = %i\n\n",bCmdLineOK);
     if( !bCmdLineOK ){
         return(-1);
     }
@@ -55,6 +56,7 @@ int main(int argc, char **argv){
     //Declare things needed for threading
     double dCCMcorrs[iNumThreads][2];
     future<double> WorkerThreads[iNumThreads][2];
+    future_status WorkerStatus[2];
     CCM_asyncData sThreadData;
     sThreadData.iEmbeddingDimension = iEmbeddingDimension;
     sThreadData.iLagTimeStep = iLagTimeStep;
@@ -79,11 +81,14 @@ int main(int argc, char **argv){
     }
 
     if( bVerboseFlag ){ printf("Processing %s...\n",cFilename); }
-    int iCurrentThreadsUsed = 0;
+    int iCurrentThreadsUsed = 0,
+        iCheckThread = 0;
+    bool bFoundOpenThread;
     for(int iTSiter = 0;iTSiter < iNumOfTimeSeries;iTSiter++ ){
 
 	if( bVerboseFlag ){ printf("TS %i:",iTSiter); }
 	if( bVerboseFlag ){ printf("Reading TS..."); }
+	bFoundOpenThread = false;
 
         //read in dX and dY
         for( iter=0;iter < iLibraryLength;iter++ ){
@@ -107,8 +112,17 @@ int main(int argc, char **argv){
 
         if( iNumThreads == 0 ){
 
-            fprintf(ofstream,"%.20f,",CCMcorr(dX,iLibraryLength,dY,iLibraryLength,iEmbeddingDimension,iLagTimeStep));
-            fprintf(ofstream,"%.20f\n",CCMcorr(dY,iLibraryLength,dX,iLibraryLength,iEmbeddingDimension,iLagTimeStep));
+            //fprintf(ofstream,"%.20f,",CCMcorr(dX,iLibraryLength,dY,iLibraryLength,iEmbeddingDimension,iLagTimeStep));
+            //fprintf(ofstream,"%.20f\n",CCMcorr(dY,iLibraryLength,dX,iLibraryLength,iEmbeddingDimension,iLagTimeStep));
+	      
+	      sThreadData.dX = dX;
+	      sThreadData.dY = dY;
+              fprintf(ofstream,"%.20f,",CCMcorr_async(sThreadData));
+	      //printf("%.20f,",CCMcorr_async(sThreadData));
+	      sThreadData.dX = dY;
+	      sThreadData.dY = dX;
+              fprintf(ofstream,"%.20f\n",CCMcorr_async(sThreadData));
+	      //printf("%.20f\n",CCMcorr_async(sThreadData));
 
         }else{
             if( iCurrentThreadsUsed < iNumThreads ){
@@ -125,26 +139,87 @@ int main(int argc, char **argv){
 
             }else{
 
-                for(int iThreadIter = 0;iThreadIter < iNumThreads;iNumThreads++ ){
-                    dCCMcorrs[iThreadIter][0] = WorkerThreads[iThreadIter][0].get();
-		    dCCMcorrs[iThreadIter][1] = WorkerThreads[iThreadIter][1].get();
-                }
+		if( bOptThreading ){
 
-                iCurrentThreadsUsed = 0;
+                    while( !bFoundOpenThread ){
+                        if( WorkerThreads[iCheckThread][0].valid() && WorkerThreads[iCheckThread][1].valid() ){
+                            
+			    WorkerStatus[0] = WorkerThreads[iCheckThread][0].wait_for(chrono::seconds(0));
+                            WorkerStatus[1] = WorkerThreads[iCheckThread][1].wait_for(chrono::seconds(0));
+                            
+			    if( (WorkerStatus[0] == future_status::ready) && (WorkerStatus[1] == future_status::ready) ){
 
-                sThreadData.dX = dX;
-		sThreadData.dY = dY;
-                WorkerThreads[iCurrentThreadsUsed][0] = async(launch::async,CCMcorr_async,sThreadData);
 
-		sThreadData.dX = dY;
-		sThreadData.dY = dX;
-		WorkerThreads[iCurrentThreadsUsed][1] = async(launch::async,CCMcorr_async,sThreadData);
+				fprintf(ofstream,"%.20f,",WorkerThreads[iCheckThread][0].get());
+				fprintf(ofstream,"%.20f\n",WorkerThreads[iCheckThread][1].get());
+				//printf("%.20f,",WorkerThreads[iCheckThread][0].get());
+				//printf("%.20f\n",WorkerThreads[iCheckThread][1].get());
+                                sThreadData.dX = dX;
+                                sThreadData.dY = dY;
+                                WorkerThreads[iCheckThread][0] = async(launch::async,CCMcorr_async,sThreadData);
 
-                for(int iThreadIter = 0;iThreadIter < iNumThreads;iNumThreads++ ){
-                    fprintf(ofstream,"%.20f,",dCCMcorrs[iThreadIter][0]);
-                    fprintf(ofstream,"%.20f\n",dCCMcorrs[iThreadIter][1]);
-                    dCCMcorrs[iThreadIter][0] = nan("");
-                    dCCMcorrs[iThreadIter][1] = nan("");
+                                sThreadData.dX = dY;
+                                sThreadData.dY = dX;
+                                WorkerThreads[iCheckThread][1] = async(launch::async,CCMcorr_async,sThreadData);
+
+                                bFoundOpenThread = true;
+
+                            }
+
+                        }else if(!WorkerThreads[iCheckThread][0].valid() && !WorkerThreads[iCheckThread][1].valid() ){
+
+                            sThreadData.dX = dX;
+                            sThreadData.dY = dY;
+                            WorkerThreads[iCheckThread][0] = async(launch::async,CCMcorr_async,sThreadData);
+
+                            sThreadData.dX = dY;
+                            sThreadData.dY = dX;
+                            WorkerThreads[iCheckThread][1] = async(launch::async,CCMcorr_async,sThreadData);
+
+                            bFoundOpenThread = true;
+
+                        }else{
+
+                            iCheckThread++;
+                            if( iCheckThread > iNumThreads ){
+                                iCheckThread = 0;
+                            }
+
+                        }
+
+                    }
+
+                }else{
+
+                    for(int iThreadIter = 0;iThreadIter < iNumThreads;iThreadIter++ ){
+                        
+			if( WorkerThreads[iThreadIter][0].valid() && WorkerThreads[iThreadIter][1].valid() ){
+                            dCCMcorrs[iThreadIter][0] = WorkerThreads[iThreadIter][0].get();
+                            dCCMcorrs[iThreadIter][1] = WorkerThreads[iThreadIter][1].get();
+
+                        }
+
+                    }
+
+                    iCurrentThreadsUsed = 0;
+
+                    sThreadData.dX = dX;
+                    sThreadData.dY = dY;
+                    WorkerThreads[iCurrentThreadsUsed][0] = async(launch::async,CCMcorr_async,sThreadData);
+
+                    sThreadData.dX = dY;
+                    sThreadData.dY = dX;
+                    WorkerThreads[iCurrentThreadsUsed][1] = async(launch::async,CCMcorr_async,sThreadData);
+
+                    for(int iThreadIter = 0;iThreadIter < iNumThreads;iThreadIter++ ){
+                        fprintf(ofstream,"%.20f,",dCCMcorrs[iThreadIter][0]);
+                        fprintf(ofstream,"%.20f\n",dCCMcorrs[iThreadIter][1]);
+			//printf("%.20f,",dCCMcorrs[iThreadIter][0]);
+                        //printf("%.20f\n",dCCMcorrs[iThreadIter][1]);
+                        dCCMcorrs[iThreadIter][0] = nan("");
+                        dCCMcorrs[iThreadIter][1] = nan("");
+                    }
+
                 }
             }
         }
@@ -230,10 +305,9 @@ bool ReadCmdLineArgs(int argc, char **argv){
 
             bVerboseFlag = true;
 
-        }else{
+        }else if( strcmp("-Op",argv[iter]) == 0 ){
 
-            CmdLineHelp(argv[0]);
-            return( false );
+            bOptThreading = true;
 
         }
     }
