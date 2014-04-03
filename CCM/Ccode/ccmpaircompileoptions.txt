@@ -1,0 +1,3 @@
+g++ -c ccmsrc.cpp -o ccmsrc -std=c++11 -lstdc++ -lm -pthread -Wl,--no-as-needed
+g++ -c ccmth.cpp -o ccmth -std=c++11 -lstdc++ -lm -pthread -Wl,--no-as-needed
+g++ ccmsrc ccmth -o CCMpair -std=c++11 -lstdc++ -lm -pthread -Wl,--no-as-needed

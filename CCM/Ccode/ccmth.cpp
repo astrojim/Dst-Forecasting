@@ -220,6 +220,7 @@ int main(int argc, char **argv){
                         dCCMcorrs[iThreadIter][1] = nan("");
                     }
 
+		    iCurrentThreadsUsed++;
                 }
             }
         }
@@ -227,6 +228,17 @@ int main(int argc, char **argv){
         if( bVerboseFlag ){ printf(" done.\n"); }
 
     }
+
+    for(int iThreadIter = 0;iThreadIter < iNumThreads;iThreadIter++ ){
+                        
+	if( WorkerThreads[iThreadIter][0].valid() && WorkerThreads[iThreadIter][1].valid() ){
+            fprintf(ofstream,"%.20f,",WorkerThreads[iThreadIter][0].get());
+      	    fprintf(ofstream,"%.20f\n",WorkerThreads[iThreadIter][1].get());
+
+        }
+
+    }
+
     fclose(ifstream);
     fclose(ofstream);
 

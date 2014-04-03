@@ -18,8 +18,8 @@ figure(1);
 pos = get(gcf, 'Position');
 set(gcf, 'Position', [pos(1) pos(2) width*100, height*100]); %<- Set size
 set(gca, 'FontSize', fsz, 'LineWidth', alw); %<- Set properties
-cmap = colormap(jet(numContours+2));
-colormap(cmap); 
+cmap = colormap(gray(numContours));
+colormap(flipud(cmap)); 
 imagesc(PlotGrid);
 %xlim([0 0.48]);
 %ylim([0 0.48]);
