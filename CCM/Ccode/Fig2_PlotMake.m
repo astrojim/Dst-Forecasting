@@ -2,7 +2,8 @@
 %et al. plot CCM(Y,X)-CCM(X,Y).  Rather than recreate the data sets (which,
 %admittedly, would not be too difficult), everything is just multiplied
 %through by -1
-load 'EtauGrid/EtauPlotData.mat';
+%load 'EtauGrid/EtauPlotData.mat';
+load 'EtauGrid_ALTforCOMPARISON/EtauPlotData.mat';
 PlotGrid = -1.*EtauPlotGrid;
 PlotGrid = PlotGrid(3:end,1:15);
 
@@ -12,7 +13,11 @@ alw = 0.75;    % AxesLineWidth
 fsz = 12;      % Fontsize
 lw = 2.0;      % LineWidth
 msz = 8;       % MarkerSize
-numContours = 15;
+numContours = 12;
+% zmin = floor(min(PlotGrid(:)));
+% zmax = ceil(max(PlotGrid(:)));
+% zinc = (zmax - zmin) / numContours;
+% zlevs = zmin:zinc:zmax;
 
 figure(1);
 pos = get(gcf, 'Position');
@@ -21,9 +26,8 @@ set(gca, 'FontSize', fsz, 'LineWidth', alw); %<- Set properties
 cmap = colormap(gray(numContours));
 colormap(flipud(cmap)); 
 imagesc(PlotGrid);
-%xlim([0 0.48]);
-%ylim([0 0.48]);
-%caxis([-0.8 0.8]);
+set(gca,'YDir','normal');
+caxis([-0.8 0.4]);
 cbar = colorbar();
 title(cbar,'\Delta');
 xlabel('\tau');
@@ -33,4 +37,17 @@ ymarks = 3:1:length(E);
 set(gca,'YTick',1:1:(length(E)-2));
 set(gca,'YTickLabel',arrayfun(@num2str, ymarks, 'unif', 0));
 %title('');
-
+hold on;
+for xt = 1:size(PlotGrid,1),
+    for yt = 1:size(PlotGrid,2),
+        if(PlotGrid(xt,yt) > 0),
+            negpt = plot(yt,xt,'o','LineWidth',2,'MarkerEdgeColor','w','MarkerSize',12);
+        end;
+        if(isnan(PlotGrid(xt,yt))),
+            nanpt = plot(yt,xt,'x','LineWidth',1,'MarkerEdgeColor','k','MarkerSize',8);
+        end;
+    end;
+end;
+legend(negpt,'positive');
+legend(nanpt,'NaN');
+hold off;

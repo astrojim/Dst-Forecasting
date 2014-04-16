@@ -5,7 +5,7 @@ global tspan;
 global Omega;
 
 tspan = [0:0.5:1000];
-OmegaVec = [0.1:0.1:2.0];
+OmegaVec = [0.01:0.001:2.0];
 
 E = 5;
 tau = 1;
@@ -13,7 +13,7 @@ library_length = length(tspan);
 
 for ostep = 1:length(OmegaVec),
     
-    fprintf('--> Omega = %.2f [%.2f complete] <--\n',...
+    fprintf('--> Omega = %.3f [%.5f complete] <--\n',...
         OmegaVec(ostep),ostep/length(OmegaVec));
     Omega = OmegaVec(ostep);
     Vspan = zeros(length(tspan),1);
@@ -31,12 +31,12 @@ for ostep = 1:length(OmegaVec),
 
     fprintf('Creating C input data files...');
     tic;
-    CoutputfilenameRI = sprintf('RIout_omega%.2f.dat',OmegaVec(ostep));
-    CinputfilenameRI = sprintf('RI_omega%.2f.dat',OmegaVec(ostep));
-    CoutputfilenameRV = sprintf('RVout_omega%.2f.dat',OmegaVec(ostep));
-    CinputfilenameRV = sprintf('RV_omega%.2f.dat',OmegaVec(ostep));
-    CoutputfilenameVI = sprintf('VIout_omega%.2f.dat',OmegaVec(ostep));
-    CinputfilenameVI = sprintf('VI_omega%.2f.dat',OmegaVec(ostep));
+    CoutputfilenameRI = sprintf('RIout_omega%.3f.dat',OmegaVec(ostep));
+    CinputfilenameRI = sprintf('RI_omega%.3f.dat',OmegaVec(ostep));
+    CoutputfilenameRV = sprintf('RVout_omega%.3f.dat',OmegaVec(ostep));
+    CinputfilenameRV = sprintf('RV_omega%.3f.dat',OmegaVec(ostep));
+    CoutputfilenameVI = sprintf('VIout_omega%.3f.dat',OmegaVec(ostep));
+    CinputfilenameVI = sprintf('VI_omega%.3f.dat',OmegaVec(ostep));
 
     %RI
     fileID = fopen(CinputfilenameRI,'w');

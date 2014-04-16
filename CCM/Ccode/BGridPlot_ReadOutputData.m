@@ -2,7 +2,7 @@ addpath('..');
 addpath('../../utils');
 
 number_of_samples = 1000;
-library_length = 100;
+library_length = 1500;
 
 Bxy_vec = [1e-8:0.02:0.5];
 Byx_vec = [1e-8:0.02:0.5];

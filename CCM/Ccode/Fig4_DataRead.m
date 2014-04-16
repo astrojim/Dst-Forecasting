@@ -1,7 +1,7 @@
 addpath('..');
 addpath('../../utils');
 
-OmegaVec = [0.1:0.1:2.0];
+OmegaVec = [0.01:0.001:2.0];
 
 CdataRI = zeros(length(OmegaVec),2);
 CdataRV = zeros(length(OmegaVec),2);

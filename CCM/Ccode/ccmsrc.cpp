@@ -417,7 +417,7 @@ double CCMcorr(double dY[],int iY_length, double dX_UsedForShadow[],int iX_UsedF
    
     //Clip Y to calculate correlation
     double dYclipped[iCalShadManDim];
-    for(int iYstep = 0 ;iYstep < iY_length;iYstep++ ){
+    for(int iYstep = 0 ;iYstep < (iY_length-iYStart);iYstep++ ){
         dYclipped[iYstep] = dY[iYStart+iYstep];
     }
   

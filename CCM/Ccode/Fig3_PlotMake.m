@@ -36,15 +36,15 @@ msz = 8;       % MarkerSize
 figure(1);
 pos = get(gcf, 'Position');
 set(gcf, 'Position', [pos(1) pos(2) width*100, height*100]); %<- Set size
-set(gca, 'FontSize', fsz, 'LineWidth', alw); %<- Set properties
-
 axis([0 1 0 1]);
 axis square;
 arrow([0 0],[X Y]);
-hold;
+hold on;
 grid on;
 plot(0:0.1:1,0:0.1:1,'--k');
 Xstring = sprintf('C_{%s,%s|%s}','X','X','Y');
 Ystring = sprintf('C_{%s,%s|%s}','Y','Y','X');
+set(gca, 'FontSize', fsz, 'LineWidth', alw); %<- Set properties
 xlabel(Xstring);
 ylabel(Ystring);
+hold off;
