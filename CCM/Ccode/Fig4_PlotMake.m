@@ -2,7 +2,7 @@ addpath('..');
 addpath('../..');
 addpath('../../../utils');
 
-load('Fig4_PlottingData_MorePoints.mat');
+%load('Fig4_PlottingData_MorePoints.mat');
 
 width = 3;     % Width in inches
 height = 3;    % Height in inches
@@ -69,16 +69,6 @@ end;
 for iter = 101:200,
     plot(CdataRI(iter,1),CdataRI(iter,2),'.k');
 end;
-for iter = 10:10:90,
-    plot(CdataRI(iter,1),CdataRI(iter,2),'ok');
-    plot(CdataRI(iter,1),CdataRI(iter,2),'xk');
-    text(CdataRI(iter,1),CdataRI(iter,2), num2str(OmegaVec(iter)),'BackgroundColor',[.5 .5 .5]);
-end;
-for iter = 110:10:200,
-    plot(CdataRI(iter,1),CdataRI(iter,2),'ok');
-    plot(CdataRI(iter,1),CdataRI(iter,2),'xk');
-    %text(CdataRI(iter,1),CdataRI(iter,2), num2str(OmegaVec(iter)));
-end;
 arrow([0 0],[CdataRI(100,1) CdataRI(100,2)]);
 grid on;
 plot(0:0.1:1,0:0.1:1,'--k');
@@ -133,3 +123,65 @@ xlabel(Xstring);
 ylabel(Ystring);
 hold off;
 
+figure(7);
+%OmegaVec(100) corresponds to 1.0 
+pos = get(gcf, 'Position');
+set(gcf, 'Position', [pos(1) pos(2) width*100, height*100]);
+hold on;
+for iter = 1:length(OmegaVec),
+    plot(OmegaVec(iter),atan(CdataRI(iter,2)/CdataRI(iter,1)),'xk');
+    plot(OmegaVec(iter),pi/4,'--k');
+end;
+grid on;
+Ystring = sprintf('P_theta (RI)');
+Xstring = sprintf('omega');
+set(gca, 'FontSize', 12, 'LineWidth', 1.5);
+xlabel(Xstring);
+ylabel(Ystring);
+hold off;
+
+figure(8);
+%OmegaVec(100) corresponds to 1.0 
+pos = get(gcf, 'Position');
+set(gcf, 'Position', [pos(1) pos(2) width*100, height*100]);
+hold on;
+for iter = 1:length(OmegaVec),
+    plot(OmegaVec(iter),sqrt(CdataRI(iter,2)^2+CdataRI(iter,1)^2),'xk');
+end;
+grid on;
+Ystring = sprintf('|P| (RI)');
+Xstring = sprintf('omega');
+set(gca, 'FontSize', 12, 'LineWidth', 1.5);
+xlabel(Xstring);
+ylabel(Ystring);
+hold off;
+
+figure(9);
+%OmegaVec(100) corresponds to 1.0 
+tempVec = atan(CdataRI(:,2)./CdataRI(:,1));
+pos = get(gcf, 'Position');
+set(gcf, 'Position', [pos(1) pos(2) width*100, height*100]);
+hold on;
+hist(tempVec,100);
+grid on;
+Ystring = sprintf('counts');
+Xstring = sprintf('omega [radians]');
+set(gca, 'FontSize', 12, 'LineWidth', 1.5);
+xlabel(Xstring);
+ylabel(Ystring);
+hold off;
+
+figure(10);
+%OmegaVec(100) corresponds to 1.0 
+tempVec = sqrt(CdataRI(:,2).^2+CdataRI(:,1).^2);
+pos = get(gcf, 'Position');
+set(gcf, 'Position', [pos(1) pos(2) width*100, height*100]);
+hold on;
+hist(tempVec,100);
+grid on;
+Ystring = sprintf('counts');
+Xstring = sprintf('omega [radians]');
+set(gca, 'FontSize', 12, 'LineWidth', 1.5);
+xlabel(Xstring);
+ylabel(Ystring);
+hold off;

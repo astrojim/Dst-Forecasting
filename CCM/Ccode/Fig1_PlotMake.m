@@ -2,13 +2,13 @@
 %et al. plot CCM(Y,X)-CCM(X,Y).  Rather than recreate the data sets (which,
 %admittedly, would not be too difficult), everything is just multiplied
 %through by -1
-load 'BGridCOutDataSmallL1500/PlotGridDataL1500.mat';
-PlotGridL1500 = -1.*PlotGrid;
-load 'BGridCOutDataSmallL1000/PlotGridDataL1000.mat';
-PlotGridL1000 = -1.*PlotGrid;
-load 'BGridCOutDataSmallL500/PlotGridDataL500.mat';
+%load 'BGridCOutDataSmallL1500/PlotGridDataL1500.mat';
+%PlotGridL1500 = -1.*PlotGrid;
+%load 'BGridCOutDataSmallL1000/PlotGridDataL1000.mat';
+%PlotGridL1000 = -1.*PlotGrid;
+load 'BGridCOutDataSmallL500_PostBugFix/PlotGridDataL500.mat';
 PlotGridL500 = -1.*PlotGrid;
-load 'BGridCOutDataSmallL100/PlotGridDataL100.mat';
+load 'BGridCOutDataSmallL100_PostBugFix/PlotGridDataL100.mat';
 PlotGridL100 = -1.*PlotGrid;
 
 width = 3;     % Width in inches
@@ -26,12 +26,11 @@ numColors = 16;
 cmap = colormap(gray(numColors));
 colormap(cmap); 
 
-subplot(2,2,1);
 imagesc(Bxy_vec,Byx_vec,PlotGridL100);
 set(gca,'YDir','normal');
 hold on;
 contour(Bxy_vec,Byx_vec,PlotGridL100,...
-        [-0.05 0.05],'k','LineWidth',2,'ShowText','On');
+        [-0.01 0.01],'k','LineWidth',2,'ShowText','On');
 hold off;
 xlim([0 0.48]);
 ylim([0 0.48]);
@@ -42,12 +41,18 @@ xlabel('\beta_{yx}');
 ylabel('\beta_{xy}');
 title('L = 100');
 
-subplot(2,2,2);
+figure(2);
+pos = get(gcf, 'Position');
+set(gcf, 'Position', [pos(1) pos(2) width*100, height*100]); %<- Set size
+set(gca, 'FontSize', fsz, 'LineWidth', alw); %<- Set properties
+numColors = 16;
+cmap = colormap(gray(numColors));
+colormap(cmap); 
 imagesc(Bxy_vec,Byx_vec,PlotGridL500);
 set(gca,'YDir','normal');
 hold on;
 contour(Bxy_vec,Byx_vec,PlotGridL500,...
-        [-0.05 0.05],'k','LineWidth',2,'ShowText','On');
+        [-0.01 0.01],'k','LineWidth',2,'ShowText','On');
 hold off;
 xlim([0 0.48]);
 ylim([0 0.48]);
@@ -57,8 +62,14 @@ title(cbar,'\Delta');
 xlabel('\beta_{yx}');
 ylabel('\beta_{xy}');
 title('L = 500');
-
-subplot(2,2,3);
+%{
+figure(3);
+pos = get(gcf, 'Position');
+set(gcf, 'Position', [pos(1) pos(2) width*100, height*100]); %<- Set size
+set(gca, 'FontSize', fsz, 'LineWidth', alw); %<- Set properties
+numColors = 16;
+cmap = colormap(gray(numColors));
+colormap(cmap); 
 imagesc(Bxy_vec,Byx_vec,PlotGridL1000);
 set(gca,'YDir','normal');
 hold on;
@@ -74,7 +85,13 @@ xlabel('\beta_{yx}');
 ylabel('\beta_{xy}');
 title('L = 1000');
 
-subplot(2,2,4);
+figure(4);
+pos = get(gcf, 'Position');
+set(gcf, 'Position', [pos(1) pos(2) width*100, height*100]); %<- Set size
+set(gca, 'FontSize', fsz, 'LineWidth', alw); %<- Set properties
+numColors = 16;
+cmap = colormap(gray(numColors));
+colormap(cmap); 
 imagesc(Bxy_vec,Byx_vec,PlotGridL1500);
 set(gca,'YDir','normal');
 hold on;
@@ -89,4 +106,4 @@ title(cbar,'\Delta');
 xlabel('\beta_{yx}');
 ylabel('\beta_{xy}');
 title('L = 1500');
-
+%}

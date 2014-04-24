@@ -2,9 +2,9 @@ addpath('..');
 addpath('../../utils');
 
 library_length = [50:10:2000];
-number_of_samples = 1000;
+number_of_samples = 2000;
 Bxy = 0.01;
-Byx = 0.2;
+Byx = 0.20;
 
 fprintf('Loading data...');
 tic;

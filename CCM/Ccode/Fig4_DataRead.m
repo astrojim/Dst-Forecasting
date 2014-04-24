@@ -2,6 +2,7 @@ addpath('..');
 addpath('../../utils');
 
 OmegaVec = [0.01:0.001:2.0];
+OmegaVec = [0.01:0.001:0.5];
 
 CdataRI = zeros(length(OmegaVec),2);
 CdataRV = zeros(length(OmegaVec),2);
@@ -12,9 +13,9 @@ for ostep = 1:length(OmegaVec),
     fprintf('--> Omega = %.2f [%.2f complete] <--\n',...
         OmegaVec(ostep),ostep/length(OmegaVec));
     Omega = OmegaVec(ostep);
-    CoutputfilenameRI = sprintf('RIout_omega%.2f.dat',OmegaVec(ostep));
-    CoutputfilenameRV = sprintf('RVout_omega%.2f.dat',OmegaVec(ostep));
-    CoutputfilenameVI = sprintf('VIout_omega%.2f.dat',OmegaVec(ostep));
+    CoutputfilenameRI = sprintf('RIout_omega%.3f.dat',OmegaVec(ostep));
+    CoutputfilenameRV = sprintf('RVout_omega%.3f.dat',OmegaVec(ostep));
+    CoutputfilenameVI = sprintf('VIout_omega%.3f.dat',OmegaVec(ostep));
     
     fprintf('Reading %s...',CoutputfilenameRI);
     tic;

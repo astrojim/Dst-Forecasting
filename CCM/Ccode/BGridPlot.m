@@ -1,8 +1,8 @@
 addpath('..');
 addpath('../../utils');
 
-number_of_samples = 1000;
-library_length = 1500;
+number_of_samples = 2000;
+library_length = 500;
 E = 3;
 tau = 1;
 mean_rx = 3.8;
@@ -60,7 +60,7 @@ for Bxystep = 1:1:length(Bxy_vec),
         
         fprintf('Calling C code...');
         tic;
-        CCommandString = sprintf('./ccm -E %i -t %i -L %i -f %s -n %i -o %s',...
+        CCommandString = sprintf('./CCMpair -E %i -t %i -L %i -f %s -n %i -o %s -p 2',...
                                   E,tau,library_length,Cinputfilename,TScount,Coutputfilename);
         [status,cmdout] = system(CCommandString);
         %fprintf('%s\n',cmdout);

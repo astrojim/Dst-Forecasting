@@ -2,7 +2,7 @@ addpath('..');
 addpath('../../utils');
 
 number_of_samples = 2000;
-library_length = [50:10:2000];
+library_length = [1100:10:1400];
 E = 3;
 tau = 1;
 mean_rx = 3.8;
