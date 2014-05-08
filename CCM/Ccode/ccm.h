@@ -299,6 +299,7 @@ void FindWeightsFromShadow(double dWeights[],  int iTstepOfNearestNeighborsTempR
     if( dSortedNorms[1] == 0 ){
         dWeightDenominator = nan("");
         fprintf(stderr, "Warning in CCMcorr(): division by zero\n");
+        //printf("Warning in CCMcorr(): division by zero\n");
     }else{
         dWeightDenominator = dSortedNorms[1];
     }
@@ -314,6 +315,7 @@ void FindWeightsFromShadow(double dWeights[],  int iTstepOfNearestNeighborsTempR
     if( dWeightNormalization == 0 ){
         dWeightNormalization = nan("");
         fprintf(stderr, "Warning in CCMcorr(): division by zero\n");
+        //printf("Warning in CCMcorr(): division by zero\n");
     }
   
     //Find normalized weights
@@ -417,6 +419,7 @@ double CCMcorr(double dY[],int iY_length, double dX_UsedForShadow[],int iX_UsedF
         dYEstimateGivenX[iDelayVectorN-1] = 0;
         for( int iWeightStep = 0;iWeightStep < (iEmbeddingDimension+1);iWeightStep++ ){
             dYEstimateGivenX[iDelayVectorN-1] += dWeights[iWeightStep]*dY[(iYStart+iTstepOfNearestNeighborsTempRow[iWeightStep])];
+            //printf("dYEstimateGivenX = %.5f -- dWeights = %.5f -- dY = %.5f\n",dYEstimateGivenX[iDelayVectorN-1],dWeights[iWeightStep],dY[(iYStart+iTstepOfNearestNeighborsTempRow[iWeightStep])]);
         }
     }
 
@@ -428,13 +431,19 @@ double CCMcorr(double dY[],int iY_length, double dX_UsedForShadow[],int iX_UsedF
    
     //Clip Y to calculate correlation
     double dYclipped[iCalShadManDim];
-    for(int iYstep = 0 ;iYstep < iY_length;iYstep++ ){
+    for(int iYstep = 0 ;iYstep < (iY_length-iYStart);iYstep++ ){
         dYclipped[iYstep] = dY[iYStart+iYstep];
+	//printf("iY_length=%i; iYstart=%i; iYstep=%i; dYclipped = %.5f\n",iY_length,iYStart,iYstep,dYclipped[iYstep]);
     }
   
+    //for(int iYstep = 0 ;iYstep < (iY_length-iYStart);iYstep++ ){
+      //  dYclipped[iYstep] = dY[iYstep];
+	//printf("iY_length=%i; iYstart=%i; iYstep=%i; dYclipped = %.5f\n",iY_length,iYStart,iYstep,dYclipped[iYstep]);
+    //}
     //Find correlation of Y and its estimate
     double dPcorrYYX = Pcorr(dYclipped,dYEstimateGivenX,iCalShadManDim);
-  
+    //printf("\ndPcorrYYX = %.5f\n",dPcorrYYX); 
+ 
     //Return the squared correlation value
     return(dPcorrYYX*dPcorrYYX);
 }
@@ -544,14 +553,17 @@ double Pcorr(double dX[],double dY[],int iXY_length){
            dSY = 0,  //variance of Y
            dSXY = 0,  //covariance of X and Y
            dCovNorm;  //normalization factor for the covariance
-         
+        
+    //printf("iXY_length = %i\n",iXY_length); 
     for(int iter = 0;iter < iXY_length;iter++ ){
         dEX += dX[iter];
         dEY += dY[iter];
+        //printf("dEX = %.5f\ndEY = %.5f\n",dEX,dEY);
     }
    
     dEX /= iXY_length;
     dEY /= iXY_length;
+    //printf("dEX = %.5f\ndEY = %.5f\n",dEX,dEY);
    
     for(int iter = 0;iter < iXY_length;iter++ ){
         dEXdelta = dX[iter]-dEX;
@@ -562,9 +574,12 @@ double Pcorr(double dX[],double dY[],int iXY_length){
     }
    
     dCovNorm = sqrt(dSX*dSY);
+    //printf("dSX = %.5f\ndSY = %.5f\ndCovNorm = %.5f\n",dSX,dSY,dCovNorm);
+
     if( dCovNorm == 0 ){
         dCovNorm = nan("");
         fprintf(stderr, "Warning in Pcorr(): division by zero\n");
+        //printf("Warning in Pcorr(): division by zero\n");
     }
    
     return(dSXY/dCovNorm);

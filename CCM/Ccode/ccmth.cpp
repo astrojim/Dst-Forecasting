@@ -16,12 +16,14 @@ struct CCM_asyncData{
         iLagTimeStep,
         iLibraryLength,
         iMaxAutoCorrToCheck,
-        iNumberOfTimeStep2Check;
+        iNumberOfTimeStep2Check,
+        iEstimatedYLength;
 
     double dCompareTolerance,
-           dWeightToleranceLevel;
+           dWeightToleranceLevel,
+	   dCCMcorr;
 
-    double *dX,*dY;
+    double *dX,*dY,*dEstimatedY;
 
 };
 
@@ -35,7 +37,7 @@ int iEmbeddingDimension = -1,
     iLagTimeStep = -1,
     iLibraryLength = -1,
     iNumOfTimeSeries = -1,
-    iNumThreads = -1,
+    iNumThreads = 0,
     iThreadWaitSec = -1,
     iMaxAutoCorrToCheck = -1,
     iNumberOfTimeStep2Check = -1;
@@ -44,12 +46,17 @@ double dCompareTolerance = -1,
        dWeightToleranceLevel = -1;
 
 char *cOutputname,
+     *cTSOutputname,
      *cFilename; //this data file is assumed to be in the proper format (see "usage")
 
 bool bVerboseFlag = false,
      bOptThreading = false,
+     bSaveEstimatedTS = false,
      bFindLag = false,
-     bFindE = false;
+     bFindE = false,
+     bPAI = false,
+     bPAICalcPart1 = false,
+     bPAICalcPart2 = false;
 
 // Main
 int main(int argc, char **argv){
@@ -63,13 +70,21 @@ int main(int argc, char **argv){
     char *cColValue, //used for read in
          *cRowValues; //used for read in
     int iter = 0;
+
+    int iEstimatedY_Length = iLibraryLength-((iEmbeddingDimension-1)*iLagTimeStep);
     double dX[iLibraryLength],
-           dY[iLibraryLength];
+           dY[iLibraryLength],
+           dEstimatedY[iEstimatedY_Length];
+
+    //Populate estimate time series, just in case
+    for(int iPre = 0;iPre < iEstimatedY_Length;iPre++ ){
+        dEstimatedY[iPre] = nan("");
+    }
 
     //Declare things needed for threading
-    double dCCMcorrs[iNumThreads][2];
-    future<double> WorkerThreads[iNumThreads][2];
-    future_status WorkerStatus[2];
+    double dCCMcorrs[iNumThreads][4];
+    future<double> WorkerThreads[iNumThreads][4];
+    future_status WorkerStatus[4];
     CCM_asyncData sThreadData;
     sThreadData.iEmbeddingDimension = iEmbeddingDimension;
     sThreadData.iLagTimeStep = iLagTimeStep;
@@ -78,6 +93,8 @@ int main(int argc, char **argv){
     sThreadData.dCompareTolerance = dCompareTolerance;
     sThreadData.iNumberOfTimeStep2Check = iNumberOfTimeStep2Check;
     sThreadData.dWeightToleranceLevel = dWeightToleranceLevel;
+    sThreadData.iEstimatedYLength = iEstimatedY_Length;
+    sThreadData.dEstimatedY = dEstimatedY;
 
     if( bVerboseFlag ){
             printf("Input data file: %s\nOutput file: %s\nNumber of time series in input file: %i\nLibrary length: %i\nEmbedding dimension: %i\nLag time step: %i\n",cFilename,cOutputname,iNumOfTimeSeries,iLibraryLength,iEmbeddingDimension,iLagTimeStep);
@@ -90,10 +107,17 @@ int main(int argc, char **argv){
             return(-1);
     }
 
-    //open output file
+    //open [-o] output file
     FILE *ofstream = fopen(cOutputname,"w");
     if(ofstream == NULL){
-        fprintf(stderr, "Error: Cannot open %s\n",cFilename);
+        fprintf(stderr, "Error: Cannot open %s\n",cOutputname);
+        return(-1);
+    }
+
+    //open [-eY] output file
+    FILE *ofstreamTS = fopen(cTSOutputname,"w");
+    if(ofstream == NULL){
+        fprintf(stderr, "Error: Cannot open %s\n",cTSOutputname);
         return(-1);
     }
 
@@ -129,14 +153,73 @@ int main(int argc, char **argv){
 
         if( iNumThreads == 0 ){
 
-              sThreadData.dX = dX;
-              sThreadData.dY = dY;
-              fprintf(ofstream,"%.20f,",CCMcorr_async(sThreadData));
-              //printf("%.20f,",CCMcorr_async(sThreadData));
-              sThreadData.dX = dY;
-              sThreadData.dY = dX;
-              fprintf(ofstream,"%.20f\n",CCMcorr_async(sThreadData));
-              //printf("%.20f\n",CCMcorr_async(sThreadData));
+              if( bPAI ){
+
+                  sThreadData.dX = dX;
+                  sThreadData.dY = dY;
+                  bPAICalcPart1 = true;
+                  fprintf(ofstream,"%.20f,",CCMcorr_async(sThreadData));
+                  //printf("%.20f,",CCMcorr_async(sThreadData));
+                  if( bSaveEstimatedTS ){
+                      for(int iPrintStep = 0;iPrintStep < sThreadData.iEstimatedYLength;iPrintStep++ ){
+			fprintf(ofstreamTS,"%.20f\n",sThreadData.dEstimatedY[iPrintStep]);
+                      }
+                  }
+                  bPAICalcPart1 = false;
+                  bPAICalcPart2 = true;
+                  fprintf(ofstream,"%.20f,",CCMcorr_async(sThreadData));
+                  //printf("%.20f,",CCMcorr_async(sThreadData));
+                  if( bSaveEstimatedTS ){
+                      for(int iPrintStep = 0;iPrintStep < sThreadData.iEstimatedYLength;iPrintStep++ ){
+			fprintf(ofstreamTS,"%.20f\n",sThreadData.dEstimatedY[iPrintStep]);
+                      }
+                  }
+                  bPAICalcPart2 = false;
+
+                  bPAICalcPart1 = true;
+                  sThreadData.dX = dY;
+                  sThreadData.dY = dX;
+                  fprintf(ofstream,"%.20f\n",CCMcorr_async(sThreadData));
+                  //printf("%.20f\n",CCMcorr_async(sThreadData));
+                  if( bSaveEstimatedTS ){
+                      for(int iPrintStep = 0;iPrintStep < sThreadData.iEstimatedYLength;iPrintStep++ ){
+			fprintf(ofstreamTS,"%.20f\n",sThreadData.dEstimatedY[iPrintStep]);
+                      }
+                  }
+                  bPAICalcPart1 = false;
+                  bPAICalcPart2 = true;
+                  fprintf(ofstream,"%.20f\n",CCMcorr_async(sThreadData));
+                  //printf("%.20f\n",CCMcorr_async(sThreadData));
+                  if( bSaveEstimatedTS ){
+                      for(int iPrintStep = 0;iPrintStep < sThreadData.iEstimatedYLength;iPrintStep++ ){
+			fprintf(ofstreamTS,"%.20f\n",sThreadData.dEstimatedY[iPrintStep]);
+                      }
+                  }
+                  bPAICalcPart2 = false;
+
+              }else{
+
+                  sThreadData.dX = dX;
+                  sThreadData.dY = dY;
+                  fprintf(ofstream,"%.20f,",CCMcorr_async(sThreadData));
+                  //printf("%.20f,",CCMcorr_async(sThreadData));
+                  if( bSaveEstimatedTS ){
+                      for(int iPrintStep = 0;iPrintStep < sThreadData.iEstimatedYLength;iPrintStep++ ){
+			fprintf(ofstreamTS,"%.20f\n",sThreadData.dEstimatedY[iPrintStep]);
+                      }
+                  }
+
+                  sThreadData.dX = dY;
+                  sThreadData.dY = dX;
+                  fprintf(ofstream,"%.20f\n",CCMcorr_async(sThreadData));
+                  //printf("%.20f\n",CCMcorr_async(sThreadData));
+                  if( bSaveEstimatedTS ){
+                      for(int iPrintStep = 0;iPrintStep < sThreadData.iEstimatedYLength;iPrintStep++ ){
+			fprintf(ofstreamTS,"%.20f\n",sThreadData.dEstimatedY[iPrintStep]);
+                      }
+                  }
+
+              }
 
         }else{
             if( iCurrentThreadsUsed < iNumThreads ){
@@ -162,11 +245,12 @@ int main(int argc, char **argv){
                             WorkerStatus[1] = WorkerThreads[iCheckThread][1].wait_for(chrono::seconds(iThreadWaitSec));
 
                             if( (WorkerStatus[0] == future_status::ready) && (WorkerStatus[1] == future_status::ready) ){
+				
+				fprintf(ofstream,"%.20f,",WorkerThreads[iCheckThread][0].get());
+				fprintf(ofstream,"%.20f\n",WorkerThreads[iCheckThread][1].get());
+				//printf("%.20f,",WorkerThreads[iCheckThread][0].get());
+				//printf("%.20f\n",WorkerThreads[iCheckThread][1].get());
 
-                                fprintf(ofstream,"%.20f,",WorkerThreads[iCheckThread][0].get());
-                                fprintf(ofstream,"%.20f\n",WorkerThreads[iCheckThread][1].get());
-                                //printf("%.20f,",WorkerThreads[iCheckThread][0].get());
-                                //printf("%.20f\n",WorkerThreads[iCheckThread][1].get());
                                 sThreadData.dX = dX;
                                 sThreadData.dY = dY;
                                 WorkerThreads[iCheckThread][0] = async(launch::async,CCMcorr_async,sThreadData);
@@ -179,7 +263,7 @@ int main(int argc, char **argv){
 
                             }
 
-                        }else if(!WorkerThreads[iCheckThread][0].valid() &&!WorkerThreads[iCheckThread][1].valid() ){
+                        }else if(!WorkerThreads[iCheckThread][0].valid()&&!WorkerThreads[iCheckThread][1].valid() ){
 
                             sThreadData.dX = dX;
                             sThreadData.dY = dY;
@@ -209,7 +293,6 @@ int main(int argc, char **argv){
                         if( WorkerThreads[iThreadIter][0].valid() && WorkerThreads[iThreadIter][1].valid() ){
                             dCCMcorrs[iThreadIter][0] = WorkerThreads[iThreadIter][0].get();
                             dCCMcorrs[iThreadIter][1] = WorkerThreads[iThreadIter][1].get();
-
                         }
 
                     }
@@ -254,6 +337,7 @@ int main(int argc, char **argv){
 
     fclose(ifstream);
     fclose(ofstream);
+    fclose(ofstreamTS);
 
     if( bVerboseFlag ){ printf(" Finished.\n"); }
 
@@ -278,18 +362,21 @@ void CmdLineHelp(char* cName){
     printf("  -o [string]   : filename of the output text file\n");
     printf("  -Op [integer] : 'optimize' threading check time\n");
     printf("  -v            : flag that sends various bits of information to STDOUT\n");
+    printf("  -eY [string]  : filename of a text file containing the estimated time series\n");
+    printf("  -PAI          : this flag calculates the pairwise asymmetric inference\n");
+    printf("                      (see new output format below)\n");
     printf("Flag for finding lag time to use for embedding:\n");
     printf("  -FindLag [integer1] [integer2]\n");
     printf("     [integer1] : maximum autocorrelation lag time to check\n");
     printf("     [integer2] : comparison tolerance for autocorrelation checks\n");
-    printf("  NOTE: This flag will cause the output file contents to be the \n");
+    printf("  NOTE: This flag will cause the [-o] output file contents to be the \n");
     printf("        lag time step leading to the maximum autocorrelation\n");
     printf("        (within the user defined bounds)\n");
     printf("Flag for finding embedding dimension to use for embedding:\n");
     printf("  -FindE [integer1] [integer2]\n");
     printf("     [integer1] : maximum number of time steps to check\n");
     printf("     [integer2] : cutoff tolerance for weight checks\n");
-    printf("  NOTE: This flag will cause the output file contents to be the \n");
+    printf("  NOTE: This flag will cause the [-o] output file contents to be the \n");
     printf("        mode of cutoff embedding dimensions for requested time steps\n");
     printf("        (within the user defined bounds)\n");
     printf("input data file format:\n");
@@ -299,11 +386,53 @@ void CmdLineHelp(char* cName){
     printf("   X3,Y3;\n");
     printf("   X4,Y4;\n");
     printf("   ...\n");
-    printf("output data file format:\n");
+    printf("[-o] output data file format:\n");
     printf("   CCM(X,Y),CCM(Y,X) [time series 1]\n");
     printf("   CCM(X,Y),CCM(Y,X) [time series 2]\n");
     printf("   ...\n");
-    printf(" NOTE: The contents of the output file depends on the flags used.\n");
+    printf("[-o] output data file format (w/ PAI flag):\n");
+    printf("   CCM(X,X),CCM(X,X and Y),CCM(Y,Y),CCM(Y,Y and X) [time series 1]\n");
+    printf("   CCM(X,X),CCM(X,X and Y),CCM(Y,Y),CCM(Y,Y and X) [time series 2]\n");
+    printf("   ...\n");
+    printf(" NOTE: The contents of the [-o] output file depends on the flags used.\n");
+    printf("[-eY] output data file format:\n");
+    printf("   estimated X0\n");
+    printf("   estimated X1\n");
+    printf("   estimated X2\n");
+    printf("   estimated X3\n");
+    printf("   estimated X4\n");
+    printf("   ...\n");
+    printf("   estimated Y0\n");
+    printf("   estimated Y1\n");
+    printf("   estimated Y2\n");
+    printf("   estimated Y3\n");
+    printf("   estimated Y4\n");
+    printf("   ...\n");
+    printf("[-eY] output data file format (w/ PAI flag):\n");
+    printf("   estimated X0 (given X)\n");
+    printf("   estimated X1 (given X)\n");
+    printf("   estimated X2 (given X)\n");
+    printf("   estimated X3 (given X)\n");
+    printf("   estimated X4 (given X)\n");
+    printf("   ...\n");
+    printf("   estimated X0 (given X and Y)\n");
+    printf("   estimated X1 (given X and Y)\n");
+    printf("   estimated X2 (given X and Y)\n");
+    printf("   estimated X3 (given X and Y)\n");
+    printf("   estimated X4 (given X and Y)\n");
+    printf("   ...\n");
+    printf("   estimated Y0 (given Y)\n");
+    printf("   estimated Y1 (given Y)\n");
+    printf("   estimated Y2 (given Y)\n");
+    printf("   estimated Y3 (given Y)\n");
+    printf("   estimated Y4 (given Y)\n");
+    printf("   ...\n");
+    printf("   estimated Y0 (given Y and X)\n");
+    printf("   estimated Y1 (given Y and X)\n");
+    printf("   estimated Y2 (given Y and X)\n");
+    printf("   estimated Y3 (given Y and X)\n");
+    printf("   estimated Y4 (given Y and X)\n");
+    printf("   ...\n");
     printf("\nMore details can be found at https://github.com/<githubaccount>/...\n");
 
 }
@@ -349,9 +478,18 @@ bool ReadCmdLineArgs(int argc, char **argv){
             cOutputname = argv[iter+1];
             bOutputSet = true;
 
+        }else if( strcmp("-eY",argv[iter]) == 0 ){
+
+            cTSOutputname = argv[iter+1];
+            bSaveEstimatedTS = true;
+
         }else if( strcmp("-v",argv[iter]) == 0 ){
 
             bVerboseFlag = true;
+
+        }else if( strcmp("-PAI",argv[iter]) == 0 ){
+
+            bPAI = true;
 
         }else if( strcmp("-Op",argv[iter]) == 0 ){
 
@@ -428,6 +566,18 @@ bool ReadCmdLineArgs(int argc, char **argv){
         fprintf(stderr, "Error: -FindLag and -FindE cannot be used together\n\n");
         CmdLineHelp(argv[0]);
         return( false );
+    }if( bFindE && bPAI ){
+        fprintf(stderr, "Error: -FindE and -PAI cannot be used together\n\n");
+        CmdLineHelp(argv[0]);
+        return( false );
+    }if( bFindLag && bPAI ){
+        fprintf(stderr, "Error: -FindLag and -PAI cannot be used together\n\n");
+        CmdLineHelp(argv[0]);
+        return( false );
+    }if( (iNumThreads != 0) && bSaveEstimatedTS ){
+        fprintf(stderr, "Error: -eY cannot be used with threading\n\n");
+        CmdLineHelp(argv[0]);
+        return( false );
     }
 
     //Issue any warnings
@@ -455,10 +605,18 @@ double CCMcorr_async(CCM_asyncData sThreadData){
     }else if( bFindE ){
         iResult = FindEmbeddingDimension(sThreadData.dX,sThreadData.iLibraryLength,sThreadData.iNumberOfTimeStep2Check,sThreadData.dWeightToleranceLevel,sThreadData.iLagTimeStep,bVerboseFlag);
         return( (double) iResult );
+    }else if( bPAICalcPart1 ){
+        CCMcorr(sThreadData.dCCMcorr,sThreadData.dX,sThreadData.iLibraryLength,sThreadData.dX,sThreadData.iLibraryLength,sThreadData.iEmbeddingDimension,sThreadData.iLagTimeStep,sThreadData.dEstimatedY,sThreadData.iEstimatedYLength);
+	dResult = sThreadData.dCCMcorr;
+        return( dResult );
+    }else if( bPAICalcPart2 ){
+        CCMcorr2(sThreadData.dCCMcorr,sThreadData.dX,sThreadData.iLibraryLength,sThreadData.dX,sThreadData.iLibraryLength,sThreadData.dY,sThreadData.iLibraryLength,sThreadData.iEmbeddingDimension,sThreadData.iLagTimeStep,sThreadData.dEstimatedY,sThreadData.iEstimatedYLength);
+	dResult = sThreadData.dCCMcorr;
+        return( dResult );
     }else{
-        dResult = CCMcorr(sThreadData.dX,sThreadData.iLibraryLength,sThreadData.dY,sThreadData.iLibraryLength,sThreadData.iEmbeddingDimension,sThreadData.iLagTimeStep);
+	CCMcorr(sThreadData.dCCMcorr,sThreadData.dX,sThreadData.iLibraryLength,sThreadData.dY,sThreadData.iLibraryLength,sThreadData.iEmbeddingDimension,sThreadData.iLagTimeStep,sThreadData.dEstimatedY,sThreadData.iEstimatedYLength);
+	dResult = sThreadData.dCCMcorr;
         return( dResult );
     }
 
 }
-
