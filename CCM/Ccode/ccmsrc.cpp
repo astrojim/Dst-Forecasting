@@ -351,7 +351,7 @@ void FindWeightsFromShadow(double dWeights[],  int iTstepOfNearestNeighborsTempR
       double - square of the Pearson correlation coefficent
                between Y and Y|X
 */
-void CCMcorr(double &dPcorrYYX, double dY[],int iY_length, double dX_UsedForShadow[],int iX_UsedForShadow_length, int iEmbeddingDimension,int iLagTime, double dYestimate[], int iYestimate_length){
+void CCMcorr(double &dPcorrYYX, double dY[],int iY_length, double dX_UsedForShadow[],int iX_UsedForShadow_length, int iEmbeddingDimension,int iLagTime, double dYestimate[], int iYestimate_length, bool bL2){
 
     //Check Min
     //if( iEmbeddingDimension < 3){
@@ -434,11 +434,22 @@ void CCMcorr(double &dPcorrYYX, double dY[],int iY_length, double dX_UsedForShad
 //    dYestimate = dYclipped;
     for(int iCopyStep = 0;iCopyStep < iCalShadManDim;iCopyStep++ ){
 	//printf("Compare: %.20f,%.20f\n",dYclipped[iCopyStep],dYestimate[iCopyStep]);
-	dYestimate[iCopyStep] = dYclipped[iCopyStep];
+	dYestimate[iCopyStep] = dYEstimateGivenX[iCopyStep];
     }
 
-    //Find correlation of Y and its estimate
-    dPcorrYYX = Pcorr(dYclipped,dYEstimateGivenX,iCalShadManDim);
+    //Find correlation or L2 norm of Y and its estimate
+    double dDiff,dDiffSquared;
+    double dRunningSum = 0;
+    if( !bL2 ){
+    	dPcorrYYX = Pcorr(dYclipped,dYEstimateGivenX,iCalShadManDim);
+    }else{
+	for(int iCopyStep = 0;iCopyStep < iCalShadManDim;iCopyStep++ ){
+	    dDiff = dYclipped[iCopyStep] - dYEstimateGivenX[iCopyStep];
+	    dDiffSquared = dDiff*dDiff;
+            dRunningSum += dDiffSquared;
+        }
+    	dPcorrYYX = sqrt(dRunningSum);
+    }
 }
 
 /*CCMcorr2 -- Convergent Cross Mapped Correlation 2
@@ -488,7 +499,7 @@ void CCMcorr(double &dPcorrYYX, double dY[],int iY_length, double dX_UsedForShad
       double - square of the Pearson correlation coefficent
                between Y and Y|X
 */
-void CCMcorr2(double &dPcorrYYX, double dY[],int iY_length,double dX_UsedForShadow[],int iX_UsedForShadow_length,double dZ_UsedForShadow[],int iZ_UsedForShadow_length,int iEmbeddingDimension,int iLagTime,double dYestimate[],int iYestimate_length){
+void CCMcorr2(double &dPcorrYYX, double dY[],int iY_length,double dX_UsedForShadow[],int iX_UsedForShadow_length,double dZ_UsedForShadow[],int iZ_UsedForShadow_length,int iEmbeddingDimension,int iLagTime,double dYestimate[],int iYestimate_length,bool bL2){
 
     //Check Min
     //if( iEmbeddingDimension < 3){
@@ -521,7 +532,7 @@ void CCMcorr2(double &dPcorrYYX, double dY[],int iY_length,double dX_UsedForShad
         for(int iDimStep = 1; iDimStep <= iEmbeddingDimension; iDimStep++ ){
             dXZShadow[iShadowStep-1][iDimStep-1] = dX_UsedForShadow[(iTstep4delayvector-((iDimStep-1)*iLagTime))-1];
         }
-        for(int iDimStep = iEmbeddingDimension; iDimStep <= 2*iEmbeddingDimension; iDimStep++ ){
+        for(int iDimStep = iEmbeddingDimension+1; iDimStep <= 2*iEmbeddingDimension; iDimStep++ ){
             dXZShadow[iShadowStep-1][iDimStep-1] = dZ_UsedForShadow[(iTstep4delayvector-((iDimStep-1)*iLagTime))-1];
         }
     }
@@ -548,7 +559,7 @@ void CCMcorr2(double &dPcorrYYX, double dY[],int iY_length,double dX_UsedForShad
 
         //Find Y point estimates from X shadow manifold
         dYEstimateGivenX[iDelayVectorN-1] = 0;
-        for( int iWeightStep = 0;iWeightStep < (iEmbeddingDimension+1);iWeightStep++ ){
+        for( int iWeightStep = 0;iWeightStep < (2*iEmbeddingDimension+1);iWeightStep++ ){
             dYEstimateGivenX[iDelayVectorN-1] += dWeights[iWeightStep]*dY[(iYStart+iTstepOfNearestNeighborsTempRow[iWeightStep])];
         }
     }
@@ -573,11 +584,22 @@ void CCMcorr2(double &dPcorrYYX, double dY[],int iY_length,double dX_UsedForShad
 
     for(int iCopyStep = 0;iCopyStep < iCalShadManDim;iCopyStep++ ){
 	//printf("Compare: %.20f,%.20f\n",dYclipped[iCopyStep],dYestimate[iCopyStep]);
-	dYestimate[iCopyStep] = dYclipped[iCopyStep];
+	dYestimate[iCopyStep] = dYEstimateGivenX[iCopyStep];
     }
 
     //Find correlation of Y and its estimate
-    dPcorrYYX = Pcorr(dYclipped,dYEstimateGivenX,iCalShadManDim);
+    double dDiff,dDiffSquared;
+    double dRunningSum = 0;
+    if( !bL2 ){
+    	dPcorrYYX = Pcorr(dYclipped,dYEstimateGivenX,iCalShadManDim);
+    }else{
+	for(int iCopyStep = 0;iCopyStep < iCalShadManDim;iCopyStep++ ){
+	    dDiff = dYclipped[iCopyStep] - dYEstimateGivenX[iCopyStep];
+	    dDiffSquared = dDiff*dDiff;
+            dRunningSum += dDiffSquared;
+        }
+    	dPcorrYYX = sqrt(dRunningSum);
+    }
 }
 
 /*eDist -- Euclidean Distance

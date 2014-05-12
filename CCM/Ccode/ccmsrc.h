@@ -2,8 +2,8 @@
 #include <math.h>
 #include <algorithm>
 
-void CCMcorr(double&,double[],int,double[],int,int,int,double[],int);
-void CCMcorr2(double&,double[],int,double[],int,double[],int,int,int,double[],int);
+void CCMcorr(double&,double[],int,double[],int,int,int,double[],int,bool);
+void CCMcorr2(double&,double[],int,double[],int,double[],int,int,int,double[],int,bool);
 double eDist(double[],double[],int);
 int FindAndCheckIndex(double[],int,double,int[],int);
 double Pcorr(double[], double[], int);

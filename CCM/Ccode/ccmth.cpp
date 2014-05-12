@@ -23,6 +23,8 @@ struct CCM_asyncData{
            dWeightToleranceLevel,
 	   dCCMcorr;
 
+    bool bL2;
+
     double *dX,*dY,*dEstimatedY;
 
 };
@@ -56,7 +58,8 @@ bool bVerboseFlag = false,
      bFindE = false,
      bPAI = false,
      bPAICalcPart1 = false,
-     bPAICalcPart2 = false;
+     bPAICalcPart2 = false,
+     bL2 = false;
 
 // Main
 int main(int argc, char **argv){
@@ -95,6 +98,7 @@ int main(int argc, char **argv){
     sThreadData.dWeightToleranceLevel = dWeightToleranceLevel;
     sThreadData.iEstimatedYLength = iEstimatedY_Length;
     sThreadData.dEstimatedY = dEstimatedY;
+    sThreadData.bL2 = bL2;
 
     if( bVerboseFlag ){
             printf("Input data file: %s\nOutput file: %s\nNumber of time series in input file: %i\nLibrary length: %i\nEmbedding dimension: %i\nLag time step: %i\n",cFilename,cOutputname,iNumOfTimeSeries,iLibraryLength,iEmbeddingDimension,iLagTimeStep);
@@ -179,7 +183,7 @@ int main(int argc, char **argv){
                   bPAICalcPart1 = true;
                   sThreadData.dX = dY;
                   sThreadData.dY = dX;
-                  fprintf(ofstream,"%.20f\n",CCMcorr_async(sThreadData));
+                  fprintf(ofstream,"%.20f,",CCMcorr_async(sThreadData));
                   //printf("%.20f\n",CCMcorr_async(sThreadData));
                   if( bSaveEstimatedTS ){
                       for(int iPrintStep = 0;iPrintStep < sThreadData.iEstimatedYLength;iPrintStep++ ){
@@ -365,6 +369,8 @@ void CmdLineHelp(char* cName){
     printf("  -eY [string]  : filename of a text file containing the estimated time series\n");
     printf("  -PAI          : this flag calculates the pairwise asymmetric inference\n");
     printf("                      (see new output format below)\n");
+    printf("  -L2          : this flag calculates the L2 norm (Euclidean norm)\n");
+    printf("                      instead of the CCM correlation\n");
     printf("Flag for finding lag time to use for embedding:\n");
     printf("  -FindLag [integer1] [integer2]\n");
     printf("     [integer1] : maximum autocorrelation lag time to check\n");
@@ -491,6 +497,10 @@ bool ReadCmdLineArgs(int argc, char **argv){
 
             bPAI = true;
 
+        }else if( strcmp("-L2",argv[iter]) == 0 ){
+
+            bL2 = true;
+
         }else if( strcmp("-Op",argv[iter]) == 0 ){
 
             bOptThreading = true;
@@ -606,15 +616,15 @@ double CCMcorr_async(CCM_asyncData sThreadData){
         iResult = FindEmbeddingDimension(sThreadData.dX,sThreadData.iLibraryLength,sThreadData.iNumberOfTimeStep2Check,sThreadData.dWeightToleranceLevel,sThreadData.iLagTimeStep,bVerboseFlag);
         return( (double) iResult );
     }else if( bPAICalcPart1 ){
-        CCMcorr(sThreadData.dCCMcorr,sThreadData.dX,sThreadData.iLibraryLength,sThreadData.dX,sThreadData.iLibraryLength,sThreadData.iEmbeddingDimension,sThreadData.iLagTimeStep,sThreadData.dEstimatedY,sThreadData.iEstimatedYLength);
+        CCMcorr(sThreadData.dCCMcorr,sThreadData.dX,sThreadData.iLibraryLength,sThreadData.dX,sThreadData.iLibraryLength,sThreadData.iEmbeddingDimension,sThreadData.iLagTimeStep,sThreadData.dEstimatedY,sThreadData.iEstimatedYLength,sThreadData.bL2);
 	dResult = sThreadData.dCCMcorr;
         return( dResult );
     }else if( bPAICalcPart2 ){
-        CCMcorr2(sThreadData.dCCMcorr,sThreadData.dX,sThreadData.iLibraryLength,sThreadData.dX,sThreadData.iLibraryLength,sThreadData.dY,sThreadData.iLibraryLength,sThreadData.iEmbeddingDimension,sThreadData.iLagTimeStep,sThreadData.dEstimatedY,sThreadData.iEstimatedYLength);
+        CCMcorr2(sThreadData.dCCMcorr,sThreadData.dX,sThreadData.iLibraryLength,sThreadData.dX,sThreadData.iLibraryLength,sThreadData.dY,sThreadData.iLibraryLength,sThreadData.iEmbeddingDimension,sThreadData.iLagTimeStep,sThreadData.dEstimatedY,sThreadData.iEstimatedYLength,sThreadData.bL2);
 	dResult = sThreadData.dCCMcorr;
         return( dResult );
     }else{
-	CCMcorr(sThreadData.dCCMcorr,sThreadData.dX,sThreadData.iLibraryLength,sThreadData.dY,sThreadData.iLibraryLength,sThreadData.iEmbeddingDimension,sThreadData.iLagTimeStep,sThreadData.dEstimatedY,sThreadData.iEstimatedYLength);
+	CCMcorr(sThreadData.dCCMcorr,sThreadData.dX,sThreadData.iLibraryLength,sThreadData.dY,sThreadData.iLibraryLength,sThreadData.iEmbeddingDimension,sThreadData.iLagTimeStep,sThreadData.dEstimatedY,sThreadData.iEstimatedYLength,sThreadData.bL2);
 	dResult = sThreadData.dCCMcorr;
         return( dResult );
     }
