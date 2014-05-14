@@ -164,7 +164,7 @@ int FindEmbeddingDimension(double dX[],int iXlength,int iNumberOfTimeStep2Check,
                 dDelayVectorOfInterest[iCopyStep] = dXShadow[iDelayVectorN-1][iCopyStep];
             }
 
-            FindWeightsFromShadow(dWeights,iTstepOfNearestNeighborsTempRow,dDelayVectorOfInterest,dXShadow,iCalShadManDim,iEstep,iLagTime);
+            FindWeightsFromShadow(dWeights,iTstepOfNearestNeighborsTempRow,dDelayVectorOfInterest,dXShadow,iCalShadManDim,iEstep,iLagTime,iEstep);
 
             //Free the dXshadow memory
             for(int iter = 0;iter < iCalShadManDim;iter++ ){
@@ -243,14 +243,13 @@ int FindEmbeddingDimension(double dX[],int iXlength,int iNumberOfTimeStep2Check,
   Output Parameters:
 
 */
-void FindWeightsFromShadow(double dWeights[],  int iTstepOfNearestNeighborsTempRow[],  double dDelayVectorOfInterest[],double** dXShadow,int iCalShadManDim, int iEmbeddingDimension,int iLagTime){
+void FindWeightsFromShadow(double dWeights[],  int iTstepOfNearestNeighborsTempRow[],  double dDelayVectorOfInterest[],double** dXShadow,int iCalShadManDim, int iEmbeddingDimension,int iLagTime,int iDelayVectorOfInterest_length){
 
     //Storage for sorting, calculating, and organizing
-    double dDelayVector2Compare[iEmbeddingDimension],  //iterated delay vector for comparison
+    double dDelayVector2Compare[iDelayVectorOfInterest_length],  //iterated delay vector for comparison
            dXShadowNorm,  //eucleadian distance between delay vectors being compared
            dUnsortedNorms[iCalShadManDim],  //unsorted eucleadian distances between delay vectors
            dSortedNorms[iCalShadManDim],  //sorted eucleadian distances between delay vectors
-           dYEstimateGivenX[iCalShadManDim],  //estimated Y used the shadow manifold of X
            dWeightDenominator,  //denominator in weights calculation (used for zero check)
            dWeightNormalization;  //normalization factor for weights
     int iTempValue;  //temporary value for time step of nearest neightbor delay vector
@@ -259,12 +258,12 @@ void FindWeightsFromShadow(double dWeights[],  int iTstepOfNearestNeighborsTempR
     for(int iTstep = 1; iTstep <= iCalShadManDim; iTstep++ ){
 
         //Populate the temp delay vector for comparison
-        for(int iCopyStep = 0; iCopyStep < iEmbeddingDimension; iCopyStep++ ){
+        for(int iCopyStep = 0; iCopyStep < iDelayVectorOfInterest_length; iCopyStep++ ){
             dDelayVector2Compare[iCopyStep] = dXShadow[iTstep-1][iCopyStep];
         }
 
         //Find the distance between the two temp vectors and save it
-        dXShadowNorm = eDist(dDelayVectorOfInterest,dDelayVector2Compare,iEmbeddingDimension);
+        dXShadowNorm = eDist(dDelayVectorOfInterest,dDelayVector2Compare,iDelayVectorOfInterest_length);
 
         //Save the norms to be sorted later
         dUnsortedNorms[iTstep-1] = dXShadowNorm;
@@ -405,7 +404,7 @@ void CCMcorr(double &dPcorrYYX, double dY[],int iY_length, double dX_UsedForShad
         }
 
 	//printf("BE -- %.20f,%.20f",dWeights[0],dWeights[1]);
-        FindWeightsFromShadow(dWeights,iTstepOfNearestNeighborsTempRow,dDelayVectorOfInterest,dXShadow,iCalShadManDim,iEmbeddingDimension,iLagTime);
+        FindWeightsFromShadow(dWeights,iTstepOfNearestNeighborsTempRow,dDelayVectorOfInterest,dXShadow,iCalShadManDim,iEmbeddingDimension,iLagTime,iEmbeddingDimension);
 	//printf("AF -- %.20f,%.20f",dWeights[0],dWeights[1]);
 
         //Find Y point estimates from X shadow manifold
@@ -499,7 +498,7 @@ void CCMcorr(double &dPcorrYYX, double dY[],int iY_length, double dX_UsedForShad
       double - square of the Pearson correlation coefficent
                between Y and Y|X
 */
-void CCMcorr2(double &dPcorrYYX, double dY[],int iY_length,double dX_UsedForShadow[],int iX_UsedForShadow_length,double dZ_UsedForShadow[],int iZ_UsedForShadow_length,int iEmbeddingDimension,int iLagTime,double dYestimate[],int iYestimate_length,bool bL2){
+void CCMcorr2(double &dPcorrYYX, double dY[],int iY_length,double dX_UsedForShadow[],int iX_UsedForShadow_length,double dZ_UsedForShadow[],int iZ_UsedForShadow_length,int iEmbeddingDimension,int iLagTime,int iYEmbeddingDimension,int iYLagTime,double dYestimate[],int iYestimate_length,bool bL2){
 
     //Check Min
     //if( iEmbeddingDimension < 3){
@@ -515,16 +514,26 @@ void CCMcorr2(double &dPcorrYYX, double dY[],int iY_length,double dX_UsedForShad
     //    return(-1);
     //}
 
+    if( iYEmbeddingDimension < 1){
+        fprintf(stderr, "Error in CCMCorr2():  Y embedding dimension is %i which is not valid\n", iYEmbeddingDimension);
+        dPcorrYYX = nan("");
+    }
+    if( iYLagTime < 1){
+        fprintf(stderr, "Error in CCMCorr2():  Y lag time is %i which is not valid\n", iYLagTime);
+        dPcorrYYX  = nan("");
+    }
+
     //Find calculated shadow manifold dimension
     int iCalShadManDim = iX_UsedForShadow_length-((iEmbeddingDimension-1)*iLagTime);
 
     //Assign some memory for the shadow manifold
+    int iEsum = (iEmbeddingDimension+iYEmbeddingDimension);
     double** dXZShadow;
     dXZShadow = new double*[iCalShadManDim];
     for(int iter = 0;iter < iCalShadManDim;iter++ ){
-        dXZShadow[iter] = new double[2*iEmbeddingDimension];
+        dXZShadow[iter] = new double[iEsum];
     }
-    int iTstep4delayvector;
+    int iTstep4delayvector,iYTstep4delayvector;
 
     //Create the shadow manifold by creating the delay vectors sequentially
     for(int iShadowStep = 1; iShadowStep <= iCalShadManDim; iShadowStep++ ){
@@ -532,17 +541,18 @@ void CCMcorr2(double &dPcorrYYX, double dY[],int iY_length,double dX_UsedForShad
         for(int iDimStep = 1; iDimStep <= iEmbeddingDimension; iDimStep++ ){
             dXZShadow[iShadowStep-1][iDimStep-1] = dX_UsedForShadow[(iTstep4delayvector-((iDimStep-1)*iLagTime))-1];
         }
-        for(int iDimStep = iEmbeddingDimension+1; iDimStep <= 2*iEmbeddingDimension; iDimStep++ ){
-            dXZShadow[iShadowStep-1][iDimStep-1] = dZ_UsedForShadow[(iTstep4delayvector-((iDimStep-1)*iLagTime))-1];
+	iYTstep4delayvector = iShadowStep+((iYEmbeddingDimension-1)*iYLagTime);
+        for(int iDimStep = iEmbeddingDimension+1; iDimStep <= iYEmbeddingDimension; iDimStep++ ){
+            dXZShadow[iShadowStep-1][iDimStep-1] = dZ_UsedForShadow[(iYTstep4delayvector-((iDimStep-1)*iYLagTime))-1];
         }
     }
 
     //Storage for sorting, calculating, and organizing
-    double dDelayVectorOfInterest[2*iEmbeddingDimension],  //delay vector currently being compared
-           dWeights[(2*iEmbeddingDimension+1)],  //weights to contruct Y estimate
+    double dDelayVectorOfInterest[iEsum],  //delay vector currently being compared
+           dWeights[(iEmbeddingDimension+1)],  //weights to contruct Y estimate
            dYEstimateGivenX[iCalShadManDim];  //estimated Y used the shadow manifold of X
 
-    int iTstepOfNearestNeighborsTempRow[2*iEmbeddingDimension+1];//time steps of nearest neighbor delay vectors
+    int iTstepOfNearestNeighborsTempRow[iEmbeddingDimension+1];//time steps of nearest neighbor delay vectors
 
     //Find starting point in Y for the estimate
     int iYStart = (iEmbeddingDimension-1)*iLagTime;
@@ -551,15 +561,15 @@ void CCMcorr2(double &dPcorrYYX, double dY[],int iY_length,double dX_UsedForShad
     for(int iDelayVectorN = 1; iDelayVectorN <= iCalShadManDim;iDelayVectorN++ ){
 
         //Populate the temp delay vector
-        for(int iCopyStep = 0; iCopyStep < 2*iEmbeddingDimension; iCopyStep++ ){
+        for(int iCopyStep = 0; iCopyStep < iEsum; iCopyStep++ ){
             dDelayVectorOfInterest[iCopyStep] = dXZShadow[iDelayVectorN-1][iCopyStep];
         }
 
-        FindWeightsFromShadow(dWeights,iTstepOfNearestNeighborsTempRow,dDelayVectorOfInterest,dXZShadow,iCalShadManDim,2*iEmbeddingDimension,iLagTime);
+        FindWeightsFromShadow(dWeights,iTstepOfNearestNeighborsTempRow,dDelayVectorOfInterest,dXZShadow,iCalShadManDim,iEmbeddingDimension,iLagTime,iEsum);
 
         //Find Y point estimates from X shadow manifold
         dYEstimateGivenX[iDelayVectorN-1] = 0;
-        for( int iWeightStep = 0;iWeightStep < (2*iEmbeddingDimension+1);iWeightStep++ ){
+        for( int iWeightStep = 0;iWeightStep < (iEmbeddingDimension+1);iWeightStep++ ){
             dYEstimateGivenX[iDelayVectorN-1] += dWeights[iWeightStep]*dY[(iYStart+iTstepOfNearestNeighborsTempRow[iWeightStep])];
         }
     }

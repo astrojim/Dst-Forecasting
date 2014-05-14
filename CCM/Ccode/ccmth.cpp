@@ -17,7 +17,9 @@ struct CCM_asyncData{
         iLibraryLength,
         iMaxAutoCorrToCheck,
         iNumberOfTimeStep2Check,
-        iEstimatedYLength;
+        iEstimatedYLength,
+	iYEmbeddingDimension,
+	iYLagTimeStep;
 
     double dCompareTolerance,
            dWeightToleranceLevel,
@@ -42,7 +44,9 @@ int iEmbeddingDimension = -1,
     iNumThreads = 0,
     iThreadWaitSec = -1,
     iMaxAutoCorrToCheck = -1,
-    iNumberOfTimeStep2Check = -1;
+    iNumberOfTimeStep2Check = -1,
+    iYEmbeddingDimension = -1,
+    iYLagTimeStep = -1;
 
 double dCompareTolerance = -1,
        dWeightToleranceLevel = -1;
@@ -91,6 +95,8 @@ int main(int argc, char **argv){
     CCM_asyncData sThreadData;
     sThreadData.iEmbeddingDimension = iEmbeddingDimension;
     sThreadData.iLagTimeStep = iLagTimeStep;
+    sThreadData.iYEmbeddingDimension = iYEmbeddingDimension;
+    sThreadData.iYLagTimeStep = iYLagTimeStep;
     sThreadData.iLibraryLength = iLibraryLength;
     sThreadData.iMaxAutoCorrToCheck = iMaxAutoCorrToCheck;
     sThreadData.dCompareTolerance = dCompareTolerance;
@@ -352,7 +358,7 @@ void CmdLineHelp(char* cName){
 
     printf("usage: %s <command line flags>\n\n",cName);
     printf("basic command line flags:\n");
-    printf("  -E [integer]: embedding dimension (ignored if using -FindLag or -FindE)\n");
+    printf("  -E [integer]  : embedding dimension (ignored if using -FindLag or -FindE)\n");
     printf("  -t [integer]  : lag time step (ignored if using -FindLag)\n");
     printf("  -L [integer]  : library length of the time series\n");
     printf("                 (assumed to be equal for X and Y)\n");
@@ -369,8 +375,10 @@ void CmdLineHelp(char* cName){
     printf("  -eY [string]  : filename of a text file containing the estimated time series\n");
     printf("  -PAI          : this flag calculates the pairwise asymmetric inference\n");
     printf("                      (see new output format below)\n");
-    printf("  -L2          : this flag calculates the L2 norm (Euclidean norm)\n");
+    printf("  -L2           : this flag calculates the L2 norm (Euclidean norm)\n");
     printf("                      instead of the CCM correlation\n");
+    printf("  -Ey           : embedding dimension for Y (ignored if not using -PAI)\n");
+    printf("  -ty           : lag time step for Y (ignored if not using -PAI)\n");
     printf("Flag for finding lag time to use for embedding:\n");
     printf("  -FindLag [integer1] [integer2]\n");
     printf("     [integer1] : maximum autocorrelation lag time to check\n");
@@ -461,6 +469,14 @@ bool ReadCmdLineArgs(int argc, char **argv){
         }else if( strcmp("-t",argv[iter]) == 0 ){
 
             iLagTimeStep = atoi(argv[iter+1]);
+
+        }else if( strcmp("-Ey",argv[iter]) == 0 ){
+
+            iYEmbeddingDimension = atoi(argv[iter+1]);
+
+        }else if( strcmp("-ty",argv[iter]) == 0 ){
+
+            iYLagTimeStep = atoi(argv[iter+1]);
 
         }else if( strcmp("-L",argv[iter]) == 0 ){
 
@@ -556,6 +572,11 @@ bool ReadCmdLineArgs(int argc, char **argv){
         fprintf(stderr, "Error: Thread wait time must be defined as an integer > 0\n\n");
         CmdLineHelp(argv[0]);
         return( false );
+    }
+    if( !bSaveEstimatedTS ){
+        fprintf(stderr, "Error: output data filename for estimated time series not defined\n\n");
+        CmdLineHelp(argv[0]);
+        return( false );
     }if( bFindLag && (iMaxAutoCorrToCheck < 0) ){
         fprintf(stderr, "Error: maximum autocorrelation lag time to check is not defined\n\n");
         CmdLineHelp(argv[0]);
@@ -620,7 +641,7 @@ double CCMcorr_async(CCM_asyncData sThreadData){
 	dResult = sThreadData.dCCMcorr;
         return( dResult );
     }else if( bPAICalcPart2 ){
-        CCMcorr2(sThreadData.dCCMcorr,sThreadData.dX,sThreadData.iLibraryLength,sThreadData.dX,sThreadData.iLibraryLength,sThreadData.dY,sThreadData.iLibraryLength,sThreadData.iEmbeddingDimension,sThreadData.iLagTimeStep,sThreadData.dEstimatedY,sThreadData.iEstimatedYLength,sThreadData.bL2);
+        CCMcorr2(sThreadData.dCCMcorr,sThreadData.dX,sThreadData.iLibraryLength,sThreadData.dX,sThreadData.iLibraryLength,sThreadData.dY,sThreadData.iLibraryLength,sThreadData.iEmbeddingDimension,sThreadData.iLagTimeStep,sThreadData.iYEmbeddingDimension,sThreadData.iYLagTimeStep,sThreadData.dEstimatedY,sThreadData.iEstimatedYLength,sThreadData.bL2);
 	dResult = sThreadData.dCCMcorr;
         return( dResult );
     }else{
