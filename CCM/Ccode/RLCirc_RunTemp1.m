@@ -1,0 +1,13 @@
+bVaryV_amp = true;
+bVaryV_offset = true;
+bVaryV_phase = true;
+bVaryV_freq = true;
+bVaryR_amp = false;
+bVaryR_offset = false;
+bVaryR_phase = false;
+bVaryR_freq = false;
+bVaryV_offsetlong = true;
+bVaryV_offsetLup = true;
+bVaryR_freqlong = false;
+bVaryR_freqLup = false;
+RLcircuitDataExplore;

@@ -42,9 +42,33 @@
 % data = freq;
 % dataLabel = 'freq';
 
-load 'RLCircuit_varyR_freqLup/RLcircuitDataExplore_DataRead_varyR_freqLup.mat';
-data = freq;
-dataLabel = 'freq';
+% load 'RLCircuit_varyR_freqLup/RLcircuitDataExplore_DataRead_varyR_freqLup.mat';
+% data = freq;
+% dataLabel = 'freq';
+
+% load 'RLCircuit_varyV_ampE3/RLcircuitDataExplore_DataRead_varyV_ampE3.mat';
+% data = Av;
+% dataLabel = 'Av';
+
+% load 'RLCircuit_varyV_offsetE3/RLcircuitDataExplore_DataRead_varyV_offsetE3.mat';
+% data = offset;
+% dataLabel = 'offset';
+
+% load 'RLCircuit_varyV_phaseE3/RLcircuitDataExplore_DataRead_varyV_phaseE3.mat';
+% data = phase;
+% dataLabel = 'phase';
+
+% load 'RLCircuit_varyV_freqE3/RLcircuitDataExplore_DataRead_varyV_freqE3.mat';
+% data = freq;
+% dataLabel = 'freq';
+
+load 'RLCircuit_varyV_offsetlongE3/RLcircuitDataExplore_DataRead_varyV_offsetlongE3.mat';
+data = offset;
+dataLabel = 'offset';
+
+% load 'RLCircuit_varyV_offsetLupE3/RLcircuitDataExplore_DataRead_varyV_offsetLupE3.mat';
+% data = offset;
+% dataLabel = 'offset';
 
 n = 1;
 
