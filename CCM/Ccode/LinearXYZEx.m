@@ -4,7 +4,8 @@ tau = 1;
 tspan = 0:0.5:1000;
 library_length = length(tspan);
 
-Av = 0:0.1:10.0;
+% Av = 0:0.1:10.0;
+Av = 5.7:0.1:10.0;
 Bv = 0:0.1:10.0;
 
 for Astep = 1:1:length(Av),

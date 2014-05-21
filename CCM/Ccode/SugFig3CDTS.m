@@ -32,7 +32,7 @@ fprintf('Creating test TS #2...');
 tspan = 0:0.5:1000;
 Xt(1) = sin(tspan(1));
 Yt(1) = 0;
-A = 2.6;
+A = 3.0;
 B = 2.6;
 for step = 2:length(tspan),
     Xt(step) = sin(tspan(step));
