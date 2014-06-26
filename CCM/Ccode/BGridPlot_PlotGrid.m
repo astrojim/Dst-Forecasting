@@ -1,7 +1,7 @@
 addpath('..');
 addpath('../../utils');
 
-library_length = 500;
+library_length = 1200;
 
 Bxy_vec = [1e-8:0.02:0.5];
 Byx_vec = [1e-8:0.02:0.5];
@@ -20,7 +20,7 @@ for Bxystep = 1:1:length(Bxy_vec),
             fileID = fopen(Meansfilename,'r');
             Outdat = fscanf(fileID, '%f,%f;');
             fclose(fileID);
-            PlotGrid(Bxystep,Byxstep) = Outdat(1)-Outdat(2);
+            PlotGrid(Bxystep,Byxstep) = Outdat(2)-Outdat(1);
         else
           fprintf('Warning: %s does not exist\n',Meansfilename);
           PlotGrid(Bxystep,Byxstep) = nan;

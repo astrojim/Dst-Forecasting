@@ -1,5 +1,5 @@
-Av = 0:0.1:1.8;
-Bv = 0:0.1:1.8;
+Av = 0:0.1:10.0;
+Bv = 0:0.1:10.0;
 
 CdataXX = zeros(length(Av),length(Bv));
 CdataXXY = CdataXX;

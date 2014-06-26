@@ -1,76 +1,8 @@
-% load 'RLCircuit_varyV_amp/RLcircuitDataExplore_DataRead_varyV_amp.mat';
-% data = Av;
-% dataLabel = 'Av';
-
-% load 'RLCircuit_varyV_offset/RLcircuitDataExplore_DataRead_varyV_offset.mat';
-% data = offset;
-% dataLabel = 'offset';
-
-% load 'RLCircuit_varyV_phase/RLcircuitDataExplore_DataRead_varyV_phase.mat';
-% data = phase;
-% dataLabel = 'phase';
-
-load 'RLCircuit_varyV_freq/RLcircuitDataExplore_DataRead_varyV_freq.mat';
+load 'RLCircuit_varyV_freqPAI/RLcircuitDataExplorePAI_DataRead_varyV_freq.mat';
 data = freq;
 dataLabel = 'freq';
 
-% load 'RLCircuit_varyR_amp/RLcircuitDataExplore_DataRead_varyR_amp.mat';
-% data = Av;
-% dataLabel = 'Av';
-
-% load 'RLCircuit_varyR_offset/RLcircuitDataExplore_DataRead_varyR_offset.mat';
-% data = offset;
-% dataLabel = 'offset';
-
-% load 'RLCircuit_varyR_phase/RLcircuitDataExplore_DataRead_varyR_phase.mat';
-% data = phase;
-% dataLabel = 'phase';
-
-% load 'RLCircuit_varyR_freq/RLcircuitDataExplore_DataRead_varyR_freq.mat';
-% data = freq;
-% dataLabel = 'freq';
-
-% load 'RLCircuit_varyV_offsetlong/RLcircuitDataExplore_DataRead_varyV_offsetlong.mat';
-% data = offset;
-% dataLabel = 'offset';
-
-% load 'RLCircuit_varyV_offsetLup/RLcircuitDataExplore_DataRead_varyV_offsetLup.mat';
-% data = offset;
-% dataLabel = 'offset';
-
-% load 'RLCircuit_varyR_freqlong/RLcircuitDataExplore_DataRead_varyR_freqlong.mat';
-% data = freq;
-% dataLabel = 'freq';
-
-% load 'RLCircuit_varyR_freqLup/RLcircuitDataExplore_DataRead_varyR_freqLup.mat';
-% data = freq;
-% dataLabel = 'freq';
-
-% load 'RLCircuit_varyV_ampE3/RLcircuitDataExplore_DataRead_varyV_ampE3.mat';
-% data = Av;
-% dataLabel = 'Av';
-
-% load 'RLCircuit_varyV_offsetE3/RLcircuitDataExplore_DataRead_varyV_offsetE3.mat';
-% data = offset;
-% dataLabel = 'offset';
-
-% load 'RLCircuit_varyV_phaseE3/RLcircuitDataExplore_DataRead_varyV_phaseE3.mat';
-% data = phase;
-% dataLabel = 'phase';
-
-% load 'RLCircuit_varyV_freqE3/RLcircuitDataExplore_DataRead_varyV_freqE3.mat';
-% data = freq;
-% dataLabel = 'freq';
-
-% load 'RLCircuit_varyV_offsetlongE3/RLcircuitDataExplore_DataRead_varyV_offsetlongE3.mat';
-% data = offset;
-% dataLabel = 'offset';
-
-% load 'RLCircuit_varyV_offsetLupE3/RLcircuitDataExplore_DataRead_varyV_offsetLupE3.mat';
-% data = offset;
-% dataLabel = 'offset';
-
-Delta = CdataVI(:,1) - CdataVI(:,2);
+Delta = CdataVVI(:,1) - CdataIIV(:,1);
 
 width = 4;
 height = 2;
@@ -84,13 +16,13 @@ hold on;
 hPnts = plot(Delta,'xk','MarkerSize',5);
 
 hXLabel = xlabel('\Omega_v');
-hYLabel = ylabel('\Delta = C_{VI}-C_{IV}');
+hYLabel = ylabel('\Delta^\prime = C_{VVI}-C_{IIV}');
 
 set([hXLabel, hYLabel],'FontName','AvantGarde');
 set([hXLabel, hYLabel],'FontSize', 10);
 
 hold off;
-print -depsc2 PlotOutTempDir/RLCircuitVaryV_Freq.eps
+print -depsc2 PlotOutTempDir/RLCircuitVaryV_FreqPAI.eps
 close;
 
 
