@@ -1,10 +1,10 @@
-load 'BGridCOutDataL100E2t1/BGridL100E2t1_PlotGrid.mat';
+load 'BGridL100E2t1_PlotGrid.mat';
 PlotGridL100 = PlotGrid;
-load 'BGridCOutDataL400E2t1/BGridL400E2t1_PlotGrid.mat';
+load 'BGridL400E2t1_PlotGrid.mat';
 PlotGridL400 = PlotGrid;
-load 'BGridCOutDataL800E2t1/BGridL800E2t1_PlotGrid.mat';
+load 'BGridL800E2t1_PlotGrid.mat';
 PlotGridL800 = PlotGrid;
-load 'BGridCOutDataL1200E2t1/BGridL1200E2t1_PlotGrid.mat';
+load 'BGridL1200E2t1_PlotGrid.mat';
 PlotGridL1200 = PlotGrid;
 
 width = 8;
@@ -29,14 +29,18 @@ hCont1 = contour(Bxy_vec,Byx_vec,PlotGridL100,...
 xlim([0 0.48]);
 ylim([0 0.48]);
 caxis([-0.8 0.8]);
+cbar = colorbar();
+set(cbar,'Visible','off');
 
 hXLabel = xlabel('\beta_{yx}');
 hYLabel = ylabel('\beta_{xy}');
 
-set([hXLabel, hYLabel],'FontName','AvantGarde');
+set([hXLabel, hYLabel],'FontName','Times');
 set([hXLabel, hYLabel],'FontSize', 10);
 
 hSubtitle = title('L = 100');
+set(hSubtitle,'FontName','Times');
+set(hSubtitle,'FontSize', 10);
 
 
 subplot(2,2,2);
@@ -55,10 +59,12 @@ title(cbar,'\Delta');
 hXLabel = xlabel('\beta_{yx}');
 hYLabel = ylabel('\beta_{xy}');
 
-set([hXLabel, hYLabel],'FontName','AvantGarde');
+set([hXLabel, hYLabel],'FontName','Times');
 set([hXLabel, hYLabel],'FontSize', 10);
 
 hSubtitle = title('L = 400');
+set(hSubtitle,'FontName','Times');
+set(hSubtitle,'FontSize', 10);
 
 subplot(2,2,3);
 hImage3 = imagesc(Bxy_vec,Byx_vec,PlotGridL800);
@@ -70,14 +76,18 @@ hCont3 = contour(Bxy_vec,Byx_vec,PlotGridL800,...
 xlim([0 0.48]);
 ylim([0 0.48]);
 caxis([-0.8 0.8]);
+cbar = colorbar();
+set(cbar,'Visible','off');
 
 hXLabel = xlabel('\beta_{yx}');
 hYLabel = ylabel('\beta_{xy}');
 
-set([hXLabel, hYLabel],'FontName','AvantGarde');
+set([hXLabel, hYLabel],'FontName','Times');
 set([hXLabel, hYLabel],'FontSize', 10);
 
 hSubtitle = title('L = 800');
+set(hSubtitle,'FontName','Times');
+set(hSubtitle,'FontSize', 10);
 
 subplot(2,2,4);
 hImage4 = imagesc(Bxy_vec,Byx_vec,PlotGridL1200);
@@ -89,15 +99,19 @@ hCont4 = contour(Bxy_vec,Byx_vec,PlotGridL1200,...
 xlim([0 0.48]);
 ylim([0 0.48]);
 caxis([-0.8 0.8]);
+cbar = colorbar();
+set(cbar,'Visible','off');
 
 hXLabel = xlabel('\beta_{yx}');
 hYLabel = ylabel('\beta_{xy}');
 
-set([hXLabel, hYLabel],'FontName','AvantGarde');
+set([hXLabel, hYLabel],'FontName','Times');
 set([hXLabel, hYLabel],'FontSize', 10);
 
 hSubtitle = title('L = 1200');
+set(hSubtitle,'FontName','Times');
+set(hSubtitle,'FontSize', 10);
 
 hold off;
-print -depsc2 PlotOutTempDir/Figure1.eps
+print -depsc2 ../PlotOutTempDir/Figure1.eps
 close;

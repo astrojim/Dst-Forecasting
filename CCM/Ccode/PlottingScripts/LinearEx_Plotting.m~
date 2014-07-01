@@ -24,14 +24,11 @@ hXLabel = xlabel('B');
 hYLabel = ylabel('A');
 hCLabel = title(cbar,'\Delta');
 
-set([hXLabel, hYLabel],'FontName','Times');
+set([hXLabel, hYLabel],'FontName','AvantGarde');
 set([hXLabel, hYLabel],'FontSize', 10);
 
-hText = text(1,9,'(a)',...
-     'FontSize',10,'FontName','Times');
-
 hold off;
-print -depsc2 ../PlotOutTempDir/LinearEx.eps
+print -depsc2 PlotOutTempDir/LinearEx.eps
 close;
 
 temp = DiffYXXY;
@@ -47,17 +44,12 @@ cmap = colormap(flipud(gray));
 hImage = imagesc(Bv,Av,temp);
 set(gca,'YDir','normal');
 axis([0 10 0 10]);
-cbar = colorbar();
-set(cbar,'Visible','off');
 
 hXLabel = xlabel('B');
 hYLabel = ylabel('A');
 
-set([hXLabel, hYLabel],'FontName','Times');
+set([hXLabel, hYLabel],'FontName','AvantGarde');
 set([hXLabel, hYLabel],'FontSize', 10);
-
-hText = text(1,9,'(b)',...
-     'FontSize',10,'FontName','Times');
 
 hold off;
 print -depsc2 ../PlotOutTempDir/LinearEx3Color.eps

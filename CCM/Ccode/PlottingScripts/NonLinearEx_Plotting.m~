@@ -22,19 +22,15 @@ hCont = contour(Bv,Av,DiffYXXY(:,:,Cstep),...
           [0 0],'r','LineWidth',2);
 
 caxis([-0.1 0.6]);
-cbar = colorbar();
-set(cbar,'Visible','off');
+
 
 hXLabel = xlabel('B');
 hYLabel = ylabel('A');
 
-set([hXLabel, hYLabel],'FontName','Times');
+set([hXLabel, hYLabel],'FontName','AvantGarde');
 set([hXLabel, hYLabel],'FontSize', 10);
 
 hSubtitle = title(sprintf('C = %.2f;',Cv(Cstep)));
-set(hSubtitle,'FontName','Times');
-set(hSubtitle,'FontSize', 10);
-
 
 for iter = 2:4,
     subplot(2,2,iter);
@@ -51,23 +47,14 @@ for iter = 2:4,
     if(iter ==2), 
         cbar = colorbar(); 
         hCLabel = title(cbar,'\Delta');
-    else
-        cbar = colorbar();
-        set(cbar,'Visible','off');
     end;
     caxis([-0.1 0.6]);
     hXLabel = xlabel('B');
     hYLabel = ylabel('A');
 
-    set([hXLabel, hYLabel],'FontName','Times');
-    set([hXLabel, hYLabel],'FontSize', 10);
-
     hSubtitle = title(sprintf('C = %.2f;',Cv(Cstep)));
-    set(hSubtitle,'FontName','Times');
-    set(hSubtitle,'FontSize', 10);
-
 end;
 
 hold off;
-print -depsc2 ../PlotOutTempDir/NonLinearEx.eps
+print -depsc2 PlotOutTempDir/NonLinearEx.eps
 close;

@@ -37,7 +37,7 @@ set([hXLabel, hYLabel],'FontSize', 10);
 
 hLegend = legend('(A,B) = (3.0,2.6)',...
                  '(A,B) = (2.6,2.6)',...
-                 'Location','SouthEast');
+                 'Location',);
 hold off;
 print -depsc2 ../PlotOutTempDir/LinearExPAIChangeL.eps
 close;

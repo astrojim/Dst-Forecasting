@@ -81,11 +81,6 @@ hSubtitle = title('(b)');
 set(hSubtitle,'FontName','Times');
 set(hSubtitle,'FontSize', 10);
 
-hold off;
-print -depsc2 ../PlotOutTempDir/SugFig3CD_AddPlotAB.eps
-close;
-
-
 width = 8;
 height = 4;
 
@@ -126,6 +121,6 @@ set(hSubtitle,'FontName','Times');
 set(hSubtitle,'FontSize', 10);
 
 hold off;
-print -depsc2 ../PlotOutTempDir/SugFig3CD_AddPlotCD.eps
+print -depsc2 ../PlotOutTempDir/SugFig3CD_AddPlot.eps
 close;
 
