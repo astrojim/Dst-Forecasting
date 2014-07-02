@@ -43,12 +43,12 @@ figure('Units', 'inches', ...
 'PaperPositionMode','auto');
 
 hold on;
-cmap = colormap(flipud(gray));
+cmap = colormap(flipud(gray(2)));
 hImage = imagesc(Bv,Av,temp);
 set(gca,'YDir','normal');
 axis([0 10 0 10]);
-cbar = colorbar();
-set(cbar,'Visible','off');
+cbar = lcolorbar({'< 0','> 0'},'FontName','Times','FontSize',10);
+%set(cbar,'Visible','off');
 
 hXLabel = xlabel('B');
 hYLabel = ylabel('A');

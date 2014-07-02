@@ -13,10 +13,10 @@ figure('Units', 'inches', ...
 
 hold on;
 
-hPnts = plot(Delta,'.k','MarkerSize',6);
+hPnts = plot(0.01:0.01:2.0,Delta,'.k','MarkerSize',6);
 grid on;
 
-hXLabel = xlabel('\Omega_v');
+hXLabel = xlabel('\Omega');
 hYLabel = ylabel('\Delta = C_{VI}-C_{IV}');
 
 set([hXLabel, hYLabel],'FontName','Times');
