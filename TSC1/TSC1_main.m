@@ -1,10 +1,10 @@
 t = [0:0.01:500];
-pulses = [100:100:500];
-%x = sin(t);
+%pulses = [100:100:500];
+x = sin(t);
 %x = square(t);
 %x = sawtooth(t);
 %x = pulstran(t,pulses,'tripuls');
-x = pulstran(t,pulses,'gauspuls');
+%x = pulstran(t,pulses,'gauspuls');
 
 xd = zeros(length(x)-1,1);
 y = zeros(length(x)+1,1);
@@ -20,10 +20,10 @@ end;
 
 %plot(x)
 %plot(y)
-[tstruct,cnts] = hist_extra(xd,100);
-bar(cnts)
+[tstruct,cnts] = hist_extra(xd,16);
+%bar(cnts)
 %hist(xd,10)
-
+figure('Name','Foo');
 for iter = 1:1:length(tstruct),
 	
     %for tstep = 1:1:tstruct(iter).tcount
@@ -33,7 +33,8 @@ for iter = 1:1:length(tstruct),
     
     if( tstruct(iter).tcount ~= 0 ),
         fprintf('Bin %i\n',iter);
-        figure(iter);
+        subplot(sqrt(length(tstruct)),sqrt(length(tstruct)),iter);
         hist(y(tstruct(iter).tsteps+2),100);
+        xlim([-1 1]);
     end;
 end;

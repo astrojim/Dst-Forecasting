@@ -1,18 +1,53 @@
-%addpath('./SolarDataMining');
+addpath('./TSC1');
 
-load L1000with3000samples.mat;
+fprintf('X and Y have no link\n');
+t = [0:0.01:500];
+x = sin(t);
 
-figure(1);
-subplot(2,1,1);
-plot(1:1:number_of_samples,plotdata_filtered,'.',...
-     1:1:number_of_samples,mean(plotdata_filtered),'-',...
-     1:1:number_of_samples,mean(plotdata_filtered)+std(plotdata_filtered),'.-',...
-     1:1:number_of_samples,mean(plotdata_filtered)-std(plotdata_filtered),'.-');
-title('Samples shown with Mean and Mean+Std Bounds');
-xlabel('sample number');
-ylabel('\Delta');
-subplot(2,1,2);
-hist(plotdata_filtered,100)
-title('Histogram of 3000 samples with L = 1000');
-xlabel('\Delta bins');
-ylabel('counts');
+xd = zeros(length(x)-1,1);
+y = zeros(length(x)+1,1);
+for iter = 1:1:(length(x)-1),
+	xd(iter,1) = x(iter+1)-x(iter);
+end;
+
+for iter = 2:1:length(x)+1,
+    y(iter) = rand();
+end;
+
+[tstruct,cnts] = hist_extra(xd,16);
+
+figure('Name','Y is random');
+for iter = 1:1:length(tstruct),
+    if( tstruct(iter).tcount ~= 0 ),
+        fprintf('  Bin %i [%.5f,%.5f]\n',iter,tstruct(iter).binLower,tstruct(iter).binUpper);
+        subplot(sqrt(length(tstruct)),sqrt(length(tstruct)),iter);
+        hist(y(tstruct(iter).tsteps+2),100);
+        xlim([-1 1]);
+    end;
+end;
+
+fprintf('X drives Y\n');
+t = [0:0.01:500];
+x = sin(t);
+
+xd = zeros(length(x)-1,1);
+y = zeros(length(x)+1,1);
+for iter = 1:1:(length(x)-1),
+	xd(iter,1) = x(iter+1)-x(iter);
+end;
+
+for iter = 2:1:length(x)+1,
+    y(iter) = x(iter-1) + 0.1*rand();
+end;
+
+[tstruct,cnts] = hist_extra(xd,16);
+
+figure('Name','X drives Y');
+for iter = 1:1:length(tstruct),
+    if( tstruct(iter).tcount ~= 0 ),
+        fprintf('  Bin %i [%.5f,%.5f]\n',iter,tstruct(iter).binLower,tstruct(iter).binUpper);
+        subplot(sqrt(length(tstruct)),sqrt(length(tstruct)),iter);
+        hist(y(tstruct(iter).tsteps+2),100);
+        xlim([-1 1]);
+    end;
+end;
