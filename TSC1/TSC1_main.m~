@@ -1,4 +1,3 @@
-%{
 t = [0:0.01:500];
 %pulses = [100:100:500];
 x = sin(t);
@@ -39,16 +38,8 @@ for iter = 1:1:length(tstruct),
         xlim([-1 1]);
     end;
 end;
-%}
-t = [0:0.01:500];
-x = sin(t);
-y = zeros(1,length(x)+1);
-for iter = 2:1:length(x)+1,
-    y(iter) = x(iter-1) + 0.1*rand();
-end;
 
 nlags = 10000;
-laggedxcorr = zeros(1,nlags);
+laggedxcorr = zero(nlags,1);
 for lag=1:1:nlags
-    laggedxcorr(1,lag) = corr(x(nlags-(lag-1):end-(lag-1))',y(nlags:(end-1))');
-end;
+    laggedxcorr(lag,1) = xcorr(x(nlags-(lag-1):end-(lag-1)),y(nlags:end));
