@@ -6,6 +6,7 @@ height = 4;
 figure('Units', 'inches', ...
 'Position', [0 0 width height],...
 'PaperPositionMode','auto');
+set(0,'DefaultTextInterpreter','latex');
 
 hold on;
 
@@ -13,8 +14,8 @@ subplot(1,2,1);
 hPnt = plot(X(2:end),Cdata_XgY,'k.','MarkerSize',6);
 axis([0 1 0 1]);
 axis square;
-hXLabel = xlabel('X');
-hYLabel = ylabel('X|Y');
+hXLabel = xlabel('$X$');
+hYLabel = ylabel('$X|\tilde{\mathbf{Y}}$');
 
 set([hXLabel, hYLabel],'FontName','Times');
 set([hXLabel, hYLabel],'FontSize', 10);
@@ -28,8 +29,8 @@ hPnt = plot(Y(2:end),Cdata_YgX,'k.','MarkerSize',6);
 axis([0 1 0 1]);
 axis square;
 
-hXLabel = xlabel('Y');
-hYLabel = ylabel('Y|X');
+hXLabel = xlabel('$Y$');
+hYLabel = ylabel('$Y|\tilde{\mathbf{X}}$');
 
 set([hXLabel, hYLabel],'FontName','Times');
 set([hXLabel, hYLabel],'FontSize', 10);
@@ -48,6 +49,7 @@ height = 4;
 figure('Units', 'inches', ...
 'Position', [0 0 width height],...
 'PaperPositionMode','auto');
+set(0,'DefaultTextInterpreter','latex');
 
 hold on;
 
@@ -56,8 +58,8 @@ hPnt = plot(X(2:end),Cdata_XgX,'k.','MarkerSize',6);
 axis([0 1 0 1]);
 axis square;
 
-hXLabel = xlabel('X');
-hYLabel = ylabel('X|X');
+hXLabel = xlabel('$X$');
+hYLabel = ylabel('$X|\tilde{\mathbf{X}}$');
 
 set([hXLabel, hYLabel],'FontName','Times');
 set([hXLabel, hYLabel],'FontSize', 10);
@@ -71,8 +73,8 @@ hPnt = plot(X(2:end),Cdata_XgXY,'k.','MarkerSize',6);
 axis([0 1 0 1]);
 axis square;
 
-hXLabel = xlabel('X');
-hYLabel = ylabel('X|(XY)');
+hXLabel = xlabel('$X$');
+hYLabel = ylabel('$X|(XY)$');
 
 set([hXLabel, hYLabel],'FontName','Times');
 set([hXLabel, hYLabel],'FontSize', 10);
@@ -92,6 +94,7 @@ height = 4;
 figure('Units', 'inches', ...
 'Position', [0 0 width height],...
 'PaperPositionMode','auto');
+set(0,'DefaultTextInterpreter','latex');
 
 hold on;
 
@@ -100,8 +103,8 @@ hPnt = plot(Y(2:end),Cdata_YgY,'k.','MarkerSize',6);
 axis([0 1 0 1]);
 axis square;
 
-hXLabel = xlabel('Y');
-hYLabel = ylabel('Y|Y');
+hXLabel = xlabel('$Y$');
+hYLabel = ylabel('$Y|\tilde{\mathbf{Y}}$');
 
 set([hXLabel, hYLabel],'FontName','Times');
 set([hXLabel, hYLabel],'FontSize', 10);
@@ -115,8 +118,8 @@ hPnt = plot(Y(2:end),Cdata_YgYX,'k.','MarkerSize',6);
 axis([0 1 0 1]);
 axis square;
 
-hXLabel = xlabel('Y');
-hYLabel = ylabel('Y|(YX)');
+hXLabel = xlabel('$Y$');
+hYLabel = ylabel('$Y|(YX)$');
 
 set([hXLabel, hYLabel],'FontName','Times');
 set([hXLabel, hYLabel],'FontSize', 10);

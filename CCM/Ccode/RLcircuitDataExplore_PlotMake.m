@@ -10,9 +10,18 @@
 % data = phase;
 % dataLabel = 'phase';
 
-load 'RLCircuit_varyV_freq/RLcircuitDataExplore_DataRead_varyV_freq.mat';
+% load 'RLCircuit_varyV_freq/RLcircuitDataExplore_DataRead_varyV_freq.mat';
+% data = freq;
+% dataLabel = 'freq';
+% 
+% load 'RLCircuit_varyV_freqE3/RLcircuitDataExplore_DataRead_varyV_freqE3.mat';
+% data = freq;
+% dataLabel = 'freq';
+
+load 'RLCircuit_varyV_freqE4/RLcircuitDataExplore_DataRead_varyV_freqE4.mat';
 data = freq;
 dataLabel = 'freq';
+
 
 % load 'RLCircuit_varyR_amp/RLcircuitDataExplore_DataRead_varyR_amp.mat';
 % data = Av;

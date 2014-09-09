@@ -17,9 +17,11 @@ for Tfstep = 1:1:length(Tfinals);
 
     Xt(1) = sin(tspan(1));
     Yt(1) = 0;
-    A = 2.6; %index 27
+    %A = 2.6; %index 27
     %A = 3.0; %index 31
-    B = 2.6; %index 27
+    A = 5.0;
+    %B = 2.6; %index 27
+    B = 8.3;
     for step = 2:length(tspan),
         Xt(step) = sin(tspan(step));
         Yt(step) = A*Xt(step-1)+B*randn();

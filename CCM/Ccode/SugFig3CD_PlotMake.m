@@ -30,8 +30,8 @@ set([hXLabel, hYLabel],'FontSize', 10);
 hSubtitle = title('(b)');
 
 hold off;
-print -depsc2 PlotOutTempDir/SugFig3CD.eps
-close;
+%print -depsc2 PlotOutTempDir/SugFig3CD.eps
+%close;
 
 width = 8;
 height = 4;
@@ -82,6 +82,6 @@ set([hXLabel, hYLabel],'FontSize', 10);
 
 hSubtitle = title('(d)');
 hold off;
-print -depsc2 PlotOutTempDir/SugFig3CD_AddPlot.eps
-close;
+%print -depsc2 PlotOutTempDir/SugFig3CD_AddPlot.eps
+%close;
 

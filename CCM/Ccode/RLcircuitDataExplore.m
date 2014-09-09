@@ -11,8 +11,8 @@ tspan = [0:0.5:1000];
 bVaryV_amp = false;
 bVaryV_offset = false;
 bVaryV_phase = false;
-bVaryV_freq = false;
-bVaryR_amp = true;
+bVaryV_freq = true;
+bVaryR_amp = false;
 bVaryR_offset = true;
 bVaryR_phase = true;
 bVaryR_freq = true;
@@ -20,10 +20,10 @@ bVaryR_freq = true;
 bVaryV_offsetlong = false;
 bVaryV_offsetLup = false;
 
-bVaryR_freqlong = true;
-bVaryR_freqLup = true;
+bVaryR_freqlong = false;
+bVaryR_freqLup = false;
 
-E = 3;
+E = 4;
 
 if( bVaryV_amp ),
 % 
@@ -346,11 +346,11 @@ if( bVaryV_freq ),
 
         fprintf('Creating C input data files...');
         tic;
-        CoutputfilenameRI = sprintf('RIoutE3_temp_freq%.3f.dat',freq(vstep));
+        CoutputfilenameRI = sprintf('RIoutE4_temp_freq%.3f.dat',freq(vstep));
         CinputfilenameRI = sprintf('RI_tempVf.dat');
-        CoutputfilenameRV = sprintf('RVoutE3_temp_freq%.3f.dat',freq(vstep));
+        CoutputfilenameRV = sprintf('RVoutE4_temp_freq%.3f.dat',freq(vstep));
         CinputfilenameRV = sprintf('RV_tempVf.dat');
-        CoutputfilenameVI = sprintf('VIoutE3_temp_freq%.3f.dat',freq(vstep));
+        CoutputfilenameVI = sprintf('VIoutE4_temp_freq%.3f.dat',freq(vstep));
         CinputfilenameVI = sprintf('VI_tempVf.dat');
 
         %RI

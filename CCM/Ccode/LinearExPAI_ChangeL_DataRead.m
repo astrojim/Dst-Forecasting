@@ -8,9 +8,10 @@ CdataXXY = zeros(length(Tfinals),1);
 CdataYY = zeros(length(Tfinals),1);
 CdataYYX = zeros(length(Tfinals),1);
 
-A = 2.6; %index 27
 %A = 3.0; %index 31
-B = 2.6; %index 27
+A = 5.0;
+%B = 2.6; %index 27
+B = 8.3;
 
 for Tfstep = 1:1:length(Tfinals);
 
@@ -40,4 +41,4 @@ for Tfstep = 1:1:length(Tfinals);
 
 end;   
 
-save 'LinearExPAI_ChangeL_DataRead.mat';
+save 'LinearExPAI_ChangeL_DataRead_A5.mat';
