@@ -90,6 +90,19 @@ $$
 \end{eqnarray*}
 Thus, the histogram bin that contains $\delta\theta = \sin(1)$ would include the points recorded at the set of time steps $\{t_k = n\pi\}$, i.e.\ $\{\delta\theta(n\pi)\}\subseteq H_i$.  The set of $\delta v$ that immediately follow the points in $H_i$, i.e.\ $\{\delta v(n\pi+1)\}$, will contain $n$ points, as does $H_i$ if $\{\delta\theta(n\pi)\}= H_i$.  However, the value of the points in $\{\delta\theta(n\pi)\}$ is all the same (i.e.\ $\sin(1)$), whereas the values of the points in $\{\delta v(n\pi+1)\}$ increase monotonically in $n$.  
 
+Consider $t_k = n\pi/2$ where $n=1,3,5,\ldots$.  
+\begin{eqnarray*}
+\delta\theta\left(\frac{n\pi}{2}\right) &=& \sin\left(\frac{n\pi}{2}\right) - \sin(\frac{n\pi}{2}-1)\\
+&=& 1-\cos(1) \;\;\;\;\mathrm{(n = 1,5,9,...)}\\
+&=& -1-\left(-\cos(1)\right) = \cos(1)-1 \;\;\;\;\mathrm{(n = 3,7,11,...)}
+\end{eqnarray*}
+\begin{eqnarray*}
+\delta v(\frac{n\pi}{2}+1) &=& 2g\left(\left(\frac{n\pi}{2}+1\right)\sin^2 \left(\sin(\frac{n\pi}{2}+1)\right) - \left(\frac{n\pi}{2}\right)\sin^2 \left(\sin(\frac{n\pi}{2})\right) \right)\\
+&=& 2g\left(\left(\frac{n\pi}{2}+1\right)\sin^2 \left(1-\cos(1)\right) - \left(\frac{n\pi}{2}\right)\sin^2 \left(-1\right) \right)\;\;\;\;\mathrm{(n = 1,5,9,...)}\\
+&=& 2g\left(\left(\frac{n\pi}{2}+1\right)\sin^2 \left(\cos(1)-1\right) - \left(\frac{n\pi}{2}\right)\sin^2 \left(1\right) \right)\;\;\;\;\mathrm{(n = 3,7,11,...)}\\
+\end{eqnarray*}
+Again, the value of the points in $\{\delta\theta(n\pi/2)\}$ are all the same (depending on the sign), whereas the values of the points in $\{\delta v(n\pi/2+1)\}$ are not constant.
+
 Thus, the change in the velocity, $v$, {\em caused} by a given change in the ramp angle, $\theta$ may depend on the cycle location of the system (i.e.\ $n$).  This observation, even at just the one special time step considered here, implies that it may be difficult to determine causality by comparing changes in the ramp angle to changes in the velocity.  Determining causality requires isolating the effect of a change in the driver (in this case $\theta$).  If the response (in this case $v$) can have many different responses based on other system parameters (in this case cycle location), then isolating the effect of the driver in the response would require controlling for all the other system parameters, which are expected to be unknown.
 
 The lack of knowledge about potential system parameters is a major problem in time series causality.  Often it is not just the values of system parameters that are unknown but rather their existence.  How many parameters are there in the system that produced the response signal?  What could they possible be?  Can they be controlled for? Etc.  These complications suggest that a more straightforward approach may just be to control for the values of the response system itself.  
@@ -117,3 +130,4 @@ The set $\{v(\pi+1)\}$ contains a single point, and thus the effect of a change 
 The question is now how to define causality with the twice subsetted data.
 
 \end{document}
+
