@@ -17,117 +17,126 @@
 
 \hfill{\small \today}
 
-\section{Example 1}
-Consider a block sliding down a frictionless ramp.  The system is assumed to be conservative, so
+\section{Simple Linear Example}
+Consider a simple driver-response system:
+\begin{eqnarray*}
+x_t &=& \sin(t)\\
+y_t &=& x_{t-1} + \eta_t\\
+&=& \sin(t-1) + \eta_t\\
+&=& \sin(t)\cos(1)-\cos(t)\sin(1)+ \eta_t
+\end{eqnarray*}
+with $\eta_t\sim \mathcal{N}(0,1)$.  Define
 $$
-\frac{mv^2}{2} = mgh = mg d\sin\theta = mg vt\sin^2 \theta
-$$
-where $v$ is the velocity of the block, $t$ is the time the block has been in motion, $m$ is the mass of the block, $g$ is the local acceleration due to gravity, $h$ is the height of the block before it is released, and $d$ is the distance the block has traveled.  The velocity is then  
-$$
-v(t) = 2gt\sin^2 \theta\;\;.
-$$
-If the angle of the ramp is varied with time as
-$$
-\theta(t) = \sin(t)\;\;,
-$$
-then it is expected that $\theta(t)\rightarrow v(t)$, i.e.\ the changing angle drives the changing magnitude of the velocity.
-
-The angle driving signal and the velocity response signal are seen in Figure \ref{fig:thetaandv}.
-\begin{figure}[ht]
-\begin{tabular}{ll}
-\includegraphics[scale=0.65]{theta.eps} & \includegraphics[scale=0.65]{v.eps}\\
-\end{tabular}
-\caption{}
-\label{fig:thetaandv}
-\end{figure}
-
-The change in $\theta$ is expected to affect $v$, so a first step is to find the distribution of changes in $\theta$; i.e.\
-$$
-\delta\theta(t) \equiv \frac{d\theta}{dt} \approx \frac{\Delta\theta}{\Delta t} = \theta(t)-\theta(t-1)\;\;.
-$$
-A histogram of $\{\delta\theta(t)\;|\;t\ge 0\}$ is seen in Figure \ref{fig:dthetahist}.
-\begin{figure}[ht]
-\includegraphics[scale=0.65]{dthetahist.eps}
-\caption{}
-\label{fig:dthetahist}
-\end{figure}
-A given bin can be picked (e.g.\ bin 125 in Figure \ref{fig:dthetahist}), and the values of $v$ that occur immediately following the binned $\delta\theta$ can be plotted to give an idea of how the response signal reacts to the given change in the driving signal.  Let $B_i = \{t_k\}$ be the set of times $t$ corresponding to the $i$th bin of $\delta\theta$ which contains all the $\{\delta\theta(t_k)\}$ that belong to that bin.  The plot of the correspondingly binned response signal would be a plot of $\{v(t+1)\;|\; t\in B_i\}$.  Figure \ref{fig:vbin125} is such a plot for $B_{125}$.
-\begin{figure}[ht]
-\includegraphics[scale=0.65]{vbin125.eps}
-\caption{}
-\label{fig:vbin125}
-\end{figure}
-
-Conceptually, the response signal is expected to have only a few different values in response to a given change in the driver.  However, it might be expected that the actual value of the response might also depend on the previous value of the response signal.  For example, a $0.25\pi$ change in $\theta$ would lead to a different value of $v(t)$ depending on $v(t-1)$.  Two ways to approach this problem are to define a change in $v$ (i.e.\ $\delta v$) and then investigate $\{\delta v(t+1)\;|\; t\in B_i\}$ or to bin $v$ and then investigate $\delta\theta$-binned response values $v$ within a given $v$-binned set.  Both methods are explored below.
-
-\subsection{$\delta\theta$ leads to $\delta v(t)$}
-The set $\{\delta\theta(t_k)\;\forall t_k\in B_i\}$ can be compared with $\{\delta v(t_k+1)\}$ to understand how similar changes in $\theta$ are followed by changes in $v$.  Figure \ref{fig:dthetadv} shows such a plot for $i=125$.
-\begin{figure}[ht]
-\begin{tabular}{ll}
-\includegraphics[scale=0.65]{dthetabin125.eps} & \includegraphics[scale=0.65]{dvbin125.eps}\\
-\end{tabular}
-\caption{}
-\label{fig:dthetadv}
-\end{figure}
-The figures show that for $B_{125}$ two separate values of $\delta v(t_k+1)$ seem to follow $\delta\theta(t_k)$.  From above,
-$$
-\delta\theta(t_k) = \theta(t_k)-\theta(t_k-1) = \sin(t_k) - \sin(t_k-1)
+\delta x_t \equiv \frac{dx}{dt} \approx \frac{\Delta x}{\Delta t} = x_t-x_{t-1}
 $$
 and
-\begin{eqnarray*}
-\delta v(t_k+1) &=& v(t_k+1)-v(t_k)\\
-&=& 2g\left(\left(t_k+1\right)\sin^2 \left(\theta(t_k+1)\right) - \left(t_k\right)\sin^2 \left(\theta(t_k)\right) \right)\\
-&=& 2g\left(\left(t_k+1\right)\sin^2 \left(\sin(t_k+1)\right) - \left(t_k\right)\sin^2 \left(\sin(t_k)\right) \right)
-\end{eqnarray*}
-
-Consider $t_k = n\pi$ where $n=0,1,2,\ldots$.  
 $$
-\delta\theta(n\pi) = \sin(n\pi) - \sin(n\pi-1) = -\left(-\sin(1)\right) = \sin(1)
+\delta y_t \equiv \frac{dy}{dt} \approx \frac{\Delta y}{\Delta t} = y_t-y_{t-1}\;\;.
 $$
+It follows that
 \begin{eqnarray*}
-\delta v(n\pi+1) &=& 2g\left(\left(n\pi+1\right)\sin^2 \left(\sin(n\pi+1)\right) - \left(n\pi\right)\sin^2 \left(\sin(n\pi)\right) \right)\\
-&=& 2g\left(n\pi+1\right)\sin^2 \left(\sin(1)\right)\\
+\delta x_t &=& \sin(t)-\sin(t-1)\\
+&=& \sin(t)-\left(\sin(t)\cos(1)-\cos(t)\sin(1)\right)\\
+&=& \sin(t)\left(1-\cos(1)\right)+\sin(1)\cos(t)\\
+&\equiv& \kappa_1\sin(t)+\kappa_2\cos(t)
 \end{eqnarray*}
-Thus, the histogram bin that contains $\delta\theta = \sin(1)$ would include the points recorded at the set of time steps $\{t_k = n\pi\}$, i.e.\ $\{\delta\theta(n\pi)\}\subseteq H_i$.  The set of $\delta v$ that immediately follow the points in $H_i$, i.e.\ $\{\delta v(n\pi+1)\}$, will contain $n$ points, as does $H_i$ if $\{\delta\theta(n\pi)\}= H_i$.  However, the value of the points in $\{\delta\theta(n\pi)\}$ is all the same (i.e.\ $\sin(1)$), whereas the values of the points in $\{\delta v(n\pi+1)\}$ increase monotonically in $n$.  
-
-Consider $t_k = n\pi/2$ where $n=1,3,5,\ldots$.  
+with $\kappa_1 = 1-\cos(1)$ and $\kappa_2 = \sin(1)$, and
 \begin{eqnarray*}
-\delta\theta\left(\frac{n\pi}{2}\right) &=& \sin\left(\frac{n\pi}{2}\right) - \sin(\frac{n\pi}{2}-1)\\
-&=& 1-\cos(1) \;\;\;\;\mathrm{(n = 1,5,9,...)}\\
-&=& -1-\left(-\cos(1)\right) = \cos(1)-1 \;\;\;\;\mathrm{(n = 3,7,11,...)}
+\delta y_t &=& x_{t-1} + \eta_t - x_{t-2} - \eta_{t-1}\\
+&=& \sin(t-1) - \sin(t-2) + \eta_t - \eta_{t-1}\\
+&=& \left(\sin(t)\cos(1)-\cos(t)\sin(1)\right) - \left(\sin(t)\cos(2)-\cos(t)\sin(2)\right)+\eta^\prime_t \\
+&=& \sin(t)\left(\cos(1)-\cos(2)\right)+\cos(t)\left(\sin(2)-\sin(1)\right)+\eta^\prime_t\\
+&\equiv& k_1\sin(t)+k_2\cos(t)+\eta^\prime_t
 \end{eqnarray*}
-\begin{eqnarray*}
-\delta v(\frac{n\pi}{2}+1) &=& 2g\left(\left(\frac{n\pi}{2}+1\right)\sin^2 \left(\sin(\frac{n\pi}{2}+1)\right) - \left(\frac{n\pi}{2}\right)\sin^2 \left(\sin(\frac{n\pi}{2})\right) \right)\\
-&=& 2g\left(\left(\frac{n\pi}{2}+1\right)\sin^2 \left(1-\cos(1)\right) - \left(\frac{n\pi}{2}\right)\sin^2 \left(-1\right) \right)\;\;\;\;\mathrm{(n = 1,5,9,...)}\\
-&=& 2g\left(\left(\frac{n\pi}{2}+1\right)\sin^2 \left(\cos(1)-1\right) - \left(\frac{n\pi}{2}\right)\sin^2 \left(1\right) \right)\;\;\;\;\mathrm{(n = 3,7,11,...)}\\
-\end{eqnarray*}
-Again, the value of the points in $\{\delta\theta(n\pi/2)\}$ are all the same (depending on the sign), whereas the values of the points in $\{\delta v(n\pi/2+1)\}$ are not constant.
+with $\eta^\prime_t = \eta_t - \eta_{t-1} \sim \mathcal{N}(0,2)$\footnote{The difference of two normal distributions with means $\mu_1$ and $\mu_2$ and variances $\sigma^2_1$ and $\sigma^2_2$ is another normal distribution with mean $\mu_1-\mu_2$ and variance $\sigma^2_1+\sigma^2_2$.}, $k_1 = \left(\cos(1)-\cos(2)\right)$ and $k_2 = \left(\sin(2)-\sin(1)\right)$.
 
-Thus, the change in the velocity, $v$, {\em caused} by a given change in the ramp angle, $\theta$ may depend on the cycle location of the system (i.e.\ $n$).  This observation, even at just the one special time step considered here, implies that it may be difficult to determine causality by comparing changes in the ramp angle to changes in the velocity.  Determining causality requires isolating the effect of a change in the driver (in this case $\theta$).  If the response (in this case $v$) can have many different responses based on other system parameters (in this case cycle location), then isolating the effect of the driver in the response would require controlling for all the other system parameters, which are expected to be unknown.
+The main idea of Local Impulse Response (LIR) causality inference is to use a subsetting procedure on some (or all) of the four time series $x_t$, $y_t$, $\delta x_t$, and $\delta y_t$ to determine the causality of the system.
 
-The lack of knowledge about potential system parameters is a major problem in time series causality.  Often it is not just the values of system parameters that are unknown but rather their existence.  How many parameters are there in the system that produced the response signal?  What could they possible be?  Can they be controlled for? Etc.  These complications suggest that a more straightforward approach may just be to control for the values of the response system itself.  
+Consider a few extreme points in the driver cycle, e.g.\ $t=n\pi$ with $n=0,1,2,3,4,\ldots$.  The driver values are
+$$
+x_{n\pi} = \sin(n\pi) = 0\;\;,
+$$
+the response values are
+$$
+y_{n\pi} = \sin(n\pi)\cos(1)-\cos(n\pi)\sin(1)+ \eta_{n\pi} = \eta_{n\pi} + \left(-1\right)^n\sin(1)\;\;,
+$$
+the local change in the driver values are
+$$
+\delta x_{n\pi} = \kappa_1\sin(n\pi)+\kappa_2\cos(n\pi) = \left(-1\right)^n \kappa_2\;\;,
+$$
+and the local change in the response values are
+$$
+\delta y_{n\pi} = k_1\sin(n\pi)+k_2\cos(n\pi)+\eta^\prime_{n\pi} = \eta^\prime_{n\pi} + \left(-1\right)^n k_2\;\;.
+$$
 
-\subsection{Subsetting $\delta\theta$ and $v$: Local Impulse Response Inference (??)}
+Consider $t=n\pi/2$ with $n=1,2,3,4,\ldots$.  The driver values are
+$$
+x_{n\frac{\pi}{2}} = \sin\left(n\frac{\pi}{2}\right) = (-1)^n\;\;,
+$$
+the response values are
+$$
+y_{n\frac{\pi}{2}} = \sin\left(n\frac{\pi}{2}\right)\cos(1)-\cos\left(n\frac{\pi}{2}\right)\sin(1)+ \eta_{n\frac{\pi}{2}} = \eta_{n\frac{\pi}{2}} + (-1)^n\cos(1)\;\;,
+$$
+the local change in thd driver values are
+$$
+\delta x_{n\frac{\pi}{2}} = \kappa_1\sin\left(n\frac{\pi}{2}\right)+\kappa_2\cos\left(n\frac{\pi}{2}\right) = \left(-1\right)^n \kappa_1\;\;,
+$$
+and the local change in the response values are
+$$
+\delta y_{n\frac{\pi}{2}} = k_1\sin\left(n\frac{\pi}{2}\right)+k_2\cos\left(n\frac{\pi}{2}\right)+\eta^\prime_{n\frac{\pi}{2}} = \eta^\prime_{n\frac{\pi}{2}} + \left(-1\right)^n k_1\;\;.
+$$
 
-Consider the $t_k=n\pi$ example from the previous subsection.  The set $\{\delta\theta(n\pi)\}$ contains $n$ points.  Consider
-\begin{eqnarray*}
-v(n\pi-1) &=& 2g\left(n\pi-1\right)\sin^2 \left(\theta(n\pi-1)\right)\\
-&=& 2g\left(n\pi-1\right)\sin^2 \left(\sin(n\pi-1)\right)\\
-&=& 2g\left(n\pi-1\right)\sin^2 \left(-\sin(1)\right)\\
-&=& 2g\left(n\pi-1\right)\left(-1\right)^2\sin^2 \left(\sin(1)\right)\\
-&=& 2g\left(n\pi-1\right)\sin^2 \left(\sin(1)\right)
-\end{eqnarray*}
-The set $\{v(n\pi-1)\}$ will have $n$ points.  Performing a histogram on this set will effectively be subsetting by $n$ because the values in the set $\{v(n\pi-1)\}$ are only a function of $n$.  This is a key idea: a histogram of the response signal values immediately preceding a given change in the driver is considered equivalent to subsetting by (i.e.\ ``controlling for'') the unknown system parameters.
+\section{Subsetting for LIR variance}
+Consider $\mathbf{X}=\{x_t\}$ and $\mathbf{Y}=\{y_t\}$ given $t\in[0,4\pi]$.  Let $L$ be the library length of $\mathbf{X}$ and $\mathbf{Y}$.  These systems have five points where $t=n\pi$ for $n=0,1,2,3$ and $4$. Thus, an $m$-binned histogram of $\mathbf{X}$, where $m\ge L$, would have a bin, $b_0$, centered at $x_t=0$ that contains the five points $\mathbf{X}_{0} = \{x_{n\pi}\}$.  (If $m<L$, then $\mathbf{b}_0$ would contain at least five points but the total number of points in $\mathbf{b}_0$ would be a function of the total number of bins, assuming bins of equal sizes.)  
 
-For this example, consider an $n$-binned histogram of $\{v(n\pi-1)\}$, which implies a single value is in each bin.  Consider the bin $n=1$ which contains the value $v(\pi-1)=2g\left(\pi-1\right)\sin^2 \left(\sin(1)\right)$.  For this bin, the driver changes by $\delta\theta(\pi)=\sin(1)$ (as it would for all the bins).  The response signal immediately following the change in the driver is 
-\begin{eqnarray*}
-v(t_k+1) = v(\pi+1) &=& 2g\left(\pi+1\right)\sin^2 \left(\theta(\pi+1)\right)\\
-&=& 2g\left(\pi+1\right)\sin^2 \left(\sin(\pi+1)\right)\\
-&=& 2g\left(\pi+1\right)\sin^2 \left(\sin(1)\right)\;\;.
-\end{eqnarray*}
-The set $\{v(\pi+1)\}$ contains a single point, and thus the effect of a change in the driving signal $\theta$ has been isolated by controlling for the values of the response $v$ that precede the change.  The algorithm is straightforward to describe as 1.\ create $\delta\theta$, 2.\ create histogram $\mathbf{H}_\theta$ of $\delta\theta$, and 3. for each bin of $\mathbf{H}_\theta$ create histogram of preceding $v$.  
+Consider the set of time steps $\mathbf{T}=\{t=n\pi\}\;\forall n=0,1,2,3,4$ for which the values in $\mathbf{X_0}$ are achieved.  The local impulses immediately preceding $\mathbf{b}_0$ are $\mathbf{\delta X}_\mathbf{T}=\{\delta x_{n\pi}\}$, which also contains five points.  However, those five points would not appear in a single bin of an m-binned histogram of $\{\delta x_t\}$ (given $m\ge L$).  The set $\mathbf{\delta X}_\mathbf{T}$ would actually be split into two separate bins in such a histogram, one for the three points equal to $\kappa_2$ and one for the two points equal to $-\kappa_2$.  Thus, the time steps associated all of the points in a given histogram bin of a given time series, e.g.\ $\mathbf{b}_0$, do not necessarily correspond to points in a single histogram bin of different (though related) times series, e.g.\ $\mathbf{\delta X}_\mathbf{T}$.  This idea is straightforward but it is the basic idea underlying the subsetting method for calculating the LIR variance.
 
-The question is now how to define causality with the twice subsetted data.
+The subsetting is premised on the following:
+\begin{itemize}
+\item The local temporal response causally depends on the local temporal change in the driver; e.g.\ $y_{t}$ causally depends on $\delta x_{t}$
+\item The local temporal response causally depends on the immediately preceding response; e.g.\ $y_{t}$ causally depends on $y_{t-1}$
+\item The local temporal response does not causally depend on the immediately preceding driver except through the local temporal change in the driver; e.g.\ $y_{t}$ does not causally depend on $x_{t-1}$ except through $\delta x_t$
+\end{itemize}
+Thus, the subsetting procedure is as follows:
+\begin{enumerate}
+\item Create an $m$-binned histogram of the response signal $\mathbf{R} = \{r_t\}$.
+\item Given $m$ bins $\mathbf{b}_i$ where $i$ denotes the center of the $m$th bin, create an $m^\prime$-binned histogram of the change in the driver signal $\mathbf{\delta D} = =\{\delta d_t\} = \{d_t-d_{t-1}\}$ at the time steps $\mathbf{\tau} = \{t\;|\;r_t\in \mathbf{b}_i\}$.
+\item Given $m^\prime$ bins $\mathbf{b^\prime}_j$ where $j$ denotes the center of the $m^\prime$th bin, find the variance of the response at the time steps immediately following (i.e.\ $t+1$) the time steps $\mathbf{\tau^\prime} = \{t\;|\;\delta d_t\in \mathbf{b}_j\}$.
+\end{enumerate}
+As an example, consider $\mathbf{R} = \mathbf{X}$ and $\mathbf{D} = \mathbf{Y}$.  An $m$-binned histogram of $\mathbf{X}$ would lead to a bin centered at zero, $b_0$, that contains at least five points evaluated at $t=n\pi\;\forall n=0,1,2,3,4$.  Thus, the change in the driver signal, i.e.\ $\{\delta y_t\}$, evaluated at $\mathbf{\tau}$ contains at least the five points $\eta^\prime_{n\pi} + \left(-1\right)^n k_2$.  The $m^\prime$-binned histogram of step 2 would split these five points among different bins (depending on both the sign of $k_2$ and the value of $\eta^\prime_{n\pi}$ for a given $n$).  If each of the points is placed into a bin alone, then the variance calculations of step 3 become $\mathop{var}\left(\sin(n\pi+1)\right)\;\forall n=0,1,2,3,4$, which is five zeros because the variance of a single point is zero.  Suppose all five points are placed into a single bin.  The variance calculation of step 3 then becomes 
+\begin{eqnarray}
+\mathop{var}\left(\{\sin(n\pi+1)\; | n=0,1,2,3,4\}\right) &=& \mathop{var}\left(\{\sin(n\pi)\cos(1)+\cos(n\pi)\sin(1)\; | n=0,1,2,3,4\}\right)\\
+&=& \mathop{var}\left(\{(-1)^n\kappa_2\; | n=0,1,2,3,4\}\right)\\
+&=& \mathop{var}\left(\{\kappa_2,-\kappa_2,\kappa_2,-\kappa_2,\kappa_2\}\right)\\
+&=& \frac{1}{5}\left((\kappa_2-\mu)^2+(-\kappa_2-\mu)^2+(\kappa_2-\mu)^2+(-\kappa_2-\mu)^2+(\kappa_2-\mu)^2\right)\\
+&=& \frac{1}{5}\left(\frac{16}{25}\kappa_2^2+\frac{36}{25}\kappa_2^2+\frac{16}{25}\kappa_2^2+\frac{36}{25}\kappa_2^2+\frac{16}{25}\kappa_2^2\right)\\
+&=& \frac{1}{5}\frac{120}{25}\kappa_2^2\\
+&=& \frac{24}{25}\kappa_2^2\
+\end{eqnarray}
+where $\mu=\kappa_2/5$.  Thus, the LIR variance depends strongly on the number of bins used to construct the histograms in steps 1 and 2.  
+
+In this particular example, $\mathbf{Y}$ is known to be the response and $\mathbf{X}$ is known to be the driver.  It may be assumed that our assignment of $\mathbf{R} = \mathbf{X}$ and $\mathbf{D} = \mathbf{Y}$ may proven ``false'' by comparing the variances given this assignment and it's complement, i.e.\ $\mathop{LIRvar}|\mathbf{R} = \mathbf{X},\mathbf{D} = \mathbf{Y}$ and $\mathop{LIRvar}|\mathbf{R} = \mathbf{Y},\mathbf{D} = \mathbf{X}$.  It may be assumed that the lower LIR variance is indicative of a stronger causal inference, i.e.\ if $\mathop{LIRvar}|\mathbf{R} = \mathbf{X},\mathbf{D} = \mathbf{Y}$ is greater than $\mathop{LIRvar}|\mathbf{R} = \mathbf{Y},\mathbf{D} = \mathbf{X}$, then it may be assumed $\mathbf{R} = \mathbf{Y},\mathbf{D} = \mathbf{X}$ is the more ``correct'' assignment.  Notice, however, that we have already shown that the incorrect assignment of $\mathbf{R} = \mathbf{X}$ and $\mathbf{D} = \mathbf{Y}$ can lead to an LIR variance of variance.  The correct assignment of $\mathbf{R} = \mathbf{Y}$ and $\mathbf{D} = \mathbf{X}$ cannot lead to an LIR variance less than zero (variances are nonnegative).  Thus, it seems that comparing LIR variances is not a robust method for causal inference.  
+
+\section{LIR Approach to Probabilistic Causality}
+Probabilistic causality is centered on the definition that a cause $C$ is said to {\em cause} (or {\em drive}) an effect $E$ if
+$$
+P\left(E|C\right) > P\left(E|\bar{C}\right)\;\;,
+$$
+i.e.\ $C$ causes $E$ if the probability of $E$ given $C$ is higher than the probability of $E$ given not $C$.  The LIR causal inference method involves using e.g.\ $\{x_t\}$, $\{y_t\}$, $\{\delta x_t\}$, and $\{\delta y_t\}$ to determine the direction of causal influence in a system of two times series $\{x_t\}$ and $\{y_t\}$.  It follows that applying LIR causal inference to probabilistic causality involves evaluating the above inequality given e.g.\ $C = \{x_t\}$, $\{y_t\}$, $\{\delta x_t\}$, or $\{\delta y_t\}$ and $E = \{x_t\}$, $\{y_t\}$, $\{\delta x_t\}$, or $\{\delta y_t\}$ given $E\neq C$ and for different temporal offsets.
+
+The conditional probabilities are estimated using histograms of the time series data as follows:
+$$
+P\left(E|C\right) \approx \frac{1}{L} H\left(E|C\right) = \frac{H\left(E\cap C\right)}{H(C)}
+$$
+where $H(A)$ is an $m$-binned histogram of $A$, $L$ is the library length of the $E$ and $C$ time series (which are assumed to be the same length).  Similarly,
+$$
+P\left(E|\bar{C}\right) \approx \frac{1}{L} H\left(E|\bar{C}\right) = \frac{H\left(E\cap \bar{C}\right)}{H(\bar{C})}\;\;.
+$$
+
+Define the {\em causal penchant} 
+$$
+\rho_{EC} = P\left(E|C\right) - P\left(E|\bar{C}\right) \approx \frac{H\left(E\cap C\right)}{H(C)}-\frac{H\left(E\cap \bar{C}\right)}{H(\bar{C})}\;\;.
+$$
+If $C$ causes $E$, then $\rho_{EC} > 0$.  Otherwise, i.e.\ $\rho_{EC} \le 0$, the causal influence of the system is {\em undefined}(?).  Causal influence between a pair of time series is accomplished by comparing penchants.
 
 \end{document}
-
