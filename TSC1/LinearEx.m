@@ -1,8 +1,8 @@
-t = [0:0.1:100];
+t = [0:0.05:100];
 x = sin(t);
 
 A = 1.0;
-B = 0.1;
+B = 0.01;
 
 y = zeros(length(x),1);
 for iter = 2:1:length(x),

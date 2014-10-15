@@ -17,9 +17,18 @@ for iter = 1:1:binnum,
     notYProb = count_outbin/length(y);
     
     for iter2 = 1:1:binnum,
-        XgYcondProb = XYjointProbMat(iter2,iter)/YProb;
-        XgnotYcondProb = XYjointProbMat(iter2,iter)/notYProb;
-        tend(iter2,iter) = log((1-XgnotYcondProb)/(1-XgYcondProb));
+        if( YProb == 0 ),
+            XgYcondProb = 0;
+        else
+            XgYcondProb = XYjointProbMat(iter2,iter)/YProb;
+        end;
+        if( notYProb == 0 ),
+            XgnotYcondProb = 0;
+        else
+            XgnotYcondProb = XYjointProbMat(iter2,iter)/notYProb;
+        end;
+        %tend(iter2,iter) = log((1-XgnotYcondProb)/(1-XgYcondProb));
+        tend(iter2,iter) =  XgYcondProb - XgnotYcondProb;
     end;
 end;
 
