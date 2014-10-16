@@ -89,13 +89,13 @@ $$
 \section{Subsetting for LIR variance}
 Consider $\mathbf{X}=\{x_t\}$ and $\mathbf{Y}=\{y_t\}$ given $t\in[0,4\pi]$.  Let $L$ be the library length of $\mathbf{X}$ and $\mathbf{Y}$.  These systems have five points where $t=n\pi$ for $n=0,1,2,3$ and $4$. Thus, an $m$-binned histogram of $\mathbf{X}$, where $m\ge L$, would have a bin, $b_0$, centered at $x_t=0$ that contains the five points $\mathbf{X}_{0} = \{x_{n\pi}\}$.  (If $m<L$, then $\mathbf{b}_0$ would contain at least five points but the total number of points in $\mathbf{b}_0$ would be a function of the total number of bins, assuming bins of equal sizes.)  
 
-Consider the set of time steps $\mathbf{T}=\{t=n\pi\}\;\forall n=0,1,2,3,4$ for which the values in $\mathbf{X_0}$ are achieved.  The local impulses immediately preceding $\mathbf{b}_0$ are $\mathbf{\delta X}_\mathbf{T}=\{\delta x_{n\pi}\}$, which also contains five points.  However, those five points would not appear in a single bin of an m-binned histogram of $\{\delta x_t\}$ (given $m\ge L$).  The set $\mathbf{\delta X}_\mathbf{T}$ would actually be split into two separate bins in such a histogram, one for the three points equal to $\kappa_2$ and one for the two points equal to $-\kappa_2$.  Thus, the time steps associated all of the points in a given histogram bin of a given time series, e.g.\ $\mathbf{b}_0$, do not necessarily correspond to points in a single histogram bin of different (though related) times series, e.g.\ $\mathbf{\delta X}_\mathbf{T}$.  This idea is straightforward but it is the basic idea underlying the subsetting method for calculating the LIR variance.
+Consider the set of time steps $\mathbf{T}=\{t=n\pi\}\;\forall n=0,1,2,3,4$ for which the values in $\mathbf{X_0}$ are acheived.  The local impulses immediately preceeding $\mathbf{b}_0$ are $\mathbf{\delta X}_\mathbf{T}=\{\delta x_{n\pi}\}$, which also contains five points.  However, those five points would not appear in a single bin of an m-binned histogram of $\{\delta x_t\}$ (given $m\ge L$).  The set $\mathbf{\delta X}_\mathbf{T}$ would actually be split into two separate bins in such a histogram, one for the three points equal to $\kappa_2$ and one for the two points equal to $-\kappa_2$.  Thus, the time steps associated all of the points in a given histogram bin of a given time series, e.g.\ $\mathbf{b}_0$, do not nessecarily correspond to points in a single histogram bin of different (though related) times series, e.g.\ $\mathbf{\delta X}_\mathbf{T}$.  This idea is straightforward but it is the basic idea underlying the subsetting method for calculating the LIR variance.
 
 The subsetting is premised on the following:
 \begin{itemize}
 \item The local temporal response causally depends on the local temporal change in the driver; e.g.\ $y_{t}$ causally depends on $\delta x_{t}$
-\item The local temporal response causally depends on the immediately preceding response; e.g.\ $y_{t}$ causally depends on $y_{t-1}$
-\item The local temporal response does not causally depend on the immediately preceding driver except through the local temporal change in the driver; e.g.\ $y_{t}$ does not causally depend on $x_{t-1}$ except through $\delta x_t$
+\item The local temporal response causally depends on the immediately preceeding response; e.g.\ $y_{t}$ causally depends on $y_{t-1}$
+\item The local temporal response does not causally depend on the immediately preceeding driver except through the local temporal change in the driver; e.g.\ $y_{t}$ does not causally depend on $x_{t-1}$ except through $\delta x_t$
 \end{itemize}
 Thus, the subsetting procedure is as follows:
 \begin{enumerate}
@@ -113,7 +113,7 @@ As an example, consider $\mathbf{R} = \mathbf{X}$ and $\mathbf{D} = \mathbf{Y}$.
 &=& \frac{1}{5}\frac{120}{25}\kappa_2^2\\
 &=& \frac{24}{25}\kappa_2^2\
 \end{eqnarray}
-where $\mu=\kappa_2/5$.  Thus, the LIR variance depends strongly on the number of bins used to construct the histograms in steps 1 and 2.  
+where $\mu=\kappa_2/5$.  Thus, the LIR variance depends strongly on the number of bins used to contruct the histograms in steps 1 and 2.  
 
 In this particular example, $\mathbf{Y}$ is known to be the response and $\mathbf{X}$ is known to be the driver.  It may be assumed that our assignment of $\mathbf{R} = \mathbf{X}$ and $\mathbf{D} = \mathbf{Y}$ may proven ``false'' by comparing the variances given this assignment and it's complement, i.e.\ $\mathop{LIRvar}|\mathbf{R} = \mathbf{X},\mathbf{D} = \mathbf{Y}$ and $\mathop{LIRvar}|\mathbf{R} = \mathbf{Y},\mathbf{D} = \mathbf{X}$.  It may be assumed that the lower LIR variance is indicative of a stronger causal inference, i.e.\ if $\mathop{LIRvar}|\mathbf{R} = \mathbf{X},\mathbf{D} = \mathbf{Y}$ is greater than $\mathop{LIRvar}|\mathbf{R} = \mathbf{Y},\mathbf{D} = \mathbf{X}$, then it may be assumed $\mathbf{R} = \mathbf{Y},\mathbf{D} = \mathbf{X}$ is the more ``correct'' assignment.  Notice, however, that we have already shown that the incorrect assignment of $\mathbf{R} = \mathbf{X}$ and $\mathbf{D} = \mathbf{Y}$ can lead to an LIR variance of variance.  The correct assignment of $\mathbf{R} = \mathbf{Y}$ and $\mathbf{D} = \mathbf{X}$ cannot lead to an LIR variance less than zero (variances are nonnegative).  Thus, it seems that comparing LIR variances is not a robust method for causal inference.  
 
@@ -138,5 +138,84 @@ $$
 \rho_{EC} = P\left(E|C\right) - P\left(E|\bar{C}\right) \approx \frac{H\left(E\cap C\right)}{H(C)}-\frac{H\left(E\cap \bar{C}\right)}{H(\bar{C})}\;\;.
 $$
 If $C$ causes $E$, then $\rho_{EC} > 0$.  Otherwise, i.e.\ $\rho_{EC} \le 0$, the causal influence of the system is {\em undefined}(?).  Causal influence between a pair of time series is accomplished by comparing penchants.
+
+Consider two short time seires $\mathbf{x}=\{x_t\} = \{0,1,2,1,0\}$ and $\mathbf{y}=y_t=x_{t-1}$ (i.e.\ $\{y_t\} = \{0,0,1,2,1\}$.  The time steps are indexed by $t=0,1,2,3,4$.  The joint histogram $H(\mathbf{x}\cap\mathbf{y})$ is given by the following frequency table:
+\begin{center}
+\begin{tabular}{l|ccccc}
+ & $x_0$ & $x_1$ & $x_2$ & $x_3$ & $x_4$ \\
+ \hline \\
+ $y_0$ & 1 & 1 & 1 & 1 & 1\\
+ $y_1$ & 1 & 1 & 1 & 1 & 1\\
+ $y_2$ & 1 & 1 & 1 & 1 & 1\\
+ $y_3$ & 1 & 1 & 1 & 1 & 1\\
+ $y_4$ & 1 & 1 & 1 & 1 & 1\\
+\end{tabular}
+\end{center}
+The individual joint probabilities can be found using the frequencies of occurence as
+\begin{eqnarray}
+P(y_t=0 \cap x_t = 0) &=& \frac{4}{25}\\
+P(y_t=1 \cap x_t = 0) &=& \frac{4}{25}\\
+P(y_t=2 \cap x_t = 0) &=& \frac{2}{25}\\
+P(y_t=0 \cap x_t = 1) &=& \frac{4}{25}\\
+P(y_t=1 \cap x_t = 1) &=& \frac{4}{25}\\
+P(y_t=2 \cap x_t = 1) &=& \frac{2}{25}\\
+P(y_t=0 \cap x_t = 2) &=& \frac{2}{25}\\
+P(y_t=1 \cap x_t = 2) &=& \frac{2}{25}\\
+P(y_t=2 \cap x_t = 2) &=& \frac{1}{25}
+\end{eqnarray}
+The individual probabilities are found similarly:
+\begin{eqnarray}
+P(x_t = 0) &=& \frac{2}{5}\\
+P(x_t = 1) &=& \frac{2}{5}\\
+P(x_t = 2) &=& \frac{1}{5}\\
+P(y_t = 0) &=& \frac{2}{5}\\
+P(y_t = 1) &=& \frac{2}{5}\\
+P(y_t = 2) &=& \frac{1}{5}
+\end{eqnarray}
+The joint probabilities are symmetric (i.e.\ $P(x_t\cap y_t) = P(y_t\cap x_t)$).  Thus, the two above sets of probabilities are sufficient to find all the conditionals.  
+\begin{center}
+\begin{tabular}{c|c|c}
+$P(y_t=0 | x_t = 0) = \frac{P(y_t=0 \cap x_t = 0)}{P(x_t = 0)} = \frac{2}{5}$ &
+$P(y_t=0 | x_t = 1) = \frac{P(y_t=0 \cap x_t = 1)}{P(x_t = 1)} = \frac{2}{5}$ &
+$P(y_t=0 | x_t = 2) = \frac{P(y_t=0 \cap x_t = 2)}{P(x_t = 2)} = \frac{2}{5}$ \\
+
+$P(y_t=1 | x_t = 0) = \frac{P(y_t=1 \cap x_t = 0)}{P(x_t = 0)} = \frac{2}{5}$ &
+$P(y_t=1 | x_t = 1) = \frac{P(y_t=1 \cap x_t = 1)}{P(x_t = 1)} = \frac{2}{5}$ &
+$P(y_t=1 | x_t = 2) = \frac{P(y_t=1 \cap x_t = 2)}{P(x_t = 2)} = \frac{2}{5}$ \\
+
+$P(y_t=2 | x_t = 0) = \frac{P(y_t=2 \cap x_t = 0)}{P(x_t = 0)} = \frac{1}{5}$ &
+$P(y_t=2 | x_t = 1) = \frac{P(y_t=2 \cap x_t = 1)}{P(x_t = 1)} = \frac{1}{5}$ &
+$P(y_t=2 | x_t = 2) = \frac{P(y_t=2 \cap x_t = 2)}{P(x_t = 2)} = \frac{1}{5}$ \\
+\hline \\
+$P(x_t=0 | y_t = 0) = \frac{P(y_t=0 \cap x_t = 0)}{P(y_t = 0)} = \frac{2}{5}$ &
+$P(x_t=0 | y_t = 1) = \frac{P(y_t=0 \cap x_t = 1)}{P(y_t = 1)} = \frac{2}{5}$ &
+$P(x_t=0 | y_t = 2) = \frac{P(y_t=0 \cap x_t = 2)}{P(y_t = 2)} = \frac{2}{5}$ \\
+
+$P(x_t=1 | y_t = 0) = \frac{P(y_t=1 \cap x_t = 0)}{P(y_t = 0)} = \frac{2}{5}$ &
+$P(x_t=1 | y_t = 1) = \frac{P(y_t=1 \cap x_t = 1)}{P(y_t = 1)} = \frac{2}{5}$ &
+$P(x_t=1 | y_t = 2) = \frac{P(y_t=1 \cap x_t = 2)}{P(y_t = 2)} = \frac{2}{5}$ \\
+
+$P(x_t=2 | y_t = 0) = \frac{P(y_t=2 \cap x_t = 0)}{P(y_t = 0)} = \frac{1}{5}$ &
+$P(x_t=2 | y_t = 1) = \frac{P(y_t=2 \cap x_t = 1)}{P(y_t = 1)} = \frac{1}{5}$ &
+$P(x_t=2 | y_t = 2) = \frac{P(y_t=2 \cap x_t = 2)}{P(y_t = 2)} = \frac{1}{5}$ \\
+\end{tabular}
+\end{center}
+Consider the penchant
+$$
+\rho_{xy} = P(x_t = 0 | y_t = 0) - P(x_t = 0 | y_t \neq 0) = \frac{2}{5} - \frac{4}{5} = -\frac{2}{5}
+$$
+and its partner
+$$
+\rho_{yx} = P(y_t = 0 | x_t = 0) - P(y_t = 0 | x_t \neq 0) = \frac{2}{5} - \frac{4}{5} = -\frac{2}{5}\;\;.
+$$
+These two values are equal, but they are also only for a single points.  Consider comparing the two time series using mean penchants,
+\begin{eqnarray}
+\langle \rho_{xy} \rangle &=& \frac{1}{9}\left[ \sum_{i=0}^2 \sum_{j=0}^2 \left(P(x_t = i | y_t = j) - P(x_t = i | y_t \neq j)\right)\right] \\
+&=& \frac{1}{9}\left[ -\frac{2}{5} - \frac{2}{5} - \frac{2}{5} -\frac{2}{5}-\frac{2}{5}-\frac{2}{5}-\frac{1}{5}-\frac{1}{5}-\frac{1}{5}\right] \\
+&=& - \frac{12}{45}
+\end{eqnarray}
+and $\langle \rho_{yx} \rangle = \langle \rho_{xy} \rangle$.  This last statement is seen from the table above.  Thus, even the mean penchants are equal and there seems to be no useful conclusions from the penchants regarding causal influence.
+
+The next step is to investagte the difference series: $\mathbf{\delta x} = \delta x_t = x_t - x_{t-1} = \{0,1,1,-1,-1\}$ and $\mathbf{\delta y} =\delta y_t = y_t - y_{t-1} = \{0,0,1,1,-1\}$.  There are now four time series, $\mathbf{x}$, $\mathbf{y}$, $\mathbf{\delta x}$, and $\mathbf{\delta y}$, with xx permutations to investigate, $(\mathbf{x},\mathbf{y})$, $(\mathbf{x},\mathbf{\delta y})$, $(\mathbf{\delta x},\mathbf{y})$, $(\mathbf{\delta x},\mathbf{\delta y})$, $(\mathbf{x},\mathbf{\delta x})$, and $(\mathbf{y},\mathbf{\delta y})$.  It has already been determined that no conclusions can be drawn about $(\mathbf{x},\mathbf{y})$.  
 
 \end{document}

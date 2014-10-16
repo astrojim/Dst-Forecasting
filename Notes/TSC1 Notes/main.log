@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=latex 2014.3.19)  15 OCT 2014 19:38
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=latex 2014.3.19)  16 OCT 2014 11:47
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -251,14 +251,18 @@ File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10.95> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 96.
  [2] [3]
-(./main.aux) ) 
+Overfull \hbox (31.42155pt too wide) in paragraph at lines 177--202
+ [] 
+ []
+
+[4] [5] (./main.aux) ) 
 Here is how much of TeX's memory you used:
  3387 strings out of 494044
  50287 string characters out of 6155041
- 141736 words of memory out of 5000000
+ 144736 words of memory out of 5000000
  6770 multiletter control sequences out of 15000+600000
  10596 words of font info for 38 fonts, out of 8000000 for 9000
  466 hyphenation exceptions out of 8191
- 36i,8n,38p,1244b,150s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 36i,8n,38p,1244b,168s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on main.dvi (3 pages, 18164 bytes).
+Output written on main.dvi (5 pages, 28700 bytes).
