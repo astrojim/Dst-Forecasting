@@ -89,13 +89,13 @@ $$
 \section{Subsetting for LIR variance}
 Consider $\mathbf{X}=\{x_t\}$ and $\mathbf{Y}=\{y_t\}$ given $t\in[0,4\pi]$.  Let $L$ be the library length of $\mathbf{X}$ and $\mathbf{Y}$.  These systems have five points where $t=n\pi$ for $n=0,1,2,3$ and $4$. Thus, an $m$-binned histogram of $\mathbf{X}$, where $m\ge L$, would have a bin, $b_0$, centered at $x_t=0$ that contains the five points $\mathbf{X}_{0} = \{x_{n\pi}\}$.  (If $m<L$, then $\mathbf{b}_0$ would contain at least five points but the total number of points in $\mathbf{b}_0$ would be a function of the total number of bins, assuming bins of equal sizes.)  
 
-Consider the set of time steps $\mathbf{T}=\{t=n\pi\}\;\forall n=0,1,2,3,4$ for which the values in $\mathbf{X_0}$ are acheived.  The local impulses immediately preceeding $\mathbf{b}_0$ are $\mathbf{\delta X}_\mathbf{T}=\{\delta x_{n\pi}\}$, which also contains five points.  However, those five points would not appear in a single bin of an m-binned histogram of $\{\delta x_t\}$ (given $m\ge L$).  The set $\mathbf{\delta X}_\mathbf{T}$ would actually be split into two separate bins in such a histogram, one for the three points equal to $\kappa_2$ and one for the two points equal to $-\kappa_2$.  Thus, the time steps associated all of the points in a given histogram bin of a given time series, e.g.\ $\mathbf{b}_0$, do not nessecarily correspond to points in a single histogram bin of different (though related) times series, e.g.\ $\mathbf{\delta X}_\mathbf{T}$.  This idea is straightforward but it is the basic idea underlying the subsetting method for calculating the LIR variance.
+Consider the set of time steps $\mathbf{T}=\{t=n\pi\}\;\forall n=0,1,2,3,4$ for which the values in $\mathbf{X_0}$ are achieved.  The local impulses immediately preceding $\mathbf{b}_0$ are $\mathbf{\delta X}_\mathbf{T}=\{\delta x_{n\pi}\}$, which also contains five points.  However, those five points would not appear in a single bin of an m-binned histogram of $\{\delta x_t\}$ (given $m\ge L$).  The set $\mathbf{\delta X}_\mathbf{T}$ would actually be split into two separate bins in such a histogram, one for the three points equal to $\kappa_2$ and one for the two points equal to $-\kappa_2$.  Thus, the time steps associated all of the points in a given histogram bin of a given time series, e.g.\ $\mathbf{b}_0$, do not necessarily correspond to points in a single histogram bin of different (though related) times series, e.g.\ $\mathbf{\delta X}_\mathbf{T}$.  This idea is straightforward but it is the basic idea underlying the subsetting method for calculating the LIR variance.
 
 The subsetting is premised on the following:
 \begin{itemize}
 \item The local temporal response causally depends on the local temporal change in the driver; e.g.\ $y_{t}$ causally depends on $\delta x_{t}$
-\item The local temporal response causally depends on the immediately preceeding response; e.g.\ $y_{t}$ causally depends on $y_{t-1}$
-\item The local temporal response does not causally depend on the immediately preceeding driver except through the local temporal change in the driver; e.g.\ $y_{t}$ does not causally depend on $x_{t-1}$ except through $\delta x_t$
+\item The local temporal response causally depends on the immediately preceding response; e.g.\ $y_{t}$ causally depends on $y_{t-1}$
+\item The local temporal response does not causally depend on the immediately preceding driver except through the local temporal change in the driver; e.g.\ $y_{t}$ does not causally depend on $x_{t-1}$ except through $\delta x_t$
 \end{itemize}
 Thus, the subsetting procedure is as follows:
 \begin{enumerate}
@@ -139,7 +139,7 @@ $$
 $$
 If $C$ causes $E$, then $\rho_{EC} > 0$.  Otherwise, i.e.\ $\rho_{EC} \le 0$, the causal influence of the system is {\em undefined}(?).  Causal influence between a pair of time series is accomplished by comparing penchants.
 
-Consider two short time seires $\mathbf{x}=\{x_t\} = \{0,1,2,1,0\}$ and $\mathbf{y}=y_t=x_{t-1}$ (i.e.\ $\{y_t\} = \{0,0,1,2,1\}$.  The time steps are indexed by $t=0,1,2,3,4$.  The individual joint probabilities can be found using the frequencies of occurence as
+Consider two short time series $\mathbf{x}=\{x_t\} = \{0,1,2,1,0\}$ and $\mathbf{y}=y_t=x_{t-1}$ (i.e.\ $\{y_t\} = \{0,0,1,2,1\}$.  The time steps are indexed by $t=0,1,2,3,4$.  The individual joint probabilities can be found using the frequencies of occurrence as
 \begin{eqnarray}
 P(y_t=0 \cap x_t = 0) &=& \frac{1}{5}\\
 P(y_t=1 \cap x_t = 0) &=& \frac{1}{5}\\
@@ -463,6 +463,20 @@ This expression implies
 &=& \frac{P(E\cap C)}{P(C)}\left(1+\frac{P(C)}{1-P(C)}\right)-\frac{P(E)}{1-P(C)}\\
 &=& P(E\cap C)\left(\frac{1}{P(C)}+\frac{1}{1-P(C)}\right)-\frac{P(E)}{1-P(C)}\;\;.
 \end{eqnarray}
+This same expression can be derived without Bayes theorem by using the law of total probability rewritten as
+$$
+P(E|\bar{C}) = \frac{P(E)}{P(\bar{C})} - P(E|C)\frac{P(C)}{P(\bar{C})}
+$$
+and making the appropriate substitution into the definition of the penchants follows:
+\begin{eqnarray}
+\rho &=& P(E|C)-P(E|\bar{C})\\
+&=& P(E|C)-\left(\frac{P(E)}{P(\bar{C})} - P(E|C)\frac{P(C)}{P(\bar{C})}\right)\\
+&=& P(E|C)-\frac{P(E)}{P(\bar{C})} + P(E|C)\frac{P(C)}{P(\bar{C})}\\
+&=& P(E|C)\left(1+\frac{P(C)}{P(\bar{C})}\right)-\frac{P(E)}{P(\bar{C})}\\
+&=& P(E|C)\left(1+\frac{P(C)}{1-P(C)}\right)-\frac{P(E)}{1-P(C)}\\
+&=& \frac{P(E\cap C)}{P(C)}\left(1+\frac{P(C)}{1-P(C)}\right)-\frac{P(E)}{1-P(C)}\\
+&=& P(E\cap C)\left(\frac{1}{P(C)}+\frac{1}{1-P(C)}\right)-\frac{P(E)}{1-P(C)}\;\;.
+\end{eqnarray}
 
 Consider the cause-effect pair $(E,C)=(x_t=0,y_t=0)$ penchant
 \begin{eqnarray}
@@ -479,8 +493,95 @@ and its partner
 &=& \frac{1}{6}\;\;.
 \end{eqnarray}
 
-In general, a cause-effect pair $(C,E)$ depends on $P(E|C)$, $P(E)$, and $P(C)$.  Thus, if $P(E|C)=P(C|E)$ and $P(E)=P(C)$, then the $(C,E)$ penchant is equal to the $(E,C)$ penchant.  It follows that $\langle \rho_{xy} \rangle = \langle \rho_{yx} \rangle$ and $\langle \rho_{y\delta y} \rangle = \langle \rho_{\delta yy} \rangle$
+In general, a cause-effect pair $(C,E)$ depends on $P(E|C)$, $P(E)$, and $P(C)$.  Thus, if $P(E|C)=P(C|E)$ and $P(E)=P(C)$, then the $(C,E)$ penchant is equal to the $(E,C)$ penchant.  It follows that $\langle \rho_{xy} \rangle = \langle \rho_{yx} \rangle$.
 
+The hope here is that the penchants for the cause-effect pairs $(E,C)=(\delta x_t,y_t)$ and its partner will lead to the intuitive conclusion $\mathbf{x}\rightarrow\mathbf{y}$.  The first such pair is $(E,C)=(\delta x_t=0,y_t=0)$ which leads to
+\begin{eqnarray}
+\rho_{\delta xy}^{(1)} &=& P(\delta x_t = 0 | y_t = 0) - P(\delta x_t = 0 | y_t \neq 0)\\
+&=&  P(\delta x_t = 0 | y_t = 0)\left(1+\frac{P(y_t = 0)}{1-P(y_t = 0)}\right)-\frac{P(\delta x_t = 0)}{1-P(y_t = 0)}\\
+&=& \frac{1}{2}\left(1+\frac{2}{5}\left(1-\frac{2}{5}\right)^{-1}\right)-\frac{1}{5}\left(1-\frac{2}{5}\right)^{-1}\\
+&=& \frac{1}{2}
+\end{eqnarray}
+and
+\begin{eqnarray}
+\rho_{y\delta x}^{(1)} &=& P(y_t = 0 | \delta x_t = 0) - P(y_t = 0 | \delta x_t \neq 0)\\
+&=& P(y_t = 0|\delta x_t = 0)\left(1+\frac{P(\delta x_t = 0)}{1-P(\delta x_t = 0)}\right)-\frac{P(y_t = 0)}{1-P(\delta x_t = 0)}\\
+&=& \left(1+\frac{1}{5}\left(1-\frac{1}{5}\right)^{-1}\right)-\frac{2}{5}\left(1-\frac{1}{5}\right)^{-1}\\
+&=& \frac{3}{4}\;\;.
+\end{eqnarray}
+Thus, $\rho_{y\delta x}^{(1)}>\rho_{\delta xy}^{(1)}$ implying $\mathbf{x}\rightarrow\mathbf{y}$, as expected.  The mean penchants for this cause-effect pair are
+\begin{eqnarray}
+\langle \rho_{\delta xy}\rangle &=& \frac{1}{9}\left(\sum_{i=-1}^1 \sum_{j=0}^2 P(\delta x_t = i | y_t = j) - P(\delta x_t = i | y_t \neq j)\right)\\
+&=& \frac{1}{9}\left(\sum_{i=-1}^1 \sum_{j=0}^2 P(\delta x_t = i | y_t = j)\left(1+\frac{P(y_t = j)}{1-P(y_t = j)}\right)-\frac{P(\delta x_t = i)}{1-P(y_t = j)}\right)\\
+&=& \frac{1}{9}\left(P(\delta x_t = 0 | y_t = 0)\left(1+\frac{P(y_t = 0)}{1-P(y_t = 0)}\right)-\frac{P(\delta x_t = 0)}{1-P(y_t = 0)}\right.\\
+& &P(\delta x_t = 0 | y_t = 1)\left(1+\frac{P(y_t = 1)}{1-P(y_t = 1)}\right)-\frac{P(\delta x_t = 0)}{1-P(y_t = 1)}\\
+& &P(\delta x_t = 0 | y_t = 2)\left(1+\frac{P(y_t = 2)}{1-P(y_t = 2)}\right)-\frac{P(\delta x_t = 0)}{1-P(y_t = 2)}\\
+& &P(\delta x_t = 1 | y_t = 0)\left(1+\frac{P(y_t = 0)}{1-P(y_t = 0)}\right)-\frac{P(\delta x_t = 1)}{1-P(y_t = 0)}\\
+& &P(\delta x_t = 1 | y_t = 1)\left(1+\frac{P(y_t = 1)}{1-P(y_t = 1)}\right)-\frac{P(\delta x_t = 1)}{1-P(y_t = 1)}\\
+& &P(\delta x_t = 1 | y_t = 2)\left(1+\frac{P(y_t = 2)}{1-P(y_t = 2)}\right)-\frac{P(\delta x_t = 1)}{1-P(y_t = 2)}\\
+& &P(\delta x_t = -1 | y_t = 0)\left(1+\frac{P(y_t = 0)}{1-P(y_t = 0)}\right)-\frac{P(\delta x_t = -1)}{1-P(y_t = 0)}\\
+& &P(\delta x_t = -1 | y_t = 1)\left(1+\frac{P(y_t = 1)}{1-P(y_t = 1)}\right)-\frac{P(\delta x_t = -1)}{1-P(y_t = 1)}\\
+& &\left. P(\delta x_t = -1 | y_t = 2)\left(1+\frac{P(y_t = 2)}{1-P(y_t = 2)}\right)-\frac{P(\delta x_t = -1)}{1-P(y_t = 2)}\right)\\
+&=& \frac{1}{9}\left(\frac{1}{2}\left(1+\frac{\frac{2}{5}}{1-\frac{2}{5}}\right)-\frac{\frac{1}{5}}{1-\frac{2}{5}}\right.\\
+& &-\frac{\frac{1}{5}}{1-\frac{2}{5}}\\
+& &-\frac{\frac{1}{5}}{1-\frac{1}{5}}\\
+& &\frac{1}{2}\left(1+\frac{\frac{2}{5}}{1-\frac{2}{5}}\right)-\frac{\frac{2}{5}}{1-\frac{2}{5}}\\
+& &\frac{1}{2}\left(1+\frac{\frac{2}{5}}{1-\frac{2}{5}}\right)-\frac{\frac{2}{5}}{1-\frac{2}{5}}\\
+& &-\frac{\frac{2}{5}}{1-\frac{1}{5}}\\
+& &-\frac{\frac{2}{5}}{1-\frac{2}{5}}\\
+& &\frac{1}{2}\left(1+\frac{\frac{2}{5}}{1-\frac{2}{5}}\right)-\frac{\frac{2}{5}}{1-\frac{2}{5}}\\
+& &\left. \frac{1}{2}\left(1+\frac{\frac{1}{5}}{1-\frac{1}{5}}\right)-\frac{\frac{2}{5}}{1-\frac{1}{5}}\right)\\
+&=& \frac{1}{9}\left(\frac{1}{2}-\frac{1}{3}-\frac{1}{4}+\frac{1}{6}+\frac{1}{6}-\frac{1}{2}-\frac{2}{3}+\frac{1}{6}+\frac{1}{8}\right)\\
+&=& -\frac{5}{72}
+\end{eqnarray}
+and
+\begin{eqnarray}
+\langle \rho_{y\delta x}\rangle &=& \frac{1}{9}\left(\sum_{i=-1}^1 \sum_{j=0}^2 P(y_t = j | \delta x_t = i) - P(y_t = j | \delta x_t \neq i)\right)\\
+&=& \frac{1}{9}\left(\sum_{i=-1}^1 \sum_{j=0}^2 P(y_t = j | \delta x_t = i)\left(1+\frac{P(\delta x_t = i)}{1-P(\delta x_t = i)}\right)-\frac{P(y_t = j)}{1-P(\delta x_t = i)}\right)\\
+&=& \frac{1}{9}\left(P(y_t = 0 | \delta x_t = 0)\left(1+\frac{P(\delta x_t = 0)}{1-P(\delta x_t = 0)}\right)-\frac{P(y_t = 0)}{1-P(\delta x_t = 0)}\right.\\
+& & P(y_t = 0 | \delta x_t = 1)\left(1+\frac{P(\delta x_t = 1)}{1-P(\delta x_t = 1)}\right)-\frac{P(y_t = 0)}{1-P(\delta x_t = 1)}\\
+& & P(y_t = 0 | \delta x_t = -1)\left(1+\frac{P(\delta x_t = -1)}{1-P(\delta x_t = -1)}\right)-\frac{P(y_t = 0)}{1-P(\delta x_t = -1)}\\
+& & P(y_t = 1 | \delta x_t = 0)\left(1+\frac{P(\delta x_t = 0)}{1-P(\delta x_t = 0)}\right)-\frac{P(y_t = 1)}{1-P(\delta x_t = 0)}\\
+& & P(y_t = 1 | \delta x_t = 1)\left(1+\frac{P(\delta x_t = 1)}{1-P(\delta x_t = 1)}\right)-\frac{P(y_t = 1)}{1-P(\delta x_t = 1)}\\
+& & P(y_t = 1 | \delta x_t = -1)\left(1+\frac{P(\delta x_t = -1)}{1-P(\delta x_t = -1)}\right)-\frac{P(y_t = 1)}{1-P(\delta x_t = -1)}\\
+& & P(y_t = 2 | \delta x_t = 0)\left(1+\frac{P(\delta x_t = 0)}{1-P(\delta x_t = 0)}\right)-\frac{P(y_t = 2)}{1-P(\delta x_t = 0)}\\
+& & P(y_t = 2 | \delta x_t = 1)\left(1+\frac{P(\delta x_t = 1)}{1-P(\delta x_t = 1)}\right)-\frac{P(y_t = 2)}{1-P(\delta x_t = 1)}\\
+& & \left.P(y_t = 2 | \delta x_t = -1)\left(1+\frac{P(\delta x_t = -1)}{1-P(\delta x_t = -1)}\right)-\frac{P(y_t = 2)}{1-P(\delta x_t = -1)}\right)\\
+&=& \frac{1}{9}\left(\left(1+\frac{\frac{1}{5}}{1-\frac{1}{5}}\right)-\frac{\frac{2}{5}}{1-\frac{1}{5}}\right.\\
+& & \frac{1}{2}\left(1+\frac{\frac{2}{5}}{1-\frac{2}{5}}\right)-\frac{\frac{2}{5}}{1-\frac{2}{5}}\\
+& & -\frac{\frac{2}{5}}{1-\frac{2}{5}}\\
+& & -\frac{\frac{2}{5}}{1-\frac{1}{5}}\\
+& & \frac{1}{2}\left(1+\frac{\frac{2}{5}}{1-\frac{2}{5}}\right)-\frac{\frac{2}{5}}{1-\frac{2}{5}}\\
+& & \frac{1}{2}\left(1+\frac{\frac{2}{5}}{1-\frac{2}{5}}\right)-\frac{\frac{2}{5}}{1-\frac{2}{5}}\\
+& & -\frac{\frac{1}{5}}{1-\frac{1}{5}}\\
+& & -\frac{\frac{1}{5}}{1-\frac{2}{5}}\\
+& & \left.\frac{1}{2}\left(1+\frac{\frac{2}{5}}{1-\frac{2}{5}}\right)-\frac{\frac{1}{5}}{1-\frac{2}{5}}\right)\\
+&=& \frac{1}{9}\left(\frac{3}{4}+\frac{1}{6}-\frac{2}{3}-\frac{1}{2}+\frac{1}{6}+\frac{1}{6}-\frac{1}{4}-\frac{1}{3}+\frac{1}{2}\right)\\
+&=& 0\;\;.
+\end{eqnarray}
+It follows that $\langle \rho_{y\delta x}\rangle > \langle \rho_{\delta xy}\rangle$ which implies, just as seen above, that $\mathbf{x}\rightarrow\mathbf{y}$.  The result agrees with intuition.
+
+There are several other cause-effect pairs to investigate in this example including the ``primary penchant comparisons'' $(\mathbf{x},\mathbf{y})$, $(\delta \mathbf{x},\mathbf{y})$, $(\mathbf{x},\delta \mathbf{y})$, and $(\delta \mathbf{x},\delta \mathbf{y})$, the ``self penchant comparisons'' $(\mathbf{x},\delta \mathbf{x})$ and $(\mathbf{y},\delta \mathbf{y})$, the ``higher order penchant comparisons'' $(\mathbf{x}\cap\delta\mathbf{x},\mathbf{y})$ and $(\mathbf{y}\cap\delta\mathbf{y},\mathbf{x})$, and the ``highest order penchant comparison'' $(\mathbf{x}\cap\delta\mathbf{x},\mathbf{y}\cap\delta\mathbf{y})$.  Given the intution for this example system, i.e.\ $\mathbf{x}\rightarrow\mathbf{y}$, the following predictions for the mean penchant comparisons for each of the cause-effect pairs mentioned above can be made:
+\begin{center}
+\begin{tabular}{r|crr}
+Cause-Effect Pair & Prediction & Confirmed Above? & Confirmed Numerically?\\
+$(\mathbf{x},\mathbf{y})$ & {\bf ??} & yes & no\\
+$(\delta \mathbf{x},\mathbf{y})$ & $\langle \rho_{y\delta x}\rangle > \langle \rho_{\delta xy}\rangle$ & yes & no\\
+$(\mathbf{x},\delta \mathbf{y})$ & {\bf ??} & no & no\\
+$(\delta \mathbf{x},\delta \mathbf{y})$ &  $\langle \rho_{\delta y\delta x}\rangle > \langle \rho_{\delta x\delta y}\rangle$ & no & no\\
+$(\mathbf{x},\delta \mathbf{x})$ & $\langle \rho_{x\delta x}\rangle > \langle \rho_{\delta xx}\rangle$ & no & no\\
+$(\mathbf{y},\delta \mathbf{y})$ & $\langle \rho_{y\delta y}\rangle > \langle \rho_{\delta yy}\rangle$ & no & no\\
+$(\mathbf{x}\cap\delta\mathbf{x},\mathbf{y})$ & $\langle \rho_{(x\delta x)y}\rangle < \langle \rho_{y(x\delta x)}\rangle$ & no & no\\ 
+$(\mathbf{y}\cap\delta\mathbf{y},\mathbf{x})$ & {\bf ??} & no & no\\
+$(\mathbf{x}\cap\delta\mathbf{x},\mathbf{y}\cap\delta\mathbf{y})$ & $\langle \rho_{(x\delta x)(y\delta y)}\rangle < \langle \rho_{(y\delta y)(x\delta x)}\rangle$ & no & no
+\end{tabular}
+\end{center}
+
+The penchant comparison calculations can be done by hand (as seen above) but they are tedious.  So, the next step is to write an algorithm that reproduces the above results and allows me to fill out the above table.  The computational cost of the penchant comparison calculation increase dramatically for the higher and highest order penchants (as compared to the primary and self penchants).  There will also be an issue of bin sizes in the algorithms where histograms will be used to approximately the probabilities used above.  The dependency of the algorithm on the bin size needs to be studied.  
+
+
+
+\newpage
 $\downarrow\downarrow$$\downarrow\downarrow$$\downarrow\downarrow$I think all of the calculations below this line are suspect.  The problem is that I'm not sure I calculated $P(E|\bar{C})$ correctly.  I believe the tables are fine.  The two main problems I see are that 1. the calculations below do not agree with the derivations immediately and 2. the calculations below do not conserve probability.$\downarrow\downarrow$$\downarrow\downarrow$
 \noindent\makebox[\linewidth]{\rule{\paperwidth}{0.4pt}}
 \noindent\makebox[\linewidth]{\rule{\paperwidth}{0.4pt}}
@@ -662,3 +763,4 @@ $$
 
 
 \end{document}
+
