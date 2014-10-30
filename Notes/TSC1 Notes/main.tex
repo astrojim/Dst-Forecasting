@@ -557,28 +557,65 @@ and
 & & -\frac{\frac{1}{5}}{1-\frac{2}{5}}\\
 & & \left.\frac{1}{2}\left(1+\frac{\frac{2}{5}}{1-\frac{2}{5}}\right)-\frac{\frac{1}{5}}{1-\frac{2}{5}}\right)\\
 &=& \frac{1}{9}\left(\frac{3}{4}+\frac{1}{6}-\frac{2}{3}-\frac{1}{2}+\frac{1}{6}+\frac{1}{6}-\frac{1}{4}-\frac{1}{3}+\frac{1}{2}\right)\\
-&=& -\frac{1}{9}\;\;.
+&=& 0\;\;.
 \end{eqnarray}
-It follows that $\langle \rho_{y\delta x}\rangle > \langle \rho_{\delta xy}\rangle$ which implies, just as seen above, that $\mathbf{x}\rightarrow\mathbf{y}$.  The result agrees with intuition.
+It follows that $\langle \rho_{y\delta x}\rangle = \langle \rho_{\delta xy}\rangle$ which does not imply that $\mathbf{x}\rightarrow\mathbf{y}$.  The result does not agree with intuition.
 
 There are several other cause-effect pairs to investigate in this example including the ``primary penchant comparisons'' $(\mathbf{x},\mathbf{y})$, $(\delta \mathbf{x},\mathbf{y})$, $(\mathbf{x},\delta \mathbf{y})$, and $(\delta \mathbf{x},\delta \mathbf{y})$, the ``self penchant comparisons'' $(\mathbf{x},\delta \mathbf{x})$ and $(\mathbf{y},\delta \mathbf{y})$, the ``higher order penchant comparisons'' $(\mathbf{x}\cap\delta\mathbf{x},\mathbf{y})$ and $(\mathbf{y}\cap\delta\mathbf{y},\mathbf{x})$, and the ``highest order penchant comparison'' $(\mathbf{x}\cap\delta\mathbf{x},\mathbf{y}\cap\delta\mathbf{y})$.  Given the intution for this example system, i.e.\ $\mathbf{x}\rightarrow\mathbf{y}$, the following predictions for the mean penchant comparisons for each of the cause-effect pairs mentioned above can be made:
 \begin{center}
-\begin{tabular}{r|crr}
-Cause-Effect Pair & Prediction & Confirmed Above? & Confirmed Numerically?\\
-$(\mathbf{x},\mathbf{y})$ & {\bf ??} & yes & no\\
-$(\delta \mathbf{x},\mathbf{y})$ & $\langle \rho_{y\delta x}\rangle > \langle \rho_{\delta xy}\rangle$ & yes & no\\
-$(\mathbf{x},\delta \mathbf{y})$ & {\bf ??} & no & no\\
-$(\delta \mathbf{x},\delta \mathbf{y})$ &  $\langle \rho_{\delta y\delta x}\rangle > \langle \rho_{\delta x\delta y}\rangle$ & no & no\\
-$(\mathbf{x},\delta \mathbf{x})$ & $\langle \rho_{x\delta x}\rangle > \langle \rho_{\delta xx}\rangle$ & no & no\\
-$(\mathbf{y},\delta \mathbf{y})$ & $\langle \rho_{y\delta y}\rangle > \langle \rho_{\delta yy}\rangle$ & no & no\\
-$(\mathbf{x}\cap\delta\mathbf{x},\mathbf{y})$ & $\langle \rho_{(x\delta x)y}\rangle < \langle \rho_{y(x\delta x)}\rangle$ & no & no\\ 
-$(\mathbf{y}\cap\delta\mathbf{y},\mathbf{x})$ & {\bf ??} & no & no\\
-$(\mathbf{x}\cap\delta\mathbf{x},\mathbf{y}\cap\delta\mathbf{y})$ & $\langle \rho_{(x\delta x)(y\delta y)}\rangle < \langle \rho_{(y\delta y)(x\delta x)}\rangle$ & no & no
+\begin{tabular}{r|cllll}
+Cause-Effect Pair & Prediction & Confirmed? & Confirmed Num? & Calculated? & Cal Num?\\
+$(\mathbf{x},\mathbf{y})$ & {\bf ??} & n/a & n/a & yes & yes\\
+$(\delta \mathbf{x},\mathbf{y})$ & $\langle \rho_{y\delta x}\rangle > \langle \rho_{\delta xy}\rangle$ & no & no & yes & yes\\
+$(\mathbf{x},\delta \mathbf{y})$ & {\bf ??} & n/a & n/a & no & no\\
+$(\delta \mathbf{x},\delta \mathbf{y})$ &  $\langle \rho_{\delta y\delta x}\rangle > \langle \rho_{\delta x\delta y}\rangle$ & no & no & no & no\\
+$(\mathbf{x},\delta \mathbf{x})$ & $\langle \rho_{x\delta x}\rangle > \langle \rho_{\delta xx}\rangle$ & no & no & no & no\\
+$(\mathbf{y},\delta \mathbf{y})$ & $\langle \rho_{y\delta y}\rangle > \langle \rho_{\delta yy}\rangle$ & no & no & no & no\\
+$(\mathbf{x}\cap\delta\mathbf{x},\mathbf{y})$ & $\langle \rho_{(x\delta x)y}\rangle < \langle \rho_{y(x\delta x)}\rangle$ & no & no & no & no\\ 
+$(\mathbf{y}\cap\delta\mathbf{y},\mathbf{x})$ & {\bf ??} & no & no & no & no\\
+$(\mathbf{x}\cap\delta\mathbf{x},\mathbf{y}\cap\delta\mathbf{y})$ & $\langle \rho_{(x\delta x)(y\delta y)}\rangle < \langle \rho_{(y\delta y)(x\delta x)}\rangle$ & no & no & no & no
 \end{tabular}
 \end{center}
 
 The penchant comparison calculations can be done by hand (as seen above) but they are tedious.  So, the next step is to write an algorithm that reproduces the above results and allows me to fill out the above table.  The computational cost of the penchant comparison calculation increase dramatically for the higher and highest order penchants (as compared to the primary and self penchants).  There will also be an issue of bin sizes in the algorithms where histograms will be used to approximately the probabilities used above.  The dependency of the algorithm on the bin size needs to be studied.  
 
+The penchants calculated by hand do not seem to agree with intuition.  However, the calculations can be confirmed numerically, so it may appear as though this method is not an effective test for causal dependence.  I want to point out that this may only be true for the (very) short library lengths used in this example.  The short library length was used to help keep the manual calculations manageable, however, increasing the library length (but following the same construction pattern) leads to penchant calculations that do agree with intuition, i.e.\
+\begin{equation}
+\left.
+\begin{array}{c}
+\mathbf{x} = \{0,1,2,1,0\}\\
+\mathbf{y} = \{0,0,1,2,1\}\\
+\mathbf{\delta x} = \{0,1,1,-1,-1\}\\
+\mathbf{\delta y} = \{0,0,1,1,-1\}
+\end{array}
+\right] \Rightarrow \left(\langle \rho_{y\delta x}\rangle, \langle \rho_{\delta xy}\rangle\right) = \left(0,0\right) \rightarrow \langle \rho_{y\delta x}\rangle = \langle \rho_{\delta xy}\rangle
+\end{equation}
+and just doubling the library length leads to
+\begin{equation}
+\left.
+\begin{array}{c}
+\mathbf{x} = \{0,1,2,1,0,1,2,1,0,1\}\\
+\mathbf{y} = \{0,0,1,2,1,0,1,2,1,0\}\\
+\mathbf{\delta x} = \{0,1,1,-1,-1,1,1,-1,-1,1\}\\
+\mathbf{\delta y} = \{0,0,1,1,-1,1,1,-1,-1,1\}
+\end{array}
+\right] \Rightarrow \left(\langle \rho_{y\delta x}\rangle, \langle \rho_{\delta xy}\rangle\right) \approx \left(-0.137,-0.162\right) \rightarrow \langle \rho_{y\delta x}\rangle > \langle \rho_{\delta xy}\rangle
+\end{equation}
+and 
+\begin{eqnarray}
+& &\left.
+\begin{array}{c}
+\mathbf{x} = \{0,1,2,1,0,1,2,1,0,1,2,1,0,1,2,1,0,1,2,1,0,1,2,1,0\}\\
+\mathbf{y} = \{0,0,1,2,1,0,1,2,1,0,1,2,1,0,1,2,1,0,1,2,1,0,1,2,1\}\\
+\mathbf{\delta x} = \{0,1,1,-1,-1,1,1,-1,-1,1,1,-1,-1,1,1,-1,-1,1,1,-1,-1,1,1,-1,-1\}\\
+\mathbf{\delta y} = \{0,0,1,1,-1,-1,1,1,-1,-1,1,1,-1,-1,1,1,-1,-1,1,1,-1,-1,1,1,-1,-1\}
+\end{array}
+\right] \\
+&\Rightarrow& \left(\langle \rho_{y\delta x}\rangle, \langle \rho_{\delta xy}\rangle\right) \approx \left(-0.267
+,-0.3\right) \rightarrow \langle \rho_{y\delta x}\rangle > \langle \rho_{\delta xy}\rangle
+\end{eqnarray}
+Thus, the results agree with intuition if the library lengths are longer than those used in the manual calculation example.  This point should be kept in mind and the effect of library length on the LIR penchant method (which probably needs a new name) should be investigated.  All of the above number where calculated using histograms with only three, the final conclusions do not change for the number of bins is increased to ten but the actual value of the penchants do.  Again, this effect should also be explored.
 
 \end{document}
+
 
