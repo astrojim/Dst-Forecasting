@@ -530,9 +530,9 @@ Thus, $\rho_{y\delta x}^{(1)}>\rho_{\delta xy}^{(1)}$ implying $\mathbf{x}\right
 & &-\frac{\frac{2}{5}}{1-\frac{1}{5}}\\
 & &-\frac{\frac{2}{5}}{1-\frac{2}{5}}\\
 & &\frac{1}{2}\left(1+\frac{\frac{2}{5}}{1-\frac{2}{5}}\right)-\frac{\frac{2}{5}}{1-\frac{2}{5}}\\
-& &\left. \frac{1}{2}\left(1+\frac{\frac{1}{5}}{1-\frac{1}{5}}\right)-\frac{\frac{2}{5}}{1-\frac{1}{5}}\right)\\
-&=& \frac{1}{9}\left(\frac{1}{2}-\frac{1}{3}-\frac{1}{4}+\frac{1}{6}+\frac{1}{6}-\frac{1}{2}-\frac{2}{3}+\frac{1}{6}+\frac{1}{8}\right)\\
-&=& -\frac{5}{72}
+& &\left. \left(1+\frac{\frac{1}{5}}{1-\frac{1}{5}}\right)-\frac{\frac{2}{5}}{1-\frac{1}{5}}\right)\\
+&=& \frac{1}{9}\left(\frac{1}{2}-\frac{1}{3}-\frac{1}{4}+\frac{1}{6}+\frac{1}{6}-\frac{1}{2}-\frac{2}{3}+\frac{1}{6}+\frac{3}{4}\right)\\
+&=& 0
 \end{eqnarray}
 and
 \begin{eqnarray}
@@ -557,7 +557,7 @@ and
 & & -\frac{\frac{1}{5}}{1-\frac{2}{5}}\\
 & & \left.\frac{1}{2}\left(1+\frac{\frac{2}{5}}{1-\frac{2}{5}}\right)-\frac{\frac{1}{5}}{1-\frac{2}{5}}\right)\\
 &=& \frac{1}{9}\left(\frac{3}{4}+\frac{1}{6}-\frac{2}{3}-\frac{1}{2}+\frac{1}{6}+\frac{1}{6}-\frac{1}{4}-\frac{1}{3}+\frac{1}{2}\right)\\
-&=& 0\;\;.
+&=& -\frac{1}{9}\;\;.
 \end{eqnarray}
 It follows that $\langle \rho_{y\delta x}\rangle > \langle \rho_{\delta xy}\rangle$ which implies, just as seen above, that $\mathbf{x}\rightarrow\mathbf{y}$.  The result agrees with intuition.
 
@@ -578,188 +578,6 @@ $(\mathbf{x}\cap\delta\mathbf{x},\mathbf{y}\cap\delta\mathbf{y})$ & $\langle \rh
 \end{center}
 
 The penchant comparison calculations can be done by hand (as seen above) but they are tedious.  So, the next step is to write an algorithm that reproduces the above results and allows me to fill out the above table.  The computational cost of the penchant comparison calculation increase dramatically for the higher and highest order penchants (as compared to the primary and self penchants).  There will also be an issue of bin sizes in the algorithms where histograms will be used to approximately the probabilities used above.  The dependency of the algorithm on the bin size needs to be studied.  
-
-
-
-\newpage
-$\downarrow\downarrow$$\downarrow\downarrow$$\downarrow\downarrow$I think all of the calculations below this line are suspect.  The problem is that I'm not sure I calculated $P(E|\bar{C})$ correctly.  I believe the tables are fine.  The two main problems I see are that 1. the calculations below do not agree with the derivations immediately and 2. the calculations below do not conserve probability.$\downarrow\downarrow$$\downarrow\downarrow$
-\noindent\makebox[\linewidth]{\rule{\paperwidth}{0.4pt}}
-\noindent\makebox[\linewidth]{\rule{\paperwidth}{0.4pt}}
-
-
-Consider the penchant
-$$
-\rho_{xy} = P(x_t = 0 | y_t = 0) - P(x_t = 0 | y_t \neq 0) = \frac{1}{2} - \frac{1}{2} = 0
-$$
-and its partner
-$$
-\rho_{yx} = P(y_t = 0 | x_t = 0) - P(y_t = 0 | x_t \neq 0) = \frac{1}{2} - \frac{1}{2} = 0\;\;.
-$$
-These two values are equal, but they are also only for a single points.  Consider comparing the two time series using mean penchants,
-\begin{eqnarray}
-\langle \rho_{xy} \rangle &=& \frac{1}{9}\left[ \sum_{i=0}^2 \sum_{j=0}^2 \left(P(x_t = i | y_t = j) - P(x_t = i | y_t \neq j)\right)\right] \\
-&=& \frac{1}{9}\left[ 0 + 0 -1 -\frac{1}{2} -\frac{3}{2} +\frac{1}{2} -\frac{1}{2} +\frac{1}{2} -\frac{1}{2}\right] \\
-&=& -\frac{1}{3}
-\end{eqnarray}
-and $\langle \rho_{yx} \rangle = \langle \rho_{xy} \rangle$.  This last statement is seen from the table above.  Thus, even the mean penchants are equal and there seems to be no useful conclusions from the penchants regarding causal influence.
-
-Thus,
-\begin{eqnarray}
-\langle \rho_{x\delta x} \rangle &=& \frac{1}{9}\left[\left(1-\frac{1}{2}\right)+\left(0-1\right)+\left(0-\frac{1}{2}\right)\right.\\
-& &+\left(0-\frac{3}{2}\right)+\left(\frac{1}{2}-\frac{1}{2}\right)+\left(\frac{1}{2}-0\right)\\
-& &\left.+\left(\frac{1}{2}-1\right)+\left(\frac{1}{2}-\frac{1}{2}\right)+\left(0-\frac{1}{2}\right)\right] \\
-&=& \frac{1}{9}\left[\frac{1}{2}-1-\frac{1}{2}-\frac{3}{2}+\frac{1}{2}-\frac{1}{2}-\frac{1}{2}\right] \\
-&=& -\frac{1}{3}
-\end{eqnarray}
-and
-\begin{eqnarray}
-\langle \rho_{\delta x x} \rangle &=& \frac{1}{9}\left[\left(\frac{1}{2}-0\right)+\left(0-\frac{3}{2}\right)+\left(\frac{1}{2}-\frac{1}{2}\right)\right.\\
-& &+\left(0-\frac{1}{2}\right)+\left(\frac{1}{2}-1\right)+\left(\frac{1}{2}-\frac{1}{2}\right)\\
-& &\left.+\left(0-\frac{1}{2}\right)+\left(1-\frac{1}{2}\right)+\left(0-1\right)\right] \\
-&=& \frac{1}{9}\left[\frac{1}{2}-\frac{3}{2}-\frac{1}{2}-\frac{1}{2}-\frac{1}{2}+\frac{1}{2}-1\right] \\
-&=& -\frac{1}{3}\;\; .
-\end{eqnarray}
-
-Thus,
-\begin{eqnarray}
-\langle \rho_{\delta x y} \rangle &=& \frac{1}{9}\left[\left(\frac{1}{2}-0\right)+\left(\frac{1}{2}-\frac{1}{2}\right)+\left(0-\frac{3}{2}\right)\right.\\
-& &+\left(0-\frac{1}{2}\right)+\left(\frac{1}{2}-\frac{1}{2}\right)+\left(\frac{1}{2}-1\right)\\
-& &\left.+\left(0-\frac{1}{2}\right)+\left(0-1\right)+\left(1-\frac{1}{2}\right)\right] \\
-&=& \frac{1}{9}\left[\frac{1}{2}-\frac{3}{2}-\frac{1}{2}-\frac{1}{2}-\frac{1}{2}-1+\frac{1}{2}\right] \\
-&=& -\frac{1}{3}
-\end{eqnarray}
-and
-\begin{eqnarray}
-\langle \rho_{y \delta x} \rangle &=& \frac{1}{9}\left[\left(1-\frac{1}{2}\right)+\left(0-1\right)+\left(0-\frac{1}{2}\right)\right.\\
-& &+\left(\frac{1}{2}-1\right)+\left(\frac{1}{2}-\frac{1}{2}\right)+\left(0-\frac{1}{2}\right)\\
-& &\left.+\left(0-\frac{3}{2}\right)+\left(\frac{1}{2}-\frac{1}{2}\right)+\left(\frac{1}{2}-0\right)\right] \\
-&=& \frac{1}{9}\left[\frac{1}{2}-1-\frac{1}{2}-\frac{1}{2}-\frac{1}{2}-\frac{3}{2}+\frac{1}{2}\right] \\
-&=& -\frac{1}{3} \;\;.
-\end{eqnarray}
-
-Thus,
-\begin{eqnarray}
-\langle \rho_{\delta x \delta y} \rangle &=& \frac{1}{9}\left[\left(\frac{1}{2}-0\right)+\left(\frac{1}{2}-\frac{1}{2}\right)+\left(0-\frac{3}{2}\right)\right.\\
-& &+\left(0-\frac{1}{2}\right)+\left(\frac{1}{2}-\frac{1}{2}\right)+\left(\frac{1}{2}-1\right)\\
-& &\left.+\left(0-\frac{1}{2}\right)+\left(0-1\right)+\left(1-\frac{1}{2}\right)\right] \\
-&=& \frac{1}{9}\left[\frac{1}{2}-\frac{3}{2}-\frac{1}{2}-\frac{1}{2}-\frac{1}{2}-1+\frac{1}{2}\right] \\
-&=& -\frac{1}{3}
-\end{eqnarray}
-and
-\begin{eqnarray}
-\langle \rho_{\delta y \delta x} \rangle &=& \frac{1}{9}\left[\left(1-\frac{1}{2}\right)+\left(0-1\right)+\left(0-\frac{1}{2}\right)\right.\\
-& &+\left(\frac{1}{2}-1\right)+\left(\frac{1}{2}-\frac{1}{2}\right)+\left(0-\frac{1}{2}\right)\\
-& &\left.+\left(0-\frac{3}{2}\right)+\left(\frac{1}{2}-\frac{1}{2}\right)+\left(\frac{1}{2}-0\right)\right] \\
-&=& \frac{1}{9}\left[\frac{1}{2}-1-\frac{1}{2}-\frac{1}{2}-\frac{1}{2}-\frac{3}{2}+\frac{1}{2}\right] \\
-&=& -\frac{1}{3} \;\;.
-\end{eqnarray}
-
-Thus,
-\begin{eqnarray}
-\langle \rho_{x \delta y} \rangle &=& \frac{1}{9}\left[\left(\frac{1}{2}-1\right)+\left(\frac{1}{2}-\frac{1}{2}\right)+\left(0-\frac{1}{2}\right)\right.\\
-& &+\left(0-\frac{3}{2}\right)+\left(\frac{1}{2}-\frac{1}{2}\right)+\left(\frac{1}{2}-0\right)\\
-& &\left.+\left(1-\frac{1}{2}\right)+\left(0-1\right)+\left(0-\frac{1}{2}\right)\right] \\
-&=& \frac{1}{9}\left[-\frac{1}{2}-\frac{1}{2}-\frac{3}{2}+\frac{1}{2}+\frac{1}{2}-1-\frac{1}{2}\right] \\
-&=& -\frac{1}{3}
-\end{eqnarray}
-and
-\begin{eqnarray}
-\langle \rho_{\delta y x} \rangle &=& \frac{1}{9}\left[\left(\frac{1}{2}-\frac{1}{2}\right)+\left(0-\frac{3}{2}\right)+\left(\frac{1}{2}-0\right)\right.\\
-& &+\left(\frac{1}{2}-\frac{1}{2}\right)+\left(\frac{1}{2}-1\right)+\left(0-\frac{1}{2}\right)\\
-& &\left.+\left(0-1\right)+\left(1-\frac{1}{2}\right)+\left(0-\frac{1}{2}\right)\right] \\
-&=& \frac{1}{9}\left[-\frac{3}{2}+\frac{1}{2}-\frac{1}{2}-\frac{1}{2}-1+\frac{1}{2}-\frac{1}{2}\right] \\
-&=& -\frac{1}{3} \;\;.
-\end{eqnarray}
-
-Thus,
-\begin{eqnarray}
-\langle \rho_{y \delta y} \rangle &=& \frac{1}{9}\left[\left(1-0\right)+\left(0-\frac{3}{2}\right)+\left(0-\frac{1}{2}\right)\right.\\
-& &+\left(0-1\right)+\left(\frac{1}{2}-1\right)+\left(\frac{1}{2}-0\right)\\
-& &\left.+\left(0-1\right)+\left(1-\frac{1}{2}\right)+\left(0-\frac{1}{2}\right)\right] \\
-&=& \frac{1}{9}\left[1-\frac{3}{2}-\frac{1}{2}-1-\frac{1}{2}+\frac{1}{2}-1+\frac{1}{2}-\frac{1}{2}\right] \\
-&=& -\frac{1}{3}
-\end{eqnarray}
-and
-\begin{eqnarray}
-\langle \rho_{\delta y y} \rangle&=& \frac{1}{9}\left[\left(1-0\right)+\left(0-\frac{3}{2}\right)+\left(0-\frac{1}{2}\right)\right.\\
-& &+\left(0-1\right)+\left(\frac{1}{2}-1\right)+\left(\frac{1}{2}-0\right)\\
-& &\left.+\left(0-1\right)+\left(1-\frac{1}{2}\right)+\left(0-\frac{1}{2}\right)\right] \\
-&=& \frac{1}{9}\left[1-\frac{3}{2}-\frac{1}{2}-1-\frac{1}{2}+\frac{1}{2}-1+\frac{1}{2}-\frac{1}{2}\right] \\
-&=& -\frac{1}{3} \;\;.
-\end{eqnarray}
-
-In total, there are six pairs of sets of penchants, each with nine pechants in the set:
-\begin{eqnarray}
-\{\rho_{xy}\} &=& \left\{0,-\frac{1}{2},-\frac{1}{2},0,-\frac{3}{2},\frac{1}{2},-1,\frac{1}{2},-\frac{1}{2}\right\}\\
-\{\rho_{yx}\} &=& \left\{0,-\frac{1}{2},-\frac{1}{2},0,-\frac{3}{2},\frac{1}{2},-1,\frac{1}{2},-\frac{1}{2}\right\}\\
-\{\rho_{x\delta x}\} &=& \left\{\frac{1}{2},-1,-\frac{1}{2},-\frac{3}{2},\frac{1}{2},-\frac{1}{2},-\frac{1}{2}\right\}\\
-\{\rho_{\delta x x}\} &=& \left\{\frac{1}{2},-\frac{3}{2},-\frac{1}{2},-\frac{1}{2},-\frac{1}{2},\frac{1}{2},-1\right\}\\
-\{\rho_{\delta x y}\} &=& \left\{\frac{1}{2},-\frac{3}{2},-\frac{1}{2},-\frac{1}{2},-\frac{1}{2},-1,\frac{1}{2}\right\}\\
-\{\rho_{y \delta x}\} &=& \left\{-\frac{1}{2},-1,-\frac{1}{2},-\frac{1}{2},-\frac{1}{2},-\frac{3}{2},\frac{1}{2}\right\}\\
-\{\rho_{\delta x \delta y} \} &=& \left\{\frac{1}{2},-\frac{3}{2},-\frac{1}{2},-\frac{1}{2},-\frac{1}{2},-1,\frac{1}{2}\right\}\\
-\{\rho_{\delta y \delta x} \} &=& \left\{\frac{1}{2},-1,-\frac{1}{2},-\frac{1}{2},-\frac{1}{2},-\frac{3}{2},\frac{1}{2}\right\} \\
-\{\rho_{x \delta y} \} &=& \left\{-\frac{1}{2},-\frac{1}{2},-\frac{3}{2},\frac{1}{2},\frac{1}{2},-1,-\frac{1}{2}\right\}\\
-\{\rho_{\delta y x} \} &=& \left\{-\frac{3}{2},\frac{1}{2},-\frac{1}{2},-\frac{1}{2},-1,\frac{1}{2},-\frac{1}{2}\right\} \\
-\{\rho_{y \delta y} \} &=& \left\{1,-\frac{3}{2},-\frac{1}{2},-1,-\frac{1}{2},\frac{1}{2},-1,\frac{1}{2},-\frac{1}{2}\right\} \\
-\{\rho_{\delta y y} \} &=& \left\{1,-\frac{3}{2},-\frac{1}{2},-1,-\frac{1}{2},\frac{1}{2},-1,\frac{1}{2},-\frac{1}{2}\right\}
-\end{eqnarray}
-Consider the basic statistics of these twelve sets.
-\begin{center}
-\begin{tabular}{l|c|c|c}
- & $\langle\rangle$ & $\max{}$ & $\min{}$\\
-\hline
-$\{\rho_{xy}\}$ & $-\frac{1}{3}$ & $\frac{1}{2}$ & $-\frac{3}{2}$\\
-$\{\rho_{yx}\}$ & $-\frac{1}{3}$ & $\frac{1}{2}$ & $-\frac{3}{2}$\\
-$\{\rho_{x\delta x}\}$ & $-\frac{1}{3}$ & $\frac{1}{2}$ & $-\frac{3}{2}$\\
-$\{\rho_{\delta x x}\}$ & $-\frac{1}{3}$ & $\frac{1}{2}$ & $-\frac{3}{2}$\\
-$\{\rho_{\delta x y}\}$ & $-\frac{1}{3}$ & $\frac{1}{2}$ & $-\frac{3}{2}$\\
-$\{\rho_{y \delta x}\}$ & $-\frac{1}{3}$ & $\frac{1}{2}$ & $-\frac{3}{2}$\\
-$\{\rho_{\delta x \delta y} \}$ & $-\frac{1}{3}$ & $\frac{1}{2}$ & $-\frac{3}{2}$\\
-$\{\rho_{\delta y \delta x} \}$ & $-\frac{1}{3}$ & $\frac{1}{2}$ & $-\frac{3}{2}$\\
-$\{\rho_{x \delta y} \}$ & $-\frac{1}{3}$ & $\frac{1}{2}$ & $-\frac{3}{2}$\\
-$\{\rho_{\delta y x} \}$ & $-\frac{1}{3}$ & $\frac{1}{2}$ & $-\frac{3}{2}$\\
-$\{\rho_{y \delta y} \}$ & $-\frac{1}{3}$ & $\frac{1}{2}$ & $-\frac{3}{2}$\\
-$\{\rho_{\delta y y} \}$ & $-\frac{1}{3}$ & $\frac{1}{2}$ & $-\frac{3}{2}$\\
-\end{tabular}
-\end{center}
-This table implies that these pariwise penchants may not be useful for determining the causal influences in this example.  However, these are not the only penchants in this example system.  Consider
-\begin{eqnarray}
-P(y_t = 0 | x_t = 0 \cap \delta x_t = 0) &=& \frac{P(y_t = 0 \cap x_t = 0 \cap \delta x_t = 0)}{P(x_t = 0 \cap \delta x_t = 0)}\\
-&=& \frac{P(y_t = 0 \cap x_t = 0 | \delta x_t = 0)P(\delta x_t = 0)}{P(x_t = 0 | \delta x_t = 0)P(\delta x_t = 0)}\\
-&=& \frac{P(y_t = 0 \cap x_t = 0 | \delta x_t = 0)}{P(x_t = 0 | \delta x_t = 0)}
-\end{eqnarray}
-
-It follows from the table above that 
-$$
-\rho_{yx\delta x}^{(1)} = P(y_t = 0 | x_t = 0 \cap \delta x_t = 0) - P(y_t = 0 | x_t \neq 0 \cap \delta x_t \neq 0) = 1-1 = 0
-$$
-and
-$$
-\rho_{xy\delta y}^{(1)} = P(x_t = 0 | y_t = 0 \cap \delta y_t = 0) - P(x_t = 0 | y_t \neq 0 \cap \delta y_t \neq 0) = \frac{1}{2}-1 = -\frac{1}{2}\;\;.
-$$
-Thus, $\rho_{yx\delta x}^{(1)} > \rho_{xy\delta y}^{(1)}$ implying (at least for this single penchant comparison) $\mathbf{x}\rightarrow\mathbf{y}$.  The mean penchant comparison is
-\begin{eqnarray}
-\langle \rho_{yx\delta x} \rangle &=& \frac{1}{27}\left[2\left(1-1\right)+7\left(0-2\right)+7\left(0-2\right)+2\left(1-1\right)+8\left(0-1\right)+\left(1-0\right)\right]\\
-&=& \frac{1}{27}\left[-14-14-8+1\right]\\
-&=& -\frac{35}{27}
-\end{eqnarray}
-and
-\begin{eqnarray}
-\langle \rho_{xy\delta y} \rangle &=& \frac{1}{27}\left[\left(\frac{1}{2}-1\right)+\left(1-\frac{1}{2}\right)+7\left(0-\frac{3}{2}\right)+\left(\frac{1}{2}-1\right)+\left(1-\frac{1}{2}\right)\right.\\
-& & \left. +7\left(0-\frac{3}{2}\right)+8\left(0-1\right)+\left(1-0\right)\right]\\
-&=& \frac{1}{27}\left[-\frac{1}{2}+\frac{1}{2}-\frac{21}{2}-\frac{1}{2}+\frac{1}{2}-\frac{21}{2}-8+1\right]\\
-&=& -\frac{28}{27}\;\;,
-\end{eqnarray}
-which implies $\langle \rho_{yx\delta x} \rangle <\langle \rho_{xy\delta y} \rangle$, i.e.\ $\mathbf{x}\leftarrow\mathbf{y}$, which does not agree with intuition.  
-
-Notice that this conclusion was possible using the mean penchants calculated using three of the four LIR series.  In general, however, casual influence can be estimated using the mean penchants calculated using all four LIR series.  E.g.\
-$$
-\rho_{y\delta yx\delta x}^{(1)} = P(y_t = 0 \cap \delta y_t = 0| x_t = 0 \cap \delta x_t = 0) - P(y_t = 0 \cap \delta y_t = 0| x_t \neq 0 \cap \delta x_t \neq 0)
-$$
-and
-$$
-\rho_{x\delta xy\delta y}^{(1)} = P(x_t = 0 \cap \delta x_t = 0| y_t = 0 \cap \delta y_t = 0) - P(x_t = 0 \cap \delta x_t = 0| y_t \neq 0 \cap \delta y_t \neq 0) \;\;.
-$$
 
 
 \end{document}
