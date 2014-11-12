@@ -509,7 +509,7 @@ and
 &=& \left(1+\frac{1}{5}\left(1-\frac{1}{5}\right)^{-1}\right)-\frac{2}{5}\left(1-\frac{1}{5}\right)^{-1}\\
 &=& \frac{3}{4}\;\;.
 \end{eqnarray}
-Thus, $\rho_{y\delta x}^{(1)}>\rho_{\delta xy}^{(1)}$ implying $\mathbf{x}\rightarrow\mathbf{y}$, as expected.  The mean penchants for this cause-effect pair are
+Thus, $\rho_{y\delta x}^{(1)}>\rho_{\delta xy}^{(1)}$ implying $\mathbf{\delta x}\rightarrow\mathbf{y}$, as expected.  The mean penchants for this cause-effect pair are
 \begin{eqnarray}
 \langle \rho_{\delta xy}\rangle &=& \frac{1}{9}\left(\sum_{i=-1}^1 \sum_{j=0}^2 P(\delta x_t = i | y_t = j) - P(\delta x_t = i | y_t \neq j)\right)\\
 &=& \frac{1}{9}\left(\sum_{i=-1}^1 \sum_{j=0}^2 P(\delta x_t = i | y_t = j)\left(1+\frac{P(y_t = j)}{1-P(y_t = j)}\right)-\frac{P(\delta x_t = i)}{1-P(y_t = j)}\right)\\
@@ -616,6 +616,66 @@ and
 \end{eqnarray}
 Thus, the results agree with intuition if the library lengths are longer than those used in the manual calculation example.  This point should be kept in mind and the effect of library length on the LIR penchant method (which probably needs a new name) should be investigated.  All of the above number where calculated using histograms with only three, the final conclusions do not change for the number of bins is increased to ten but the actual value of the penchants do.  Again, this effect should also be explored.
 
+The main task in estimating causal influence using the LIR method described above will revolve around comparing mean penchants to determine, e.g.\ $\langle \rho_{yx}\rangle > \langle \rho_{xy}\rangle$.  As single-valued metric will be constructed to facilitate the discussion as follows:
+$$
+\Delta_{yx} = \langle \rho_{yx}\rangle - \langle \rho_{xy}\rangle\;\;.
+$$
+$\Delta_{yx} > 0\Rightarrow \langle \rho_{yx}\rangle > \langle \rho_{xy}\rangle$, $\Delta_{yx} < 0\Rightarrow \langle \rho_{yx}\rangle < \langle \rho_{xy}\rangle$, and $\Delta_{yx} = 0\Rightarrow \langle \rho_{yx}\rangle = \langle \rho_{xy}\rangle$.  Thus, the sign of $\Delta$ can be used to estimate the causal influence as $\Delta_{yx} > 0\Rightarrow \mathbf{x}\rightarrow\mathbf{y}$, $\Delta_{yx} < 0\Rightarrow \mathbf{y}\rightarrow\mathbf{x}$, and $\Delta_{yx} = 0\Rightarrow$ no conclusion can be made.
+
+The mean is a linear operator, so in general
+\begin{eqnarray}
+\Delta_{yx} &=& \langle \rho_{yx}\rangle - \langle \rho_{xy}\rangle\\
+&=& \langle \rho_{yx} - \rho_{xy}\rangle\\
+&=& \left\langle \left( P(y_t\cap x_t)\left(\frac{1}{P(x_t)}+\frac{1}{1-P(x_t)}\right)-\frac{P(y_t)}{1-P(x_t)}\right) \right.\\
+& & \left.- \left( P(x_t\cap y_t)\left(\frac{1}{P(y_t)}+\frac{1}{1-P(y_t)}\right)-\frac{P(x_t)}{1-P(y_t)} \right) \right\rangle\\
+&=& \left\langle P(y_t\cap x_t) \left( \frac{1}{P(x_t)}+\frac{1}{1-P(x_t)} - \frac{1}{P(y_t)}-\frac{1}{1-P(y_t)}\right) -\frac{P(y_t)}{1-P(x_t)}+\frac{P(x_t)}{1-P(y_t)}  \right\rangle
+\end{eqnarray}
+because $P(A\cap B) = P(B\cap A)$.  As an example, consider the time series $\mathbf{\delta x}$ and $\mathbf{y}$ from above:
+\begin{eqnarray*}
+\Delta_{y\delta x} &=& \langle \rho_{y\delta x}\rangle - \langle \rho_{\delta xy}\rangle\\
+&=& \left\langle P(y_t\cap \delta x_t) \left( \frac{1}{P(\delta x_t)}+\frac{1}{1-P(\delta x_t)} - \frac{1}{P(y_t)}-\frac{1}{1-P(y_t)}\right) -\frac{P(y_t)}{1-P(\delta x_t)}+\frac{P(\delta x_t)}{1-P(y_t)}  \right\rangle\\
+&=& \frac{1}{9}\left(\sum_{i=-1}^1 \sum_{j=0}^2 P(y_t=j\cap \delta x_t=i) \left( \frac{1}{P(\delta x_t=i)}+\frac{1}{1-P(\delta x_t=i)} - \frac{1}{P(y_t=j)}-\frac{1}{1-P(y_t=j)}\right)\right. \\
+& &\left. -\frac{P(y_t=j)}{1-P(\delta x_t=i)}+\frac{P(\delta x_t=i)}{1-P(y_t=j)}\right)\\
+&=& \frac{1}{9}\left(P(y_t=0\cap \delta x_t=-1) \left( \frac{1}{P(\delta x_t=-1)}+\frac{1}{1-P(\delta x_t=-1)} - \frac{1}{P(y_t=0)}-\frac{1}{1-P(y_t=0)}\right)\right.\\
+& &-\frac{P(y_t=0)}{1-P(\delta x_t=-1)}+\frac{P(\delta x_t=-1)}{1-P(y_t=0)}\\
+& &+ P(y_t=1\cap \delta x_t=-1) \left( \frac{1}{P(\delta x_t=-1)}+\frac{1}{1-P(\delta x_t=-1)} - \frac{1}{P(y_t=1)}-\frac{1}{1-P(y_t=1)}\right)\\
+& &-\frac{P(y_t=1)}{1-P(\delta x_t=-1)}+\frac{P(\delta x_t=-1)}{1-P(y_t=1)}\\
+& &+ P(y_t=2\cap \delta x_t=-1) \left( \frac{1}{P(\delta x_t=-1)}+\frac{1}{1-P(\delta x_t=-1)} - \frac{1}{P(y_t=2)}-\frac{1}{1-P(y_t=2)}\right)\\
+& &-\frac{P(y_t=2)}{1-P(\delta x_t=-1)}+\frac{P(\delta x_t=-1)}{1-P(y_t=2)}\\
+& &+P(y_t=0\cap \delta x_t=0) \left( \frac{1}{P(\delta x_t=0)}+\frac{1}{1-P(\delta x_t=0)} - \frac{1}{P(y_t=0)}-\frac{1}{1-P(y_t=0)}\right)\\
+& &-\frac{P(y_t=0)}{1-P(\delta x_t=0)}+\frac{P(\delta x_t=0)}{1-P(y_t=0)}\\
+& &+ P(y_t=1\cap \delta x_t=0) \left( \frac{1}{P(\delta x_t=0)}+\frac{1}{1-P(\delta x_t=0)} - \frac{1}{P(y_t=1)}-\frac{1}{1-P(y_t=1)}\right)\\
+& &-\frac{P(y_t=1)}{1-P(\delta x_t=0)}+\frac{P(\delta x_t=0)}{1-P(y_t=1)}\\
+& &+ P(y_t=2\cap \delta x_t=0) \left( \frac{1}{P(\delta x_t=0)}+\frac{1}{1-P(\delta x_t=0)} - \frac{1}{P(y_t=2)}-\frac{1}{1-P(y_t=2)}\right)\\
+& &-\frac{P(y_t=2)}{1-P(\delta x_t=0)}+\frac{P(\delta x_t=0)}{1-P(y_t=2)}\\
+& &+P(y_t=0\cap \delta x_t=1) \left( \frac{1}{P(\delta x_t=1)}+\frac{1}{1-P(\delta x_t=1)} - \frac{1}{P(y_t=0)}-\frac{1}{1-P(y_t=0)}\right)\\
+& &-\frac{P(y_t=0)}{1-P(\delta x_t=1)}+\frac{P(\delta x_t=1)}{1-P(y_t=0)}\\
+& &+ P(y_t=1\cap \delta x_t=1) \left( \frac{1}{P(\delta x_t=1)}+\frac{1}{1-P(\delta x_t=1)} - \frac{1}{P(y_t=1)}-\frac{1}{1-P(y_t=1)}\right)\\
+& &-\frac{P(y_t=1)}{1-P(\delta x_t=1)}+\frac{P(\delta x_t=1)}{1-P(y_t=1)}\\
+& &+ P(y_t=2\cap \delta x_t=1) \left( \frac{1}{P(\delta x_t=1)}+\frac{1}{1-P(\delta x_t=1)} - \frac{1}{P(y_t=2)}-\frac{1}{1-P(y_t=2)}\right)\\
+& &\left.-\frac{P(y_t=2)}{1-P(\delta x_t=1)}+\frac{P(\delta x_t=1)}{1-P(y_t=2)}\right)
+\end{eqnarray*}
+$\ldots$continued$\ldots$
+\begin{eqnarray*}
+&=& \frac{1}{9}\left(-\frac{\frac{2}{5}}{1-\frac{2}{5}}+\frac{\frac{2}{5}}{1-\frac{2}{5}}+ \frac{1}{5} \left( \frac{1}{\frac{2}{5}}+\frac{1}{1-\frac{2}{5}} - \frac{1}{\frac{2}{5}}-\frac{1}{1-\frac{2}{5}}\right)\right.\\
+& &-\frac{\frac{2}{5}}{1-\frac{2}{5}}+\frac{\frac{2}{5}}{1-\frac{2}{5}}+ \frac{1}{5} \left( \frac{1}{\frac{2}{5}}+\frac{1}{1-\frac{2}{5}} - \frac{1}{\frac{1}{5}}-\frac{1}{1-\frac{1}{5}}\right)\\
+& &-\frac{\frac{1}{5}}{1-\frac{2}{5}}+\frac{\frac{2}{5}}{1-\frac{1}{5}}+\frac{1}{5} \left( \frac{1}{\frac{1}{5}}+\frac{1}{1-\frac{1}{5}} - \frac{1}{\frac{2}{5}}-\frac{1}{1-\frac{2}{5}}\right)\\
+& &-\frac{\frac{2}{5}}{1-\frac{1}{5}}+\frac{\frac{1}{5}}{1-\frac{2}{5}}-\frac{\frac{2}{5}}{1-\frac{1}{5}}+\frac{\frac{1}{5}}{1-\frac{2}{5}}\\
+& &-\frac{\frac{1}{5}}{1-\frac{1}{5}}+\frac{\frac{1}{5}}{1-\frac{1}{5}}+\frac{1}{5} \left( \frac{1}{\frac{2}{5}}+\frac{1}{1-\frac{2}{5}} - \frac{1}{\frac{2}{5}}-\frac{1}{1-\frac{2}{5}}\right)\\
+& &-\frac{\frac{2}{5}}{1-\frac{2}{5}}+\frac{\frac{2}{5}}{1-\frac{2}{5}}+\frac{1}{5} \left( \frac{1}{\frac{2}{5}}+\frac{1}{1-\frac{2}{5}} - \frac{1}{\frac{2}{5}}-\frac{1}{1-\frac{2}{5}}\right)\\
+& &\left.-\frac{\frac{2}{5}}{1-\frac{2}{5}}+\frac{\frac{2}{5}}{1-\frac{2}{5}}-\frac{\frac{1}{5}}{1-\frac{2}{5}}+\frac{\frac{2}{5}}{1-\frac{1}{5}}\right)\\
+&=& \frac{1}{9}\left(-\frac{2}{3}+\frac{2}{3}+\frac{1}{5} \left(\frac{5}{2}+\frac{5}{3}-\frac{5}{2}-\frac{5}{3}\right)\right.\\
+& &-\frac{2}{3}+\frac{2}{3}+ \frac{1}{5} \left(\frac{5}{2}+\frac{5}{3}-\frac{5}{1}-\frac{5}{4}\right)\\
+& &-\frac{1}{3}+\frac{2}{4}+\frac{1}{5} \left(\frac{5}{1}+\frac{5}{4}-\frac{5}{2}-\frac{5}{3}\right)\\
+& &-\frac{2}{4}+\frac{1}{3}-\frac{2}{4}+\frac{1}{3}\\
+& &-\frac{1}{4}+\frac{1}{4}+\frac{1}{5} \left(\frac{5}{2}+\frac{5}{3}-\frac{5}{2}-\frac{5}{3}\right)\\
+& &-\frac{2}{3}+\frac{2}{3}+\frac{1}{5} \left(\frac{5}{2}+\frac{5}{3}-\frac{5}{2}-\frac{5}{3}\right)\\
+& &\left.-\frac{2}{3}+\frac{2}{3}-\frac{1}{3}+\frac{2}{4}\right)\\
+&=& 0\;\;,
+\end{eqnarray*}
+as expected from above.  The variable $\Delta_{EC}$ is the mean difference of the available (dependent on the number of bins in the histograms) penchants between two times series (or, in general, any two data sets; the temporal aspect of this causal analysis is only captured in the LIR techinques, i.e.\ in the definitions of $\delta x$ and $\delta y$, and not in the definitions of the penchants).  $\Delta_{EC}$ will become the workhorse of our causal inference and thus, will be called the {\em leaning} of the pair of data sets.  Giving $\Delta_{EC}$ a name is simply to help save time typing in the discussions that follow.
+
 \end{document}
+
 
 
