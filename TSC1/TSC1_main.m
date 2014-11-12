@@ -12,6 +12,8 @@ nbins = 3;
 [truth,LIRvec] = LIRpenchants(x,y,nbins);
 fprintf('Notional TS; nbins = 3\n')
 truth
+temp = LIRvec;
+lenvec = leaning(x,y,3);
 
 nbins = 4;
 [truth,LIRvec] = LIRpenchants(x,y,nbins);
