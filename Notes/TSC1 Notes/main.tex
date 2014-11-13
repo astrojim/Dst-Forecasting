@@ -676,8 +676,26 @@ $\ldots$continued$\ldots$
 as expected from above.  The variable $\Delta_{EC}$ is the mean difference of the available (dependent on the number of bins in the histograms) penchants between two times series (or, in general, any two data sets; the temporal aspect of this causal analysis is only captured in the LIR techinques, i.e.\ in the definitions of $\delta x$ and $\delta y$, and not in the definitions of the penchants).  $\Delta_{EC}$ will become the workhorse of our causal inference and thus, will be called the {\em leaning} of the pair of data sets.  Giving $\Delta_{EC}$ a name is simply to help save time typing in the discussions that follow.
 
 Consider the notional time series $(\mathbf{x},\mathbf{y})$ extended to a library length of $L=25$.  This leads to the following plot:
-\begin{figure}
+\begin{figure}[!H]
 \includegraphics[scale=0.55]{notionalTS.eps}
+\end{figure}
+
+Consider the sine time series with varying noise levels and histogram bins:
+\begin{figure}[!H]
+\includegraphics[scale=0.55]{SineTSxy.eps}
+\caption{Should be $X\rightarrow Y$; i.e.\ positive leaning (positive on colorbar)}
+\end{figure}
+\begin{figure}[!H]
+\includegraphics[scale=0.55]{SineTSdxy.eps}
+\caption{Should be $dX\rightarrow Y$; i.e.\ positive leaning (positive on colorbar)}
+\end{figure}
+\begin{figure}[!H]
+\includegraphics[scale=0.55]{SineTSxdy.eps}
+\caption{Should be $X\rightarrow dY$; i.e.\ positive leaning (positive on colorbar)}
+\end{figure}
+\begin{figure}[!H]
+\includegraphics[scale=0.55]{SineTSdxdy.eps}
+\caption{Should be $dX\rightarrow dY$; i.e.\ positive leaning (positive on colorbar)}
 \end{figure}
 \end{document}
 

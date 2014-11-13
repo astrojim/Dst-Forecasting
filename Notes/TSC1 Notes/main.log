@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=latex 2014.3.19)  12 NOV 2014 19:42
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=latex 2014.3.19)  13 NOV 2014 11:54
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -262,14 +262,38 @@ Overfull \hbox (77.61769pt too wide) in paragraph at lines 680--681
 [][] 
  []
 
-[14] [15] (./main.aux) ) 
+File: SineTSxy.eps Graphic file (type eps)
+<SineTSxy.eps>
+Overfull \hbox (77.61769pt too wide) in paragraph at lines 685--686
+[][] 
+ []
+
+File: SineTSdxy.eps Graphic file (type eps)
+<SineTSdxy.eps>
+Overfull \hbox (77.61769pt too wide) in paragraph at lines 689--690
+[][] 
+ []
+
+File: SineTSxdy.eps Graphic file (type eps)
+<SineTSxdy.eps>
+Overfull \hbox (77.61769pt too wide) in paragraph at lines 693--694
+[][] 
+ []
+
+File: SineTSdxdy.eps Graphic file (type eps)
+<SineTSdxdy.eps>
+Overfull \hbox (77.61769pt too wide) in paragraph at lines 697--698
+[][] 
+ []
+
+[14] [15] [16] [17] (./main.aux) ) 
 Here is how much of TeX's memory you used:
- 3392 strings out of 494044
- 50357 string characters out of 6155041
+ 3401 strings out of 494044
+ 50479 string characters out of 6155041
  161736 words of memory out of 5000000
- 6773 multiletter control sequences out of 15000+600000
+ 6778 multiletter control sequences out of 15000+600000
  10596 words of font info for 38 fonts, out of 8000000 for 9000
  466 hyphenation exceptions out of 8191
  36i,12n,38p,1244b,271s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on main.dvi (15 pages, 101636 bytes).
+Output written on main.dvi (17 pages, 102712 bytes).
