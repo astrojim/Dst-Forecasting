@@ -53,13 +53,13 @@ grid on;
 hold off;
 
 clear nbins x y dx dy
-
-nbins = 2:1:150;
+%{
+nbins = 2:1:50;
 B = 0.001:0.05:0.99;
-plotdataLxTSxy = zeros(3,length(nbins));
-plotdataLxTSdxy = zeros(3,length(nbins));
-plotdataLxTSxdy = zeros(3,length(nbins));
-plotdataLxTSdxdy = zeros(3,length(nbins));
+plotdataLxTSxy = zeros(length(B),length(nbins));
+plotdataLxTSdxy = zeros(length(B),length(nbins));
+plotdataLxTSxdy = zeros(length(B),length(nbins));
+plotdataLxTSdxdy = zeros(length(B),length(nbins));
 for iter = 1:1:length(nbins),
     for iter2 = 1:1:length(B),
 
@@ -67,24 +67,54 @@ for iter = 1:1:length(nbins),
         fprintf('LinearEx Sine TS; nbins = %i, B = %.3f\n',nbins(iter),B(iter2));
         
         lenvec = leaning(x,y,nbins(iter));
-        plotdataLxTSxy(1,iter) = nbins(iter);
-        plotdataLxTSxy(2,iter) = B(iter2);
-        plotdataLxTSxy(3,iter) = mean(lenvec);
+        plotdataLxTSxy(iter2,iter) = mean(lenvec);
         
         lenvec = leaning(dx,y,nbins(iter));
-        plotdataLxTSdxy(1,iter) = nbins(iter);
-        plotdataLxTSdxy(2,iter) = B(iter2);
-        plotdataLxTSdxy(3,iter) = mean(lenvec);
+        plotdataLxTSdxy(iter2,iter) = mean(lenvec);
         
         lenvec = leaning(x,dy,nbins(iter));
-        plotdataLxTSxdy(1,iter) = nbins(iter);
-        plotdataLxTSxdy(2,iter) = B(iter2);
-        plotdataLxTSxdy(3,iter) = mean(lenvec);
+        plotdataLxTSxdy(iter2,iter) = mean(lenvec);
         
         lenvec = leaning(dx,dy,nbins(iter));
-        plotdataLxTSdxdy(1,iter) = nbins(iter);
-        plotdataLxTSdxdy(2,iter) = B(iter2);
-        plotdataLxTSdxdy(3,iter) = mean(lenvec);
+        plotdataLxTSdxdy(iter2,iter) = mean(lenvec);
         
     end;
 end;
+%}
+load leaning_plot.mat
+
+figure(2);
+hold on;
+imagesc(B,nbins,plotdataLxTSxy)
+title('Sine TS (L = 2000); Expect x DRIVES y (positive number)');
+xlabel('B');
+ylabel('number of bins in histograms');
+colorbar();
+hold off;
+
+figure(3);
+hold on;
+imagesc(B,nbins,plotdataLxTSdxy)
+title('Sine TS (L = 2000); Expect dx DRIVES y (positive number)');
+xlabel('B');
+ylabel('number of bins in histograms');
+colorbar();
+hold off;
+
+figure(4);
+hold on;
+imagesc(B,nbins,plotdataLxTSxdy)
+title('Sine TS (L = 2000); Expect x DRIVES dy (positive number)');
+xlabel('B');
+ylabel('number of bins in histograms');
+colorbar();
+hold off;
+
+figure(5);
+hold on;
+imagesc(B,nbins,plotdataLxTSxy)
+title('Sine TS (L = 2000); Expect dx DRIVES dy (positive number)');
+xlabel('B');
+ylabel('number of bins in histograms');
+colorbar();
+hold off;
