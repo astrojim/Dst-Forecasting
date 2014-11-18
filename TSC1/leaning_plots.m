@@ -8,6 +8,8 @@ y = [0,0,1,2,1,0,1,2,1,0,1,2,1,0,1,2,1,0,1,2,1,0,1,2,1];
 dx = [0,1,1,-1,-1,1,1,-1,-1,1,1,-1,-1,1,1,-1,-1,1,1,-1,-1,1,1,-1,-1];
 dy = [0,0,1,1,-1,-1,1,1,-1,-1,1,1,-1,-1,1,1,-1,-1,1,1,-1,-1,1,1,-1,];
 
+tol = 1e-18;
+
 nbins = 2:1:length(x);
 plotdataNTSxy = zeros(2,length(nbins));
 plotdataNTSdxy = zeros(2,length(nbins));
@@ -17,21 +19,21 @@ for iter = 1:1:length(nbins),
     
     fprintf('Notional TS; nbins = %i\n',nbins(iter));
     
-    lenvec = leaning(x,y,nbins(iter));
+    lenvec = leaningALT(x,y,nbins(iter));
     plotdataNTSxy(1,iter) = nbins(iter);
-    plotdataNTSxy(2,iter) = mean(lenvec);
+    plotdataNTSxy(2,iter) = mean_ignorezero(lenvec,tol);
     
-    lenvec = leaning(dx,y,nbins(iter));
+    lenvec = leaningALT(dx,y,nbins(iter));
     plotdataNTSdxy(1,iter) = nbins(iter);
-    plotdataNTSdxy(2,iter) = mean(lenvec);
+    plotdataNTSdxy(2,iter) = mean_ignorezero(lenvec,tol);
     
-    lenvec = leaning(x,dy,nbins(iter));
+    lenvec = leaningALT(x,dy,nbins(iter));
     plotdataNTSxdy(1,iter) = nbins(iter);
-    plotdataNTSxdy(2,iter) = mean(lenvec);
+    plotdataNTSxdy(2,iter) = mean_ignorezero(lenvec,tol);
     
-    lenvec = leaning(dx,dy,nbins(iter));
+    lenvec = leaningALT(dx,dy,nbins(iter));
     plotdataNTSdxdy(1,iter) = nbins(iter);
-    plotdataNTSdxdy(2,iter) = mean(lenvec);
+    plotdataNTSdxdy(2,iter) = mean_ignorezero(lenvec,tol);
     
 end;
 
@@ -53,8 +55,8 @@ grid on;
 hold off;
 
 clear nbins x y dx dy
-%{
-nbins = 2:1:50;
+
+nbins = 2:1:250;
 B = 0.001:0.05:0.99;
 plotdataLxTSxy = zeros(length(B),length(nbins));
 plotdataLxTSdxy = zeros(length(B),length(nbins));
@@ -66,22 +68,22 @@ for iter = 1:1:length(nbins),
         [x,y,dx,dy] = LinearEx(B(iter2));
         fprintf('LinearEx Sine TS; nbins = %i, B = %.3f\n',nbins(iter),B(iter2));
         
-        lenvec = leaning(x,y,nbins(iter));
-        plotdataLxTSxy(iter2,iter) = mean(lenvec);
+        lenvec = leaningALT(x,y,nbins(iter));
+        plotdataLxTSxy(iter2,iter) = mean_ignorezero(lenvec,tol);
         
-        lenvec = leaning(dx,y,nbins(iter));
-        plotdataLxTSdxy(iter2,iter) = mean(lenvec);
+        lenvec = leaningALT(dx,y,nbins(iter));
+        plotdataLxTSdxy(iter2,iter) = mean_ignorezero(lenvec,tol);
         
-        lenvec = leaning(x,dy,nbins(iter));
-        plotdataLxTSxdy(iter2,iter) = mean(lenvec);
+        lenvec = leaningALT(x,dy,nbins(iter));
+        plotdataLxTSxdy(iter2,iter) = mean_ignorezero(lenvec,tol);
         
-        lenvec = leaning(dx,dy,nbins(iter));
-        plotdataLxTSdxdy(iter2,iter) = mean(lenvec);
+        lenvec = leaningALT(dx,dy,nbins(iter));
+        plotdataLxTSdxdy(iter2,iter) = mean_ignorezero(lenvec,tol);
         
     end;
 end;
-%}
-load leaning_plot.mat
+
+%load leaning_plot.mat
 
 figure(2);
 hold on;
@@ -118,3 +120,4 @@ xlabel('B');
 ylabel('number of bins in histograms');
 colorbar();
 hold off;
+%}

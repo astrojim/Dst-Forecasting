@@ -21,7 +21,7 @@ Edist = countsE./length(E);
 Cdist = countsC./length(C);
 jdist = countsJ./length(E);
 
-EClen = zeros(size(jdist,1)*size(jdist,2),1);
+%EClen = zeros(size(jdist,1)*size(jdist,2),1);
 step = 1;
 for iter1 = 1:1:size(jdist,1),
 	for iter2 = 1:1:size(jdist,2),

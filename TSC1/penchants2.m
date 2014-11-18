@@ -26,25 +26,23 @@ end;
     binUpperE,binLowerE,binUpperC1,binLowerC1,binUpperC2,binLowerC2);
 
 Edist = countsE./length(E);
-C1dist = countsC1./length(C1);
-C2dist = countsC2./length(C2);
 Cdist = countsC./length(E);
 jdist = countsJ./length(E);
 
-ECpen = zeros(size(jdist,1)*size(jdist,2)*size(jdist,3),1);
+ECpen = zeros(nbins*nbins*nbins,1);
 step = 1;
 for iter1 = 1:1:size(jdist,1),
 	for iter2 = 1:1:size(jdist,2),
-        	for iter3 = 1:1:size(jdist,3),
-      
-              if( Cdist(iter2) ~= 0 ),
-                ECpen(step) = (jdist(iter1,iter2)*((1/Cdist(iter2))+(1/(1-Cdist(iter2))))-Edist(iter1)/(1-Cdist(iter2)));
-                %fprintf('ECpen = %.5f; (Edist(iter1),Cdist(iter2),jdist(iter1,iter2)) = (%.5f,%.5f,%.5f)\n',...
-                %    ECpen(step),Edist(iter1),Cdist(iter2),jdist(iter1,iter2));
-                step = step+1;
-              end;
-      
-  end;
+        for iter3 = 1:1:size(jdist,3),
+    
+            if( Cdist(iter2,iter3) ~= 0 && Edist(iter1) ~= 0 ),
+            ECpen(step) = (jdist(iter1,iter2,iter3)*((1/Cdist(iter2,iter3))...
+                +(1/(1-Cdist(iter2,iter3))))-Edist(iter1)/(1-Cdist(iter2,iter3)));
+            step = step+1;
+            end;
+
+        end;
+    end;
 end;
 
 penvec = ECpen;
