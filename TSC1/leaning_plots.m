@@ -56,38 +56,39 @@ hold off;
 
 clear nbins x y dx dy
 
-nbins = 2:1:250;
-B = 0.001:0.05:0.99;
-plotdataLxTSxy = zeros(length(B),length(nbins));
-plotdataLxTSdxy = zeros(length(B),length(nbins));
-plotdataLxTSxdy = zeros(length(B),length(nbins));
-plotdataLxTSdxdy = zeros(length(B),length(nbins));
-for iter = 1:1:length(nbins),
-    for iter2 = 1:1:length(B),
+% nbins = 2:1:250;
+% B = 0.001:0.05:0.99;
+% plotdataLxTSxy = zeros(length(B),length(nbins));
+% plotdataLxTSdxy = zeros(length(B),length(nbins));
+% plotdataLxTSxdy = zeros(length(B),length(nbins));
+% plotdataLxTSdxdy = zeros(length(B),length(nbins));
+% for iter = 1:1:length(nbins),
+%     for iter2 = 1:1:length(B),
+% 
+%         [x,y,dx,dy] = LinearEx(B(iter2));
+%         fprintf('LinearEx Sine TS; nbins = %i, B = %.3f\n',nbins(iter),B(iter2));
+%         
+%         lenvec = leaningALT(x,y,nbins(iter));
+%         plotdataLxTSxy(iter2,iter) = mean_ignorezero(lenvec,tol);
+%         
+%         lenvec = leaningALT(dx,y,nbins(iter));
+%         plotdataLxTSdxy(iter2,iter) = mean_ignorezero(lenvec,tol);
+%         
+%         lenvec = leaningALT(x,dy,nbins(iter));
+%         plotdataLxTSxdy(iter2,iter) = mean_ignorezero(lenvec,tol);
+%         
+%         lenvec = leaningALT(dx,dy,nbins(iter));
+%         plotdataLxTSdxdy(iter2,iter) = mean_ignorezero(lenvec,tol);
+%         
+%     end;
+% end;
 
-        [x,y,dx,dy] = LinearEx(B(iter2));
-        fprintf('LinearEx Sine TS; nbins = %i, B = %.3f\n',nbins(iter),B(iter2));
-        
-        lenvec = leaningALT(x,y,nbins(iter));
-        plotdataLxTSxy(iter2,iter) = mean_ignorezero(lenvec,tol);
-        
-        lenvec = leaningALT(dx,y,nbins(iter));
-        plotdataLxTSdxy(iter2,iter) = mean_ignorezero(lenvec,tol);
-        
-        lenvec = leaningALT(x,dy,nbins(iter));
-        plotdataLxTSxdy(iter2,iter) = mean_ignorezero(lenvec,tol);
-        
-        lenvec = leaningALT(dx,dy,nbins(iter));
-        plotdataLxTSdxdy(iter2,iter) = mean_ignorezero(lenvec,tol);
-        
-    end;
-end;
-
-%load leaning_plot.mat
+load leaning_plot.mat
 
 figure(2);
 hold on;
 imagesc(B,nbins,plotdataLxTSxy)
+axis([min(B) max(B) 2 max(nbins)]);
 title('Sine TS (L = 2000); Expect x DRIVES y (positive number)');
 xlabel('B');
 ylabel('number of bins in histograms');
@@ -97,6 +98,7 @@ hold off;
 figure(3);
 hold on;
 imagesc(B,nbins,plotdataLxTSdxy)
+axis([min(B) max(B) 2 max(nbins)]);
 title('Sine TS (L = 2000); Expect dx DRIVES y (positive number)');
 xlabel('B');
 ylabel('number of bins in histograms');
@@ -106,6 +108,7 @@ hold off;
 figure(4);
 hold on;
 imagesc(B,nbins,plotdataLxTSxdy)
+axis([min(B) max(B) 2 max(nbins)]);
 title('Sine TS (L = 2000); Expect x DRIVES dy (positive number)');
 xlabel('B');
 ylabel('number of bins in histograms');
@@ -114,10 +117,67 @@ hold off;
 
 figure(5);
 hold on;
-imagesc(B,nbins,plotdataLxTSxy)
+imagesc(B,nbins,plotdataLxTSdxdy)
+axis([min(B) max(B) 2 max(nbins)]);
 title('Sine TS (L = 2000); Expect dx DRIVES dy (positive number)');
 xlabel('B');
 ylabel('number of bins in histograms');
 colorbar();
 hold off;
-%}
+
+
+figure(6);
+hold on;
+temp = plotdataLxTSxy;
+temp(temp<0) = -1;
+temp(temp>0) = 1;
+cmap = colormap(flipud(gray(2)));
+imagesc(B,nbins,temp)
+axis([min(B) max(B) 2 max(nbins)]);
+title('Sine TS (L = 2000); Expect x DRIVES y (positive number)');
+xlabel('B');
+ylabel('number of bins in histograms');
+colorbar();
+hold off;
+
+figure(7);
+hold on;
+temp = plotdataLxTSdxy;
+temp(temp<0) = -1;
+temp(temp>0) = 1;
+cmap = colormap(flipud(gray(2)));
+imagesc(B,nbins,temp)
+axis([min(B) max(B) 2 max(nbins)]);
+title('Sine TS (L = 2000); Expect dx DRIVES y (positive number)');
+xlabel('B');
+ylabel('number of bins in histograms');
+colorbar();
+hold off;
+
+figure(8);
+hold on;
+temp = plotdataLxTSxdy;
+temp(temp<0) = -1;
+temp(temp>0) = 1;
+cmap = colormap(flipud(gray(2)));
+imagesc(B,nbins,temp)
+axis([min(B) max(B) 2 max(nbins)]);
+title('Sine TS (L = 2000); Expect x DRIVES dy (positive number)');
+xlabel('B');
+ylabel('number of bins in histograms');
+colorbar();
+hold off;
+
+figure(9);
+hold on;
+temp = plotdataLxTSdxdy;
+temp(temp<0) = -1;
+temp(temp>0) = 1;
+cmap = colormap(flipud(gray(2)));
+imagesc(B,nbins,temp)
+axis([min(B) max(B) 2 max(nbins)]);
+title('Sine TS (L = 2000); Expect dx DRIVES dy (positive number)');
+xlabel('B');
+ylabel('number of bins in histograms');
+colorbar();
+hold off;
