@@ -15,6 +15,8 @@ plotdataNTSxy = zeros(2,length(nbins));
 plotdataNTSdxy = zeros(2,length(nbins));
 plotdataNTSxdy = zeros(2,length(nbins));
 plotdataNTSdxdy = zeros(2,length(nbins));
+plotdataNTSxdx = zeros(2,length(nbins));
+plotdataNTSydy = zeros(2,length(nbins));
 for iter = 1:1:length(nbins),
     
     fprintf('Notional TS; nbins = %i\n',nbins(iter));
@@ -35,6 +37,14 @@ for iter = 1:1:length(nbins),
     plotdataNTSdxdy(1,iter) = nbins(iter);
     plotdataNTSdxdy(2,iter) = mean_ignorezero(lenvec,tol);
     
+    lenvec = leaningALT(x,dx,nbins(iter));
+    plotdataNTSxdx(1,iter) = nbins(iter);
+    plotdataNTSxdx(2,iter) = mean_ignorezero(lenvec,tol);
+    
+    lenvec = leaningALT(y,dy,nbins(iter));
+    plotdataNTSydy(1,iter) = nbins(iter);
+    plotdataNTSydy(2,iter) = mean_ignorezero(lenvec,tol);
+    
 end;
 
 figure(1);
@@ -43,6 +53,8 @@ plot(plotdataNTSxy(1,:),plotdataNTSxy(2,:),'bo','MarkerSize',12);
 plot(plotdataNTSdxy(1,:),plotdataNTSdxy(2,:),'rx','MarkerSize',12);
 plot(plotdataNTSxdy(1,:),plotdataNTSxdy(2,:),'g.','MarkerSize',12);
 plot(plotdataNTSdxdy(1,:),plotdataNTSdxdy(2,:),'kv','MarkerSize',12);
+plot(plotdataNTSxdx(1,:),plotdataNTSxdx(2,:),'y^','MarkerSize',12);
+plot(plotdataNTSydy(1,:),plotdataNTSydy(2,:),'c>','MarkerSize',12);
 title('Notional TS (L = 25); Expect dx DRIVES dy');
 xlabel('number of bins in histograms');
 ylabel('leanings');
@@ -50,7 +62,9 @@ l1 = sprintf('xy; final = %.5f, max = %.5f',plotdataNTSxy(2,end),max(plotdataNTS
 l2 = sprintf('dxy; final = %.5f, max = %.5f',plotdataNTSdxy(2,end),max(plotdataNTSdxy(2,:)));
 l3 = sprintf('xdy; final = %.5f, max = %.5f',plotdataNTSxdy(2,end),max(plotdataNTSxdy(2,:)));
 l4 = sprintf('dxdy; final = %.5f, max = %.5f',plotdataNTSdxdy(2,end),max(plotdataNTSdxdy(2,:)));
-legend(l1,l2,l3,l4);
+l5 = sprintf('xdx; final = %.5f, max = %.5f',plotdataNTSxdx(2,end),max(plotdataNTSxdx(2,:)));
+l6 = sprintf('ydy; final = %.5f, max = %.5f',plotdataNTSydy(2,end),max(plotdataNTSydy(2,:)));
+legend(l1,l2,l3,l4,l5,l6);
 grid on;
 hold off;
 
