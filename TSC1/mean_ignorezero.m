@@ -2,7 +2,7 @@ function ret = mean_ignorezero(vec,tol)
 
 step = 0;
 for iter = 1:1:length(vec),
-    if( vec(iter) >= tol ),
+    if( abs(vec(iter)) >= tol ),
         step = step+1;
     end;
 end;

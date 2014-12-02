@@ -28,8 +28,6 @@ for iter1 = 1:1:size(jdist,1),
       
       if( Cdist(iter2) ~= 0  && Edist(iter1) ~= 0),
     	ECpen(step) = (jdist(iter1,iter2)*((1/Cdist(iter2))+(1/(1-Cdist(iter2))))-Edist(iter1)/(1-Cdist(iter2)));
-        %fprintf('ECpen = %.5f; (Edist(iter1),Cdist(iter2),jdist(iter1,iter2)) = (%.5f,%.5f,%.5f)\n',...
-        %    ECpen(step),Edist(iter1),Cdist(iter2),jdist(iter1,iter2));
         step = step+1;
       end;
       

@@ -29,12 +29,12 @@ end;
     binUpperC1,binLowerC1,binUpperC2,binLowerC2);
 [tstructE, countsE] = histjoint_extraWBIN(E1,E2,...
     binUpperC1,binLowerC1,binUpperC2,binLowerC2);
-[tstructJ, countsJ] = histjoint3_extraWBIN(E1,E2,C1,C2,...
+[tstructJ, countsJ] = histjoint4_extraWBIN(E1,E2,C1,C2,...
     binUpperE1,binLowerE1,binUpperE2,binLowerE2,binUpperC1,binLowerC1,binUpperC2,binLowerC2);
 
-Edist = countsE./length(E);
-Cdist = countsC./length(E);
-jdist = countsJ./length(E);
+Edist = countsE./length(E1);
+Cdist = countsC./length(E1);
+jdist = countsJ./length(E1);
 
 ECpen = zeros(nbins*nbins*nbins*nbins,1);
 step = 1;

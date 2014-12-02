@@ -12,7 +12,7 @@ for iter = 2:1:length(y),
     dy(iter) = y(iter)-y(iter-1);
 end;
 
-LIRvec = zeros(6,6);
+LIRvec = nan(6,6);
 truth = cell(6,1);
 
 xy = penchants(x,y,nbins);
@@ -103,3 +103,18 @@ LIRvec(6,6) = mean(ydy)-mean(dyy);
 if( mean(dyy) > mean(ydy) ), truth{6} = 'dy->y'; 
 else if( mean(dyy) < mean(ydy) ), truth{6} = 'y->dy'; 
 else truth{6} = '??'; end; end;
+%{
+xdxy = penchants(dy,y,nbins);
+yxdx = penchants(y,dy,nbins);
+dyyL = leaning(dy,y,nbins);
+ydyL = leaning(y,dy,nbins);
+LIRvec(1,6) = mean(dyy);
+LIRvec(2,6) = mean(ydy);
+LIRvec(3,6) = mean(dyyL);
+LIRvec(4,6) = mean(ydyL);
+LIRvec(5,6) = mean(dyy)-mean(ydy);
+LIRvec(6,6) = mean(ydy)-mean(dyy);
+if( mean(dyy) > mean(ydy) ), truth{6} = 'dy->y'; 
+else if( mean(dyy) < mean(ydy) ), truth{6} = 'y->dy'; 
+else truth{6} = '??'; end; end;
+%}
