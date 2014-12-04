@@ -794,6 +794,21 @@ LIR Leanings:
   (y&dy,x),-0.3002158 :: x->y&dy
   (x&dx,y&dy),0.0510836 :: x&dx->y&dy
 \end{verbatim}
+Consider the lagged leaning
+\begin{verbatim}
+x_{t+-1}
+\end{verbatim}
+which is 
+\begin{eqnarray}
+\Delta_{y_t x_{t-1}} &=& \langle \rho_{y_t x_{t-1}}\rangle - \langle \rho_{x_{t-1} y_t}\rangle\\
+&=& \langle P(y_t| x_{t-1}) - P(y_t| x_{t^\prime\neq t-1})\rangle - \langle P(x_{t-1} |y_t)-P(x_{t-1} |y_{t^\prime\neq t})\rangle
+\end{eqnarray}
+\begin{figure}[!H]
+\includegraphics[scale=0.55]{laggedleans_wTS.eps}
+\caption{Should be $x\rightarrow y$; i.e.\ positive leaning}
+\end{figure}
+
+
 
 \end{document}
 
