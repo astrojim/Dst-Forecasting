@@ -35,7 +35,7 @@ for BstepX = 1:1:length(binUpperX),
                     
                     tsteps_struct(nbins-(BstepX-1)).tcount = tsteps_struct(nbins-BstepX+1).tcount + 1;
                     tsteps_struct(nbins-(BstepX-1)).tsteps(tsteps_struct(nbins-BstepX+1).tcount) = Xstep;
-                    counts(nbins-(BstepX-1),nbins-(BstepY-1)) = counts(nbins-(BstepX-1))+1;
+                    counts(nbins-(BstepX-1),nbins-(BstepY-1),nbins-(BstepdX-1)) = counts(nbins-(BstepX-1),nbins-(BstepY-1),nbins-(BstepdX-1))+1;
 
                 end;
             end;
