@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=latex 2014.3.19)  3 DEC 2014 19:58
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=latex 2014.3.19)  10 DEC 2014 20:29
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -266,76 +266,21 @@ Overfull \hbox (30.2465pt too wide) in paragraph at lines 135--160
  [] 
  []
 
-[3] [4] [5] [6] [7] [8] [9] [10] [11] [12]
-File: notionalTS.eps Graphic file (type eps)
- <notionalTS.eps>
-Overfull \hbox (77.61769pt too wide) in paragraph at lines 650--651
+[3] [4] [5] [6] [7] [8] [9] [10] [11] [12] [13] [14] [15]
+File: sTWpenIMG.eps Graphic file (type eps)
+ <sTWpenIMG.eps>
+Overfull \hbox (61.60779pt too wide) in paragraph at lines 818--819
 [][] 
  []
 
-File: SineTSxy.eps Graphic file (type eps)
-<SineTSxy.eps>
-Overfull \hbox (77.61769pt too wide) in paragraph at lines 663--664
-[][] 
- []
-
-File: SineTSxy_3C.eps Graphic file (type eps)
-<SineTSxy_3C.eps>
-Overfull \hbox (77.61769pt too wide) in paragraph at lines 667--668
-[][] 
- []
-
-File: SineTSdxy.eps Graphic file (type eps)
-<SineTSdxy.eps>
-Overfull \hbox (77.61769pt too wide) in paragraph at lines 671--672
-[][] 
- []
-
-File: SineTSdxy_3C.eps Graphic file (type eps)
-<SineTSdxy_3C.eps>
-Overfull \hbox (77.61769pt too wide) in paragraph at lines 675--676
-[][] 
- []
-
-File: SineTSxdy.eps Graphic file (type eps)
-<SineTSxdy.eps>
-Overfull \hbox (77.61769pt too wide) in paragraph at lines 679--680
-[][] 
- []
-
-File: SineTSxdy_3C.eps Graphic file (type eps)
-<SineTSxdy_3C.eps>
-Overfull \hbox (77.61769pt too wide) in paragraph at lines 683--684
-[][] 
- []
-
-File: SineTSdxdy.eps Graphic file (type eps)
-<SineTSdxdy.eps>
-Overfull \hbox (77.61769pt too wide) in paragraph at lines 687--688
-[][] 
- []
-
-File: SineTSdxdy_3C.eps Graphic file (type eps)
-<SineTSdxdy_3C.eps>
-Overfull \hbox (77.61769pt too wide) in paragraph at lines 691--692
-[][] 
- []
-
-[13] [14]
-File: laggedleans_wTS.eps Graphic file (type eps)
- <laggedleans_wTS.eps>
-Overfull \hbox (77.61769pt too wide) in paragraph at lines 807--808
-[][] 
- []
-
-[15] [16] [17] [18] [19] [20] (./main.aux) ) 
+[16] [17] (./main.aux) ) 
 Here is how much of TeX's memory you used:
- 3685 strings out of 494044
- 53570 string characters out of 6155041
+ 3666 strings out of 494044
+ 53280 string characters out of 6155041
  162223 words of memory out of 5000000
- 7040 multiletter control sequences out of 15000+600000
+ 7030 multiletter control sequences out of 15000+600000
  12825 words of font info for 49 fonts, out of 8000000 for 9000
  466 hyphenation exceptions out of 8191
- 36i,12n,38p,844b,271s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 36i,12n,38p,844b,273s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on main.dvi (20 pages, 100748 bytes).
+Output written on main.dvi (17 pages, 99408 bytes).
