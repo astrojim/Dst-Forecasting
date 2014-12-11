@@ -19,9 +19,11 @@ end;
 
 Edist = countsE./length(E);
 Cdist = countsC./length(C);
-jdist = countsJ./length(E);
+jdist = countsJ./sum(sum(countsJ));
 
 ECpenIMG = zeros(nbins,nbins);
+penvecIMG.EbincenterY = nan(nbins,1);
+penvecIMG.CbincenterX = nan(nbins,1);
 
 for iter1 = 1:1:size(jdist,1),
 	for iter2 = 1:1:size(jdist,2),
@@ -30,9 +32,10 @@ for iter1 = 1:1:size(jdist,1),
     	ECpenIMG(iter1,iter2) = (jdist(iter1,iter2)*((1/Cdist(iter2))+(1/(1-Cdist(iter2))))-Edist(iter1)/(1-Cdist(iter2)));
       end;
       
+      penvecIMG.EbincenterY(iter2,1) = (binUpperE(iter2)+binLowerE(iter2))/2;
+	  penvecIMG.CbincenterX(iter1,1) = (binUpperC(iter1)+binLowerC(iter1))/2;
+      
   end;
 end;
 
 penvecIMG.data2D = ECpenIMG;
-penvecIMG.EbincenterY = (binUpperE+binLowerE)./2;
-penvecIMG.CbincenterX = (binUpperC+binLowerC)./2;
