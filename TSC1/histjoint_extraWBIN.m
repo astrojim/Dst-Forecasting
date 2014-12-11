@@ -28,7 +28,7 @@ for BstepX = 1:1:length(binUpperX),
                 tsteps_struct(nbins-(BstepX-1)).binLowerY = binLowerY(BstepY);
                 tsteps_struct(nbins-(BstepX-1)).tcount = tsteps_struct(nbins-BstepX+1).tcount + 1;
                 tsteps_struct(nbins-(BstepX-1)).tsteps(tsteps_struct(nbins-BstepX+1).tcount) = Xstep;
-                counts(nbins-(BstepX-1),nbins-(BstepY-1)) = counts(nbins-(BstepX-1))+1;
+                counts(nbins-(BstepX-1),nbins-(BstepY-1)) = counts(nbins-(BstepX-1),nbins-(BstepY-1))+1;
                 
 %                 fprintf('Here: %i,%i,%.3f,%.3f\n',BstepX,Xstep,TSdataX(Xstep),TSdataY(Xstep));
 %                 fprintf('  --%.3f,%.3f,%.3f,%.3f\n',binUpperX(BstepX),binLowerX(BstepX),binUpperY(BstepY),binLowerY(BstepY));
