@@ -9,7 +9,6 @@
 \usepackage{caption}
 \usepackage{subcaption}
 
-
 \begin{document}
 
 {\Huge TSC1 Notes}
@@ -919,16 +918,16 @@ where $n_{x0}$ is the number of times $\tilde{x}_t = 0$, $n_{y0}$ is the number 
 
 The algorithm used to calculate the penchants calculates only $\rho_{y_{t}=2,x_{t-1}=2}$ and $\rho_{y_{t}=0,x_{t-1}=0}$ but not $\rho_{y_{t}=2,x_{t-1}=0}$ and $\rho_{y_{t}=0,x_{t-1}=2}$ because the former are the only $(y_{t},x_{t-1})$ pairs that actually appear in the data.  The observed mean penchant is then 
 $$
-\bar{\rho_{y_{t},x_{t-1}}} = \frac{1}{2}\left( \rho_{y_{t}=2,x_{t-1}=2} + \rho_{y_{t}=0,x_{t-1}=0} \right) = 1\;\;,
+\bar{\rho}_{y_{t},x_{t-1}} = \frac{1}{2}\left( \rho_{y_{t}=2,x_{t-1}=2} + \rho_{y_{t}=0,x_{t-1}=0} \right) = 1\;\;,
 $$
 which implies the probability that $x_{t-1}$ drives $y_{t}$ is higher than the probability that it does not.  The observed mean leaning is then
 $$
-\bar{l}_{xy} = \bar{\rho_{y_{t},x_{t-1}}} - \bar{\rho_{x_{t},y_{t-1}}}\;\;,
+\bar{l}_{xy} = \bar{\rho}_{y_{t},x_{t-1}} - \bar{\rho}_{x_{t},y_{t-1}}\;\;,
 $$
 and the casual inference would be $\bar{l}>0\Rightarrow \mathbf{x}\rightarrow\mathbf{y}$, $\bar{l}<0\Rightarrow \mathbf{y}\rightarrow\mathbf{x}$, and $\bar{l}=0\Rightarrow ??$; i.e.\ a positive observed mean leaning implies $\mathbf{x}$ drives $\mathbf{y}$ more than $\mathbf{y}$ drives $\mathbf{x}$ with an analogous conclusion for a negative observed mean leaning.   
 
 The following report was generating by testing the observed mean leaning against all of the casual pair data sets from [INSERT REF]:
-\begin{verbose}
+\begin{verbatim}
 Test 1: 29/88 (0.3295) correct [total]; 9/22 (0.4091) correct [TS];
 Test 2: 30/88 (0.3409) correct [total]; 8/22 (0.3636) correct [TS];
 Test 3: 32/88 (0.3636) correct [total]; 9/22 (0.4091) correct [TS];
@@ -939,7 +938,7 @@ Test 7: 31/88 (0.3523) correct [total]; 9/22 (0.4091) correct [TS];
 Test 8: 31/88 (0.3523) correct [total]; 9/22 (0.4091) correct [TS];
 Test 9: 31/88 (0.3523) correct [total]; 9/22 (0.4091) correct [TS];
 Test 10: 31/88 (0.3523) correct [total]; 9/22 (0.4091) correct [TS];
-\end{verbose}
+\end{verbatim}
 
 
 
