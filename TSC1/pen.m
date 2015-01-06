@@ -1,4 +1,4 @@
-function penout = pen(x,y)
+function penout = pen(x,y,xtol,ytol)
 % x and y are assumed to be the same length
 % x is cause C
 % y is effect E
@@ -8,18 +8,18 @@ pEyesCvec = nan(1,length(y)-1);
 pyesCvec = nan(1,length(y)-1);
 pEvec = nan(1,length(y)-1);
 
-pEyesC_count = 1;
-pyesC_count = 1;
-pE_count = 1;
+pEyesC_count = 0;
+pyesC_count = 0;
+pE_count = 0;
 for iterYcompare = 2:1:length(y),
-    for iterYcheck = 3:1:length(y),
-        if( (y(iterYcheck) == y(iterYcompare)) && (x(iterYcheck-1) == x(iterYcompare-1)) ),
+    for iterYcheck = 2:1:length(y),
+        if( tolcheck(y(iterYcheck),y(iterYcompare),ytol) && tolcheck(x(iterYcheck-1),x(iterYcompare-1),xtol) ),
             pEyesC_count = pEyesC_count + 1;
         end;
-        if( x(iterYcheck-1) == x(iterYcompare-1) ),
+        if( tolcheck(x(iterYcheck-1),x(iterYcompare-1),xtol) ),
             pyesC_count = pyesC_count + 1;
         end;
-        if( y(iterYcheck) == y(iterYcompare) ),
+        if( tolcheck(y(iterYcheck),y(iterYcompare),ytol) ),
             pE_count = pE_count + 1;
         end;
 
@@ -28,9 +28,9 @@ for iterYcompare = 2:1:length(y),
     pEyesCvec(1,iterYcompare-1) = pEyesC_count;
     pyesCvec(1,iterYcompare-1) = pyesC_count;
     pEvec(1,iterYcompare-1) = pE_count;
-    pEyesC_count = 1;
-    pyesC_count = 1;
-    pE_count = 1;
+    pEyesC_count = 0;
+    pyesC_count = 0;
+    pE_count = 0;
 end;
 
 pEgC = pEyesCvec./pyesCvec;
