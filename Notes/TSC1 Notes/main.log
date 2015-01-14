@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=latex 2014.12.14)  6 JAN 2015 14:23
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=latex 2014.12.14)  12 JAN 2015 07:30
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -284,14 +284,27 @@ lates only $\OML/cmm/m/it/10.95 ^^Z[]$ \OT1/cmr/m/n/10.95 and $\OML/cmm/m/it/10
 .95 ^^Z[]$ \OT1/cmr/m/n/10.95 but not $\OML/cmm/m/it/10.95 ^^Z[]$
  []
 
-[17] (./main.aux) ) 
+File: tempTestingLeanPairs_tol01.eps Graphic file (type eps)
+<tempTestingLeanPairs_tol01.eps>
+File: tempTestingLeanPairs_tol001.eps Graphic file (type eps)
+ <tempTestingLeanPairs_tol001.eps>
+File: tempTestingLeanPairs_tol0001.eps Graphic file (type eps)
+
+<tempTestingLeanPairs_tol0001.eps>
+File: tempTestingLeanPairs_tol00001.eps Graphic file (type eps)
+ <tempTestingLeanPairs_tol00001.eps>
+Overfull \hbox (53.03592pt too wide) in paragraph at lines 944--953
+[][] 
+ []
+
+[17] [18] (./main.aux) ) 
 Here is how much of TeX's memory you used:
- 3692 strings out of 495029
- 53736 string characters out of 6181522
+ 3703 strings out of 495029
+ 54030 string characters out of 6181522
  160330 words of memory out of 5000000
- 6859 multiletter control sequences out of 15000+600000
+ 6865 multiletter control sequences out of 15000+600000
  12825 words of font info for 49 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 36i,12n,38p,975b,245s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 36i,12n,38p,975b,351s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on main.dvi (17 pages, 110504 bytes).
+Output written on main.dvi (18 pages, 110992 bytes).
