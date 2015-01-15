@@ -33,12 +33,22 @@ for iterYcompare = (1+lag):1:length(y),
     pE_count = 0;
 end;
 
-pEgC = pEyesCvec./pyesCvec;
-pC = pyesCvec./(length(x)-lag);
-pE = pEvec./(length(x)-lag);
+pEgC = nan(1,length(y)-lag);
+pC = nan(1,length(y)-lag);
+pE = nan(1,length(y)-lag);
+for iter = 1:1:length(pEgC),
+    
+    if( pyesCvec(1,iter) ~= 0 )
+        pEgC(1,iter) = pEyesCvec(1,iter)/pyesCvec(1,iter);
+    end;
+    pC(1,iter) = pyesCvec(1,iter)/(length(x)-lag);
+    pE(1,iter) = pEvec(1,iter)/(length(x)-lag);
+
+end;
 
 % Calculate penchants
 penout = nan(1,length(pEgC));
 for iter = 1:1:length(pEgC),
 	penout(1,iter) = pEgC(iter)*(1+(pC(iter)/(1-pC(iter))))-(pE(iter)/(1-pC(iter)));
+    if(pC(iter) == 1), warning('P(C) = 1; Division by zero in penchant calculation %i',iter); end;
 end;

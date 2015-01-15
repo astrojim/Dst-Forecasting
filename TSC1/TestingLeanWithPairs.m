@@ -33,8 +33,8 @@ for fiter = 1:1:numpairs,
     end;
     
     %set tolerance
-    xtol = mean(XY(:,1))*0.001;
-    ytol = mean(XY(:,2))*0.001;
+    xtol = mean(XY(:,1))*0.00001;
+    ytol = mean(XY(:,2))*0.00001;
     
     %find, check, save, and report leaning
     checkresults(fiter) = leaningcheck(XY(:,1),XY(:,2),xtol,ytol,lags,truth);
