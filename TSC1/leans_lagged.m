@@ -6,7 +6,7 @@ leans = nan(length(lags),2);
 
 for liter = 1:1:length(lags),
     leans(liter,1) = lags(liter);
-    leans(liter,2) = mean(pen_lagged(x,y,xtol,ytol,lags(liter))-pen_lagged(y,x,xtol,ytol,lags(liter)));
+    leans(liter,2) = mean(pen_lagged(x,y,xtol,ytol,lags(liter))-pen_lagged(y,x,ytol,xtol,lags(liter)));
 end;
     
 leanout = leans;
