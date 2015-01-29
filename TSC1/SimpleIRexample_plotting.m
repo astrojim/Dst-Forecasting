@@ -263,3 +263,33 @@ set(gca,'fontsize',15);
 hold off;
 print -depsc2 ./SimpleIRexample_difflags.eps
 close;
+
+% lagged cross cor plot
+templag = 25;
+tempcors = nan(templag+1,1);
+for iter = 0:1:templag,
+    tempcors(iter+1,1) = corr(x(1,1:end-iter)',y(1,1+iter:end)');
+end;
+
+figure('Units', 'inches', ...
+'Position', [0 0 8 4],...
+'PaperPositionMode','auto');
+
+hold on;
+
+hplt = stem(0:1:templag,tempcors,'MarkerSize',5);
+grid on;
+
+hXLabel = xlabel('l');
+hYLabel = ylabel('c');
+
+set([hXLabel, hYLabel],'FontName','Times');
+set([hXLabel, hYLabel],'FontSize', 15);
+
+% set(hSubtitle,'FontName','Times');
+% set(hSubtitle,'FontSize', 15);
+set(gca,'fontsize',15);
+
+hold off;
+print -depsc2 ./SimpleIRexample_lagcorr.eps
+close;
