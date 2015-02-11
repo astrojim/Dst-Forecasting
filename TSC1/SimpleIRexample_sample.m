@@ -1,4 +1,4 @@
-numSamp = 50000;
+numSamp = 10000;
 
 tic;
 SimpleIRexample

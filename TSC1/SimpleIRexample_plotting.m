@@ -1,5 +1,5 @@
 % mean plot
-load ./SimpleRIExample_50000samp.mat
+load ./SimpleRIExample_10000samp.mat
 
 data = leans_nmean;
 
@@ -239,7 +239,20 @@ print -depsc2 ./SimpleIRexample_Bxytol.eps
 close;
 
 % lag stem plot
+load ./SimpleRIExample_lagsN025.mat
+leans_keepN = leans_keep;
+
 load ./SimpleRIExample_lags.mat
+
+templag = length(lag);
+tempxcors = nan(templag+1,1);
+tempaxcors = nan(templag+1,1);
+tempaycors = nan(templag+1,1);
+for iter = 0:1:templag,
+    tempxcors(iter+1,1) = corr(x(1,1:end-iter)',y(1,1+iter:end)');
+    tempaxcors(iter+1,1) = corr(x(1,1:end-iter)',x(1,1+iter:end)');
+    tempaycors(iter+1,1) = corr(y(1,1:end-iter)',y(1,1+iter:end)');
+end;
 
 figure('Units', 'inches', ...
 'Position', [0 0 8 4],...
@@ -247,14 +260,22 @@ figure('Units', 'inches', ...
 
 hold on;
 
-hplt = stem(lag,leans_keep,'MarkerSize',5);
-grid on;
+hplt = stem(lag,leans_keep,'b','MarkerSize',5);
+% hpltN = stem(lag,leans_keepN,'r','MarkerSize',5);
+% hplt2 = stem(1:1:templag,tempaxcors(2:end),'g','MarkerSize',5);
+% hplt3 = stem(1:1:templag,tempaycors(2:end),'g','MarkerSize',5);
 
-hXLabel = xlabel('l');
-hYLabel = ylabel('\lambda');
+grid on;
+xlim([0 templag]);
+% set(gca,'yscal','log');
+
+hXLabel = xlabel('l (lag)');
+hYLabel = ylabel('magnitude (unitless)');
 
 set([hXLabel, hYLabel],'FontName','Times');
 set([hXLabel, hYLabel],'FontSize', 15);
+
+% legend('\lambda (B = 0)','\lambda (B = 0.25) ' )
 
 % set(hSubtitle,'FontName','Times');
 % set(hSubtitle,'FontSize', 15);
@@ -265,31 +286,25 @@ print -depsc2 ./SimpleIRexample_difflags.eps
 close;
 
 % lagged cross cor plot
-templag = 25;
-tempcors = nan(templag+1,1);
-for iter = 0:1:templag,
-    tempcors(iter+1,1) = corr(x(1,1:end-iter)',y(1,1+iter:end)');
-end;
-
-figure('Units', 'inches', ...
-'Position', [0 0 8 4],...
-'PaperPositionMode','auto');
-
-hold on;
-
-hplt = stem(0:1:templag,tempcors,'MarkerSize',5);
-grid on;
-
-hXLabel = xlabel('l');
-hYLabel = ylabel('c');
-
-set([hXLabel, hYLabel],'FontName','Times');
-set([hXLabel, hYLabel],'FontSize', 15);
-
-% set(hSubtitle,'FontName','Times');
-% set(hSubtitle,'FontSize', 15);
-set(gca,'fontsize',15);
-
-hold off;
-print -depsc2 ./SimpleIRexample_lagcorr.eps
-close;
+% figure('Units', 'inches', ...
+% 'Position', [0 0 8 4],...
+% 'PaperPositionMode','auto');
+% 
+% hold on;
+% 
+% hplt = stem(0:1:templag,tempxcors,'MarkerSize',5);
+% grid on;
+% 
+% hXLabel = xlabel('l');
+% hYLabel = ylabel('c');
+% 
+% set([hXLabel, hYLabel],'FontName','Times');
+% set([hXLabel, hYLabel],'FontSize', 15);
+% 
+% % set(hSubtitle,'FontName','Times');
+% % set(hSubtitle,'FontSize', 15);
+% set(gca,'fontsize',15);
+% 
+% hold off;
+% print -depsc2 ./SimpleIRexample_lagcorr.eps
+% close;
