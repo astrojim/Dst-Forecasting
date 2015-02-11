@@ -1,8 +1,8 @@
 % B-dy plot
 load ./NonlinearCyclicExample_L181.mat
 
-Ap = [2 floor(length(A)/3) floor(2*length(A)/3) length(A)];
-Bp = [2 floor(length(B)/3) floor(2*length(B)/3) length(B)];
+Ap = [floor(length(A)/4) floor(2*length(A)/4) floor(3*length(A)/4) length(A)];
+Bp = [floor(length(B)/4) floor(2*length(B)/4) floor(3*length(B)/4) length(B)];
 
 for Astep = 1:1:length(Ap),
     for Bstep = 1:1:length(Bp),
@@ -49,14 +49,15 @@ for Astep = 1:1:length(Ap),
         close;
     end;
 end;
-%{
-% B = xytol plotting
-tempX = zeros(1,length(B));
-tempPnts = zeros(4,length(B));
 
-for iter = 1:1:length(B),
-    tempX(1,iter) = B(iter);
-    tempPnts(1,iter) = leans_stored(iter,iter);
+% B = xytol plotting
+tempPnts = zeros(length(A),length(B));
+testpnt = floor(length(C)/2);
+
+for iterA = 1:1:length(A),
+    for iterB = 1:1:length(B),
+        tempPnts(iterA,iterB) = leans_stored(iterA,iterB,testpnt,testpnt);
+    end;
 end;
 
 figure('Units', 'inches', ...
@@ -64,38 +65,38 @@ figure('Units', 'inches', ...
 'PaperPositionMode','auto');
 
 hold on;
+cmap = colormap(flipud(gray(24)));
 
-hplt = plot(tempX,tempPnts(1,:),'k.','MarkerSize',5);
-grid on;
+hImage1 = imagesc(A,B,tempPnts);
+set(gca,'YDir','normal');
+hold on;
 
-hXLabel = xlabel('B = \delta_y');
-hYLabel = ylabel('\lambda');
+[hCont2,hH2] = contour(A,B,tempPnts,...
+             [0.0 0.0],':r','LineWidth',2);
+     
+xlim([0 1]);
+ylim([0 1]);
+axis square;
 
+cbar = colorbar();
+set(cbar,'Visible','on');
+
+hXLabel = xlabel('B');
+hYLabel = ylabel('A');
 set([hXLabel, hYLabel],'FontName','Times');
 set([hXLabel, hYLabel],'FontSize', 15);
 
-% legend('L = 10','L = 50', 'L = 250', 'L = 1750');
-
-% set(hSubtitle,'FontName','Times');
-% set(hSubtitle,'FontSize', 15);
 set(gca,'fontsize',15);
 
 hold off;
-print -depsc2 ./SimpleCyclicexample_Bxytol.eps
+print -depsc2 ./NonlinearCyclicexample_Bxytol.eps
 close;
 
 % lag stem plot
-load ./SimpleCyclicExample_lags.mat
-
-templag = 15;
-tempxcors = nan(templag+1,1);
-tempaxcors = nan(templag+1,1);
-tempaycors = nan(templag+1,1);
-for iter = 0:1:templag,
-    tempxcors(iter+1,1) = corr(x(1,1:end-iter)',y(1,1+iter:end)');
-    tempaxcors(iter+1,1) = corr(x(1,1:end-iter)',x(1,1+iter:end)');
-    tempaycors(iter+1,1) = corr(y(1,1:end-iter)',y(1,1+iter:end)');
-end;
+load ./NonlinearCyclicExample_lags.mat
+testpnt1 = floor(length(A)/3);
+testpnt2 = floor(2*length(A)/3);
+testpnt3 = floor(3*length(A)/3);
 
 figure('Units', 'inches', ...
 'Position', [0 0 8 4],...
@@ -103,10 +104,9 @@ figure('Units', 'inches', ...
 
 hold on;
 
-hplt = stem(lag(1:15),leans_keep(1:15),'b','MarkerSize',5);
-
-% hplt2 = stem(1:1:templag,tempaxcors(2:end),'r','MarkerSize',5);
-% hplt3 = stem(1:1:templag,tempaycors(2:end),'g','MarkerSize',5);
+hplt = stem(lag(1:50),reshape(leans_keep(testpnt1,testpnt1,1:50),size(lag)),'b','MarkerSize',5);
+hplt1 = stem(lag(1:50),reshape(leans_keep(testpnt2,testpnt2,1:50),size(lag)),'r','MarkerSize',5);
+hplt2 = stem(lag(1:50),reshape(leans_keep(testpnt3,testpnt3,1:50),size(lag)),'k','MarkerSize',5);
 
 grid on;
 
@@ -116,37 +116,9 @@ hYLabel = ylabel('magnitude (unitless)');
 set([hXLabel, hYLabel],'FontName','Times');
 set([hXLabel, hYLabel],'FontSize', 15);
 
-% legend('\lambda','a_x','a_y')
-
-% set(hSubtitle,'FontName','Times');
-% set(hSubtitle,'FontSize', 15);
+legend('\lambda_1','\lambda_2','\lambda_3')
 set(gca,'fontsize',15);
 
 hold off;
-print -depsc2 ./SimpleCyclicexample_difflags.eps
+print -depsc2 ./NonlinearCyclicexample_difflags.eps
 close;
-
-% lagged cross cor plot
-% figure('Units', 'inches', ...
-% 'Position', [0 0 8 4],...
-% 'PaperPositionMode','auto');
-% 
-% hold on;
-% 
-% hplt = stem(0:1:templag,tempxcors,'MarkerSize',5);
-% grid on;
-% 
-% hXLabel = xlabel('l');
-% hYLabel = ylabel('c');
-% 
-% set([hXLabel, hYLabel],'FontName','Times');
-% set([hXLabel, hYLabel],'FontSize', 15);
-% 
-% % set(hSubtitle,'FontName','Times');
-% % set(hSubtitle,'FontSize', 15);
-% set(gca,'fontsize',15);
-% 
-% hold off;
-% print -depsc2 ./SimpleCyclicexample_lagcorr.eps
-% close;
-%}
