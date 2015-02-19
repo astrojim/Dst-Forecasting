@@ -1,10 +1,10 @@
-% B = [0:0.01:1.0];
-% xytol = [0:0.01:1];
-% lag = 1;
+B = [0:0.01:1.0];
+xytol = [0:0.01:1];
+lag = 1;
 
-B = 0.25;
-xytol = 0.25;
-lag = [1:1:4];
+% B = 0.25;
+% xytol = 0.25;
+% lag = [1:1:4];
 
 leans_stored = nan(length(B),length(xytol));
 leans_keep = nan(1,length(lag));
@@ -63,7 +63,7 @@ leans_keep = nan(1,length(lag));
 %     end;
 % end;
 
-liblength = 10;
+liblength = 10000;
 hitspace = 5;
 hititer = 0;
 x = zeros(1,liblength);
