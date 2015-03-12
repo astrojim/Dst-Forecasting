@@ -1,8 +1,10 @@
 % B-dy plot
-load ./RLcircuitexample_ODETolSet.mat
+load ./SimpleRIExample_L10000_longTol.mat
 
-% LibL = 1;
-% data = reshape(leans_storedVI(LibL,:,:),length(lag),length(xytol));
+temp_an = reshape(leans_storedVI_an(1,:,1,1,:,1),length(Ttstep),length(ytol));
+temp_ode45 = reshape(leans_storedVI_ode45(1,:,1,1,:,1),length(Ttstep),length(ytol));
+
+data = temp_an;
 
 % full color plot
 figure('Units', 'inches', ...
@@ -10,34 +12,19 @@ figure('Units', 'inches', ...
 'PaperPositionMode','auto');
 
 hold on;
-% cmap = colormap(flipud(gray(24)));
+cmap = colormap(flipud(gray(24)));
 
-% hImage1 = imagesc(xytol,lag,data);
-% set(gca,'YDir','normal');
-% hold on;
+hImage1 = imagesc(0,0,data(4:end,:));
+set(gca,'YDir','normal');
+set(gca,'XTickLabel',arrayfun(@num2str,ytol,'UniformOutput',false));
+set(gca,'YTickLabel',{'\pi/10','\pi/50','\pi/10^2','\pi/10^3','\pi/10^4'});
+hold on;
  
-% [hCont2,hH2] = contour(xytol,lag,data,...
-%              [0.0 0.0],':r','LineWidth',2);
-% clabel(hCont2,hH2,'FontName','Times','FontSize', 15,'Color','r');         
-         
-% xlim([0 1]);
-% ylim([0 1]);
-% axis square;
-% 
-% caxis([-0.8 0.8]);
-% cbar = colorbar();
-% set(cbar,'Visible','on');
-
-plt1 = semilogx(xytol,reshape(leans_storedVI_E2(1,1,:),1,length(xytol)),'k.',...
-                xytol,reshape(leans_storedVI_E3(1,1,:),1,length(xytol)),'b.',...
-                xytol,reshape(leans_storedVI_E4(1,1,:),1,length(xytol)),'r.',...
-                xytol,reshape(leans_storedVI_E5(1,1,:),1,length(xytol)),'g.','MarkerSize',15);
+cbar = colorbar();
+set(cbar,'Visible','on');
 
 hXLabel = xlabel('\delta_y');
-hYLabel = ylabel('\lambda');
-
-legend('1e-2','1e-3','1e-4','1e-5');
-grid on;
+hYLabel = ylabel('\Delta t');
 
 set([hXLabel, hYLabel],'FontName','Times');
 set([hXLabel, hYLabel],'FontSize', 15);
@@ -48,7 +35,7 @@ set(hSubtitle,'FontSize', 15);
 set(gca,'fontsize',15);
 
 hold off;
-print -depsc2 ./RLcircuitexample_tolComp.eps
+print -depsc2 ./RLcircuitexample_tStep.eps
 close;
 % 
 % % B = xytol plotting
