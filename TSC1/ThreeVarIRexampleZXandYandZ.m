@@ -1,6 +1,10 @@
-B = [0:0.01:1.0];
-xytol = [0:0.01:1];
+%B = [0:0.01:1.0];
+%xytol = [0:0.01:1];
+%lag = 1;
+
+B = 0.6;
 lag = 1;
+xytol = 0;
 
 leans_storedXY = nan(length(B),length(xytol));
 leans_keepXY = nan(1,length(lag));
