@@ -79,14 +79,19 @@ close;
 % lag stem plot
 load ./SimpleCyclicExample_lags.mat
 
-templag = 15;
+templag = 20;
 tempxcors = nan(templag+1,1);
 tempaxcors = nan(templag+1,1);
 tempaycors = nan(templag+1,1);
+normleans = nan(templag,1);
 for iter = 0:1:templag,
     tempxcors(iter+1,1) = corr(x(1,1:end-iter)',y(1,1+iter:end)');
     tempaxcors(iter+1,1) = corr(x(1,1:end-iter)',x(1,1+iter:end)');
     tempaycors(iter+1,1) = corr(y(1,1:end-iter)',y(1,1+iter:end)');
+end;
+
+for iter = 1:1:templag,
+    normleans(iter,1) = leans_keep(iter)/max(leans_keep(1:templag));
 end;
 
 figure('Units', 'inches', ...
@@ -95,7 +100,8 @@ figure('Units', 'inches', ...
 
 hold on;
 
-hplt = stem(lag(1:15),leans_keep(1:15),'b','MarkerSize',5);
+hplt = plot(lag(1:templag),normleans,'.b','MarkerSize',12);
+hplt2 = plot(1:1:templag,tempxcors(2:end),'xr','MarkerSize',12);
 
 % hplt2 = stem(1:1:templag,tempaxcors(2:end),'r','MarkerSize',5);
 % hplt3 = stem(1:1:templag,tempaycors(2:end),'g','MarkerSize',5);
