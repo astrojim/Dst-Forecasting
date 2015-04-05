@@ -2,8 +2,8 @@
 % xytol = [0:0.01:1];
 % lag = 1;
 
-B = 0.0;
-xytol = 0.0;
+B = 0.5;
+xytol = 0.5;
 lag = [1:1:25];
 
 leans_stored = nan(length(B),length(xytol));
