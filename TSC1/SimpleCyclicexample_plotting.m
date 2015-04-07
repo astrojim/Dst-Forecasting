@@ -82,11 +82,15 @@ load ./SimpleCyclicExample_lagsB05.mat
 
 templag = 20;
 tempxcors = nan(templag+1,1);
+tempxcors2 = nan(templag+1,1);
 tempaxcors = nan(templag+1,1);
 tempaycors = nan(templag+1,1);
 normleans = nan(templag,1);
+diffxcors = nan(templag+1,1);
 for iter = 0:1:templag,
     tempxcors(iter+1,1) = corr(x(1,1:end-iter)',y(1,1+iter:end)');
+    tempxcors2(iter+1,1) = corr(y(1,1:end-iter)',x(1,1+iter:end)');
+    diffxcors(iter+1,1) = tempxcors(iter+1,1) - tempxcors2(iter+1,1);
     tempaxcors(iter+1,1) = corr(x(1,1:end-iter)',x(1,1+iter:end)');
     tempaycors(iter+1,1) = corr(y(1,1:end-iter)',y(1,1+iter:end)');
 end;
@@ -102,7 +106,8 @@ figure('Units', 'inches', ...
 hold on;
 
 hplt = plot(lag(1:templag),normleans,'.b','MarkerSize',12);
-hplt2 = plot(1:1:templag,tempxcors(2:end),'xr','MarkerSize',12);
+%hplt2 = plot(1:1:templag,tempxcors(2:end),'xr','MarkerSize',12);
+hplt3 = plot(1:1:templag,diffxcors(2:end),'xr','MarkerSize',12);
 
 % hplt2 = stem(1:1:templag,tempaxcors(2:end),'r','MarkerSize',5);
 % hplt3 = stem(1:1:templag,tempaycors(2:end),'g','MarkerSize',5);
@@ -115,7 +120,7 @@ hYLabel = ylabel('magnitude (unitless)');
 set([hXLabel, hYLabel],'FontName','Times');
 set([hXLabel, hYLabel],'FontSize', 15);
 
-legend('\lambda^\prime','\chi','Location','northoutside','Orientation','horizontal')
+legend('\lambda^\prime','\delta\chi_{xy}','Location','northoutside','Orientation','horizontal')
 
 % set(hSubtitle,'FontName','Times');
 % set(hSubtitle,'FontSize', 15);

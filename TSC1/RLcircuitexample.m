@@ -5,12 +5,12 @@ global RR;
 global L;
 
 xtol = 0;%[0,1e-10,1e-9,1e-8,1e-7,1e-6,1e-5,1e-4,1e-3,1e-2,1e-1];
-ytol = [0,1e-6,1e-5,1e-4,1e-3,1e-2,1e-1];
-odetol = [1e-8,1e-7,1e-6,1e-5,1e-4,1e-3,1e-2,1e-1];
+ytol = 1e-3;%[0,1e-6,1e-5,1e-4,1e-3,1e-2,1e-1];
+odetol = 1e-3;%[1e-8,1e-7,1e-6,1e-5,1e-4,1e-3,1e-2,1e-1];
 lag = 1;%[1:1:20];
 
-Tt = 2*pi:2*pi:20*pi; %2*pi; 
-Ttstep = pi/10;%[pi,pi/2,pi/4,pi/10,pi/50,pi/100,pi/1000,pi/10000];
+Tt = 3*pi;%2*pi:2*pi:20*pi; %2*pi; 
+Ttstep = 2*pi/3;%[pi,pi/2,pi/4,pi/10,pi/50,pi/100,pi/1000,pi/10000];
 
 leans_storedVI_ode45 = nan(length(Tt),length(Ttstep),length(lag),length(xtol),length(ytol),length(odetol));
 % leans_storedVI_ode23 = nan(length(Tt),length(Ttstep),length(lag),length(xtol),length(ytol),length(odetol));
@@ -28,8 +28,8 @@ for odestep = 1:1:length(odetol),
                         % d = [0 : 1/1e3 : 10e-3 ; 0.8.^(0:10)]';
                         % Vv = pulstran(tspan,d,'gauspuls',10e3,0.5);  
                         Vv = sin(tspan);
-                        RR = 5.*ones(length(tspan),1);
-                        L = 10;
+                        RR = 20.*ones(length(tspan),1);
+                        L = 5;
 
                         fprintf('lag = %i/%i, tstep = %i/%i, xtol = %i/%i, ytol = %i/%i, TSstep = %i/%i, odestep = %i/%i\n',...
                             lag(lstep),length(lag),tstep,length(Tt),...
