@@ -75,9 +75,9 @@ hYLabel = ylabel('B');
 set([hXLabel, hYLabel],'FontName','Times');
 set([hXLabel, hYLabel],'FontSize', 15);
 
-hSubtitle = title('L = 10');
-set(hSubtitle,'FontName','Times');
-set(hSubtitle,'FontSize', 15);
+% hSubtitle = title('L = 10');
+% set(hSubtitle,'FontName','Times');
+% set(hSubtitle,'FontSize', 15);
 set(gca,'fontsize',15);
 
 hold off;
@@ -113,9 +113,9 @@ hYLabel = ylabel('B');
 set([hXLabel, hYLabel],'FontName','Times');
 set([hXLabel, hYLabel],'FontSize', 15);
 
-hSubtitle = title('L = 50');
-set(hSubtitle,'FontName','Times');
-set(hSubtitle,'FontSize', 15);
+% hSubtitle = title('L = 50');
+% set(hSubtitle,'FontName','Times');
+% set(hSubtitle,'FontSize', 15);
 set(gca,'fontsize',15);
 
 hold off;
@@ -152,9 +152,9 @@ hYLabel = ylabel('B');
 set([hXLabel, hYLabel],'FontName','Times');
 set([hXLabel, hYLabel],'FontSize', 15);
 
-hSubtitle = title('L = 250');
-set(hSubtitle,'FontName','Times');
-set(hSubtitle,'FontSize', 15);
+% hSubtitle = title('L = 250');
+% set(hSubtitle,'FontName','Times');
+% set(hSubtitle,'FontSize', 15);
 set(gca,'fontsize',15);
 
 hold off;
@@ -190,9 +190,9 @@ hYLabel = ylabel('B');
 set([hXLabel, hYLabel],'FontName','Times');
 set([hXLabel, hYLabel],'FontSize', 15);
 
-hSubtitle = title('L = 1750');
-set(hSubtitle,'FontName','Times');
-set(hSubtitle,'FontSize', 15);
+% hSubtitle = title('L = 1750');
+% set(hSubtitle,'FontName','Times');
+% set(hSubtitle,'FontSize', 15);
 set(gca,'fontsize',15);
 
 hold off;
