@@ -1,7 +1,7 @@
 B = 0.6;%[0:0.01:1.0];
 xytol = B;%[0:0.01:1];
-lag = [1,2,3];
-lagAR = [0,1,2];
+lag = 1;%[1,2,3];
+lagAR = 1;%[0,1];
 
 leans_storedXY = nan(length(B),length(xytol));
 leans_keepXY = nan(length(lag),length(lagAR));
@@ -39,15 +39,15 @@ for lARstep = 1:1:length(lagAR),
                     z(iter) = y(iter-1) + x(iter-1) + B(step)*randn();
                 end;
 
-                leans_temp = leans_lagged(x,y,0,xytol(outer),lag(lstep));
+                leans_temp = leans_laggedAR(x,y,0,xytol(outer),lag(lstep),lagAR(lARstep));
                 leans_storedXY(step,outer) = leans_temp(1,2);
                 leans_keepXY(lstep,lARstep) = leans_temp(1,2);
 
-                leans_temp = leans_lagged(y,z,xytol(outer),xytol(outer),lag(lstep));
+                leans_temp = leans_laggedAR(y,z,xytol(outer),xytol(outer),lag(lstep),lagAR(lARstep));
                 leans_storedYZ(step,outer) = leans_temp(1,2);
                 leans_keepYZ(lstep,lARstep) = leans_temp(1,2);
 
-                leans_temp = leans_lagged(x,z,0,xytol(outer),lag(lstep));
+                leans_temp = leans_laggedAR(x,z,0,xytol(outer),lag(lstep),lagAR(lARstep));
                 leans_storedXZ(step,outer) = leans_temp(1,2);
                 leans_keepXZ(lstep,lARstep) = leans_temp(1,2);
 
