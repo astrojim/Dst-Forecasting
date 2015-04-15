@@ -136,7 +136,7 @@ hold on;
 
 hplt = plot(tempX,tempPnts(1,:),'k.',tempX,tempPnts(2,:),'kx',...
             tempX,tempPnts(3,:),'ko',...
-            'MarkerSize',5);
+            'MarkerSize',12);
 grid on;
 
 hXLabel = xlabel('B = \delta_y');
@@ -145,7 +145,7 @@ hYLabel = ylabel('\lambda');
 set([hXLabel, hYLabel],'FontName','Times');
 set([hXLabel, hYLabel],'FontSize', 15);
 
-legend('XY','YZ', 'XZ');
+% legend('XY','YZ', 'XZ');
 
 % set(hSubtitle,'FontName','Times');
 % set(hSubtitle,'FontSize', 15);
@@ -175,7 +175,7 @@ hold on;
 
 hplt = plot(tempX,tempPnts(1,:),'k.',tempX,tempPnts(2,:),'kx',...
             tempX,tempPnts(3,:),'ko',...
-            'MarkerSize',5);
+            'MarkerSize',12);
 grid on;
 
 hXLabel = xlabel('B = \delta_y');
@@ -184,8 +184,8 @@ hYLabel = ylabel('\lambda');
 set([hXLabel, hYLabel],'FontName','Times');
 set([hXLabel, hYLabel],'FontSize', 15);
 
-legend('XY','YZ', 'XZ');
-
+% legend('XY','YZ', 'XZ');
+% 
 % set(hSubtitle,'FontName','Times');
 % set(hSubtitle,'FontSize', 15);
 set(gca,'fontsize',15);
@@ -214,7 +214,7 @@ hold on;
 
 hplt = plot(tempX,tempPnts(1,:),'k.',tempX,tempPnts(2,:),'kx',...
             tempX,tempPnts(3,:),'ko',...
-            'MarkerSize',5);
+            'MarkerSize',12);
 grid on;
 
 hXLabel = xlabel('B = \delta_y');
@@ -223,7 +223,7 @@ hYLabel = ylabel('\lambda');
 set([hXLabel, hYLabel],'FontName','Times');
 set([hXLabel, hYLabel],'FontSize', 15);
 
-legend('XY','YZ', 'XZ');
+legend('XY','YZ', 'XZ','Location','northoutside','Orientation','horizontal')
 
 % set(hSubtitle,'FontName','Times');
 % set(hSubtitle,'FontSize', 15);
