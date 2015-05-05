@@ -40,12 +40,14 @@ By_GSE_daily = OMNIDailyAverage(By_GSE);
 Bx_GSE_daily = OMNIDailyAverage(Bx_GSE);
 
 % Subsetting to get set of leans
-sublength = 1500;
+sublength = 2500;
 numsubs = floor(length(Dst_index)/sublength);
 
 leansBzDstSubset = nan(numsubs,1);
 leansByDstSubset = nan(numsubs,1);
 leansBxDstSubset = nan(numsubs,1);
+
+fs = 0.05;
 
 for iter = 1:1:numsubs,
     
@@ -55,10 +57,10 @@ for iter = 1:1:numsubs,
     maxStartIndex = length(Dst_index)-sublength;
     tIndex = iter:1:(iter+sublength-1);
     
-    DstTol = 0.1*nanstd(abs(Dst_index(tIndex)-nanmean(Dst_index(tIndex))));
-    BzTol = 0.1*nanstd(abs(Bz_GSE(tIndex)-nanmean(Bz_GSE(tIndex))));
-    ByTol = 0.1*nanstd(abs(By_GSE(tIndex)-nanmean(By_GSE(tIndex))));
-    BxTol = 0.1*nanstd(abs(Bx_GSE(tIndex)-nanmean(Bx_GSE(tIndex))));
+    DstTol = fs*nanstd(abs(Dst_index(tIndex)-nanmean(Dst_index(tIndex))));
+    BzTol = fs*nanstd(abs(Bz_GSE(tIndex)-nanmean(Bz_GSE(tIndex))));
+    ByTol = fs*nanstd(abs(By_GSE(tIndex)-nanmean(By_GSE(tIndex))));
+    BxTol = fs*nanstd(abs(Bx_GSE(tIndex)-nanmean(Bx_GSE(tIndex))));
 
     temp = leans_lagged(Bz_GSE(tIndex),Dst_index(tIndex),BzTol,DstTol,1);
     leansBzDstSubset(iter,1) = temp(1,2);
@@ -73,9 +75,9 @@ for iter = 1:1:numsubs,
 end;
 
 % Sampling to get set of leans
-sublength = 250;
+sublength = 500;
 numsubs = floor(length(Dst_index)/sublength);
-numsamps = 1000;
+numsamps = 1e4;
 
 leansBzDstSamp = nan(numsamps,1);
 leansByDstSamp = nan(numsamps,1);
@@ -90,10 +92,10 @@ for iter = 1:1:numsamps,
     rndStartIndex = floor(rand(1)*maxStartIndex)+1;
     tIndex = rndStartIndex:1:(rndStartIndex+sublength-1);
     
-    DstTol = 0.1*nanstd(abs(Dst_index(tIndex)-nanmean(Dst_index(tIndex))));
-    BzTol = 0.1*nanstd(abs(Bz_GSE(tIndex)-nanmean(Bz_GSE(tIndex))));
-    ByTol = 0.1*nanstd(abs(By_GSE(tIndex)-nanmean(By_GSE(tIndex))));
-    BxTol = 0.1*nanstd(abs(Bx_GSE(tIndex)-nanmean(Bx_GSE(tIndex))));
+    DstTol = fs*nanstd(abs(Dst_index(tIndex)-nanmean(Dst_index(tIndex))));
+    BzTol = fs*nanstd(abs(Bz_GSE(tIndex)-nanmean(Bz_GSE(tIndex))));
+    ByTol = fs*nanstd(abs(By_GSE(tIndex)-nanmean(By_GSE(tIndex))));
+    BxTol = fs*nanstd(abs(Bx_GSE(tIndex)-nanmean(Bx_GSE(tIndex))));
 
     temp = leans_lagged(Bz_GSE(tIndex),Dst_index(tIndex),BzTol,DstTol,1);
     leansBzDstSamp(iter,1) = temp(1,2);
@@ -111,10 +113,10 @@ end;
 fprintf('[3 of 3] Daily Averages ... ');
 tic;
 
-DstTol = 0;%0.001*nanstd(abs(Dst_index_daily-nanmean(Dst_index_daily)));
-BzTol = 0;%0.001*nanstd(abs(Bz_GSE_daily-nanmean(Bz_GSE_daily)));
-ByTol = 0;%0.001*nanstd(abs(By_GSE_daily-nanmean(By_GSE_daily)));
-BxTol = 0;%0.001*nanstd(abs(Bx_GSE_daily-nanmean(Bx_GSE_daily)));
+DstTol = fs*nanstd(abs(Dst_index_daily-nanmean(Dst_index_daily)));
+BzTol = fs*nanstd(abs(Bz_GSE_daily-nanmean(Bz_GSE_daily)));
+ByTol = fs*nanstd(abs(By_GSE_daily-nanmean(By_GSE_daily)));
+BxTol = fs*nanstd(abs(Bx_GSE_daily-nanmean(Bx_GSE_daily)));
 
 Bz_daily_temp = Bz_GSE_daily(~isnan(Bz_GSE_daily));
 Dst_daily_temp = Dst_index_daily(~isnan(Bz_GSE_daily));
