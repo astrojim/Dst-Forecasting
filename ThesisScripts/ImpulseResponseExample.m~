@@ -1,0 +1,30 @@
+addpath('te_matlab_0.5');
+
+%% build the signals
+liblength = 1000;
+hitspace = 5;
+hititer = 0;
+x = zeros(1,liblength);
+x(2) = 2;
+for xiter = 2:1:liblength,
+    if( hititer > hitspace ),
+        x(xiter) = 2;
+        hititer = 0;
+    end;
+    hititer = hititer + 1;
+end;
+y = zeros(1,length(x));
+for iter = 2:1:length(y),
+    y(iter) = x(iter-1) + B(step)*randn();
+end;
+
+%% transfer entropy
+
+% pack the data for the Hansen+Ito code
+xy_pack = [x;y];
+
+% convert to ASDF format for the Hansen+Ito code
+xy_asdf = SparseToASDF(xy_pack,1);
+
+% calculate TE
+[TE_peak, CI
