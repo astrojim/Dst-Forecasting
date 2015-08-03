@@ -101,3 +101,35 @@ if mad < madthreshold
 else
     fprintf(2,'WARNING: high maximum absolute difference = %e.2 (> %.2e)\n',mad,madthreshold);
 end
+
+%% PAI
+
+% set the embedding dimension
+E = 3;
+
+% set the delay vector lag time step
+tau = 1;
+
+% create the input file for the C code        
+fprintf('Creating C input data files...');
+tic;
+CoutputfilenameXY = sprintf('XYoutPAI.dat');
+CinputfilenameXY = sprintf('XYPAI_temp.dat');
+fileID = fopen(CinputfilenameXY,'w');
+for tstep = 1:1:length(x),
+    fprintf(fileID,'%.20f,%.20f;\n',x(tstep),y(tstep));
+end;
+fclose(fileID);
+fprintf('done. [%f]\n',toc);
+
+% call the C code
+fprintf('Calling C code...');
+tic;
+CCommandString = sprintf('./PAI -E %i -t %i -Ey 1 -ty 1 -L %i -f %s -n %i -o %s -eY tempeYout.dat -PAI',...
+                              E,tau,library_length,CinputfilenameXY,tau,...
+                              CoutputfilenameXY);
+[status,cmdout] = system(CCommandString);
+%fprintf('%s\n',cmdout);
+RMCommandString = sprintf('rm %s',CinputfilenameXY);
+system(RMCommandString);
+fprintf('done. [%f]\n',toc);
