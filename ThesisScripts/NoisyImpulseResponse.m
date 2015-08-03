@@ -1,4 +1,4 @@
-[x,y] = NoisyImpulseResponse(liblength,hitspace,hitpeak,C,B)
+function [x,y] = NoisyImpulseResponse(liblength,hitspace,hitpeak,C,B)
 % C - impulse noise level
 % B - response noise level
 % liblength - signal length (library length)

@@ -69,8 +69,8 @@ startup;
 % set some toolbox parameters
 regmode   = '';  % VAR model estimation regression mode ('OLS', 'LWR' or empty for default)
 icregmode = '';  % information criteria regression mode ('OLS', 'LWR' or empty for default)
-morder    = 20;  % model order to use ('actual', 'AIC', 'BIC' or supplied numerical value)
-momax     = 20;     % maximum model order for model order estimation
+morder    = 10;  % model order to use ('actual', 'AIC', 'BIC' or supplied numerical value)
+momax     = 10;     % maximum model order for model order estimation
 acmaxlags = [];   % maximum autocovariance lags (empty for automatic calculation)
 fres      = [];     % frequency resolution (empty for automatic calculation)
 
@@ -104,6 +104,9 @@ end
 
 %% PAI
 
+% add path to executable
+addpath('pai_exec');
+
 % set the embedding dimension
 E = 3;
 
@@ -126,7 +129,7 @@ fprintf('done. [%f]\n',toc);
 fprintf('Calling C code...');
 tic;
 CCommandString = sprintf('./PAI -E %i -t %i -Ey 1 -ty 1 -L %i -f %s -n %i -o %s -eY tempeYout.dat -PAI',...
-                              E,tau,library_length,CinputfilenameXY,tau,...
+                              E,tau,length(x),CinputfilenameXY,1,...
                               CoutputfilenameXY);
 [status,cmdout] = system(CCommandString);
 %fprintf('%s\n',cmdout);
@@ -135,7 +138,10 @@ system(RMCommandString);
 fprintf('done. [%f]\n',toc);
 
 %% leaning
-%{
+
+% add path to scripts
+addpath('leans_exec');
+
 % set the lags to tested
 lags = 1:1:(floor(0.1*length(x)));
 
@@ -148,18 +154,19 @@ ytol = 0.1;
 % find the leanings
 leanings = nan(1,length(x));
 for lag_iter = 1:1:length(lags),
-    leanings(1,lag_iter) = leans_lagged(x,y,xtol,ytol,lags(lag_iter));
+    leantemp = leans_lagged(x,y,xtol,ytol,lags(lag_iter));
+    leanings(1,lag_iter) = leantemp(1,2);
 end;
-%}
+
 
 %% lagged cross-correlations
-%{
+
 % set the lags (use the same as for the leaning calculation)
 clags = lags;
 
 % find the lagged cross-correlations
-laggedcorrs = nan(1,length(clags))
+laggedcorrs = nan(1,length(clags));
 for clag_iter = 1:1:length(clags),
-    laggedcorr(1,clag_iter) = corr(x((l+1):end)',y(1:(end-l))');
+    laggedcorrs(1,clag_iter) = corr(x((clag(clag_iter)+1):end)',y(1:(end-(clag_iter)))');
 end;
-%}
+
