@@ -133,3 +133,33 @@ CCommandString = sprintf('./PAI -E %i -t %i -Ey 1 -ty 1 -L %i -f %s -n %i -o %s 
 RMCommandString = sprintf('rm %s',CinputfilenameXY);
 system(RMCommandString);
 fprintf('done. [%f]\n',toc);
+
+%% leaning
+%{
+% set the lags to tested
+lags = 1:1:(floor(0.1*length(x)));
+
+% set the x tolerance
+xtol = 0.1;
+
+% set the y tolerance
+ytol = 0.1;
+
+% find the leanings
+leanings = nan(1,length(x));
+for lag_iter = 1:1:length(lags),
+    leanings(1,lag_iter) = leans_lagged(x,y,xtol,ytol,lags(lag_iter));
+end;
+%}
+
+%% lagged cross-correlations
+%{
+% set the lags (use the same as for the leaning calculation)
+clags = lags;
+
+% find the lagged cross-correlations
+laggedcorrs = nan(1,length(clags))
+for clag_iter = 1:1:length(clags),
+    laggedcorr(1,clag_iter) = corr(x((l+1):end)',y(1:(end-l))');
+end;
+%}
