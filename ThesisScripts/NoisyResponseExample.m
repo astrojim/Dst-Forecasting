@@ -152,7 +152,7 @@ xtol = 0.1;
 ytol = 0.1;
 
 % find the leanings
-leanings = nan(1,length(x));
+leanings = nan(1,length(lags));
 for lag_iter = 1:1:length(lags),
     leantemp = leans_lagged(x,y,xtol,ytol,lags(lag_iter));
     leanings(1,lag_iter) = leantemp(1,2);
@@ -167,6 +167,6 @@ clags = lags;
 % find the lagged cross-correlations
 laggedcorrs = nan(1,length(clags));
 for clag_iter = 1:1:length(clags),
-    laggedcorrs(1,clag_iter) = corr(x((clag(clag_iter)+1):end)',y(1:(end-(clag_iter)))');
+    laggedcorrs(1,clag_iter) = corr(x((clags(clag_iter)+1):end)',y(1:(end-clags(clag_iter)))');
 end;
 
