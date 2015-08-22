@@ -36,6 +36,7 @@ for Biter = 1:1:length(B_vec),
 
         % build impulse signal
         [x,y] = NoisyImpulseResponse(liblength,hitspace,hitpeak,C,B);
+%         [y,x] = NoisyImpulseResponse(liblength,hitspace,hitpeak,C,B);
 
         % set tolerances
         xtol = std(x-mean(x))/sqrt(length(x));

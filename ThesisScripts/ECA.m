@@ -212,15 +212,18 @@ end;
 clags = lags;
 
 % find the lagged cross-correlations
-LCC.laggedcorrs = nan(1,length(clags));
+LCC.laggedcorrsXY = nan(1,length(clags));
+LCC.laggedcorrsYX = nan(1,length(clags));
 for clag_iter = 1:1:length(clags),
-    LCC.laggedcorrs(1,clag_iter) = corr(x((clags(clag_iter)+1):end)',y(1:(end-clags(clag_iter)))');
+    LCC.laggedcorrsXY(1,clag_iter) = corr(x((clags(clag_iter)+1):end)',y(1:(end-clags(clag_iter)))');
+    LCC.laggedcorrsYX(1,clag_iter) = corr(y((clags(clag_iter)+1):end)',x(1:(end-clags(clag_iter)))');
 end;
 
 % report correlations
-maxcorr = LCC.laggedcorrs(abs(LCC.laggedcorrs) == max(abs(LCC.laggedcorrs)));
-XcY(5) = (maxcorr > 0);
-YcX(5) = (maxcorr < 0);
+LCC.Delta = abs(LCC.laggedcorrsXY)-abs(LCC.laggedcorrsXY);
+maxcorr = LCC.Delta(LCC.Delta == max(LCC.Delta));
+XcY(5) = (maxcorr < 0);
+YcX(5) = (maxcorr > 0);
 if( maxcorr == 0 ), NoCI(5) = true; else NoCI(5) = false; end;
 
 if(verb),
