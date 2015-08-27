@@ -171,3 +171,162 @@ set(gca,'fontsize',15);
 hold off;
 print -depsc2 ./NoisyResponseExample_LandLCC.eps
 close;
+
+%% Lagged correlation plots
+
+for cplots_iter = 1:1:length(LCClags),
+    
+    figure('Units', 'inches', ...
+    'Position', [0 0 width height],...
+    'PaperPositionMode','auto');
+
+    hold on;
+
+    plot(x(1:end-cplots_iter),y((cplots_iter+1):end),'k.','MarkerSize',15)
+    ylabel('y_t','FontName','Times','FontSize', 15);
+    xlabel(sprintf('x_{t-%i}',cplots_iter),'FontName','Times','FontSize', 15);
+    grid on;
+    set(gca,'fontsize',15);
+    xlim([-2 4]);
+    ylim([-2 4]);
+    axis square
+
+    hold off;
+    print('-depsc2',sprintf('./NoisyResponseExample_lagplotXYl%i.eps',cplots_iter));
+    close;
+    
+    figure('Units', 'inches', ...
+    'Position', [0 0 width height],...
+    'PaperPositionMode','auto');
+
+    hold on;
+
+    plot(y(1:end-cplots_iter),x((cplots_iter+1):end),'k.','MarkerSize',15)
+    ylabel('x_t','FontName','Times','FontSize', 15);
+    xlabel(sprintf('y_{t-%i}',cplots_iter),'FontName','Times','FontSize', 15);
+    grid on;
+    set(gca,'fontsize',15);
+    xlim([-2 4]);
+    ylim([-2 4]);
+    axis square
+
+    hold off;
+    print('-depsc2',sprintf('./NoisyResponseExample_lagplotYXl%i.eps',cplots_iter));
+    close;
+end;
+
+%% GC, TE, and PAI results (no print to terminal, no plots)
+
+[TE,GC,PAI,L,LCC,g] = ECA(x,y,xtol,ytol,LCClags,true);
+
+%% Leaning w/ different tol domains plots
+
+xtolv = 0:0.05:1;
+ytolv = 0:0.05:1;
+leanmat1 = nan(length(xtolv),length(ytolv));
+leanmat2 = nan(length(xtolv),length(ytolv));
+plotlag1 = 1;
+plotlag2 = 5;
+
+for xt_iter = 1:1:length(xtolv),
+    for yt_iter = 1:1:length(ytolv),
+        
+        leantemp = leans_lagged(x,y,xtolv(xt_iter),ytolv(yt_iter),plotlag1);
+        leanmat1(xt_iter,yt_iter) = leantemp(1,2);
+        
+        leantemp = leans_lagged(x,y,xtolv(xt_iter),ytolv(yt_iter),plotlag2);
+        leanmat2(xt_iter,yt_iter) = leantemp(1,2);
+    end;
+end;
+
+numColors = 32;
+cmap = colormap(flipud(gray(numColors)));
+
+figure('Units', 'inches', ...
+'Position', [0 0 width height],...
+'PaperPositionMode','auto');
+
+cmap = colormap(flipud(gray(numColors)));
+hold on;
+
+imagesc(xtolv,ytolv,leanmat1)
+ylabel('\delta_x','FontName','Times','FontSize', 15);
+xlabel('\delta_y','FontName','Times','FontSize', 15);
+grid on;
+set(gca,'fontsize',15);
+set(gca,'YDir','normal');
+xlim([0 1]);
+ylim([0 1]);
+axis square
+cbar = colorbar();
+set(cbar,'Visible','on');
+set(get(cbar,'Title'),'String', '\lambda_l','FontName','Times','FontSize', 12);
+
+hold off;
+print('-depsc2','./NoisyResponseExample_leandifftoll1.eps');
+close;
+
+figure('Units', 'inches', ...
+'Position', [0 0 width height],...
+'PaperPositionMode','auto');
+
+cmap = colormap(flipud(gray(numColors)));
+hold on;
+
+imagesc(xtolv,ytolv,leanmat2)
+ylabel('\delta_x','FontName','Times','FontSize', 15);
+xlabel('\delta_y','FontName','Times','FontSize', 15);
+grid on;
+set(gca,'fontsize',15);
+set(gca,'YDir','normal');
+xlim([0 1]);
+ylim([0 1]);
+axis square
+cbar = colorbar();
+set(cbar,'Visible','on');
+set(get(cbar,'Title'),'String', '\lambda_l','FontName','Times','FontSize', 12);
+
+
+hold off;
+print('-depsc2','./NoisyResponseExample_leandifftoll5.eps');
+close;
+
+%% Create ECA guess plot
+
+load NoisyResponseExample_20150827.mat
+
+ECAguessmat = nan(length(B_vec),length(C_vec));
+for Biter = 1:1:length(B_vec),
+    for Citer = 1:1:length(C_vec),
+        
+        gtemp = reshape(g_stored(Biter,Citer,:),5,1);
+        ECAguessmat(Biter,Citer) = gtemp'*gtemp;
+        
+    end;
+end;
+
+figure('Units', 'inches', ...
+'Position', [0 0 width height],...
+'PaperPositionMode','auto');
+
+numColors = 2;
+cmap = colormap(gray(numColors));
+hold on;
+
+imagesc(B_vec,C_vec,ECAguessmat)
+ylabel('B','FontName','Times','FontSize', 15);
+xlabel('A','FontName','Times','FontSize', 15);
+grid on;
+set(gca,'fontsize',15);
+set(gca,'YDir','normal');
+xlim([0 1]);
+ylim([0 1]);
+axis square
+cbar = colorbar();
+set(cbar,'Visible','off');
+set(get(cbar,'Title'),'String', '|g|^2','FontName','Times','FontSize', 12);
+
+
+hold off;
+print('-depsc2','./NoisyResponseExample_ECAguessMat.eps');
+close;

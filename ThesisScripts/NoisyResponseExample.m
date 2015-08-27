@@ -4,7 +4,7 @@ B_vec = [0.05:0.05:1.0];
 C_vec = [0.05:0.05:1.0];
 
 % set signal length
-liblength = 1500;
+liblength = 500;
 
 % set spacing for impulses
 hitspace = 5;
@@ -13,7 +13,7 @@ hitspace = 5;
 hitpeak = 2;
 
 % set the number of lags for the leaning and LCC
-lags = 1:1:5;
+lags = 1:1:6;
 
 % preallocate some storage
 g_stored = nan(length(B_vec),length(C_vec),5);
@@ -39,8 +39,8 @@ for Biter = 1:1:length(B_vec),
 %         [y,x] = NoisyImpulseResponse(liblength,hitspace,hitpeak,C,B);
 
         % set tolerances
-        xtol = std(x-mean(x))/sqrt(length(x));
-        ytol = std(y-mean(y))/sqrt(length(y));
+        xtol = (max(x)-min(x))/4;
+        ytol = (max(y)-min(y))/4;
 
         % call ECA script
         [TE,GC,PAI,L,LCC,g] = ECA(x,y,xtol,ytol,lags,true);

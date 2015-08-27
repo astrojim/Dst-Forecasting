@@ -105,10 +105,11 @@ else
 end
 
 % report GC
-XcY(2) = (GC.F(2,1) > GC.F(1,2));
-YcX(2) = (GC.F(1,2) > GC.F(2,1));
-if( GC.F(2,1) == GC.F(1,2) ), NoCI(2) = true; else NoCI(2) = false; end;
-
+if( size(GC.F,1) ~= 0 && size(GC.F,2) ~= 0 )
+    XcY(2) = (GC.F(2,1) > GC.F(1,2));
+    YcX(2) = (GC.F(1,2) > GC.F(2,1));
+    if( GC.F(2,1) == GC.F(1,2) ), NoCI(2) = true; else NoCI(2) = false; end;
+end;
 
 if(verb),
     fprintf(' done. [%.15f]\n',toc);
@@ -150,13 +151,16 @@ CCommandString = sprintf('./%s/PAI -E %i -t %i -Ey 1 -ty 1 -L %i -f %s -n %i -o 
 RMCommandString = sprintf('rm %s',CinputfilenameXY);
 system(RMCommandString);
 
-% read the output file from the C code        
+% read the output file from the C codeand delete it        
 tic;
 fileID = fopen(CoutputfilenameXY,'r');
 PAI.paiout = fscanf(fileID,'%f,%f,%f,%f');
 fclose(fileID);
+RMCommandString = sprintf('rm %s',CoutputfilenameXY);
+system(RMCommandString);
 
 % report PAI
+PAI.diff = PAI.paiout(4,1)-PAI.paiout(2,1);
 XcY(3) = (PAI.paiout(2,1) > PAI.paiout(4,1));
 YcX(3) = (PAI.paiout(4,1) > PAI.paiout(2,1));
 if( PAI.paiout(2,1) == PAI.paiout(4,1) ), NoCI(3) = true; else NoCI(3) = false; end;
@@ -192,10 +196,10 @@ for lag_iter = 1:1:length(lags),
 end;
 
 % report leanings
-maxlean = L.leanings(abs(L.leanings) == max(abs(L.leanings)));
-XcY(4) = (maxlean > 0);
-YcX(4) = (maxlean < 0);
-if( maxlean == 0 ), NoCI(4) = true; else NoCI(4) = false; end;
+testlean = mean(L.leanings);
+XcY(4) = (testlean > 0);
+YcX(4) = (testlean < 0);
+if( testlean == 0 ), NoCI(4) = true; else NoCI(4) = false; end;
 
 if(verb),
     fprintf(' done. [%.15f]\n',toc);
@@ -220,11 +224,11 @@ for clag_iter = 1:1:length(clags),
 end;
 
 % report correlations
-LCC.Delta = abs(LCC.laggedcorrsXY)-abs(LCC.laggedcorrsXY);
-maxcorr = LCC.Delta(LCC.Delta == max(LCC.Delta));
-XcY(5) = (maxcorr < 0);
-YcX(5) = (maxcorr > 0);
-if( maxcorr == 0 ), NoCI(5) = true; else NoCI(5) = false; end;
+LCC.Delta = abs(LCC.laggedcorrsXY)-abs(LCC.laggedcorrsYX);
+testcorr = mean(LCC.Delta);
+XcY(5) = (testcorr < 0);
+YcX(5) = (testcorr > 0);
+if( testcorr == 0 ), NoCI(5) = true; else NoCI(5) = false; end;
 
 if(verb),
     fprintf(' done. [%.15f]\n',toc);
