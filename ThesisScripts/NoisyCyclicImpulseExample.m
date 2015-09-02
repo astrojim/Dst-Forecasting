@@ -1,58 +1,64 @@
 
 % Loop over various impulse and response noise levels
-D_vec = [0.05:0.05:1.0];
-E_vec = [0.05:0.05:1.0];
+B_vec = [0.05:0.05:1.0];
+A_vec = [0.05:0.05:1.0];
 
-% set constansts for impulse signal
-liblength = 50*pi;
-stepsize = pi/32;
+% set signal length
+liblength = 250;
+
+% set ampltide
 a = 1;
+
+% set frequency
 b = 1;
+
+% set phase 
 c = 1;
 
+% set stepsize
+unit_step = 1;
+
 % set the number of lags for the leaning and LCC
-lags = 1:1:5;
+lags = 1:1:20;
 
 % preallocate some storage
-XcY_stored = nan(length(D_vec),length(E_vec),5);
-YcX_stored = nan(length(D_vec),length(E_vec),5);
+g_stored = nan(length(B_vec),length(A_vec),5);
 % TE_stored = struct();
 % GC_stored = struct();
 % PAI_stored = struct();
 % L_stored = struct();
 % LCC_stored = struct();
 
-for Diter = 1:1:length(D_vec),
-    for Eiter = 1:1:length(E_vec),
+for Biter = 1:1:length(B_vec),
+    for Citer = 1:1:length(A_vec),
         
-    % set noise level
-    d = D_vec(Diter);
-    e = E_vec(Eiter);
+        % set noise level
+        B = B_vec(Biter);
+        A = A_vec(Citer);
 
-    % notify the terminal
-    fprintf('\n\n--- (D,E) = (%.3f,%.3f) [%.4f D,%.4f E] ---------\n',...
-        d,e,Diter/length(D_vec),Eiter/length(E_vec));
+        % notify the terminal
+        fprintf('\n\n--- (B,C) = (%.3f,%.3f) [%.4f B,%.4f C] ---------\n',...
+            B,A,Biter/length(B_vec),Citer/length(A_vec));
 
-    % build signals
-    [x,y] = NoisyCyclicImpulseResponse(liblength,stepsize,a,b,c,d,e);
+        % build signals
+        [x,y] = NoisyCyclicImpulseResponse(liblength,unit_step,a,b,c,A,B);
 
-    % set tolerances
-    xtol = std(x-mean(x))/sqrt(length(x));
-    ytol = std(y-mean(y))/sqrt(length(y));
-    
-    % call ECA script
-    [TE,GC,PAI,L,LCC,XcY,YcX] = ECA(x,y,xtol,ytol,lags,true);
-    
-    % store everything
-    TE_stored(Diter,Eiter) = TE;
-    GC_stored(Diter,Eiter) = GC;
-    PAI_stored(Diter,Eiter) = PAI;
-    L_stored(Diter,Eiter) = L;
-    LCC_stored(Diter,Eiter) = LCC;
-    for siter = 1:1:5,
-        XcY_stored(Diter,Eiter,siter) = XcY(siter);
-        YcX_stored(Diter,Eiter,siter) = YcX(siter);
-    end;
+        % set tolerances
+        xtol = (max(x)-min(x))/4;
+        ytol = (max(y)-min(y))/4;
+
+        % call ECA script
+        [TE,GC,PAI,L,LCC,g] = ECA(x,y,xtol,ytol,lags,true);
+
+        % store everything
+        TE_stored(Biter,Citer) = TE;
+        GC_stored(Biter,Citer) = GC;
+        PAI_stored(Biter,Citer) = PAI;
+        L_stored(Biter,Citer) = L;
+        LCC_stored(Biter,Citer) = LCC;
+        for siter = 1:1:5,
+            g_stored(Biter,Citer,siter) = g(siter);
+        end;
     
     end;
 end;
