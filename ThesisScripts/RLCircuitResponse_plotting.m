@@ -5,15 +5,15 @@ global RR;
 global L;
 
 % Set B and C for the plots
-R = 10;
-L = 5;
+R = 5;
+L = 10;
 
 % set signal parameters
 endtime = 8*pi;
 stepsize = (1/10)*pi;
 
 % build X and Y
-[x,y_an,y_num] = RLCircuitResponse(endtime,stepsize,R);
+[x,y_an,y_num] = RLCircuitResponse(endtime,stepsize,R,L);
 
 % set liblength for plotting
 liblength = length(x);
@@ -30,13 +30,13 @@ hold on;
 
 plot(1:1:liblength,x,'k.','MarkerSize',15);
 xlabel('t','FontName','Times','FontSize', 15);
-ylabel('x_t','FontName','Times','FontSize', 15);
+ylabel('V_t','FontName','Times','FontSize', 15);
 grid on;
 set(gca,'fontsize',15);
 ylim([-1.5 1.5]);
 
 hold off;
-print -depsc2 ./IRCircuitResponseExample_X.eps
+print -depsc2 ./IRCircuitResponseExampleL10R5_X.eps
 close;
 
 %% plot Y 
@@ -48,13 +48,13 @@ hold on;
 
 plot(1:1:liblength,y_an,'k.',1:1:liblength,y_num,'ko','MarkerSize',15);
 xlabel('t','FontName','Times','FontSize', 15);
-ylabel('y_t','FontName','Times','FontSize', 15);
+ylabel('I_t','FontName','Times','FontSize', 15);
 grid on;
 set(gca,'fontsize',15);
-ylim([-2.5 2.5]);
+% ylim([-2.5 2.5]);
 
 hold off;
-print -depsc2 ./IRCircuitResponseExample_Y.eps
+print -depsc2 ./IRCircuitResponseExampleL10R5_Y.eps
 close;
 
 %% histogram X 
@@ -64,15 +64,15 @@ figure('Units', 'inches', ...
 
 hold on;
 
-hist(x,100);
+hist(x,25);
 ylabel('counts','FontName','Times','FontSize', 15);
-xlabel('x_t bins','FontName','Times','FontSize', 15);
+xlabel('V_t bins','FontName','Times','FontSize', 15);
 grid on;
 set(gca,'fontsize',15);
 % ylim([-1 2.5]);
 
 hold off;
-print -depsc2 ./IRCircuitResponseExample_Xhist.eps
+print -depsc2 ./IRCircuitResponseExampleL10R5_Xhist.eps
 close;
 
 %% histogram Y 
@@ -82,15 +82,15 @@ figure('Units', 'inches', ...
 
 hold on;
 
-hist(y_an,100);
+hist(y_an,25);
 ylabel('counts','FontName','Times','FontSize', 15);
-xlabel('y_t bins','FontName','Times','FontSize', 15);
+xlabel('I_t bins','FontName','Times','FontSize', 15);
 grid on;
 set(gca,'fontsize',15);
 % ylim([-2 3.5]);
 
 hold off;
-print -depsc2 ./IRCircuitResponseExample_Yhist_an.eps
+print -depsc2 ./IRCircuitResponseExampleL10R5_Yhist_an.eps
 close;
 
 figure('Units', 'inches', ...
@@ -99,15 +99,15 @@ figure('Units', 'inches', ...
 
 hold on;
 
-hist(y_num,100);
+hist(y_num,25);
 ylabel('counts','FontName','Times','FontSize', 15);
-xlabel('y_t bins','FontName','Times','FontSize', 15);
+xlabel('I_t bins','FontName','Times','FontSize', 15);
 grid on;
 set(gca,'fontsize',15);
 % ylim([-2 3.5]);
 
 hold off;
-print -depsc2 ./IRCircuitResponseExample_Yhist_num.eps
+print -depsc2 ./IRCircuitResponseExampleL10R5_Yhist_num.eps
 close;
 
 %% Autocorrelation X and Y
@@ -130,14 +130,14 @@ figure('Units', 'inches', ...
 hold on;
 
 plot(lags,autocorrX,'k.','MarkerSize',15);
-ylabel('|r(x_{t-l},x_t)|^2','FontName','Times','FontSize', 15);
+ylabel('|r(V_{t-l},V_t)|^2','FontName','Times','FontSize', 15);
 xlabel('l','FontName','Times','FontSize', 15);
 grid on;
 set(gca,'fontsize',15);
 % ylim([-2 3.5]);
 
 hold off;
-print -depsc2 ./IRCircuitResponseExample_autocorrX.eps
+print -depsc2 ./IRCircuitResponseExampleL10R5_autocorrX.eps
 close;
 
 figure('Units', 'inches', ...
@@ -147,20 +147,20 @@ figure('Units', 'inches', ...
 hold on;
 
 plot(lags,autocorrY_an,'k.',lags,autocorrY_num,'ko','MarkerSize',15);
-ylabel('|r(y_{t-l},y_t)|^2','FontName','Times','FontSize', 15);
+ylabel('|r(I_{t-l},I_t)|^2','FontName','Times','FontSize', 15);
 xlabel('l','FontName','Times','FontSize', 15);
 grid on;
 set(gca,'fontsize',15);
 % ylim([-2 3.5]);
 
 hold off;
-print -depsc2 ./IRCircuitResponseExample_autocorrY.eps
+print -depsc2 ./IRCircuitResponseExampleL10R5_autocorrY.eps
 close;
 
 %% Leaning and LCC
 
 addpath('leans_exec');
-LCClags = 1:1:20;
+LCClags = 1:1:5;
 xtol = (max(x)-min(x))/4;
 ytol_an = (max(y_an)-min(y_an))/4;
 leanings_an = nan(length(LCClags),1);
@@ -203,7 +203,7 @@ set(gca,'fontsize',15);
 % ylim([-2 3.5]);
 
 hold off;
-print -depsc2 ./IRCircuitResponseExample_LandLCC_an.eps
+print -depsc2 ./IRCircuitResponseExampleL10R5_LandLCC_an.eps
 close;
 
 figure('Units', 'inches', ...
@@ -221,7 +221,7 @@ set(gca,'fontsize',15);
 % ylim([-2 3.5]);
 
 hold off;
-print -depsc2 ./IRCircuitResponseExample_LandLCC_num.eps
+print -depsc2 ./IRCircuitResponseExampleL10R5_LandLCC_num.eps
 close;
 
 %% GC, TE, and PAI results (no print to terminal, no plots)

@@ -105,6 +105,7 @@ else
 end
 
 % report GC
+GC.diff = GC.F(2,1)-GC.F(1,2);
 if( size(GC.F,1) ~= 0 && size(GC.F,2) ~= 0 )
     XcY(2) = (GC.F(2,1) > GC.F(1,2));
     YcX(2) = (GC.F(1,2) > GC.F(2,1));
@@ -201,6 +202,8 @@ XcY(4) = (testlean > 0);
 YcX(4) = (testlean < 0);
 if( testlean == 0 ), NoCI(4) = true; else NoCI(4) = false; end;
 
+L.testlean = testlean;
+
 if(verb),
     fprintf(' done. [%.15f]\n',toc);
 end;
@@ -229,6 +232,8 @@ testcorr = mean(LCC.Delta);
 XcY(5) = (testcorr < 0);
 YcX(5) = (testcorr > 0);
 if( testcorr == 0 ), NoCI(5) = true; else NoCI(5) = false; end;
+
+LCC.testcorr = testcorr;
 
 if(verb),
     fprintf(' done. [%.15f]\n',toc);
