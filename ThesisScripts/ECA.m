@@ -1,4 +1,4 @@
-function [TE,GC,PAI,L,LCC,g] = ECA(x,y,xtol,ytol,lags,verb)
+function [TE,GC,PAI,L,LCC,g] = ECA(x,y,xtol,ytol,lags,E,tau,verb,skipGC)
 % Exploratory Causal Analysis script
 %
 % returns several different structs and the ECA guess vector (0 is X->Y, 1
@@ -59,6 +59,8 @@ end;
 
 %% granger causality (using MVGC)
 
+if( ~skipGC ),
+
 if(verb)
     fprintf('Calculating granger causality ...');
     tic;
@@ -105,17 +107,22 @@ else
 end
 
 % report GC
-GC.diff = GC.F(2,1)-GC.F(1,2);
 if( size(GC.F,1) ~= 0 && size(GC.F,2) ~= 0 )
     XcY(2) = (GC.F(2,1) > GC.F(1,2));
     YcX(2) = (GC.F(1,2) > GC.F(2,1));
+    GC.diff = GC.F(2,1)-GC.F(1,2);
     if( GC.F(2,1) == GC.F(1,2) ), NoCI(2) = true; else NoCI(2) = false; end;
+else
+    GC.diff = NaN;
 end;
 
 if(verb),
     fprintf(' done. [%.15f]\n',toc);
 end;
 
+else
+    GC = NaN;
+end;
 %% PAI
 
 if(verb)
@@ -128,10 +135,11 @@ exec_dir = 'pai_exec';
 addpath(exec_dir);
 
 % set the embedding dimension
-E = 3;
+% E = 3;
+% E = 5;
 
 % set the delay vector lag time step
-tau = 1;
+% tau = 1;
 
 % create the input file for the C code        
 tic;

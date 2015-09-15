@@ -1,24 +1,9 @@
 
-% set inital conditions
-xo = 0.4;
-yo = 0.4;
+% load X and Y
+[x,y] = WhistlerDailySnowfall();
 
-% set coefficients
-rx = 3.5;
-ry = 3.5;
-
-% set coupling
-Bxy = 0.5;
-Byx = 2.0;
-
-% set signal length
-liblength = 500;
-
-% build X and Y
-[x,y] = CoupledLogisticMap(liblength,xo,yo,rx,ry,Bxy,Byx);
-
-% flag for GC calculation
-skipGC = false;
+% set liblength for plotting
+liblength = length(x);
 
 %% plot X 
 width = 8;
@@ -35,10 +20,10 @@ xlabel('t','FontName','Times','FontSize', 15);
 ylabel('x_t','FontName','Times','FontSize', 15);
 grid on;
 set(gca,'fontsize',15);
-% ylim([-2.5 2.5]);
+% ylim([-1 2.5]);
 
 hold off;
-print -depsc2 ./CoupLogMapExample_X.eps
+print -depsc2 ./WhistlerDailyExample_X.eps
 close;
 
 %% plot Y 
@@ -53,10 +38,10 @@ xlabel('t','FontName','Times','FontSize', 15);
 ylabel('y_t','FontName','Times','FontSize', 15);
 grid on;
 set(gca,'fontsize',15);
-% ylim([-2.5 2.5]);
+% ylim([-2 3.5]);
 
 hold off;
-print -depsc2 ./CoupLogMapExample_Y.eps
+print -depsc2 ./WhistlerDailyExample_Y.eps
 close;
 
 %% histogram X 
@@ -74,7 +59,7 @@ set(gca,'fontsize',15);
 % ylim([-1 2.5]);
 
 hold off;
-print -depsc2 ./CoupLogMapExample_Xhist.eps
+print -depsc2 ./WhistlerDailyExample_Xhist.eps
 close;
 
 %% histogram Y 
@@ -92,7 +77,7 @@ set(gca,'fontsize',15);
 % ylim([-2 3.5]);
 
 hold off;
-print -depsc2 ./CoupLogMapExample_Yhist.eps
+print -depsc2 ./WhistlerDailyExample_Yhist.eps
 close;
 
 %% Autocorrelation X and Y
@@ -120,7 +105,7 @@ set(gca,'fontsize',15);
 % ylim([-2 3.5]);
 
 hold off;
-print -depsc2 ./CoupLogMapExample_autocorrX.eps
+print -depsc2 ./WhistlerDailyExample_autocorrX.eps
 close;
 
 figure('Units', 'inches', ...
@@ -137,13 +122,13 @@ set(gca,'fontsize',15);
 % ylim([-2 3.5]);
 
 hold off;
-print -depsc2 ./CoupLogMapExample_autocorrY.eps
+print -depsc2 ./WhistlerDailyExample_autocorrY.eps
 close;
 
 %% Leaning and LCC
 
 addpath('leans_exec');
-LCClags = 1:1:4;
+LCClags = 1:1:20;
 xtol = (max(x)-min(x))/4;
 ytol = (max(y)-min(y))/4;
 leanings = nan(length(LCClags),1);
@@ -174,10 +159,10 @@ set(gca,'fontsize',15);
 % ylim([-2 3.5]);
 
 hold off;
-print -depsc2 ./CoupLogMapExample_LandLCC.eps
+print -depsc2 ./WhistlerDailyExample_LandLCC.eps
 close;
 
 %% GC, TE, and PAI results (no print to terminal, no plots)
 
-[TE,GC,PAI,L,LCC,g] = ECA(x,y,xtol,ytol,LCClags,true,skipGC);
+[TE,GC,PAI,L,LCC,g] = ECA(x,y,xtol,ytol,LCClags,100,1,true,false);
 
