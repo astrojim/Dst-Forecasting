@@ -57,20 +57,23 @@ figure('Units', 'inches', ...
 
 hold on;
 
-hplt = plot(tempX,tempPnts(1,:),'k.','MarkerSize',12);
-grid on;
+hplt = plot(tempX,tempPnts(1,:),'k.','MarkerSize',15);
+% grid on;
 
 hXLabel = xlabel('B = \delta_y');
 hYLabel = ylabel('\lambda');
 
 set([hXLabel, hYLabel],'FontName','Times');
-set([hXLabel, hYLabel],'FontSize', 15);
+set([hXLabel, hYLabel],'FontSize', 25);
 
 % legend('L = 10','L = 50', 'L = 250', 'L = 1750');
 
 % set(hSubtitle,'FontName','Times');
 % set(hSubtitle,'FontSize', 15);
-set(gca,'fontsize',15);
+set(gca,'fontsize',25);
+set(get(gca,'xlabel'),'position',[0.5 -0.2 0]);
+set(gca,'position',[0.1300 0.1100 0.7750 0.8150] );
+set(gca,'OuterPosition',[0 0.2 1 0.8])
 
 hold off;
 print -depsc2 ./SimpleCyclicexample_Bxytol.eps
@@ -105,26 +108,27 @@ figure('Units', 'inches', ...
 
 hold on;
 
-hplt = plot(lag(1:templag),normleans,'.b','MarkerSize',12);
+hplt = plot(lag(1:templag),normleans,'.b','MarkerSize',15);
 %hplt2 = plot(1:1:templag,tempxcors(2:end),'xr','MarkerSize',12);
-hplt3 = plot(1:1:templag,diffxcors(2:end),'xr','MarkerSize',12);
+hplt3 = plot(1:1:templag,diffxcors(2:end),'xr','MarkerSize',15);
 
 % hplt2 = stem(1:1:templag,tempaxcors(2:end),'r','MarkerSize',5);
 % hplt3 = stem(1:1:templag,tempaycors(2:end),'g','MarkerSize',5);
 
-grid on;
+% grid on;
 
 hXLabel = xlabel('l (lag)');
 hYLabel = ylabel('magnitude (unitless)');
 
 set([hXLabel, hYLabel],'FontName','Times');
-set([hXLabel, hYLabel],'FontSize', 15);
+set([hXLabel, hYLabel],'FontSize', 25);
 
 legend('\lambda^\prime','\delta\chi_{xy}','Location','northoutside','Orientation','horizontal')
+legend boxoff
 
 % set(hSubtitle,'FontName','Times');
 % set(hSubtitle,'FontSize', 15);
-set(gca,'fontsize',15);
+set(gca,'fontsize',25);
 
 hold off;
 print -depsc2 ./SimpleCyclicexample_difflags.eps

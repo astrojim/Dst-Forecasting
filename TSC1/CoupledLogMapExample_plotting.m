@@ -27,9 +27,12 @@ hXLabel = xlabel('\beta_{xy}');
 hYLabel = ylabel('\beta_{yx}');
 
 set([hXLabel, hYLabel],'FontName','Times');
-set([hXLabel, hYLabel],'FontSize', 15);
+set([hXLabel, hYLabel],'FontSize', 25); 
 
-set(gca,'fontsize',15);
+set(gca,'FontSize', 25);
+set(get(gca,'xlabel'),'position',[0.25 -0.1 0]);
+set(gca,'position',[0.1300 0.1100 0.7750 0.8150] );
+set(gca,'OuterPosition',[0 0.2 1 0.8])
 
 hold off;
 print -depsc2 ./CoupLogexample_rx35ry35.eps
@@ -66,9 +69,12 @@ hXLabel = xlabel('\beta_{xy}');
 hYLabel = ylabel('\beta_{yx}');
 
 set([hXLabel, hYLabel],'FontName','Times');
-set([hXLabel, hYLabel],'FontSize', 15);
+set([hXLabel, hYLabel],'FontSize', 25); 
 
-set(gca,'fontsize',15);
+set(gca,'FontSize', 25);
+set(get(gca,'xlabel'),'position',[0.25 -0.1 0]);
+set(gca,'position',[0.1300 0.1100 0.7750 0.8150] );
+set(gca,'OuterPosition',[0 0.2 1 0.8])
 
 hold off;
 print -depsc2 ./CoupLogexample_rx40ry20.eps
@@ -105,9 +111,12 @@ hXLabel = xlabel('\beta_{xy}');
 hYLabel = ylabel('\beta_{yx}');
 
 set([hXLabel, hYLabel],'FontName','Times');
-set([hXLabel, hYLabel],'FontSize', 15);
+set([hXLabel, hYLabel],'FontSize', 25); 
 
-set(gca,'fontsize',15);
+set(gca,'FontSize', 25);
+set(get(gca,'xlabel'),'position',[0.25 -0.1 0]);
+set(gca,'position',[0.1300 0.1100 0.7750 0.8150] );
+set(gca,'OuterPosition',[0 0.2 1 0.8])
 
 hold off;
 print -depsc2 ./CoupLogexample_rx20ry40.eps
@@ -144,9 +153,12 @@ hXLabel = xlabel('\beta_{xy}');
 hYLabel = ylabel('\beta_{yx}');
 
 set([hXLabel, hYLabel],'FontName','Times');
-set([hXLabel, hYLabel],'FontSize', 15);
+set([hXLabel, hYLabel],'FontSize', 25); 
 
-set(gca,'fontsize',15);
+set(gca,'FontSize', 25);
+set(get(gca,'xlabel'),'position',[0.25 -0.1 0]);
+set(gca,'position',[0.1300 0.1100 0.7750 0.8150] );
+set(gca,'OuterPosition',[0 0.2 1 0.8])
 
 hold off;
 print -depsc2 ./CoupLogexample_rx38ry32.eps

@@ -17,7 +17,7 @@ hold on;
  
 [hCont2,hH2] = contour(xytol,B,data,...
              [0.0 0.0],':r','LineWidth',2);
-% clabel(hCont2,hH2,'FontName','Times','FontSize', 15,'Color','r');         
+% clabel(hCont2,hH2,'FontName','Times','FontSize', 20,'Color','r');         
          
 xlim([0 1]);
 ylim([0 1]);
@@ -31,11 +31,11 @@ hXLabel = xlabel('\delta_y');
 hYLabel = ylabel('B');
 
 set([hXLabel, hYLabel],'FontName','Times');
-set([hXLabel, hYLabel],'FontSize', 15);
+set([hXLabel, hYLabel],'FontSize',25);
 
 hSubtitle = title('');
 set(hSubtitle,'FontName','Times');
-set(hSubtitle,'FontSize', 15);
+set(hSubtitle,'FontSize',25);
 set(gca,'fontsize',15);
 
 hold off;
@@ -57,9 +57,9 @@ hImage1 = imagesc(xytol,B,leans_stored10);
 set(gca,'YDir','normal');
 hold on;
  
-[hCont2,hH2] = contour(xytol,B,leans_stored10,...
-             [0.0 0.0],':r','LineWidth',2);
-% clabel(hCont2,hH2,'FontName','Times','FontSize', 15,'Color','r');         
+% [hCont2,hH2] = contour(xytol,B,leans_stored10,...
+%              [0.0 0.0],':r','LineWidth',2);
+% % clabel(hCont2,hH2,'FontName','Times','FontSize', 20,'Color','r');         
          
 xlim([0 1]);
 ylim([0 1]);
@@ -73,12 +73,15 @@ hXLabel = xlabel('\delta_y');
 hYLabel = ylabel('B');
 
 set([hXLabel, hYLabel],'FontName','Times');
-set([hXLabel, hYLabel],'FontSize', 15);
+set([hXLabel, hYLabel],'FontSize',25);
 
 % hSubtitle = title('L = 10');
 % set(hSubtitle,'FontName','Times');
-% set(hSubtitle,'FontSize', 15);
-set(gca,'fontsize',15);
+% set(hSubtitle,'FontSize',25);
+set(gca,'FontSize',25);
+set(get(gca,'xlabel'),'position',[0.5 -0.2 0]);
+set(gca,'position',[0.1300 0.1100 0.7750 0.8150] );
+set(gca,'OuterPosition',[0 0.2 1 0.8])
 
 hold off;
 print -depsc2 ./SimpleIRexample_diffLpart1.eps
@@ -95,9 +98,9 @@ hImage1 = imagesc(xytol,B,leans_stored50);
 set(gca,'YDir','normal');
 hold on;
  
-[hCont2,hH2] = contour(xytol,B,leans_stored50,...
-             [0.0 0.0],':r','LineWidth',2);
-% clabel(hCont2,hH2,'FontName','Times','FontSize', 15,'Color','r');         
+% [hCont2,hH2] = contour(xytol,B,leans_stored50,...
+%              [0.0 0.0],':r','LineWidth',2);
+% % clabel(hCont2,hH2,'FontName','Times','FontSize', 20,'Color','r');         
          
 xlim([0 1]);
 ylim([0 1]);
@@ -111,12 +114,15 @@ hXLabel = xlabel('\delta_y');
 hYLabel = ylabel('B');
 
 set([hXLabel, hYLabel],'FontName','Times');
-set([hXLabel, hYLabel],'FontSize', 15);
+set([hXLabel, hYLabel],'FontSize',25);
 
 % hSubtitle = title('L = 50');
 % set(hSubtitle,'FontName','Times');
-% set(hSubtitle,'FontSize', 15);
-set(gca,'fontsize',15);
+% set(hSubtitle,'FontSize',25);
+set(gca,'FontSize',25);
+set(get(gca,'xlabel'),'position',[0.5 -0.2 0]);
+set(gca,'position',[0.1300 0.1100 0.7750 0.8150] );
+set(gca,'OuterPosition',[0 0.2 1 0.8])
 
 hold off;
 print -depsc2 ./SimpleIRexample_diffLpart2.eps
@@ -134,9 +140,9 @@ hImage1 = imagesc(xytol,B,leans_stored250);
 set(gca,'YDir','normal');
 hold on;
  
-[hCont2,hH2] = contour(xytol,B,leans_stored250,...
-             [0.0 0.0],':r','LineWidth',2);
-% clabel(hCont2,hH2,'FontName','Times','FontSize', 15,'Color','r');         
+% [hCont2,hH2] = contour(xytol,B,leans_stored250,...
+%              [0.0 0.0],':r','LineWidth',2);
+% clabel(hCont2,hH2,'FontName','Times','FontSize', 20,'Color','r');         
          
 xlim([0 1]);
 ylim([0 1]);
@@ -150,12 +156,15 @@ hXLabel = xlabel('\delta_y');
 hYLabel = ylabel('B');
 
 set([hXLabel, hYLabel],'FontName','Times');
-set([hXLabel, hYLabel],'FontSize', 15);
+set([hXLabel, hYLabel],'FontSize',25);
 
 % hSubtitle = title('L = 250');
 % set(hSubtitle,'FontName','Times');
-% set(hSubtitle,'FontSize', 15);
-set(gca,'fontsize',15);
+% set(hSubtitle,'FontSize',25);
+set(gca,'FontSize',25);
+set(get(gca,'xlabel'),'position',[0.5 -0.2 0]);
+set(gca,'position',[0.1300 0.1100 0.7750 0.8150] );
+set(gca,'OuterPosition',[0 0.2 1 0.8])
 
 hold off;
 print -depsc2 ./SimpleIRexample_diffLpart3.eps
@@ -172,9 +181,9 @@ hImage1 = imagesc(xytol,B,leans_stored1750);
 set(gca,'YDir','normal');
 hold on;
  
-[hCont2,hH2] = contour(xytol,B,leans_stored1750,...
-             [0.0 0.0],':r','LineWidth',2);
-% clabel(hCont2,hH2,'FontName','Times','FontSize', 15,'Color','r');         
+% [hCont2,hH2] = contour(xytol,B,leans_stored1750,...
+%              [0.0 0.0],':r','LineWidth',2);
+% clabel(hCont2,hH2,'FontName','Times','FontSize', 20,'Color','r');         
          
 xlim([0 1]);
 ylim([0 1]);
@@ -188,12 +197,15 @@ hXLabel = xlabel('\delta_y');
 hYLabel = ylabel('B');
 
 set([hXLabel, hYLabel],'FontName','Times');
-set([hXLabel, hYLabel],'FontSize', 15);
+set([hXLabel, hYLabel],'FontSize',25);
 
 % hSubtitle = title('L = 1750');
 % set(hSubtitle,'FontName','Times');
-% set(hSubtitle,'FontSize', 15);
-set(gca,'fontsize',15);
+% set(hSubtitle,'FontSize',25);
+set(gca,'FontSize',25);
+set(get(gca,'xlabel'),'position',[0.5 -0.2 0]);
+set(gca,'position',[0.1300 0.1100 0.7750 0.8150] );
+set(gca,'OuterPosition',[0 0.2 1 0.8])
 
 hold off;
 print -depsc2 ./SimpleIRexample_diffLpart4.eps
@@ -226,12 +238,12 @@ hXLabel = xlabel('B = \delta_y');
 hYLabel = ylabel('\lambda');
 
 set([hXLabel, hYLabel],'FontName','Times');
-set([hXLabel, hYLabel],'FontSize', 15);
+set([hXLabel, hYLabel],'FontSize',25);
 
 legend('L = 10','L = 50', 'L = 250', 'L = 1750');
 
 % set(hSubtitle,'FontName','Times');
-% set(hSubtitle,'FontSize', 15);
+% set(hSubtitle,'FontSize',25);
 set(gca,'fontsize',15);
 
 hold off;
@@ -273,12 +285,12 @@ hXLabel = xlabel('l (lag)');
 hYLabel = ylabel('magnitude (unitless)');
 
 set([hXLabel, hYLabel],'FontName','Times');
-set([hXLabel, hYLabel],'FontSize', 15);
+set([hXLabel, hYLabel],'FontSize',25);
 
 % legend('\lambda (B = 0)','\lambda (B = 0.25) ' )
 
 % set(hSubtitle,'FontName','Times');
-% set(hSubtitle,'FontSize', 15);
+% set(hSubtitle,'FontSize',25);
 set(gca,'fontsize',15);
 
 hold off;
@@ -299,10 +311,10 @@ close;
 % hYLabel = ylabel('c');
 % 
 % set([hXLabel, hYLabel],'FontName','Times');
-% set([hXLabel, hYLabel],'FontSize', 15);
+% set([hXLabel, hYLabel],'FontSize',25);
 % 
 % % set(hSubtitle,'FontName','Times');
-% % set(hSubtitle,'FontSize', 15);
+% % set(hSubtitle,'FontSize',25);
 % set(gca,'fontsize',15);
 % 
 % hold off;

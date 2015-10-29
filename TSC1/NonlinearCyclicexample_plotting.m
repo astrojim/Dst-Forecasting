@@ -37,12 +37,12 @@ load ./NonlinearCyclicExample_L181.mat
 %         hYLabel = ylabel('C');
 % 
 %         set([hXLabel, hYLabel],'FontName','Times');
-%         set([hXLabel, hYLabel],'FontSize', 15);
+%         set([hXLabel, hYLabel],'FontSize', 25); 
 % 
 %         hSubtitle = title(sprintf('A = %.2f, B = %.2f',A(Ap(Astep)),B(Bp(Bstep))));
 %         set(hSubtitle,'FontName','Times');
-%         set(hSubtitle,'FontSize', 15);
-%         set(gca,'fontsize',15);
+%         set(hSubtitle,'FontSize', 25); 
+%         set(gca,'FontSize', 25); 
 % 
 %         hold off;
 %         print('-depsc2',sprintf('./NonlinearCyclicexample_Bdy_A%iB%i.eps',A(Ap(Astep))*100,B(Bp(Bstep))*100));
@@ -84,9 +84,9 @@ set(cbar,'Visible','on');
 hXLabel = xlabel('B');
 hYLabel = ylabel('A');
 set([hXLabel, hYLabel],'FontName','Times');
-set([hXLabel, hYLabel],'FontSize', 15);
+set([hXLabel, hYLabel],'FontSize', 25); 
 
-set(gca,'fontsize',15);
+set(gca,'FontSize', 25); 
 
 hold off;
 print -depsc2 ./NonlinearCyclicexample_BxytolC02.eps
@@ -124,9 +124,9 @@ set(cbar,'Visible','on');
 hXLabel = xlabel('B');
 hYLabel = ylabel('A');
 set([hXLabel, hYLabel],'FontName','Times');
-set([hXLabel, hYLabel],'FontSize', 15);
+set([hXLabel, hYLabel],'FontSize', 25); 
 
-set(gca,'fontsize',15);
+set(gca,'FontSize', 25); 
 
 hold off;
 print -depsc2 ./NonlinearCyclicexample_BxytolC04.eps
@@ -164,9 +164,9 @@ set(cbar,'Visible','on');
 hXLabel = xlabel('B');
 hYLabel = ylabel('A');
 set([hXLabel, hYLabel],'FontName','Times');
-set([hXLabel, hYLabel],'FontSize', 15);
+set([hXLabel, hYLabel],'FontSize', 25); 
 
-set(gca,'fontsize',15);
+set(gca,'FontSize', 25); 
 
 hold off;
 print -depsc2 ./NonlinearCyclicexample_BxytolC06.eps
@@ -204,9 +204,9 @@ set(cbar,'Visible','on');
 hXLabel = xlabel('B');
 hYLabel = ylabel('A');
 set([hXLabel, hYLabel],'FontName','Times');
-set([hXLabel, hYLabel],'FontSize', 15);
+set([hXLabel, hYLabel],'FontSize', 25); 
 
-set(gca,'fontsize',15);
+set(gca,'FontSize', 25); 
 
 hold off;
 print -depsc2 ./NonlinearCyclicexample_BxytolC08.eps
@@ -234,10 +234,10 @@ close;
 % hYLabel = ylabel('magnitude (unitless)');
 % 
 % set([hXLabel, hYLabel],'FontName','Times');
-% set([hXLabel, hYLabel],'FontSize', 15);
+% set([hXLabel, hYLabel],'FontSize', 25); 
 % 
 % legend('\lambda_1','\lambda_2','\lambda_3')
-% set(gca,'fontsize',15);
+% set(gca,'FontSize', 25); 
 % 
 % hold off;
 % print -depsc2 ./NonlinearCyclicexample_difflags.eps

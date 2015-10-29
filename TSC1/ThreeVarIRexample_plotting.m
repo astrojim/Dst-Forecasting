@@ -28,12 +28,12 @@ load ./IRXYZL500.mat
 % hYLabel = ylabel('B');
 % 
 % set([hXLabel, hYLabel],'FontName','Times');
-% set([hXLabel, hYLabel],'FontSize', 15);
+% set([hXLabel, hYLabel],'FontSize', 25); 
 % 
 % hSubtitle = title('\lambda_{XY}');
 % set(hSubtitle,'FontName','Times');
-% set(hSubtitle,'FontSize', 15);
-% set(gca,'fontsize',15);
+% set(hSubtitle,'FontSize', 25); 
+% set(gca,'FontSize', 25); 
 % 
 % hold off;
 % print -depsc2 ./XYZIRexample_XY.eps
@@ -66,12 +66,12 @@ load ./IRXYZL500.mat
 % hYLabel = ylabel('B');
 % 
 % set([hXLabel, hYLabel],'FontName','Times');
-% set([hXLabel, hYLabel],'FontSize', 15);
+% set([hXLabel, hYLabel],'FontSize', 25); 
 % 
 % hSubtitle = title('\lambda_{YZ}');
 % set(hSubtitle,'FontName','Times');
-% set(hSubtitle,'FontSize', 15);
-% set(gca,'fontsize',15);
+% set(hSubtitle,'FontSize', 25); 
+% set(gca,'FontSize', 25); 
 % 
 % hold off;
 % print -depsc2 ./XYZIRexample_YZ.eps
@@ -105,12 +105,12 @@ load ./IRXYZL500.mat
 % hYLabel = ylabel('B');
 % 
 % set([hXLabel, hYLabel],'FontName','Times');
-% set([hXLabel, hYLabel],'FontSize', 15);
+% set([hXLabel, hYLabel],'FontSize', 25); 
 % 
 % hSubtitle = title('\lambda_{XZ}');
 % set(hSubtitle,'FontName','Times');
-% set(hSubtitle,'FontSize', 15);
-% set(gca,'fontsize',15);
+% set(hSubtitle,'FontSize', 25); 
+% set(gca,'FontSize', 25); 
 % 
 % hold off;
 % print -depsc2 ./XYZIRexample_XZ.eps
@@ -136,20 +136,25 @@ hold on;
 
 hplt = plot(tempX,tempPnts(1,:),'k.',tempX,tempPnts(2,:),'kx',...
             tempX,tempPnts(3,:),'ko',...
-            'MarkerSize',12);
-grid on;
+            'MarkerSize',15);
+% grid on;
+ylim([-0.1 1.1]);
 
 hXLabel = xlabel('B = \delta_y');
 hYLabel = ylabel('\lambda');
 
 set([hXLabel, hYLabel],'FontName','Times');
-set([hXLabel, hYLabel],'FontSize', 15);
+set([hXLabel, hYLabel],'FontSize', 25); 
 
-% legend('XY','YZ', 'XZ');
+legend('XY','YZ', 'XZ','Location','northoutside','Orientation','horizontal')
+legend boxoff
 
 % set(hSubtitle,'FontName','Times');
-% set(hSubtitle,'FontSize', 15);
-set(gca,'fontsize',15);
+% set(hSubtitle,'FontSize', 25); 
+set(gca,'FontSize', 25);
+set(get(gca,'xlabel'),'position',[0.5 -0.65 0]);
+set(gca,'position',[0.1300 0.1100 0.7750 0.8150] );
+set(gca,'OuterPosition',[0 0.2 1 0.6])
 
 hold off;
 print -depsc2 ./XYZIRexample_Bxytol.eps
@@ -175,20 +180,24 @@ hold on;
 
 hplt = plot(tempX,tempPnts(1,:),'k.',tempX,tempPnts(2,:),'kx',...
             tempX,tempPnts(3,:),'ko',...
-            'MarkerSize',12);
-grid on;
+            'MarkerSize',15);
+% grid on;
+ylim([0 1.1]);
 
 hXLabel = xlabel('B = \delta_y');
 hYLabel = ylabel('\lambda');
 
 set([hXLabel, hYLabel],'FontName','Times');
-set([hXLabel, hYLabel],'FontSize', 15);
+set([hXLabel, hYLabel],'FontSize', 25); 
 
 % legend('XY','YZ', 'XZ');
 % 
 % set(hSubtitle,'FontName','Times');
-% set(hSubtitle,'FontSize', 15);
-set(gca,'fontsize',15);
+% set(hSubtitle,'FontSize', 25); 
+set(gca,'FontSize', 25);
+set(get(gca,'xlabel'),'position',[0.5 -0.25 0]);
+set(gca,'position',[0.1300 0.1100 0.7750 0.8150] );
+set(gca,'OuterPosition',[0 0.2 1 0.8])
 
 hold off;
 print -depsc2 ./XYZIRexample_BxytolZXandY.eps
@@ -214,20 +223,25 @@ hold on;
 
 hplt = plot(tempX,tempPnts(1,:),'k.',tempX,tempPnts(2,:),'kx',...
             tempX,tempPnts(3,:),'ko',...
-            'MarkerSize',12);
-grid on;
+            'MarkerSize',15);
+% grid on;
+ylim([-0.5 1.2]);
 
 hXLabel = xlabel('B = \delta_y');
 hYLabel = ylabel('\lambda');
 
 set([hXLabel, hYLabel],'FontName','Times');
-set([hXLabel, hYLabel],'FontSize', 15);
+set([hXLabel, hYLabel],'FontSize', 25); 
 
-legend('XY','YZ', 'XZ','Location','northoutside','Orientation','horizontal')
+% legend('XY','YZ', 'XZ','Location','northoutside','Orientation','horizontal')
+% legend boxoff
 
 % set(hSubtitle,'FontName','Times');
-% set(hSubtitle,'FontSize', 15);
-set(gca,'fontsize',15);
+% set(hSubtitle,'FontSize', 25); 
+set(gca,'FontSize', 25);
+set(get(gca,'xlabel'),'position',[0.5 -1.0 0]);
+set(gca,'position',[0.1300 0.1100 0.7750 0.8150] );
+set(gca,'OuterPosition',[0 0.2 1 0.6])
 
 hold off;
 print -depsc2 ./XYZIRexample_BxytolZXandYandZ.eps
