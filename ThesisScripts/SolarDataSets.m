@@ -1,4 +1,4 @@
-function [Bz,Dst,Time] = SolarDataSets()
+function [Bz,Bzr,Dst,Time] = SolarDataSets(subset_start,subset_stop)
 
 if ~exist('./data/OMNI_OMNI2_merged_20120213-v1.mat.zip')
     fprintf('Downloading and unzipping OMNI2\n');
@@ -18,30 +18,60 @@ To = Time;
 
 addpath('../utils');
 
+if( isempty(subset_start) ),
+    error('Error in SolarDataSets: start time index for daily average subsets not set.');
+end;
+
+if( isempty(subset_stop) ),
+    error('Error in SolarDataSets: stop time index for daily average subsets not set.');
+end;
+
 %% Time
 
 % Reshape the hour time steps into day time steps
-Time_OMNI_9301 = Time_OMNI(262993:341880);
-Time_OMNI_9301_reshape = reshape(Time_OMNI_9301,24,length(Time_OMNI_9301)/24);
+Time_OMNI_subset = Time_OMNI(subset_start:subset_stop);
+Time_OMNI_subset_reshape = reshape(Time_OMNI_subset,24,length(Time_OMNI_subset)/24);
 
 % Pack the time data
 Time.hourly = Time_OMNI;
-Time.daily9301 = Time_OMNI_9301_reshape;
+Time.dailysubset = Time_OMNI_subset_reshape;
 
 %% Dst
 
 % Find the daily average of Dst index
-Dst_index_daily = OMNIDailyAverage(Dst_index);
+Dst_index_daily = OMNIDailyAverage(Dst_index,subset_start,subset_stop);
 
 % Pack the Dst data
 Dst.hourly = Dst_index;
-Dst.daily9301 = Dst_index_daily;
+Dst.dailysubset = Dst_index_daily;
 
 %% Bz
 
 % Find the daily average of Bz
-Bz_GSE_daily = OMNIDailyAverage(Bz_GSE);
+Bz_GSE_daily = OMNIDailyAverage(Bz_GSE,subset_start,subset_stop);
 
 % Pack the data
 Bz.hourly = Bz_GSE;
-Bz.daily = Bz_GSE_daily;
+Bz.dailysubset = Bz_GSE_daily;
+
+% find Bzr
+tempHourly = nan(size(Bz_GSE));
+for hiter = 1:1:length(tempHourly),
+    if( Bz_GSE(hiter) > 0 )
+        tempHourly(hiter) = 0;
+    else
+        tempHourly(hiter) = Bz_GSE(hiter);
+    end;
+end;
+
+tempDaily = nan(size(Bz_GSE_daily));
+for diter = 1:1:length(tempDaily),
+    if( Bz_GSE_daily(diter) > 0 )
+        tempDaily(diter) = 0;
+    else
+        tempDaily(diter) = Bz_GSE_daily(diter);
+    end;
+end;
+
+Bzr.hourly = tempHourly;
+Bzr.dailysubset = tempDaily;
